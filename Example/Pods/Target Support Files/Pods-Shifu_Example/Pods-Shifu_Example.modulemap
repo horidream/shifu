@@ -1,0 +1,6 @@
+framework module Pods_Shifu_Example {
+  umbrella header "Pods-Shifu_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
