@@ -10,7 +10,7 @@ import Foundation
 
 func isICloudContainerAvailable()->Bool {
     // ubiquityIdentityToken: An opaque token that represents the current user’s iCloud identity
-    if let currentToken = FileManager.default.ubiquityIdentityToken {
+    if let _ = FileManager.default.ubiquityIdentityToken {
         return true
     }
     else {

@@ -93,15 +93,17 @@
 		9544A4EEC2A8448743ECA9981F88B60F /* BeCloseTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDCED103BFD74EDA9864A6F526C685B /* BeCloseTo.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		954C921BD469879C91B141282EDBC80B /* ExampleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD957622A3C0DB785B9C02722820AEF2 /* ExampleGroup.swift */; };
 		9673CF780F48C8E4EC2A331717B1F67C /* FBSnapshotTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 814044D9DC540957290C399CB1D970D1 /* FBSnapshotTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		993E4BC01E705E0000D5143E /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BBF1E705E0000D5143E /* GlobalFunctions.swift */; };
-		993E4BC21E705E6600D5143E /* qrcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC11E705E6600D5143E /* qrcode.swift */; };
-		993E4BCB1E705E9800D5143E /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC41E705E9800D5143E /* StringExtension.swift */; };
-		993E4BCC1E705E9800D5143E /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC51E705E9800D5143E /* CollectionExtension.swift */; };
-		993E4BCE1E705E9800D5143E /* NSRegularExpressionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC71E705E9800D5143E /* NSRegularExpressionExtension.swift */; };
-		993E4BCF1E705E9800D5143E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC81E705E9800D5143E /* UIColorExtension.swift */; };
-		993E4BD01E705E9800D5143E /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC91E705E9800D5143E /* CALayerExtension.swift */; };
-		993E4BD11E705E9800D5143E /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BCA1E705E9800D5143E /* UIImageExtension.swift */; };
 		9954CB54947985ED49530B9A56CDA169 /* XCTestSuite+QuickTestSuiteBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B35075C2C09AD9E7FB16BE3C249DB9 /* XCTestSuite+QuickTestSuiteBuilder.m */; };
+		996A32891ED34FD30094C86D /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BCA1E705E9800D5143E /* UIImageExtension.swift */; };
+		996A328B1ED350020094C86D /* CloudUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996A32831ED34FB50094C86D /* CloudUtil.swift */; };
+		996A328C1ED350020094C86D /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996A32841ED34FB50094C86D /* CALayerExtension.swift */; };
+		996A328D1ED350020094C86D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC41E705E9800D5143E /* StringExtension.swift */; };
+		996A328E1ED350020094C86D /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC51E705E9800D5143E /* CollectionExtension.swift */; };
+		996A328F1ED350020094C86D /* NSRegularExpressionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC71E705E9800D5143E /* NSRegularExpressionExtension.swift */; };
+		996A32901ED350020094C86D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC81E705E9800D5143E /* UIColorExtension.swift */; };
+		996A32911ED350020094C86D /* qrcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BC11E705E6600D5143E /* qrcode.swift */; };
+		996A32921ED350020094C86D /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996A32851ED34FB50094C86D /* Composite.swift */; };
+		996A32931ED350020094C86D /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993E4BBF1E705E0000D5143E /* GlobalFunctions.swift */; };
 		99D78691DDFCC91D33EF911FCFABFE46 /* QCKDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED7B23AEE06C44713BF4D8166463FD4 /* QCKDSL.m */; };
 		9AF235C16362BA00BFBF12147907E953 /* BeEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ED7EE1C5006B7C2FC9931DAC233884 /* BeEmpty.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		9BEBD1791C233763A8DC13080BFB99C9 /* Stringers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD3A78EA1ED665AB5B536675F79D11 /* Stringers.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -332,9 +334,11 @@
 		993E4BC51E705E9800D5143E /* CollectionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		993E4BC71E705E9800D5143E /* NSRegularExpressionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRegularExpressionExtension.swift; sourceTree = "<group>"; };
 		993E4BC81E705E9800D5143E /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		993E4BC91E705E9800D5143E /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		993E4BCA1E705E9800D5143E /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		9963EE7CC8E08B315A80570158907487 /* World.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = World.h; path = Sources/QuickObjectiveC/World.h; sourceTree = "<group>"; };
+		996A32831ED34FB50094C86D /* CloudUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudUtil.swift; sourceTree = "<group>"; };
+		996A32841ED34FB50094C86D /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		996A32851ED34FB50094C86D /* Composite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Composite.swift; sourceTree = "<group>"; };
 		99DC2FD021CB8C7E948757CDEB9A7485 /* Pods-Shifu_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Shifu_Tests-dummy.m"; sourceTree = "<group>"; };
 		9ED7B23AEE06C44713BF4D8166463FD4 /* QCKDSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QCKDSL.m; path = Sources/QuickObjectiveC/DSL/QCKDSL.m; sourceTree = "<group>"; };
 		9EFC3CB0C7C9BDE6158189DAA3FFBED5 /* Nimble-Snapshots-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nimble-Snapshots-dummy.m"; sourceTree = "<group>"; };
@@ -638,11 +642,12 @@
 		993E4BC31E705E8500D5143E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				996A32831ED34FB50094C86D /* CloudUtil.swift */,
+				996A32841ED34FB50094C86D /* CALayerExtension.swift */,
 				993E4BC41E705E9800D5143E /* StringExtension.swift */,
 				993E4BC51E705E9800D5143E /* CollectionExtension.swift */,
 				993E4BC71E705E9800D5143E /* NSRegularExpressionExtension.swift */,
 				993E4BC81E705E9800D5143E /* UIColorExtension.swift */,
-				993E4BC91E705E9800D5143E /* CALayerExtension.swift */,
 				993E4BCA1E705E9800D5143E /* UIImageExtension.swift */,
 			);
 			name = Extensions;
@@ -859,6 +864,7 @@
 			children = (
 				993E4BC31E705E8500D5143E /* Extensions */,
 				993E4BC11E705E6600D5143E /* qrcode.swift */,
+				996A32851ED34FB50094C86D /* Composite.swift */,
 				993E4BBF1E705E0000D5143E /* GlobalFunctions.swift */,
 			);
 			path = Classes;
@@ -1215,7 +1221,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				996A32931ED350020094C86D /* GlobalFunctions.swift in Sources */,
+				996A32911ED350020094C86D /* qrcode.swift in Sources */,
+				996A328B1ED350020094C86D /* CloudUtil.swift in Sources */,
 				0929A8FA034507789C9A503D314D91D2 /* Shifu-dummy.m in Sources */,
+				996A328D1ED350020094C86D /* StringExtension.swift in Sources */,
+				996A32901ED350020094C86D /* UIColorExtension.swift in Sources */,
+				996A32921ED350020094C86D /* Composite.swift in Sources */,
+				996A32891ED34FD30094C86D /* UIImageExtension.swift in Sources */,
+				996A328C1ED350020094C86D /* CALayerExtension.swift in Sources */,
+				996A328F1ED350020094C86D /* NSRegularExpressionExtension.swift in Sources */,
+				996A328E1ED350020094C86D /* CollectionExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1244,21 +1260,13 @@
 			files = (
 				506D761F91EC3583789A837C559972FE /* FBSnapshotTestCase-dummy.m in Sources */,
 				BE14F2198CDB0DAD98A567981D21C7A1 /* FBSnapshotTestCase.m in Sources */,
-				993E4BCE1E705E9800D5143E /* NSRegularExpressionExtension.swift in Sources */,
-				993E4BC21E705E6600D5143E /* qrcode.swift in Sources */,
-				993E4BC01E705E0000D5143E /* GlobalFunctions.swift in Sources */,
-				993E4BD11E705E9800D5143E /* UIImageExtension.swift in Sources */,
 				DB7A106243AC974FC7EBEB00B506C786 /* FBSnapshotTestCasePlatform.m in Sources */,
-				993E4BCC1E705E9800D5143E /* CollectionExtension.swift in Sources */,
 				A4F69F3477A935285620AC3031C5C848 /* FBSnapshotTestController.m in Sources */,
 				1AB7934C16CE49DE196FFC7BE7278287 /* SwiftSupport.swift in Sources */,
 				094973D2D2F1E3B2E772F93C8147C6B9 /* UIApplication+StrictKeyWindow.m in Sources */,
-				993E4BCF1E705E9800D5143E /* UIColorExtension.swift in Sources */,
-				993E4BCB1E705E9800D5143E /* StringExtension.swift in Sources */,
 				69DA8B003216466C60F029CBD79897F1 /* UIImage+Compare.m in Sources */,
 				35DD05FD595A6FE7F5A0692D12E319DC /* UIImage+Diff.m in Sources */,
 				756564ABAF2892FE7140C92A1CDDCF65 /* UIImage+Snapshot.m in Sources */,
-				993E4BD01E705E9800D5143E /* CALayerExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
