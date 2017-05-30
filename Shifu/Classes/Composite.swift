@@ -14,13 +14,36 @@ public protocol Composite:class{
     var children:[ChildType]? { get set }
     var parent:ParentType? { get set }
     
-    func addChild(_ child:ChildType)
-    func insertChild(_ child:ChildType, at index:Int)
-    func removeChild(at index:Int)
-    func removeAllChild()
-    func childAt(_ index:Int)->ChildType?
+    
 }
 
+public extension Composite{
+    public func addChild(_ child:ChildType){
+        children?.append(child)
+    }
+    
+    public func insertChild(_ child:ChildType, at index:Int)
+    {
+        children?.insert(child, at: index)
+    }
+    
+    public func removeChild(at index:Int){
+        if( index < children?.count ?? 0 && index >= 0){
+            children?.remove(at: index)
+        }
+    }
+    
+    public func removeAllChild(){
+        children = []
+    }
+    
+    public func childAt(_ index:Int)->ChildType?{
+        if(index>=0 && index<children?.count ?? 0){
+            return children?[index]
+        }
+        return nil
+    }
+}
 
 public extension Composite where ChildType:Composite{
     public func addChild(_ child:ChildType){
@@ -56,7 +79,7 @@ public extension Composite where ChildType:Composite{
     }
 }
 
-public extension Composite where ChildType:Equatable{
+public extension Composite where ChildType:Equatable & Composite{
     public func removeChild(_ child:ChildType){
         if let index = children?.index(where: { $0 == child}){
             removeChild(at: index)
@@ -64,7 +87,7 @@ public extension Composite where ChildType:Equatable{
     }
 }
 
-public extension Composite where ParentType:Composite,ParentType.ChildType:Equatable{
+public extension Composite where ParentType:Composite,ParentType.ChildType:Equatable & Composite{
     public func removeFromParent(){
         self.parent?.removeChild(self as! ParentType.ChildType)
     }
