@@ -15,9 +15,9 @@ extension Collection {
      
      - Returns: Element grouped by first letter from A~Z and #.
      */
-    public func dataForIndexList(transform:(Generator.Element)->String)->[String:[Generator.Element]]{
+    public func dataForIndexList(transform:(Iterator.Element)->String)->[String:[Iterator.Element]]{
         
-        var nd :[String:[Generator.Element]] = [:]
+        var nd :[String:[Iterator.Element]] = [:]
         self.forEach { (item) in
             let ll = transform(item).leadingLetter
             if !nd.keys.contains(ll){
