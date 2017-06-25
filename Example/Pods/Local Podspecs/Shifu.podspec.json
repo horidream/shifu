@@ -1,8 +1,8 @@
 {
   "name": "Shifu",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "summary": "A short description of Shifu.",
-  "description": "TODO: Add long description of the pod here.",
+  "description": "This is a common library that we are going to use in other projects",
   "homepage": "https://github.com/horidream/Shifu",
   "license": {
     "type": "MIT",
@@ -13,10 +13,15 @@
   },
   "source": {
     "git": "https://github.com/horidream/Shifu.git",
-    "tag": "0.1.1"
+    "tag": "0.1.2"
   },
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "Shifu/Classes/**/*"
+  "source_files": "Shifu/Classes/**/*",
+  "dependencies": {
+    "FMDB": [
+
+    ]
+  }
 }

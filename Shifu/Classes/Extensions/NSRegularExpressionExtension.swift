@@ -16,7 +16,7 @@ public extension NSRegularExpression{
         for m in matches as [NSTextCheckingResult]{
             var sub:[String] = []
             for g in 0..<m.numberOfRanges{
-                let subrange = m.rangeAt(g)
+                let subrange = m.range(at: g)
                 var substring:String = ""
                 if(subrange.location != NSNotFound){
                     substring = (string as NSString).substring(with: subrange)
