@@ -7,42 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06B4557BDB8BE21E4D040004F56380F0 /* Announcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1335651D8912D1CD81337687382496C2 /* Announcer.swift */; };
-		1E6AF26CC2485D3B9A80F3B15BCCD42C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CDBA40D8FADE4D123E89510348F945 /* Foundation.framework */; };
-		20526287A692CAE3AD740114B4276E05 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AADDB3BD32961C897D995B6EE52F8ED /* UIColorExtension.swift */; };
+		17A04DE3B6136FDA7AD1A54AF30A3803 /* qrcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424AF243B125D1877534114DEEDD2DBF /* qrcode.swift */; };
 		22554065FA07F1BFE5308A685394CB12 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 351F8E59854BCD39585AB8A055AC2F52 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22A36A8EFCBAAF93AA9EB6D0706CD3F3 /* Pods-Shifu_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 23E84C443DB1497E068BCE5CEA093BAA /* Pods-Shifu_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23032713584488FD63627DAC0C89592A /* NSRegularExpressionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E278B12FCCC1359943844B1BD88B2C4 /* NSRegularExpressionExtension.swift */; };
 		2E7C171B79296A317D83D7555329F92E /* Pods-Shifu_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 16FD41A4BF0A83E998A192527F504AA3 /* Pods-Shifu_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		36B7EFD99C52F961A48656DB5FCEE9D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CDBA40D8FADE4D123E89510348F945 /* Foundation.framework */; };
+		2E9A708E1DF0A94F1EE8C71AD90233BD /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42019BE359D74E5BAF713B82D88D4C64 /* Composite.swift */; };
 		37F097E2269EF1BD238AD7449D796445 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = ED48C0E1AA39302CCDD55032B7544B36 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		3E43906B70EB01C06F3AE17008B853B9 /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = F1F546D17BEE96A3AC80F5733BACB23C /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4BE84F091645A1FF80C081FA8881156A /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82847F335C1F783AE8DA8E24B4CA69C9 /* CollectionExtension.swift */; };
-		4DECCC21163BAF9B1DB9BCE61D82A932 /* NSRegularExpressionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D44573E5A99D24D0B88F535CD7122F /* NSRegularExpressionExtension.swift */; };
-		602D77A82C0F119CD48AA217DCC12B5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CDBA40D8FADE4D123E89510348F945 /* Foundation.framework */; };
-		682221846982849D2980B4CA79A51BB7 /* qrcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FCEF7D2122F2459BC72CD16B6485C0 /* qrcode.swift */; };
+		48C3DCAB0022F69E5BEAC9A3872D5A76 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72BDD775FF1289D3F94E7A870BC478 /* StringExtension.swift */; };
+		4F18C540DC0446DC387C753170AE355B /* CloudUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B01D107E3060D5A79C70B6BFBB7539 /* CloudUtil.swift */; };
+		56FFD53E6E9372C9660C107A24159692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
+		66AFED377B9F0AD86ED8CD0B383F5D97 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F5E86354DE01FB6794936DB7028B /* UIColorExtension.swift */; };
+		67BACD77B18C45219BE8331B1D4E11B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
+		6F908ED1711571D84CBCF21622BAED6E /* Announcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F866E71A054872440E4FC5B9C844389 /* Announcer.swift */; };
+		70C8B1ED503A39436D72B8E7E806C4EE /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89963FE9AEDA75133502F0A6113F908 /* UIImageExtension.swift */; };
+		72563ADE99DC9E753B27D48B16AA3654 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
 		87ECA447DB887426665260651B7F147E /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF62A1F971FFFC84C36F474CF296297 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		8E8517BD0BA9D850481F52D827874CC9 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44FC5567977F02C2C837EE56CE4019 /* GlobalFunctions.swift */; };
 		90DB63C9C76F76B4DC8496CB51D0DFFC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0078E8D5A781B47986A348FBCC779CF6 /* FMDB.framework */; };
-		9307AD288D6CCC7D375DADC95201D2F5 /* CloudUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DED5379D2D19D63802136EAAE85603 /* CloudUtil.swift */; };
+		9205DEC89C5E77DD317A2A6CBA116576 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B2785F6D66979BD2CC1973BD4D5B8 /* LocalStorage.swift */; };
 		9490C6F96AFB79A6B0B9ED400C090D57 /* Shifu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4C6504F11A2F276BD8742056FA68CF /* Shifu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E70B43FC04BC99AED1BBD4FB1D7581 /* FMDB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 774678108D22A09213789D973E2051AC /* FMDB-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		98F9FF046203EAF288DE781FC0203F17 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F174B2583D21E113584A5781FF508B6 /* UIImageExtension.swift */; };
-		991EA5E81EFD2616001B4DA1 /* LocalManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991EA5E61EFD2615001B4DA1 /* LocalManageable.swift */; };
-		991EA5E91EFD2616001B4DA1 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991EA5E71EFD2615001B4DA1 /* LocalStorage.swift */; };
+		9AA425FB04C9A24E6E174F379F4C1581 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
 		9B8D84996694C541CD3434386E0A081A /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C9B19641620A44266703CB7F104828 /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C11A290C9C5866A185A54F1EC04E2BB /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B97A597AFE8B5A90EDFF8560393C46B /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A0FF9456B21F1E4853184053E0D1A24F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CDBA40D8FADE4D123E89510348F945 /* Foundation.framework */; };
+		9E7193E943512910312E1218B58A7D9D /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98D758D994D4A1D562A37D42A8728B /* CollectionExtension.swift */; };
 		A1B5D80A8998311B8C9043E6942925E6 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E784FE473275B6CE21E9FC8AE454E /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		A548833BE5FAD40830428F36E77D0F52 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BBD76359D36C69E5804A290D1C5ED2 /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BDD437ACD2671EDAAC20CA63D47AC515 /* Shifu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7178FD482FF63602057C7066915E280E /* Shifu-dummy.m */; };
+		B6C28ECC7559E03EF049DC5A6291FF1B /* LocalManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9871FEAACBCB85005D7EAC06642EEC7A /* LocalManageable.swift */; };
+		B7A65B743DB10A004EB3848E988541C7 /* Shifu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7178FD482FF63602057C7066915E280E /* Shifu-dummy.m */; };
 		C605A44DF96E7FCACF7D6E37B62F795D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D2F8382360C935E0097F1CB2E26820 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		C781470DDD7264EB049BF31665E26928 /* Pods-Shifu_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DC2FD021CB8C7E948757CDEB9A7485 /* Pods-Shifu_Tests-dummy.m */; };
 		CCB74062CE0F4B8E5B7483599BC398DA /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 73E08DD3F409CC910BDF9AAC0E1BEB35 /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CF750AF5C14956416D72B62D78DECC14 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37627BDA638F1510ED97BF7470430582 /* CALayerExtension.swift */; };
+		D126E15094AC7EAC16B6E19D4F66CB02 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAD604ED6F9CE2FB1F9D542E50EE4DF /* CALayerExtension.swift */; };
 		D5991941DC41DDDDDACAE0B5D47A4639 /* FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5085BA3C5279C337F6D921E5CAFB1FC /* FMDB-dummy.m */; };
 		DF86F5F0BD225956C019B850E28054C0 /* Pods-Shifu_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C1460002330EF526AAD7F419EA056BF7 /* Pods-Shifu_Example-dummy.m */; };
-		E77EC2D7C8A58412A95A84E8174587F6 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3A3DDACDE4BAA28D6C1E8767583907 /* StringExtension.swift */; };
-		EE190830E01CE48BCE50569BD6626507 /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E3F365D8B050133C5C538EC791E010 /* Composite.swift */; };
-		EE4E70F5C3FAA464F5A4310E46D4A25E /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79176F79158B09A1778639B35E96F700 /* GlobalFunctions.swift */; };
 		F11FAB91014130EE233A3429439D38D7 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CFEEF64A76609C0E88017B38B7E12DA /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -81,63 +81,65 @@
 		0078E8D5A781B47986A348FBCC779CF6 /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C9B19641620A44266703CB7F104828 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
 		0A0305CC2CF4A7672CA3359F527C90D0 /* Pods-Shifu_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Example.release.xcconfig"; sourceTree = "<group>"; };
-		10CDBA40D8FADE4D123E89510348F945 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		129543EB302F89CF35B2AE5E365D68C2 /* Pods_Shifu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1335651D8912D1CD81337687382496C2 /* Announcer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Announcer.swift; sourceTree = "<group>"; };
+		129543EB302F89CF35B2AE5E365D68C2 /* Pods_Shifu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Shifu_Example.framework; path = "Pods-Shifu_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1619A54E0DC85EE15FF4B39FBE1BD15D /* Pods-Shifu_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		16FD41A4BF0A83E998A192527F504AA3 /* Pods-Shifu_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Shifu_Tests-umbrella.h"; sourceTree = "<group>"; };
 		1F3E784FE473275B6CE21E9FC8AE454E /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
 		23E84C443DB1497E068BCE5CEA093BAA /* Pods-Shifu_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Shifu_Example-umbrella.h"; sourceTree = "<group>"; };
 		288A024746AA686791FAF620B62C26CF /* Pods-Shifu_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F1256FAF5199144045DDFFED1DB3DEA /* Pods-Shifu_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Example-frameworks.sh"; sourceTree = "<group>"; };
-		32D2D8AC813FFD66EE2A1FFF55D34EEB /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		32D2D8AC813FFD66EE2A1FFF55D34EEB /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FMDB.framework; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		351F8E59854BCD39585AB8A055AC2F52 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
-		352560A5B40F62E7C55277D955DD0A89 /* Pods_Shifu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		36D44573E5A99D24D0B88F535CD7122F /* NSRegularExpressionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSRegularExpressionExtension.swift; sourceTree = "<group>"; };
-		37627BDA638F1510ED97BF7470430582 /* CALayerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		352560A5B40F62E7C55277D955DD0A89 /* Pods_Shifu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Shifu_Tests.framework; path = "Pods-Shifu_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		386FCDA3339822EB7B23A74D536CB0FA /* Pods-Shifu_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Shifu_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		3D44FC5567977F02C2C837EE56CE4019 /* GlobalFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		3F72BDD775FF1289D3F94E7A870BC478 /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		42019BE359D74E5BAF713B82D88D4C64 /* Composite.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Composite.swift; sourceTree = "<group>"; };
+		424AF243B125D1877534114DEEDD2DBF /* qrcode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = qrcode.swift; sourceTree = "<group>"; };
 		46613FE2E71277E1F4BE13CD371E3707 /* Pods-Shifu_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Example-resources.sh"; sourceTree = "<group>"; };
 		4B97A597AFE8B5A90EDFF8560393C46B /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		4D7575ED5D02CC8722B0B867BACB2303 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E278B12FCCC1359943844B1BD88B2C4 /* NSRegularExpressionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSRegularExpressionExtension.swift; sourceTree = "<group>"; };
+		57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5A086265A4F1B7EC43A7885312923D0E /* Pods-Shifu_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Shifu_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		6220553770A84EAFB424FD071541EDE6 /* Shifu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Shifu.modulemap; sourceTree = "<group>"; };
+		6220553770A84EAFB424FD071541EDE6 /* Shifu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Shifu.modulemap; sourceTree = "<group>"; };
 		63B312572A6DC684D0E1763ABF964BA7 /* Shifu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Shifu.xcconfig; sourceTree = "<group>"; };
 		653F22B9AEBC8773C45CBED18F9DBC0D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		675D5401B2BEE25206F2F0BBF3A42ABD /* Pods-Shifu_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Shifu_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		68F00D98100ED2D69293EA94BA1EF7AF /* Pods-Shifu_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Shifu_Example.modulemap"; sourceTree = "<group>"; };
+		68F00D98100ED2D69293EA94BA1EF7AF /* Pods-Shifu_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Shifu_Example.modulemap"; sourceTree = "<group>"; };
 		6CFEEF64A76609C0E88017B38B7E12DA /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		6F866E71A054872440E4FC5B9C844389 /* Announcer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Announcer.swift; sourceTree = "<group>"; };
 		7178FD482FF63602057C7066915E280E /* Shifu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Shifu-dummy.m"; sourceTree = "<group>"; };
-		723215F2F69C4B8653A8CDE3C2C4A5B9 /* Shifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		723215F2F69C4B8653A8CDE3C2C4A5B9 /* Shifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Shifu.framework; path = Shifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E08DD3F409CC910BDF9AAC0E1BEB35 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
 		75871FC1155CA0D3897F2D657F6BEB0F /* Pods-Shifu_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Shifu_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		774678108D22A09213789D973E2051AC /* FMDB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-umbrella.h"; sourceTree = "<group>"; };
-		79176F79158B09A1778639B35E96F700 /* GlobalFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		7A4C6504F11A2F276BD8742056FA68CF /* Shifu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Shifu-umbrella.h"; sourceTree = "<group>"; };
-		7AADDB3BD32961C897D995B6EE52F8ED /* UIColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		82847F335C1F783AE8DA8E24B4CA69C9 /* CollectionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
-		87FCEF7D2122F2459BC72CD16B6485C0 /* qrcode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = qrcode.swift; sourceTree = "<group>"; };
 		8DF62A1F971FFFC84C36F474CF296297 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
 		8E7BEA442D0794A0DD8886AD418DAB21 /* Pods-Shifu_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		991EA5E61EFD2615001B4DA1 /* LocalManageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalManageable.swift; sourceTree = "<group>"; };
-		991EA5E71EFD2615001B4DA1 /* LocalStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		955B2785F6D66979BD2CC1973BD4D5B8 /* LocalStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		9871FEAACBCB85005D7EAC06642EEC7A /* LocalManageable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalManageable.swift; sourceTree = "<group>"; };
 		99DC2FD021CB8C7E948757CDEB9A7485 /* Pods-Shifu_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Shifu_Tests-dummy.m"; sourceTree = "<group>"; };
-		9F174B2583D21E113584A5781FF508B6 /* UIImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
-		A0DED5379D2D19D63802136EAAE85603 /* CloudUtil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudUtil.swift; sourceTree = "<group>"; };
+		9D98D758D994D4A1D562A37D42A8728B /* CollectionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		9E3AC27E0819295926C9F8469A817E0E /* LocalStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		A2D2F8382360C935E0097F1CB2E26820 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
 		A82124697E95B25065BF5AC6D962526C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0892C2BD5A5475F80394DA1E2E89143 /* Pods-Shifu_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Tests-resources.sh"; sourceTree = "<group>"; };
 		B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
-		B97CC7F7ED98D85D31663DDFAF034BBC /* FMDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FMDB.modulemap; sourceTree = "<group>"; };
-		BBBD275D41C81D37EA036C4E4CE7DFD0 /* Pods-Shifu_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Shifu_Tests.modulemap"; sourceTree = "<group>"; };
+		B97CC7F7ED98D85D31663DDFAF034BBC /* FMDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = FMDB.modulemap; sourceTree = "<group>"; };
+		BBBD275D41C81D37EA036C4E4CE7DFD0 /* Pods-Shifu_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Shifu_Tests.modulemap"; sourceTree = "<group>"; };
 		C1460002330EF526AAD7F419EA056BF7 /* Pods-Shifu_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Shifu_Example-dummy.m"; sourceTree = "<group>"; };
 		C4BBD76359D36C69E5804A290D1C5ED2 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		C76284A6E9D7ED794898392ECC2F9F46 /* LocalManageable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalManageable.swift; sourceTree = "<group>"; };
 		C80DA57F8CD6FA6C1FE9516FC1FCBB41 /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
-		CA3A3DDACDE4BAA28D6C1E8767583907 /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		CDAD604ED6F9CE2FB1F9D542E50EE4DF /* CALayerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		D5085BA3C5279C337F6D921E5CAFB1FC /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
+		D89963FE9AEDA75133502F0A6113F908 /* UIImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		DBD69A8CDB3578DE070791FF70B75244 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC15C38F897FDB9236FD10AD02F7DBAA /* Pods-Shifu_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		E8E3F365D8B050133C5C538EC791E010 /* Composite.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Composite.swift; sourceTree = "<group>"; };
+		DE81F5E86354DE01FB6794936DB7028B /* UIColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		E0B01D107E3060D5A79C70B6BFBB7539 /* CloudUtil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudUtil.swift; sourceTree = "<group>"; };
 		EBFDCA2BF2BF5F8667A894410B7B05C7 /* Shifu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Shifu-prefix.pch"; sourceTree = "<group>"; };
 		ED48C0E1AA39302CCDD55032B7544B36 /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
 		F1F546D17BEE96A3AC80F5733BACB23C /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
@@ -149,7 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90DB63C9C76F76B4DC8496CB51D0DFFC /* FMDB.framework in Frameworks */,
-				1E6AF26CC2485D3B9A80F3B15BCCD42C /* Foundation.framework in Frameworks */,
+				9AA425FB04C9A24E6E174F379F4C1581 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				602D77A82C0F119CD48AA217DCC12B5B /* Foundation.framework in Frameworks */,
+				56FFD53E6E9372C9660C107A24159692 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0FF9456B21F1E4853184053E0D1A24F /* Foundation.framework in Frameworks */,
+				67BACD77B18C45219BE8331B1D4E11B7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,19 +175,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36B7EFD99C52F961A48656DB5FCEE9D5 /* Foundation.framework in Frameworks */,
+				72563ADE99DC9E753B27D48B16AA3654 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1BA21C3506DFD08C070A0124B2E94A70 /* Shifu */ = {
+		03E4FDF4FD3745A768D15D7E33C9A8CB /* DataManage */ = {
 			isa = PBXGroup;
 			children = (
-				E2B21290CEC134C2B3093BF8FD227CDC /* Classes */,
+				C76284A6E9D7ED794898392ECC2F9F46 /* LocalManageable.swift */,
+				9E3AC27E0819295926C9F8469A817E0E /* LocalStorage.swift */,
 			);
-			path = Shifu;
+			name = DataManage;
+			path = DataManage;
 			sourceTree = "<group>";
 		};
 		23858BC56B41293D6BE4A56F6E0F3D30 /* Targets Support Files */ = {
@@ -203,6 +207,7 @@
 				F6DE655E75ADFE1AA964C216FFC0DF35 /* standard */,
 				B7ADE86BD1C1E36B1DE5372BFA4CDC0F /* Support Files */,
 			);
+			name = FMDB;
 			path = FMDB;
 			sourceTree = "<group>";
 		};
@@ -235,6 +240,29 @@
 			path = "Target Support Files/Pods-Shifu_Tests";
 			sourceTree = "<group>";
 		};
+		4705236D8ABBBEA64A8783BAC056FDD2 /* Shifu */ = {
+			isa = PBXGroup;
+			children = (
+				8E1567AC14CA97BF11607ABF7527908B /* Classes */,
+			);
+			name = Shifu;
+			path = Shifu;
+			sourceTree = "<group>";
+		};
+		62E5D6037FC5E3EE55814C44797D14FF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CDAD604ED6F9CE2FB1F9D542E50EE4DF /* CALayerExtension.swift */,
+				9D98D758D994D4A1D562A37D42A8728B /* CollectionExtension.swift */,
+				4E278B12FCCC1359943844B1BD88B2C4 /* NSRegularExpressionExtension.swift */,
+				3F72BDD775FF1289D3F94E7A870BC478 /* StringExtension.swift */,
+				DE81F5E86354DE01FB6794936DB7028B /* UIColorExtension.swift */,
+				D89963FE9AEDA75133502F0A6113F908 /* UIImageExtension.swift */,
+			);
+			name = Extensions;
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		6AF85742CE6227CCD79F65442844E79E /* Pods-Shifu_Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +281,14 @@
 			path = "Target Support Files/Pods-Shifu_Example";
 			sourceTree = "<group>";
 		};
+		748AC6B0D04488ECD1585656A29E15E1 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
@@ -265,47 +301,28 @@
 			);
 			sourceTree = "<group>";
 		};
+		8E1567AC14CA97BF11607ABF7527908B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				42019BE359D74E5BAF713B82D88D4C64 /* Composite.swift */,
+				9871FEAACBCB85005D7EAC06642EEC7A /* LocalManageable.swift */,
+				955B2785F6D66979BD2CC1973BD4D5B8 /* LocalStorage.swift */,
+				03E4FDF4FD3745A768D15D7E33C9A8CB /* DataManage */,
+				62E5D6037FC5E3EE55814C44797D14FF /* Extensions */,
+				C8E0932939B9091A06FF5B0BEF5E7B6F /* Utils */,
+			);
+			name = Classes;
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		8F64A2EA2E6435B12DC6945FAFDD7FA0 /* Shifu */ = {
 			isa = PBXGroup;
 			children = (
-				1BA21C3506DFD08C070A0124B2E94A70 /* Shifu */,
+				4705236D8ABBBEA64A8783BAC056FDD2 /* Shifu */,
 				A66F7F0D3470D47BFC1F8CFBD1582592 /* Support Files */,
 			);
 			name = Shifu;
 			path = ../..;
-			sourceTree = "<group>";
-		};
-		991EA5EA1EFD275B001B4DA1 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				37627BDA638F1510ED97BF7470430582 /* CALayerExtension.swift */,
-				82847F335C1F783AE8DA8E24B4CA69C9 /* CollectionExtension.swift */,
-				36D44573E5A99D24D0B88F535CD7122F /* NSRegularExpressionExtension.swift */,
-				CA3A3DDACDE4BAA28D6C1E8767583907 /* StringExtension.swift */,
-				7AADDB3BD32961C897D995B6EE52F8ED /* UIColorExtension.swift */,
-				9F174B2583D21E113584A5781FF508B6 /* UIImageExtension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		991EA5EB1EFD277F001B4DA1 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				A0DED5379D2D19D63802136EAAE85603 /* CloudUtil.swift */,
-				1335651D8912D1CD81337687382496C2 /* Announcer.swift */,
-				79176F79158B09A1778639B35E96F700 /* GlobalFunctions.swift */,
-				87FCEF7D2122F2459BC72CD16B6485C0 /* qrcode.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		991EA5EC1EFD27AB001B4DA1 /* DataManage */ = {
-			isa = PBXGroup;
-			children = (
-				991EA5E61EFD2615001B4DA1 /* LocalManageable.swift */,
-				991EA5E71EFD2615001B4DA1 /* LocalStorage.swift */,
-			);
-			path = DataManage;
 			sourceTree = "<group>";
 		};
 		A399DF7CA702D5EAD1764B9276511794 /* Development Pods */ = {
@@ -352,32 +369,25 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		D1697D94B9FDE6CD3E31C84261E12324 /* iOS */ = {
+		C8E0932939B9091A06FF5B0BEF5E7B6F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				10CDBA40D8FADE4D123E89510348F945 /* Foundation.framework */,
+				6F866E71A054872440E4FC5B9C844389 /* Announcer.swift */,
+				E0B01D107E3060D5A79C70B6BFBB7539 /* CloudUtil.swift */,
+				3D44FC5567977F02C2C837EE56CE4019 /* GlobalFunctions.swift */,
+				424AF243B125D1877534114DEEDD2DBF /* qrcode.swift */,
 			);
-			name = iOS;
+			name = Utils;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		D2304513832E75413DFDFE967D300314 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				0078E8D5A781B47986A348FBCC779CF6 /* FMDB.framework */,
-				D1697D94B9FDE6CD3E31C84261E12324 /* iOS */,
+				748AC6B0D04488ECD1585656A29E15E1 /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E2B21290CEC134C2B3093BF8FD227CDC /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				991EA5EC1EFD27AB001B4DA1 /* DataManage */,
-				991EA5EB1EFD277F001B4DA1 /* Utils */,
-				991EA5EA1EFD275B001B4DA1 /* Extensions */,
-				E8E3F365D8B050133C5C538EC791E010 /* Composite.swift */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		F6DE655E75ADFE1AA964C216FFC0DF35 /* standard */ = {
@@ -500,7 +510,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25847B42C214C57A91AD5753280E6DC7 /* Build configuration list for PBXNativeTarget "Shifu" */;
 			buildPhases = (
-				7D9116135B186D01F44F12E6935BB7A5 /* Sources */,
+				1BDF654C00548CF35D47979BE476FC80 /* Sources */,
 				1146BD9BE1A6C00AA7375985AC7A77A0 /* Frameworks */,
 				AF2F1D95FEF32BD22AACC43EC2D335AE /* Headers */,
 			);
@@ -520,13 +530,8 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0900;
-				TargetAttributes = {
-					DF2AA78153C8FF11CF9DA9A4850D2DA7 = {
-						LastSwiftMigration = 0900;
-					};
-				};
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -549,6 +554,29 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1BDF654C00548CF35D47979BE476FC80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F908ED1711571D84CBCF21622BAED6E /* Announcer.swift in Sources */,
+				D126E15094AC7EAC16B6E19D4F66CB02 /* CALayerExtension.swift in Sources */,
+				4F18C540DC0446DC387C753170AE355B /* CloudUtil.swift in Sources */,
+				9E7193E943512910312E1218B58A7D9D /* CollectionExtension.swift in Sources */,
+				2E9A708E1DF0A94F1EE8C71AD90233BD /* Composite.swift in Sources */,
+				8E8517BD0BA9D850481F52D827874CC9 /* GlobalFunctions.swift in Sources */,
+				B6C28ECC7559E03EF049DC5A6291FF1B /* LocalManageable.swift in Sources */,
+				B6C28ECC7559E03EF049DC5A6291FF1B /* LocalManageable.swift in Sources */,
+				9205DEC89C5E77DD317A2A6CBA116576 /* LocalStorage.swift in Sources */,
+				9205DEC89C5E77DD317A2A6CBA116576 /* LocalStorage.swift in Sources */,
+				23032713584488FD63627DAC0C89592A /* NSRegularExpressionExtension.swift in Sources */,
+				17A04DE3B6136FDA7AD1A54AF30A3803 /* qrcode.swift in Sources */,
+				B7A65B743DB10A004EB3848E988541C7 /* Shifu-dummy.m in Sources */,
+				48C3DCAB0022F69E5BEAC9A3872D5A76 /* StringExtension.swift in Sources */,
+				66AFED377B9F0AD86ED8CD0B383F5D97 /* UIColorExtension.swift in Sources */,
+				70C8B1ED503A39436D72B8E7E806C4EE /* UIImageExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3E9E494ADBFF68DFC83BAF3DFAB2B143 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -562,27 +590,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF86F5F0BD225956C019B850E28054C0 /* Pods-Shifu_Example-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7D9116135B186D01F44F12E6935BB7A5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				06B4557BDB8BE21E4D040004F56380F0 /* Announcer.swift in Sources */,
-				CF750AF5C14956416D72B62D78DECC14 /* CALayerExtension.swift in Sources */,
-				9307AD288D6CCC7D375DADC95201D2F5 /* CloudUtil.swift in Sources */,
-				4BE84F091645A1FF80C081FA8881156A /* CollectionExtension.swift in Sources */,
-				EE190830E01CE48BCE50569BD6626507 /* Composite.swift in Sources */,
-				991EA5E91EFD2616001B4DA1 /* LocalStorage.swift in Sources */,
-				EE4E70F5C3FAA464F5A4310E46D4A25E /* GlobalFunctions.swift in Sources */,
-				4DECCC21163BAF9B1DB9BCE61D82A932 /* NSRegularExpressionExtension.swift in Sources */,
-				991EA5E81EFD2616001B4DA1 /* LocalManageable.swift in Sources */,
-				682221846982849D2980B4CA79A51BB7 /* qrcode.swift in Sources */,
-				BDD437ACD2671EDAAC20CA63D47AC515 /* Shifu-dummy.m in Sources */,
-				E77EC2D7C8A58412A95A84E8174587F6 /* StringExtension.swift in Sources */,
-				20526287A692CAE3AD740114B4276E05 /* UIColorExtension.swift in Sources */,
-				98F9FF046203EAF288DE781FC0203F17 /* UIImageExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,294 +636,33 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		053D41B5AF2B2C9246CBF7AE5AAC4B2F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 288A024746AA686791FAF620B62C26CF /* Pods-Shifu_Tests.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Tests/Pods-Shifu_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Shifu_Tests;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		1579DDF914CDBD691F2D48E708DBA2D1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A0305CC2CF4A7672CA3359F527C90D0 /* Pods-Shifu_Example.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Shifu_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		5AB181C63A56031F29CB93C55D2D2762 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FMDB/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = FMDB;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		7D961E11E46277CD7F3A9382F0549370 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC15C38F897FDB9236FD10AD02F7DBAA /* Pods-Shifu_Tests.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Tests/Pods-Shifu_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Shifu_Tests;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		8DED8AD26D381A6ACFF202E5217EC498 /* Release */ = {
+		345CC476DF4A7516DBD2220CF5035FF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9531AF84FAEC6258BCDE773F012DBC83 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FMDB/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = FMDB;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		9A58AB274B6B40CC999B08C36DE08B27 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63B312572A6DC684D0E1763ABF964BA7 /* Shifu.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Shifu/Shifu-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Shifu/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Shifu/Shifu.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Shifu;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		9E1E4E48AF2EAB23169E611BF694090A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
@@ -938,10 +684,11 @@
 			};
 			name = Debug;
 		};
-		E3242702A98E9E4BF7E1652F2B1B1F7B /* Release */ = {
+		3DBD89FA465462B42A3C2496B68DAE02 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 63B312572A6DC684D0E1763ABF964BA7 /* Shifu.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -963,7 +710,7 @@
 				PRODUCT_NAME = Shifu;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -971,11 +718,195 @@
 			};
 			name = Release;
 		};
-		E4273DBC6C025F15B21F0DFEA95D078E /* Debug */ = {
+		4FFF99269EA07D9693C11AB4C8CB03FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 288A024746AA686791FAF620B62C26CF /* Pods-Shifu_Tests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Tests/Pods-Shifu_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Shifu_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		5FD6C4726D42824FF75EC06E9C07EA5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC15C38F897FDB9236FD10AD02F7DBAA /* Pods-Shifu_Tests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Tests/Pods-Shifu_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Shifu_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		717E77604BFBB04BEAF56608A1CB2EDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C49599C6918AE7F85880DA4EED12A2A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FMDB/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = FMDB;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D1AD3FC2A40D8E383122ECED8DE34C18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63B312572A6DC684D0E1763ABF964BA7 /* Shifu.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Shifu/Shifu-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Shifu/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Shifu/Shifu.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Shifu;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E0CAB3E6F28FE7342CF92B432C998730 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1619A54E0DC85EE15FF4B39FBE1BD15D /* Pods-Shifu_Example.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1001,12 +932,85 @@
 				PRODUCT_NAME = Pods_Shifu_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		F04031CAD68BC4AB37D4757B473D121A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A0305CC2CF4A7672CA3359F527C90D0 /* Pods-Shifu_Example.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Shifu_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F2E11997B41D9F86E349321878D640FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FMDB/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = FMDB;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1014,8 +1018,8 @@
 		25847B42C214C57A91AD5753280E6DC7 /* Build configuration list for PBXNativeTarget "Shifu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9A58AB274B6B40CC999B08C36DE08B27 /* Debug */,
-				E3242702A98E9E4BF7E1652F2B1B1F7B /* Release */,
+				D1AD3FC2A40D8E383122ECED8DE34C18 /* Debug */,
+				3DBD89FA465462B42A3C2496B68DAE02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1023,8 +1027,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9E1E4E48AF2EAB23169E611BF694090A /* Debug */,
-				8DED8AD26D381A6ACFF202E5217EC498 /* Release */,
+				345CC476DF4A7516DBD2220CF5035FF3 /* Debug */,
+				717E77604BFBB04BEAF56608A1CB2EDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1032,8 +1036,8 @@
 		5B0566FF0CE681AC326D316CEC45A8CF /* Build configuration list for PBXNativeTarget "FMDB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5AB181C63A56031F29CB93C55D2D2762 /* Debug */,
-				9531AF84FAEC6258BCDE773F012DBC83 /* Release */,
+				C49599C6918AE7F85880DA4EED12A2A2 /* Debug */,
+				F2E11997B41D9F86E349321878D640FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1041,8 +1045,8 @@
 		8740FE4A3B8508169977144D99EFF51F /* Build configuration list for PBXNativeTarget "Pods-Shifu_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				053D41B5AF2B2C9246CBF7AE5AAC4B2F /* Debug */,
-				7D961E11E46277CD7F3A9382F0549370 /* Release */,
+				4FFF99269EA07D9693C11AB4C8CB03FB /* Debug */,
+				5FD6C4726D42824FF75EC06E9C07EA5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1050,8 +1054,8 @@
 		E33CEFBCE374312F6B1211E32FE371C0 /* Build configuration list for PBXNativeTarget "Pods-Shifu_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4273DBC6C025F15B21F0DFEA95D078E /* Debug */,
-				1579DDF914CDBD691F2D48E708DBA2D1 /* Release */,
+				E0CAB3E6F28FE7342CF92B432C998730 /* Debug */,
+				F04031CAD68BC4AB37D4757B473D121A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,16 +1,22 @@
 PODS:
-  - Shifu (0.1.1)
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - Shifu (0.1.2):
+    - FMDB
 
 DEPENDENCIES:
+  - FMDB
   - Shifu (from `../`)
 
 EXTERNAL SOURCES:
   Shifu:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  Shifu: ffdde1dee3fa84b14be026afb48a5df119d876e9
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  Shifu: 69e46df8bbd0ea705ee74ee6c09728f5a150fb04
 
-PODFILE CHECKSUM: b3a22762cb0f2d1b0f0c19b8980d48f42c66abe1
+PODFILE CHECKSUM: 51f18bc79d54cfb6fa740f91d215f72fd677b28f
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1
