@@ -10,6 +10,7 @@ import Foundation
 import FMDB
 
 public protocol LocalManageable {
+    var id:Int64? { get  set }
     static var localStorage:LocalStorage { get }
     
     func create()
@@ -25,6 +26,13 @@ public extension LocalManageable{
         }
     }
     
+    public func save(){
+        if id != nil{
+            update()
+        }else{
+            create()
+        }
+    }
     public var localStorage:LocalStorage  {
         return Self.localStorage
     }
