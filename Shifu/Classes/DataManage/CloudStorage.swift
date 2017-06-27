@@ -9,13 +9,15 @@
 import Foundation
 import CloudKit
 
-class CloudStorage{
+public class CloudStorage{
     private var container:CKContainer = CKContainer.default()
     public var privateDB:CKDatabase{
         return container.privateCloudDatabase
     }
-    
-    func query(_ query:CKQuery, zoneId:CKRecordZoneID? = nil, callback:@escaping ([CKRecord], Error?)->Void){
+    public init(){
+        
+    }
+    public func query(_ query:CKQuery, zoneId:CKRecordZoneID? = nil, callback:@escaping ([CKRecord], Error?)->Void){
         privateDB.perform(query, inZoneWith: zoneId) { (records, error) in
             let empty = Array<CKRecord>()
             if error == nil{
@@ -26,7 +28,7 @@ class CloudStorage{
         }
     }
     
-    func modify(recordsToSave records: [CKRecord]?, recordIDsToDelete recordIDs: [CKRecordID]? = nil, callback:(([CKRecord]?, [CKRecordID]?, Error?) -> Void)?){
+    public func modify(recordsToSave records: [CKRecord]?, recordIDsToDelete recordIDs: [CKRecordID]? = nil, callback:(([CKRecord]?, [CKRecordID]?, Error?) -> Void)?){
         
         let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: recordIDs)
         op.modifyRecordsCompletionBlock = callback

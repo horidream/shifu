@@ -14,7 +14,7 @@ import FMDB
 public class LocalStorage {
     
     private var db:FMDatabase
-    var lastInsertRowId:Int64{
+    public var lastInsertRowId:Int64{
         return db.lastInsertRowId()
     }
     
@@ -26,19 +26,19 @@ public class LocalStorage {
     }
     
     
-    func create(tableName table:String, schema:String)
+    public func create(tableName table:String, schema:String)
     {
         db.executeStatements("CREATE TABLE IF NOT EXISTS \(table) (\(schema))")
     }
     
-    func exe(_ sql:String, args:[Any]! = nil)->Bool{
+    public func exe(_ sql:String, args:[Any]! = nil)->Bool{
         if args == nil || args.count == 0{
             return db.executeStatements(sql)
         }
         return db.executeUpdate(sql, withArgumentsIn: args)
     }
     
-    func rowExists(id:Int64)->Bool{
+    public func rowExists(id:Int64)->Bool{
         
         do{
             let rs = try db.executeQuery("select id from items where id=?", values: [id])
@@ -49,7 +49,7 @@ public class LocalStorage {
         
     }
     
-    func query<T>(_ sql:String, args:[Any]! = nil, map block:(FMResultSet)->T?)->Array<T>{
+    public func query<T>(_ sql:String, args:[Any]! = nil, map block:(FMResultSet)->T?)->Array<T>{
         var result:Array<T> = []
         if let rs = try? db.executeQuery(sql, values: args) {
             while rs.next() {
@@ -61,7 +61,7 @@ public class LocalStorage {
         return result
     }
     
-    func clear(tableName table:String){
+    public func clear(tableName table:String){
         db.executeStatements("delete from \(table)")
     }
 }
