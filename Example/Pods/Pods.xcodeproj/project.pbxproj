@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15BF6B641F01FE8300A51732 /* Notification+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF6B631F01FE8300A51732 /* Notification+Names.swift */; };
+		15BF6B691F025F0900A51732 /* CloudManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF6B671F025EBC00A51732 /* CloudManageable.swift */; };
+		15BF6B6A1F025F0900A51732 /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF6B681F025EBC00A51732 /* CloudStorage.swift */; };
 		17A04DE3B6136FDA7AD1A54AF30A3803 /* qrcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424AF243B125D1877534114DEEDD2DBF /* qrcode.swift */; };
 		22554065FA07F1BFE5308A685394CB12 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 351F8E59854BCD39585AB8A055AC2F52 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22A36A8EFCBAAF93AA9EB6D0706CD3F3 /* Pods-Shifu_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 23E84C443DB1497E068BCE5CEA093BAA /* Pods-Shifu_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -28,8 +31,6 @@
 		90DB63C9C76F76B4DC8496CB51D0DFFC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0078E8D5A781B47986A348FBCC779CF6 /* FMDB.framework */; };
 		9490C6F96AFB79A6B0B9ED400C090D57 /* Shifu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4C6504F11A2F276BD8742056FA68CF /* Shifu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E70B43FC04BC99AED1BBD4FB1D7581 /* FMDB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 774678108D22A09213789D973E2051AC /* FMDB-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		992A314F1F01711500D6C1D7 /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992A314D1F01711400D6C1D7 /* CloudStorage.swift */; };
-		992A31501F01711500D6C1D7 /* CloudManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992A314E1F01711400D6C1D7 /* CloudManageable.swift */; };
 		992A31511F01723B00D6C1D7 /* LocalManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76284A6E9D7ED794898392ECC2F9F46 /* LocalManageable.swift */; };
 		992A31521F01723F00D6C1D7 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3AC27E0819295926C9F8469A817E0E /* LocalStorage.swift */; };
 		9AA425FB04C9A24E6E174F379F4C1581 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
@@ -84,6 +85,9 @@
 		01C9B19641620A44266703CB7F104828 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
 		0A0305CC2CF4A7672CA3359F527C90D0 /* Pods-Shifu_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Example.release.xcconfig"; sourceTree = "<group>"; };
 		129543EB302F89CF35B2AE5E365D68C2 /* Pods_Shifu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		15BF6B631F01FE8300A51732 /* Notification+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Names.swift"; sourceTree = "<group>"; };
+		15BF6B671F025EBC00A51732 /* CloudManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudManageable.swift; sourceTree = "<group>"; };
+		15BF6B681F025EBC00A51732 /* CloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
 		1619A54E0DC85EE15FF4B39FBE1BD15D /* Pods-Shifu_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		16FD41A4BF0A83E998A192527F504AA3 /* Pods-Shifu_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Shifu_Tests-umbrella.h"; sourceTree = "<group>"; };
 		1F3E784FE473275B6CE21E9FC8AE454E /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
@@ -120,8 +124,6 @@
 		8DF62A1F971FFFC84C36F474CF296297 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
 		8E7BEA442D0794A0DD8886AD418DAB21 /* Pods-Shifu_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		992A314D1F01711400D6C1D7 /* CloudStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloudStorage.swift; path = ../../../../scrumsolo/ScrumSolo/CloudStorage.swift; sourceTree = "<group>"; };
-		992A314E1F01711400D6C1D7 /* CloudManageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloudManageable.swift; path = ../../../../scrumsolo/ScrumSolo/CloudManageable.swift; sourceTree = "<group>"; };
 		99DC2FD021CB8C7E948757CDEB9A7485 /* Pods-Shifu_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Shifu_Tests-dummy.m"; sourceTree = "<group>"; };
 		9D98D758D994D4A1D562A37D42A8728B /* CollectionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		9E3AC27E0819295926C9F8469A817E0E /* LocalStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
@@ -187,9 +189,9 @@
 		03E4FDF4FD3745A768D15D7E33C9A8CB /* DataManage */ = {
 			isa = PBXGroup;
 			children = (
-				992A314E1F01711400D6C1D7 /* CloudManageable.swift */,
-				992A314D1F01711400D6C1D7 /* CloudStorage.swift */,
 				C76284A6E9D7ED794898392ECC2F9F46 /* LocalManageable.swift */,
+				15BF6B671F025EBC00A51732 /* CloudManageable.swift */,
+				15BF6B681F025EBC00A51732 /* CloudStorage.swift */,
 				9E3AC27E0819295926C9F8469A817E0E /* LocalStorage.swift */,
 			);
 			path = DataManage;
@@ -259,6 +261,7 @@
 				3F72BDD775FF1289D3F94E7A870BC478 /* StringExtension.swift */,
 				DE81F5E86354DE01FB6794936DB7028B /* UIColorExtension.swift */,
 				D89963FE9AEDA75133502F0A6113F908 /* UIImageExtension.swift */,
+				15BF6B631F01FE8300A51732 /* Notification+Names.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -527,7 +530,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0900;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -556,18 +559,19 @@
 			files = (
 				6F908ED1711571D84CBCF21622BAED6E /* Announcer.swift in Sources */,
 				D126E15094AC7EAC16B6E19D4F66CB02 /* CALayerExtension.swift in Sources */,
-				992A31501F01711500D6C1D7 /* CloudManageable.swift in Sources */,
 				4F18C540DC0446DC387C753170AE355B /* CloudUtil.swift in Sources */,
 				9E7193E943512910312E1218B58A7D9D /* CollectionExtension.swift in Sources */,
+				15BF6B691F025F0900A51732 /* CloudManageable.swift in Sources */,
 				2E9A708E1DF0A94F1EE8C71AD90233BD /* Composite.swift in Sources */,
 				992A31511F01723B00D6C1D7 /* LocalManageable.swift in Sources */,
 				8E8517BD0BA9D850481F52D827874CC9 /* GlobalFunctions.swift in Sources */,
 				23032713584488FD63627DAC0C89592A /* NSRegularExpressionExtension.swift in Sources */,
 				17A04DE3B6136FDA7AD1A54AF30A3803 /* qrcode.swift in Sources */,
 				B7A65B743DB10A004EB3848E988541C7 /* Shifu-dummy.m in Sources */,
-				992A314F1F01711500D6C1D7 /* CloudStorage.swift in Sources */,
 				48C3DCAB0022F69E5BEAC9A3872D5A76 /* StringExtension.swift in Sources */,
 				992A31521F01723F00D6C1D7 /* LocalStorage.swift in Sources */,
+				15BF6B6A1F025F0900A51732 /* CloudStorage.swift in Sources */,
+				15BF6B641F01FE8300A51732 /* Notification+Names.swift in Sources */,
 				66AFED377B9F0AD86ED8CD0B383F5D97 /* UIColorExtension.swift in Sources */,
 				70C8B1ED503A39436D72B8E7E806C4EE /* UIImageExtension.swift in Sources */,
 			);
@@ -642,7 +646,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -650,15 +656,21 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
@@ -796,7 +808,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -804,14 +818,20 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
@@ -825,6 +845,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
 			};

@@ -22,7 +22,14 @@ protocol CloudManageable {
 }
 
 extension CloudManageable{
-    static func cloudQuery(_ query:CKQuery, callback: @escaping ([Self], Error?)->Void){
+    
+    static func cloudFetch(_ format:String, args:[Any]? = nil, callback:@escaping ([Self], Error?)->Void){
+        let predicate = NSPredicate(format: format, argumentArray: args)
+        let query = CKQuery(recordType: String(describing:type(of:self)), predicate: predicate)
+        Self.cloudFetch(query, callback: callback)
+    }
+    
+    static func cloudFetch(_ query:CKQuery, callback: @escaping ([Self], Error?)->Void){
         return cloudStorage.query(query) { records, error in
             callback(records.map({ record in
                 self.init(record)

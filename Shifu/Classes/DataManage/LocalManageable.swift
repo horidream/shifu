@@ -13,9 +13,10 @@ public protocol LocalManageable {
     var id:Int64? { get  set }
     static var localStorage:LocalStorage { get }
     
-    func create()
+    func create()->Int64?
     func update()
     func delete()
+    
     init(_ rst:FMResultSet)
 }
 
@@ -26,13 +27,20 @@ public extension LocalManageable{
         }
     }
     
-    public func save(){
+    public mutating func save(){
         if id != nil{
             update()
         }else{
-            create()
+            id = create()
         }
     }
+    
+    public func delete(){
+        if let id = id{
+            _ = self.localStorage.exe("delete from ? where id = ?", args: [self.tableName, id])
+        }
+    }
+    
     public var localStorage:LocalStorage  {
         return Self.localStorage
     }
