@@ -60,4 +60,24 @@ public extension String{
         return predA.evaluate(with: firstString) ? firstString : "#"
 
     }
+    
+    
+    public func image(_ fontFamily:String, fontSize:CGFloat, fontColor:UIColor = .blue) -> UIImage{
+        let font = UIFont(name: fontFamily, size: fontSize)!
+        let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        style.alignment = .left
+        let attr = [
+            NSAttributedStringKey.font: font,
+            NSAttributedStringKey.foregroundColor: fontColor,
+            NSAttributedStringKey.paragraphStyle: style
+        ]
+        
+        let size = self.size(withAttributes: attr)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        let rect = CGRect(origin: .zero, size: size)
+        self.draw(in: rect, withAttributes: attr)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }

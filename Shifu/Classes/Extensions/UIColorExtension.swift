@@ -51,3 +51,9 @@ public struct ui{
         return ev
     }
 }
+
+public extension Int{
+    public func toColor()->UIColor{
+        return UIColor(UInt(self))
+    }
+}
