@@ -15,7 +15,7 @@ public class LocalStorage {
     
     private var db:FMDatabase
     public var lastInsertRowId:Int64{
-        return db.lastInsertRowId()
+        return db.lastInsertRowId
     }
     
     public init(filename:String){

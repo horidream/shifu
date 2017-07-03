@@ -33,6 +33,7 @@
 		96E70B43FC04BC99AED1BBD4FB1D7581 /* FMDB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 774678108D22A09213789D973E2051AC /* FMDB-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		992A31511F01723B00D6C1D7 /* LocalManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76284A6E9D7ED794898392ECC2F9F46 /* LocalManageable.swift */; };
 		992A31521F01723F00D6C1D7 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3AC27E0819295926C9F8469A817E0E /* LocalStorage.swift */; };
+		9951F95A1F0AA54F009248DE /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9951F9581F0AA51E009248DE /* PinterestLayout.swift */; };
 		9AA425FB04C9A24E6E174F379F4C1581 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
 		9B8D84996694C541CD3434386E0A081A /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C9B19641620A44266703CB7F104828 /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C11A290C9C5866A185A54F1EC04E2BB /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B97A597AFE8B5A90EDFF8560393C46B /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -124,6 +125,7 @@
 		8DF62A1F971FFFC84C36F474CF296297 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
 		8E7BEA442D0794A0DD8886AD418DAB21 /* Pods-Shifu_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9951F9581F0AA51E009248DE /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		99DC2FD021CB8C7E948757CDEB9A7485 /* Pods-Shifu_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Shifu_Tests-dummy.m"; sourceTree = "<group>"; };
 		9D98D758D994D4A1D562A37D42A8728B /* CollectionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		9E3AC27E0819295926C9F8469A817E0E /* LocalStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				42019BE359D74E5BAF713B82D88D4C64 /* Composite.swift */,
+				9951F9591F0AA536009248DE /* CustomUI */,
 				03E4FDF4FD3745A768D15D7E33C9A8CB /* DataManage */,
 				62E5D6037FC5E3EE55814C44797D14FF /* Extensions */,
 				C8E0932939B9091A06FF5B0BEF5E7B6F /* Utils */,
@@ -323,6 +326,14 @@
 			);
 			name = Shifu;
 			path = ../..;
+			sourceTree = "<group>";
+		};
+		9951F9591F0AA536009248DE /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				9951F9581F0AA51E009248DE /* PinterestLayout.swift */,
+			);
+			name = CustomUI;
 			sourceTree = "<group>";
 		};
 		A399DF7CA702D5EAD1764B9276511794 /* Development Pods */ = {
@@ -563,6 +574,7 @@
 				9E7193E943512910312E1218B58A7D9D /* CollectionExtension.swift in Sources */,
 				15BF6B691F025F0900A51732 /* CloudManageable.swift in Sources */,
 				2E9A708E1DF0A94F1EE8C71AD90233BD /* Composite.swift in Sources */,
+				9951F95A1F0AA54F009248DE /* PinterestLayout.swift in Sources */,
 				992A31511F01723B00D6C1D7 /* LocalManageable.swift in Sources */,
 				8E8517BD0BA9D850481F52D827874CC9 /* GlobalFunctions.swift in Sources */,
 				23032713584488FD63627DAC0C89592A /* NSRegularExpressionExtension.swift in Sources */,
