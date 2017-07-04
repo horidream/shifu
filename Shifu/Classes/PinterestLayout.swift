@@ -15,6 +15,8 @@ public protocol PinterestLayoutDelegate {
 public class PinterestLayout:UICollectionViewLayout{
     public var delegate:PinterestLayoutDelegate!
     public var numberOfColumns:Int = 1
+    public var margin:CGFloat = 0
+    public var spacing:CGFloat = 0
     
     private var cache = [UICollectionViewLayoutAttributes]()
     private var contentHeight:CGFloat = 0
@@ -28,10 +30,10 @@ public class PinterestLayout:UICollectionViewLayout{
     
     override public func prepare() {
         if cache.isEmpty{
-            let columnWidth = width/CGFloat(numberOfColumns)
+            let columnWidth = (width - margin*2 - spacing * CGFloat(numberOfColumns - 1))/CGFloat(numberOfColumns)
             var xOffsets = [CGFloat]()
             for i in 0..<numberOfColumns{
-                xOffsets.append(CGFloat(i) * columnWidth)
+                xOffsets.append(margin + CGFloat(i) * (columnWidth + spacing))
             }
             var yOffsets = [CGFloat](repeating:0, count:numberOfColumns)
             var column = 0
@@ -45,6 +47,7 @@ public class PinterestLayout:UICollectionViewLayout{
                 contentHeight = max(contentHeight, frame.maxY)
                 let addmore:Bool = contentHeight == frame.maxY
                 yOffsets[column] += height
+                yOffsets[column] += spacing
                 if(addmore){
                     column = column >= (numberOfColumns-1) ? 0 : column+1
                 }else{
