@@ -1,6 +1,0 @@
-framework module Pods_Shifu_Tests {
-  umbrella header "Pods-Shifu_Tests-umbrella.h"
-
-  export *
-  module * { export * }
-}
