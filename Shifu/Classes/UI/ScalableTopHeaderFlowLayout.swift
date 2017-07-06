@@ -7,12 +7,12 @@
 
 import UIKit
 
-class ScalableTopHeaderFlowLayout: UICollectionViewFlowLayout {
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+open class ScalableTopHeaderFlowLayout: UICollectionViewFlowLayout {
+    override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
     
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let layoutAttrs = super.layoutAttributesForElements(in: rect)
         let offset = self.collectionView!.contentOffset
         if(offset.y < 0)
