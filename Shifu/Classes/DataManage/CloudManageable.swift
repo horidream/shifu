@@ -20,6 +20,7 @@ public struct AsyncResponse{
 
 public protocol CloudManageable {
     static var cloudStorage:CloudStorage { get }
+    var record:CKRecord? {get set}
     func cloudSave(complete:@escaping(AsyncResponse)->Void)
     func cloudDelete(complete:@escaping(AsyncResponse)->Void)
     init(_ record:CKRecord)
