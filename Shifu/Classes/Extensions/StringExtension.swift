@@ -17,7 +17,7 @@ public extension String{
     
     public func substring(with range:Range<Int>)->String{
         let r = Range<String.Index>(self.index(self.startIndex, offsetBy: range.lowerBound) ..< self.index(self.startIndex, offsetBy: range.upperBound))
-        return self.substring(with: r)
+        return String(self[r])
     }
     
     public subscript(n: Int)->String?{
@@ -29,7 +29,7 @@ public extension String{
         let idx = n >= 0 ? self.index(startIndex, offsetBy: n) : self.index(endIndex, offsetBy: n)
         let idxAdv = index(after: idx)
         let charRange = idx..<idxAdv
-        return self.substring(with: charRange)
+        return String(self[charRange])
     }
     
     
@@ -40,7 +40,7 @@ public extension String{
             self.index(startIndex, offsetBy: fromIntValue, limitedBy: endIndex) : self.index(endIndex, offsetBy: fromIntValue, limitedBy: startIndex)
         
         let toIdx = toIntValue >= 0 ? self.index(startIndex, offsetBy: toIntValue, limitedBy: endIndex) : self.index(endIndex, offsetBy: toIntValue, limitedBy: startIndex)
-        return self.substring(with: fromIdx!..<toIdx!)
+        return String(self[fromIdx!..<toIdx!])
     }
     
     public func trans(with transform:CFString = kCFStringTransformToLatin, reverse:Bool = false)->String{
@@ -54,11 +54,11 @@ public extension String{
         CFStringTransform(mutableString as CFMutableString, nil, kCFStringTransformToLatin, false)
         let pinyinString = mutableString.folding(options: String.CompareOptions.diacriticInsensitive, locale: NSLocale.current)
         let strPinYin = pinyinString.uppercased()
-        let firstString = strPinYin.substring(to: strPinYin.index(strPinYin.startIndex, offsetBy:1))
+        let firstString = String(strPinYin[..<strPinYin.index(strPinYin.startIndex, offsetBy:1)])
         let regexA = "^[A-Z]$"
         let predA = NSPredicate.init(format: "SELF MATCHES %@", regexA)
         return predA.evaluate(with: firstString) ? firstString : "#"
-
+        
     }
     
     
