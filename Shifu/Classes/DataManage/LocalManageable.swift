@@ -13,7 +13,7 @@ public protocol LocalManageable {
     var id:Int64? { get  set }
     static var localStorage:LocalStorage { get }
     
-    func create()->Int64?
+    mutating func create()
     func update()
     func delete()
     
@@ -31,7 +31,7 @@ public extension LocalManageable{
         if id != nil{
             update()
         }else{
-            id = create()
+            create()
         }
     }
     
