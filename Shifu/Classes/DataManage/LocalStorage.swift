@@ -31,6 +31,14 @@ public class LocalStorage {
         db.executeStatements("CREATE TABLE IF NOT EXISTS \(table) (\(schema))")
     }
     
+    public func fetch<T:LocalManageable>(_ query:String, args:[Any]! = [])->[T]{
+        return self.query(query, args: args) { (rst) -> T? in
+            return T.init(rst)
+        }
+    }
+    
+    
+    
     public func exe(_ sql:String, args:[Any]! = nil)->Bool{
         if args == nil || args.count == 0{
             return db.executeStatements(sql)
@@ -65,3 +73,5 @@ public class LocalStorage {
         db.executeStatements("delete from \(table)")
     }
 }
+
+

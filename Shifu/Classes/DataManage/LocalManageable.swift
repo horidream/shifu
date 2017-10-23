@@ -7,44 +7,51 @@
 //
 
 import Foundation
+import CloudKit
 import FMDB
 
-public protocol LocalManageable {
-    var id:Int64? { get  set }
-    static var localStorage:LocalStorage { get }
+
+public protocol LocalManageableDelegate{
     
+    var localStorage:LocalStorage{get}
     mutating func create()
     func update()
     func delete()
     
-    init(_ rst:FMResultSet)
 }
 
-public extension LocalManageable{
-    public static func fetch(_ query:String, args:[Any]! = [])->[Self]{
-        return localStorage.query(query, args: args) { (rst) -> Self? in
-            return self.init(rst)
-        }
-    }
+public protocol CloudManageableDelegate{
+    mutating func create(complete:@escaping(AsyncResponse)->Void)
+    func update(complete:@escaping(AsyncResponse)->Void)
+    func delegate(complete:@escaping(AsyncResponse)->Void)
+}
+
+public protocol Manageable {
+    var localDelegate:LocalManageableDelegate? { get set }
+    var cloudDelegate:CloudManageableDelegate? {get set}
+    var id:Int64? { get }
+    var record:CKRecord? {get set}
+    init(_ rst:FMResultSet)
+    init(_ record:CKRecord)
     
+    
+}
+
+public extension Manageable{
     public mutating func save(){
         if id != nil{
-            update()
+            localDelegate?.update()
         }else{
-            create()
+            localDelegate?.create()
         }
     }
     
     public func delete(){
         if let id = id{
-            _ = self.localStorage.exe("delete from ? where id = ?", args: [self.tableName, id])
+            _ = localDelegate?.localStorage.exe("delete from ? where id = ?", args: [self.tableName, id])
         }
     }
-    
-    public var localStorage:LocalStorage  {
-        return Self.localStorage
-    }
-    
+
     public var tableName:String {
         return String(describing: type(of: self))
     }
