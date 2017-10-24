@@ -31,7 +31,7 @@ public class LocalStorage {
         db.executeStatements("CREATE TABLE IF NOT EXISTS \(table) (\(schema))")
     }
     
-    public func fetch<T:LocalManageable>(_ query:String, args:[Any]! = [])->[T]{
+    public func fetch<T:Manageable>(_ query:String, args:[Any]! = [])->[T]{
         return self.query(query, args: args) { (rst) -> T? in
             return T.init(rst)
         }

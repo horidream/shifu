@@ -20,36 +20,59 @@ public protocol LocalManageableDelegate{
     
 }
 
-public protocol CloudManageableDelegate{
-    mutating func create(complete:@escaping(AsyncResponse)->Void)
-    func update(complete:@escaping(AsyncResponse)->Void)
-    func delegate(complete:@escaping(AsyncResponse)->Void)
+
+public struct AsyncResponse{
+    public let success:Bool
+    public let payload:Any!
+    public init(success:Bool, payload:Any!){
+        self.success = success
+        self.payload = payload
+    }
 }
 
-public protocol Manageable {
+public protocol CloudManageableDelegate{
+    var cloudStorage:CloudStorage{get}
+    mutating func create(complete:@escaping(AsyncResponse)->Void)
+    func update(complete:@escaping(AsyncResponse)->Void)
+    func delete(complete:@escaping(AsyncResponse)->Void)
+}
+
+
+public protocol LocalManageable{
     var localDelegate:LocalManageableDelegate? { get set }
-    var cloudDelegate:CloudManageableDelegate? {get set}
     var id:Int64? { get }
-    var record:CKRecord? {get set}
     init(_ rst:FMResultSet)
+}
+
+public protocol CloudManageable{
+    var cloudDelegate:CloudManageableDelegate? {get set}
+    var record:CKRecord? {get set}
     init(_ record:CKRecord)
-    
-    
+}
+
+public protocol Manageable: LocalManageable, CloudManageable {
 }
 
 public extension Manageable{
     public mutating func save(){
         if id != nil{
             localDelegate?.update()
+            cloudDelegate?.update(complete: { (response) in
+                // to do
+            })
         }else{
             localDelegate?.create()
+            cloudDelegate?.create(complete: { (response) in
+                // to do
+            })
         }
     }
     
-    public func delete(){
-        if let id = id{
-            _ = localDelegate?.localStorage.exe("delete from ? where id = ?", args: [self.tableName, id])
-        }
+    public func remove(){
+        localDelegate?.delete()
+        cloudDelegate?.delete(complete: { (response) in
+            // to do
+        })
     }
 
     public var tableName:String {
