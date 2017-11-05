@@ -10,7 +10,7 @@ public extension String{
     
     public func replace(pattern:String, with template:String, options:NSRegularExpression.Options = [])->String{
         if let reg = try? NSRegularExpression(pattern: pattern, options: options){
-            return reg.stringByReplacingMatches(in:self, options:[], range:NSRange(0..<self.characters.count), withTemplate: template)
+            return reg.stringByReplacingMatches(in:self, options:[], range:NSRange(0..<self.count), withTemplate: template)
         }
         return self
     }
