@@ -19,7 +19,7 @@ public class LocalStorage {
     }
     
     public init(filename:String){
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory,.userDomainMask, true)
         let path = paths.first!.appending("/\(filename)")
         db = FMDatabase(path: path)
         db.open()
