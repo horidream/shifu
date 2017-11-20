@@ -2,13 +2,13 @@
 
 import UIKit
 import Shifu
-import FMDB
 
-let m = CGAffineTransform.identity
-print(m)
+var s = "file:///var/mobile/Containers/Data/Application/F1C402B0-FBE4-402E-8C4D-730826B60D90/Documents/Documents/Inbox/Chapter%2001%20-%20The%20Boy%20Who%20Lived.mp3"
+
+let s1 = "file:///var/mobile/Containers/Data/Application/F1C402B0-FBE4-402E-8C4D-730826B60D90/Documents"
+
+let s2 = s.removeSubrange(s.range(of: s1)!)
+print(s)
 
 
-199.cgFloat
-
-m.rotated(by: 45.toRadian()).translatedBy(x: 12, y: 34)
 
