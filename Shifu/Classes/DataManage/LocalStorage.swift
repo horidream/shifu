@@ -18,9 +18,12 @@ public class LocalStorage {
         return db.lastInsertRowId
     }
     
-    public init(filename:String){
+    public init(filename:String, overwritten:Bool = false){
         let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory,.userDomainMask, true)
         let path = paths.first!.appending("/\(filename)")
+        if(overwritten){
+            try? FileManager.default.removeItem(at: URL(fileURLWithPath: path))
+        }
         db = FMDatabase(path: path)
         db.open()
     }
@@ -40,10 +43,16 @@ public class LocalStorage {
     
     
     public func exe(_ sql:String, args:[Any]! = nil)->Bool{
+        var result:Bool
         if args == nil || args.count == 0{
-            return db.executeStatements(sql)
+            result = db.executeStatements(sql)
+        }else{
+            result = db.executeUpdate(sql, withArgumentsIn: args)
         }
-        return db.executeUpdate(sql, withArgumentsIn: args)
+        if(!result){
+            print(db.lastError())
+        }
+        return result
     }
     
     public func rowExists(id:Int64)->Bool{
@@ -71,6 +80,10 @@ public class LocalStorage {
     
     public func clear(tableName table:String){
         db.executeStatements("delete from \(table)")
+    }
+    
+    public func delete(){
+        
     }
 }
 
