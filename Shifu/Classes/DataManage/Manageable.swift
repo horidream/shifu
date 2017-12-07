@@ -14,9 +14,9 @@ import FMDB
 public protocol LocalManageableDelegate{
     
     var localStorage:LocalStorage{get}
-    mutating func create()
-    func update()
-    func delete()
+    mutating func create(_:LocalManageable)
+    mutating func update(_:LocalManageable)
+    mutating func delete(_:LocalManageable)
     
 }
 
@@ -32,15 +32,15 @@ public struct AsyncResponse{
 
 public protocol CloudManageableDelegate{
     var cloudStorage:CloudStorage{get}
-    mutating func create(complete:@escaping(AsyncResponse)->Void)
-    func update(complete:@escaping(AsyncResponse)->Void)
-    func delete(complete:@escaping(AsyncResponse)->Void)
+    mutating func create(_:CloudManageable, complete:@escaping(AsyncResponse)->Void)
+    func update(_:CloudManageable, complete:@escaping(AsyncResponse)->Void)
+    func delete(_:CloudManageable, complete:@escaping(AsyncResponse)->Void)
 }
 
 
 public protocol LocalManageable{
     var localDelegate:LocalManageableDelegate? { get set }
-    var id:Int64? { get }
+    var id:Int64? {get set}
     init(_ rst:FMResultSet)
 }
 
@@ -55,22 +55,24 @@ public protocol Manageable: LocalManageable, CloudManageable {
 
 public extension Manageable{
     public mutating func save(){
+        let this = self
         if id != nil{
-            localDelegate?.update()
-            cloudDelegate?.update(complete: { (response) in
+            localDelegate?.update(this)
+            cloudDelegate?.update(this,complete: { (response) in
                 // to do
             })
         }else{
-            localDelegate?.create()
-            cloudDelegate?.create(complete: { (response) in
+            localDelegate?.create(this)
+            cloudDelegate?.create(this, complete: { (response) in
                 // to do
             })
         }
     }
     
-    public func remove(){
-        localDelegate?.delete()
-        cloudDelegate?.delete(complete: { (response) in
+    mutating public func delete(){
+        let this = self
+        localDelegate?.delete(this)
+        cloudDelegate?.delete(this, complete: { (response) in
             // to do
         })
     }
