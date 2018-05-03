@@ -11,7 +11,7 @@ import Foundation
 
 
 
-public struct qrcode {
+public class qrcode {
     public static func make(_ str:String, width:CGFloat = 0, height:CGFloat = 0) -> UIImage?
     {
         let data = str.data(using: String.Encoding.utf8, allowLossyConversion: false)

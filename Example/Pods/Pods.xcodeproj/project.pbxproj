@@ -30,6 +30,12 @@
 		91B61A906B4B7409285275F1B580E872 /* CloudUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA3954BD5D6F09A6BABE2967FA45201 /* CloudUtil.swift */; };
 		9490C6F96AFB79A6B0B9ED400C090D57 /* Shifu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5610E66D08DBBAD1861E32B171B3F177 /* Shifu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E70B43FC04BC99AED1BBD4FB1D7581 /* FMDB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 774678108D22A09213789D973E2051AC /* FMDB-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99976DAD209A1D42004AB8D4 /* os.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DAC209A1D42004AB8D4 /* os.swift */; };
+		99976DAF209A2833004AB8D4 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DAE209A2833004AB8D4 /* URLExtension.swift */; };
+		99976DB1209B4DB5004AB8D4 /* UITraitCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DB0209B4DB5004AB8D4 /* UITraitCollectionExtension.swift */; };
+		99976DB3209B4DE4004AB8D4 /* QuickSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DB2209B4DE4004AB8D4 /* QuickSetter.swift */; };
+		99976DB5209B508C004AB8D4 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DB4209B508C004AB8D4 /* UIDeviceExtension.swift */; };
+		99976DB7209B50C5004AB8D4 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DB6209B50C5004AB8D4 /* DispatchQueue.swift */; };
 		99DDA4B920276C4F00DF72D9 /* EnumExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DDA4B820276C4F00DF72D9 /* EnumExtension.swift */; };
 		9AA425FB04C9A24E6E174F379F4C1581 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
 		9B8D84996694C541CD3434386E0A081A /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C9B19641620A44266703CB7F104828 /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -111,6 +117,12 @@
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95C209A5A3D33A6E5BF7612BF2F52441 /* UIColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		9659C06CA9893617CC72FC2580D54D68 /* Pods-Shifu_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Shifu_Example-dummy.m"; sourceTree = "<group>"; };
+		99976DAC209A1D42004AB8D4 /* os.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = os.swift; sourceTree = "<group>"; };
+		99976DAE209A2833004AB8D4 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		99976DB0209B4DB5004AB8D4 /* UITraitCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITraitCollectionExtension.swift; sourceTree = "<group>"; };
+		99976DB2209B4DE4004AB8D4 /* QuickSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSetter.swift; sourceTree = "<group>"; };
+		99976DB4209B508C004AB8D4 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
+		99976DB6209B50C5004AB8D4 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		99DDA4B820276C4F00DF72D9 /* EnumExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumExtension.swift; sourceTree = "<group>"; };
 		9C03D4622DFCFDD7DA7AAE364F8023A4 /* Pods-Shifu_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Shifu_Example.modulemap"; sourceTree = "<group>"; };
 		9C0A01F8E16526405263EBFE86396F52 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -240,6 +252,10 @@
 				95C209A5A3D33A6E5BF7612BF2F52441 /* UIColorExtension.swift */,
 				4FD2ECAC74600E9930FD384F40B04551 /* UIImageExtension.swift */,
 				99DDA4B820276C4F00DF72D9 /* EnumExtension.swift */,
+				99976DAE209A2833004AB8D4 /* URLExtension.swift */,
+				99976DB0209B4DB5004AB8D4 /* UITraitCollectionExtension.swift */,
+				99976DB4209B508C004AB8D4 /* UIDeviceExtension.swift */,
+				99976DB6209B50C5004AB8D4 /* DispatchQueue.swift */,
 			);
 			name = Extensions;
 			path = Shifu/Classes/Extensions;
@@ -312,6 +328,8 @@
 				4DA3954BD5D6F09A6BABE2967FA45201 /* CloudUtil.swift */,
 				4017A807A82A88285673C87FD91E93B5 /* GlobalFunctions.swift */,
 				9CD7C0468A143BADE578050E80C553EE /* qrcode.swift */,
+				99976DAC209A1D42004AB8D4 /* os.swift */,
+				99976DB2209B4DE4004AB8D4 /* QuickSetter.swift */,
 			);
 			name = Utils;
 			path = Shifu/Classes/Utils;
@@ -463,7 +481,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0930;
 				TargetAttributes = {
 					251BAD17812F7EBF6532EACF66F941C3 = {
 						LastSwiftMigration = 0920;
@@ -516,6 +534,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99976DB5209B508C004AB8D4 /* UIDeviceExtension.swift in Sources */,
+				99976DB3209B4DE4004AB8D4 /* QuickSetter.swift in Sources */,
 				A72E2033498BECFA1E2639EEDCBCBFD5 /* Announcer.swift in Sources */,
 				CB3FA5AC24BB6DF0B266E6EEF17F6BAD /* CALayerExtension.swift in Sources */,
 				523A7AB8E1B0142A5DF9551E06C99A6A /* CGFloatExtension.swift in Sources */,
@@ -523,12 +543,16 @@
 				91B61A906B4B7409285275F1B580E872 /* CloudUtil.swift in Sources */,
 				014964D7E4942048C92E6AFCEAF4ACDF /* CollectionExtension.swift in Sources */,
 				047723D007AA9EDF213BC03D340B1E56 /* Composite.swift in Sources */,
+				99976DAD209A1D42004AB8D4 /* os.swift in Sources */,
 				C2F9F7990B38CF27452D887A17127305 /* GlobalFunctions.swift in Sources */,
+				99976DB7209B50C5004AB8D4 /* DispatchQueue.swift in Sources */,
 				2C45EC7973BACE1D011D697FEDD9FDE4 /* LocalStorage.swift in Sources */,
 				40565C34BE50592E8EFF8F0A5FA45E82 /* Manageable.swift in Sources */,
+				99976DAF209A2833004AB8D4 /* URLExtension.swift in Sources */,
 				4E05EC55CF24F8DF7962E5827A894BE8 /* Notification+Names.swift in Sources */,
 				9C304B009EE97D85747CDB6BBCB34924 /* NSRegularExpressionExtension.swift in Sources */,
 				3863251C7C0AF0ED6D398AB1D267384D /* PinterestLayout.swift in Sources */,
+				99976DB1209B4DB5004AB8D4 /* UITraitCollectionExtension.swift in Sources */,
 				27C5A658B56F0D65E3405302234AC75E /* qrcode.swift in Sources */,
 				83DA183B8336F35F8C817A5AA1EACEEC /* RoundedCornersView.swift in Sources */,
 				F2F21A81BF782AA45E5E25D129A21317 /* ScalableTopHeaderFlowLayout.swift in Sources */,
@@ -609,6 +633,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -616,6 +641,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -733,6 +759,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -740,6 +767,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
