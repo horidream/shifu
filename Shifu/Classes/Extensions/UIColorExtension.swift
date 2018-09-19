@@ -44,7 +44,7 @@ public extension UIColor {
 
 public struct ui{
     
-    public static func blurView(frame:CGRect, style:UIBlurEffectStyle = .light) -> UIVisualEffectView{
+    public static func blurView(frame:CGRect, style:UIBlurEffect.Style = .light) -> UIVisualEffectView{
         let blur = UIBlurEffect(style: style)
         let ev = UIVisualEffectView(effect: blur)
         ev.frame = frame

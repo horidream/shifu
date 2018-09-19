@@ -16,7 +16,7 @@ public extension String{
     }
     
     public func substring(with range:Range<Int>)->String{
-        let r = Range<String.Index>(self.index(self.startIndex, offsetBy: range.lowerBound) ..< self.index(self.startIndex, offsetBy: range.upperBound))
+        let r = self.index(self.startIndex, offsetBy: range.lowerBound) ..< self.index(self.startIndex, offsetBy: range.upperBound)
         return String(self[r])
     }
     
@@ -67,9 +67,9 @@ public extension String{
         let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.alignment = .left
         let attr = [
-            NSAttributedStringKey.font: font,
-            NSAttributedStringKey.foregroundColor: fontColor,
-            NSAttributedStringKey.paragraphStyle: style
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: fontColor,
+            NSAttributedString.Key.paragraphStyle: style
         ]
         
         let size = self.size(withAttributes: attr)

@@ -32,7 +32,7 @@ public class CloudStorage{
         fetch(query, callback: callback)
     }
     
-    public func query(_ query:CKQuery, zoneId:CKRecordZoneID? = nil, callback:@escaping ([CKRecord], Error?)->Void){
+    public func query(_ query:CKQuery, zoneId:CKRecordZone.ID? = nil, callback:@escaping ([CKRecord], Error?)->Void){
         privateDB.perform(query, inZoneWith: zoneId) { (records, error) in
             let empty = Array<CKRecord>()
             if error == nil{
@@ -43,7 +43,7 @@ public class CloudStorage{
         }
     }
     
-    public func modify(recordsToSave records: [CKRecord]?, recordIDsToDelete recordIDs: [CKRecordID]? = nil, callback:(([CKRecord]?, [CKRecordID]?, Error?) -> Void)?){
+    public func modify(recordsToSave records: [CKRecord]?, recordIDsToDelete recordIDs: [CKRecord.ID]? = nil, callback:(([CKRecord]?, [CKRecord.ID]?, Error?) -> Void)?){
         
         let op = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: recordIDs)
         op.modifyRecordsCompletionBlock = callback

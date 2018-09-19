@@ -17,7 +17,7 @@ open class ScalableTopHeaderFlowLayout: UICollectionViewFlowLayout {
         let offset = self.collectionView!.contentOffset
         if(offset.y < 0)
         {
-            if let attr = layoutAttrs?.first(where: { $0.representedElementKind == UICollectionElementKindSectionHeader})
+            if let attr = layoutAttrs?.first(where: { $0.representedElementKind == UICollectionView.elementKindSectionHeader})
             {
                 var frame = attr.frame
                 frame.size.height = max(0, headerReferenceSize.height + fabs(offset.y))
