@@ -11,7 +11,7 @@ import Foundation
 
 
 public extension UIColor {
-    public convenience init(_ hexValue:UInt, alpha:CGFloat = 1.0) {
+    convenience init(_ hexValue:UInt, alpha:CGFloat = 1.0) {
         let r = CGFloat(hexValue >> 16 & 0xFF)/255.0
         let g = CGFloat(hexValue >> 8 & 0xFF)/255.0
         let b = CGFloat(hexValue >> 0 & 0xFF)/255.0
@@ -19,7 +19,7 @@ public extension UIColor {
     }
     
     
-    public var hexValue: Int? {
+    var hexValue: Int? {
         var fRed : CGFloat = 0
         var fGreen : CGFloat = 0
         var fBlue : CGFloat = 0
@@ -53,7 +53,7 @@ public struct ui{
 }
 
 public extension Int{
-    public func toColor()->UIColor{
+    func toColor()->UIColor{
         return UIColor(UInt(self))
     }
 }

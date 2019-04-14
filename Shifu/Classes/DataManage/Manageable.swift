@@ -54,7 +54,7 @@ public protocol Manageable: LocalManageable, CloudManageable {
 }
 
 public extension Manageable{
-    public mutating func save(){
+    mutating func save(){
         let this = self
         if id != nil{
             localDelegate?.update(this)
@@ -69,7 +69,7 @@ public extension Manageable{
         }
     }
     
-    mutating public func delete(){
+    mutating func delete(){
         let this = self
         localDelegate?.delete(this)
         cloudDelegate?.delete(this, complete: { (response) in
@@ -77,7 +77,7 @@ public extension Manageable{
         })
     }
 
-    public var tableName:String {
+    var tableName:String {
         return String(describing: type(of: self))
     }
     

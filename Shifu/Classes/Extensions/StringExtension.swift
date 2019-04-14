@@ -8,19 +8,19 @@
 
 public extension String{
     
-    public func replace(pattern:String, with template:String, options:NSRegularExpression.Options = [])->String{
+    func replace(pattern:String, with template:String, options:NSRegularExpression.Options = [])->String{
         if let reg = try? NSRegularExpression(pattern: pattern, options: options){
             return reg.stringByReplacingMatches(in:self, options:[], range:NSRange(0..<self.count), withTemplate: template)
         }
         return self
     }
     
-    public func substring(with range:Range<Int>)->String{
+    func substring(with range:Range<Int>)->String{
         let r = self.index(self.startIndex, offsetBy: range.lowerBound) ..< self.index(self.startIndex, offsetBy: range.upperBound)
         return String(self[r])
     }
     
-    public subscript(n: Int)->String?{
+    subscript(n: Int)->String?{
         
         let dis = self.distance(from:startIndex, to: endIndex)
         if(n > dis || n < -(dis + 1)){
@@ -33,7 +33,7 @@ public extension String{
     }
     
     
-    public subscript(range:Range<Int>)->String{
+    subscript(range:Range<Int>)->String{
         let fromIntValue = range.lowerBound
         let toIntValue = range.upperBound
         let fromIdx = fromIntValue >= 0 ?
@@ -43,13 +43,13 @@ public extension String{
         return String(self[fromIdx!..<toIdx!])
     }
     
-    public func trans(with transform:CFString = kCFStringTransformToLatin, reverse:Bool = false)->String{
+    func trans(with transform:CFString = kCFStringTransformToLatin, reverse:Bool = false)->String{
         let temp = NSMutableString(string:self)
         CFStringTransform(temp as CFMutableString, nil, transform, reverse)
         return temp as String
     }
     
-    public var leadingLetter:String{
+    var leadingLetter:String{
         let mutableString = NSMutableString.init(string: self)
         CFStringTransform(mutableString as CFMutableString, nil, kCFStringTransformToLatin, false)
         let pinyinString = mutableString.folding(options: String.CompareOptions.diacriticInsensitive, locale: NSLocale.current)
@@ -62,7 +62,7 @@ public extension String{
     }
     
     
-    public func image(_ fontFamily:String, fontSize:CGFloat, fontColor:UIColor = .blue) -> UIImage{
+    func image(_ fontFamily:String, fontSize:CGFloat, fontColor:UIColor = .blue) -> UIImage{
         let font = UIFont(name: fontFamily, size: fontSize)!
         let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.alignment = .left

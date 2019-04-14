@@ -10,7 +10,7 @@ import Foundation
 
 public extension NSRegularExpression{
     
-    public func findall(_ string:String, options:NSRegularExpression.MatchingOptions = [])->[[String]]{
+    func findall(_ string:String, options:NSRegularExpression.MatchingOptions = [])->[[String]]{
         let matches = self.matches(in: string, options: options, range:NSMakeRange(0, string.utf16.count))
         var result:[[String]] = []
         for m in matches as [NSTextCheckingResult]{

@@ -9,7 +9,7 @@
 
 public extension UIImage{
     
-    public func getPixelColor(at pos: CGPoint) -> UIColor {
+    func getPixelColor(at pos: CGPoint) -> UIColor {
         
         let pixelData = self.cgImage!.dataProvider!.data
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
@@ -24,7 +24,7 @@ public extension UIImage{
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }  
     
-    public var hasAlphaChannel:Bool {
+    var hasAlphaChannel:Bool {
         get{
             let alpha = self.cgImage?.alphaInfo;
             return (alpha == .first ||
@@ -35,13 +35,13 @@ public extension UIImage{
         
     }
     
-    public func resizedImage(scaleX:CGFloat, scaleY:CGFloat, smoothing:Bool = false) -> UIImage?{
+    func resizedImage(scaleX:CGFloat, scaleY:CGFloat, smoothing:Bool = false) -> UIImage?{
         let w = self.size.width * scaleX
         let h = self.size.height * scaleY
         return resizedImage(width: w, height: h)
     }
     
-    public func resizedImage(width:CGFloat, height:CGFloat, smoothing:Bool = false) -> UIImage?{
+    func resizedImage(width:CGFloat, height:CGFloat, smoothing:Bool = false) -> UIImage?{
         
         let size = CGSize(width: width, height: height)
         UIGraphicsBeginImageContextWithOptions(size, hasAlphaChannel, 0)

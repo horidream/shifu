@@ -7,445 +7,478 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		014964D7E4942048C92E6AFCEAF4ACDF /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65AF37F9BB46FE4EE586B3539C97DB /* CollectionExtension.swift */; };
-		047723D007AA9EDF213BC03D340B1E56 /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F244AE16F656DA73D14322F8400E386 /* Composite.swift */; };
-		0F3527178907C9238EE35C8397D9D1DF /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D3018BC3C420C907F916037D58F2A8 /* CloudStorage.swift */; };
-		22554065FA07F1BFE5308A685394CB12 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 351F8E59854BCD39585AB8A055AC2F52 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22A36A8EFCBAAF93AA9EB6D0706CD3F3 /* Pods-Shifu_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C5B96CCBC2EADEAFD2C9493E1117C36 /* Pods-Shifu_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		27C5A658B56F0D65E3405302234AC75E /* qrcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD7C0468A143BADE578050E80C553EE /* qrcode.swift */; };
-		2C45EC7973BACE1D011D697FEDD9FDE4 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543CF68A4FAADD5B03BBE604C4602755 /* LocalStorage.swift */; };
-		369DD6C8C380500F704902A058DBABE6 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD19FDD77FFE69070EA1A463FE57F64 /* StringExtension.swift */; };
-		37F097E2269EF1BD238AD7449D796445 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = ED48C0E1AA39302CCDD55032B7544B36 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		3863251C7C0AF0ED6D398AB1D267384D /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D1C4481771E7DFDCC76925FD4A3981 /* PinterestLayout.swift */; };
-		3E43906B70EB01C06F3AE17008B853B9 /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = F1F546D17BEE96A3AC80F5733BACB23C /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		40565C34BE50592E8EFF8F0A5FA45E82 /* Manageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D284AADB85D1BCFBF37ADD3337E357 /* Manageable.swift */; };
-		4C77955958CB05D662DDE2ABA6ECB91C /* Shifu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EA75D2CCB1F5EFAD642EB62436751D /* Shifu-dummy.m */; };
-		4E05EC55CF24F8DF7962E5827A894BE8 /* Notification+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECFB7BAE033B9DB797BD428ED56682D /* Notification+Names.swift */; };
-		523A7AB8E1B0142A5DF9551E06C99A6A /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13C5AA5B58CF8D93CF4735420DDCD94 /* CGFloatExtension.swift */; };
-		67BACD77B18C45219BE8331B1D4E11B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
-		72563ADE99DC9E753B27D48B16AA3654 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
-		83DA183B8336F35F8C817A5AA1EACEEC /* RoundedCornersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B64152DF75ECC740EA404A635350C /* RoundedCornersView.swift */; };
-		87ECA447DB887426665260651B7F147E /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF62A1F971FFFC84C36F474CF296297 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		90DB63C9C76F76B4DC8496CB51D0DFFC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0078E8D5A781B47986A348FBCC779CF6 /* FMDB.framework */; };
-		91B61A906B4B7409285275F1B580E872 /* CloudUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA3954BD5D6F09A6BABE2967FA45201 /* CloudUtil.swift */; };
-		9490C6F96AFB79A6B0B9ED400C090D57 /* Shifu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5610E66D08DBBAD1861E32B171B3F177 /* Shifu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		96E70B43FC04BC99AED1BBD4FB1D7581 /* FMDB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 774678108D22A09213789D973E2051AC /* FMDB-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		99976DAD209A1D42004AB8D4 /* os.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DAC209A1D42004AB8D4 /* os.swift */; };
-		99976DAF209A2833004AB8D4 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DAE209A2833004AB8D4 /* URLExtension.swift */; };
-		99976DB1209B4DB5004AB8D4 /* UITraitCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DB0209B4DB5004AB8D4 /* UITraitCollectionExtension.swift */; };
-		99976DB3209B4DE4004AB8D4 /* QuickSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DB2209B4DE4004AB8D4 /* QuickSetter.swift */; };
-		99976DB5209B508C004AB8D4 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DB4209B508C004AB8D4 /* UIDeviceExtension.swift */; };
-		99976DB7209B50C5004AB8D4 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99976DB6209B50C5004AB8D4 /* DispatchQueue.swift */; };
-		99DDA4B920276C4F00DF72D9 /* EnumExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DDA4B820276C4F00DF72D9 /* EnumExtension.swift */; };
-		9AA425FB04C9A24E6E174F379F4C1581 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */; };
-		9B8D84996694C541CD3434386E0A081A /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C9B19641620A44266703CB7F104828 /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9C11A290C9C5866A185A54F1EC04E2BB /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B97A597AFE8B5A90EDFF8560393C46B /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9C304B009EE97D85747CDB6BBCB34924 /* NSRegularExpressionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73374EDB42205F04C89806EB673ABE2E /* NSRegularExpressionExtension.swift */; };
-		A1B5D80A8998311B8C9043E6942925E6 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E784FE473275B6CE21E9FC8AE454E /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A548833BE5FAD40830428F36E77D0F52 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BBD76359D36C69E5804A290D1C5ED2 /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A72E2033498BECFA1E2639EEDCBCBFD5 /* Announcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D7290886F8EAE3D703AC6295168D84 /* Announcer.swift */; };
-		C2F9F7990B38CF27452D887A17127305 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4017A807A82A88285673C87FD91E93B5 /* GlobalFunctions.swift */; };
-		C605A44DF96E7FCACF7D6E37B62F795D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D2F8382360C935E0097F1CB2E26820 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		CB3FA5AC24BB6DF0B266E6EEF17F6BAD /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAC84A8B19D258CD6F8BDB61A6CF6A1 /* CALayerExtension.swift */; };
-		CCB74062CE0F4B8E5B7483599BC398DA /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 73E08DD3F409CC910BDF9AAC0E1BEB35 /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D5991941DC41DDDDDACAE0B5D47A4639 /* FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5085BA3C5279C337F6D921E5CAFB1FC /* FMDB-dummy.m */; };
-		DD2BF9E2C5608E7637D5AD0236395B5F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C209A5A3D33A6E5BF7612BF2F52441 /* UIColorExtension.swift */; };
-		DF86F5F0BD225956C019B850E28054C0 /* Pods-Shifu_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9659C06CA9893617CC72FC2580D54D68 /* Pods-Shifu_Example-dummy.m */; };
-		ECB4CEF44A0C2C74B67715CC7263595F /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD2ECAC74600E9930FD384F40B04551 /* UIImageExtension.swift */; };
-		F11FAB91014130EE233A3429439D38D7 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CFEEF64A76609C0E88017B38B7E12DA /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F2F21A81BF782AA45E5E25D129A21317 /* ScalableTopHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650BEE6CCCF0B088460FDBFABBC1835E /* ScalableTopHeaderFlowLayout.swift */; };
+		00B26B9B50B58D5D31952FAD6C7DC2EF /* NSRegularExpressionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E24543381D5095819670DA6E62289F /* NSRegularExpressionExtension.swift */; };
+		096EB2C38C9F260ED93BCB49B0893731 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B05AFB22C641A1D5775F86EE68C4590 /* UIDeviceExtension.swift */; };
+		0AE5075FBC77E1D0D5C960A0C697B7B5 /* Manageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B507B0C4B74F5E8FE9FA989D1F163C /* Manageable.swift */; };
+		0C35EA82ECB4A24D772C66EB076F7867 /* FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 47926A06A2D53C6F1394CF0958D11EA4 /* FMDB-dummy.m */; };
+		0FDDD0F0F1F8AFB3DD2B7754252C64B9 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71F12BCD7F25AA3A7E8E7C1A8E94BE9 /* GlobalFunctions.swift */; };
+		1397BED2C2F31BB84DF990604A3E89DD /* CloudUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8A628D5CC233EEEB8710CD65B0EB45 /* CloudUtil.swift */; };
+		162A60FA75B996D7DDEC0DA7DE0DB47A /* Shifu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E5C396EAB120EAD1352B4B9603EEE91 /* Shifu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		25110F5891F548D587A8BCB3AB381FAA /* os.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7173E18E1E4CE232D8C3E098B26A6C /* os.swift */; };
+		25536ACF254DB6C7A1A100FD59AB997D /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43C8CAE7F6CA66ABAE4544AB142412D /* PinterestLayout.swift */; };
+		2BC0F034FDD2774C3DDB9F33E45EFEFB /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = F2750A0CD5EDD8F75CF0C07E8CD8CD8C /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		343B75E1B98C0E4169A0CD82B05480F2 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC1027C2866B067755F3F6D949F982 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		345ED7D1DE224E3C44BEFB66AA77444F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEF768B344F6F590EB3F801121B95EC /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		3D5439A18B02DAA619247AB01A2ADBE1 /* SQLLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B992647FD7C01E75C422A1A16C72995 /* SQLLiteManager.swift */; };
+		4424DF20DB175F8E2CEFFB6BFB84D2F1 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A898FAEED13E73C785BFF98E669CC8F /* FMDB.framework */; };
+		4C2E30B56688FB9D46995A05F45B5BCF /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 68F1D770BBCF81B519B7EA8FD544941C /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F3C21478C8463C954FAFB22BAF07501 /* UITraitCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E92E119E7B2C33415F0FA663FFD78 /* UITraitCollectionExtension.swift */; };
+		51F350351D27944D61231B527D966162 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F37D56E8D79E72DD3E0AD00360FF5 /* URLExtension.swift */; };
+		5215772700B8A6F0A349C7CAD06F153A /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ABD771DD9F2D611D79D925C56966BC /* LocalStorage.swift */; };
+		55C804E1E4D654E7B51280F0E5C9E036 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E897571004DC997B7067AC70B335F515 /* Foundation.framework */; };
+		690BD92BABEC22F6FF9BACAAD8557937 /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1CF155F1ACBB669DA8E91777B721F2 /* CGFloatExtension.swift */; };
+		6961C88BFCC5C884BBAF15C9AA8F3D73 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBEC95477E7F585C83B906138079D30 /* DispatchQueue.swift */; };
+		6AC11BE94080B9E56634526074341238 /* QuickSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984B33CCF9CD11B0BEE9A6B415A42FBF /* QuickSetter.swift */; };
+		6BA162F850CF5A59143AC3FE0D58CE32 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B8BDA5F2528D6BA445FE29FFEC9976 /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6EA99DC2F76C3B925182E78E9A14F397 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E897571004DC997B7067AC70B335F515 /* Foundation.framework */; };
+		7B32DD732651109C45C9C81B6898E681 /* EnumExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293553C618BB71CEF00F7A80B0BB520E /* EnumExtension.swift */; };
+		7D46A149CF1C0879CB3CAEACF5A6EEA5 /* qrcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591BCAF31B757C165BF4B4DA587E6275 /* qrcode.swift */; };
+		843A80393130C719092B84C3D0482B8B /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC5E47258BD77AC547A4276778F1D5D /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		905D409427500B64217B2072A5A15475 /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F97115D109E3B19A495386F0C530F9 /* CloudStorage.swift */; };
+		9E571E872949B6C830D2663949733F28 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = E173EA81E2FF09192C1354B73CCF50C3 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A059BACEA4B9C7791864C87ED449E9E5 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A403596C092A189B80E9351779DEF0A /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A56741A890C54424400725F184B79EBA /* Shifu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC6FF2A1CB96A1BA603BD560C86DF83 /* Shifu-dummy.m */; };
+		A7CAE29D72842BBD5800DB2A96DE4B0E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473169142618EFAB4A873F48EC76530 /* UIColorExtension.swift */; };
+		ACFD6126741B0F89883688308C5830A9 /* Pods-Shifu_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C07786C466DD2BDA986BA67EDC896258 /* Pods-Shifu_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD94496D2E20CBD2A6837A6F482577D4 /* RoundedCornersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB27E1BC2404524BC897796A118DD8 /* RoundedCornersView.swift */; };
+		B12C773E3E2E728910706A8B0E748C68 /* ScalableTopHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E57476206E6D7A02E5556D9648C50 /* ScalableTopHeaderFlowLayout.swift */; };
+		B2152E19444F3499F643E212D051F8D0 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF545286574ADB3F373E98036A953B9 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BB53D746C4C4DBB294AB844BA34DA615 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44996494198BB482F51204DBA8D120 /* StringExtension.swift */; };
+		CC62F5D730C1558AA151DEC21880119E /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB038D641E746154FD303267533C9A0 /* CALayerExtension.swift */; };
+		CE0A2BE990FF5EA1D0B0AF6281DC422F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E897571004DC997B7067AC70B335F515 /* Foundation.framework */; };
+		CF3FB91F127C44CC859AA59BAD3160F2 /* Announcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F47EC656EA2D99CFF2B4DDB227254A /* Announcer.swift */; };
+		CFE0AB25F9C249B1293F67321CB83C69 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC83A8BF346205DF3FD7289921514C /* CollectionExtension.swift */; };
+		E221A487B8EFD01B814E2AD8E11E8B2F /* Notification+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFEA20E7EBB9764A0709CFE56FEEE79 /* Notification+Names.swift */; };
+		E7A30E51E8F1D20F2D97C515D1D87D27 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AEC16D66C23A31E2709B1B944E2EDA0 /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EBE4098D555B6DF8E362980173B9FFE4 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A1B57CDFAEF1266F62D4A291DC7B9D /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		EDE593D015B59EEADA4ABDC566B50E94 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931C3C6AD58863ACC90C84A9A559A12 /* UIImageExtension.swift */; };
+		F20B46808E7B20CCDC347C8594647E07 /* FMDB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D499175A4E7854C18FFA9FADCC35445 /* FMDB-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5980496E16C96684623B7C9DB111A30 /* Pods-Shifu_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6BE4040CB2DC20B9B62DB904CD92F3 /* Pods-Shifu_Example-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2A59557A86F4362957935005B3FE7E8F /* PBXContainerItemProxy */ = {
+		15FB50FD602E7315F520D5365C3C364C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF2AA78153C8FF11CF9DA9A4850D2DA7;
+			remoteGlobalIDString = 3A97B7E3E280CF1197258404795CE41A;
 			remoteInfo = Shifu;
 		};
-		9C49DD4A52E7BD9D4E8D36E0CB1BCE99 /* PBXContainerItemProxy */ = {
+		72F5371838C608A82DB05DC9C9B60657 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 251BAD17812F7EBF6532EACF66F941C3;
+			remoteGlobalIDString = 9C130CD3AA849E8ADCC55D0BC8E1020E;
 			remoteInfo = FMDB;
 		};
-		BAC594E57FA12C91353498BA8AF8FC64 /* PBXContainerItemProxy */ = {
+		7904D28211D361755BDF465AE91F0C49 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 251BAD17812F7EBF6532EACF66F941C3;
+			remoteGlobalIDString = 9C130CD3AA849E8ADCC55D0BC8E1020E;
 			remoteInfo = FMDB;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0078E8D5A781B47986A348FBCC779CF6 /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		01C9B19641620A44266703CB7F104828 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
-		097E8578690AC022072392F2B5110032 /* Shifu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Shifu.xcconfig; sourceTree = "<group>"; };
-		1F3E784FE473275B6CE21E9FC8AE454E /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
-		322238CE3B732E71B1F2E2DDF92B6299 /* Pods-Shifu_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Example.release.xcconfig"; sourceTree = "<group>"; };
-		351F8E59854BCD39585AB8A055AC2F52 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
-		3D65AF37F9BB46FE4EE586B3539C97DB /* CollectionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
-		4017A807A82A88285673C87FD91E93B5 /* GlobalFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
-		40EA75D2CCB1F5EFAD642EB62436751D /* Shifu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Shifu-dummy.m"; sourceTree = "<group>"; };
-		4354C479350BBA1509C6D542481A0A44 /* Pods-Shifu_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Example-resources.sh"; sourceTree = "<group>"; };
-		4A373E989BC430B8D48C5AAD30E50D65 /* Pods-Shifu_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Example-frameworks.sh"; sourceTree = "<group>"; };
-		4AD19FDD77FFE69070EA1A463FE57F64 /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		4B97A597AFE8B5A90EDFF8560393C46B /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		4DA3954BD5D6F09A6BABE2967FA45201 /* CloudUtil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudUtil.swift; sourceTree = "<group>"; };
-		4EC6987F78D3F8AE685F59BF0B0E66CB /* Pods_Shifu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F8B64152DF75ECC740EA404A635350C /* RoundedCornersView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoundedCornersView.swift; sourceTree = "<group>"; };
-		4FD2ECAC74600E9930FD384F40B04551 /* UIImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
-		543CF68A4FAADD5B03BBE604C4602755 /* LocalStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
-		5610E66D08DBBAD1861E32B171B3F177 /* Shifu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Shifu-umbrella.h"; sourceTree = "<group>"; };
-		57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		5F244AE16F656DA73D14322F8400E386 /* Composite.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Composite.swift; path = Shifu/Classes/Composite.swift; sourceTree = "<group>"; };
-		62F2DC1376D94B8A67641438850B0D29 /* Pods-Shifu_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Shifu_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		63D7290886F8EAE3D703AC6295168D84 /* Announcer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Announcer.swift; sourceTree = "<group>"; };
-		650BEE6CCCF0B088460FDBFABBC1835E /* ScalableTopHeaderFlowLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScalableTopHeaderFlowLayout.swift; sourceTree = "<group>"; };
-		66D3018BC3C420C907F916037D58F2A8 /* CloudStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
-		6CFEEF64A76609C0E88017B38B7E12DA /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
-		73374EDB42205F04C89806EB673ABE2E /* NSRegularExpressionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSRegularExpressionExtension.swift; sourceTree = "<group>"; };
-		73E08DD3F409CC910BDF9AAC0E1BEB35 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
-		774678108D22A09213789D973E2051AC /* FMDB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-umbrella.h"; sourceTree = "<group>"; };
-		776E628441E87CC80C4BCFB4318268DD /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		89AD9289C7818F82D554499ACDBA3803 /* Pods-Shifu_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Shifu_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		8C5B96CCBC2EADEAFD2C9493E1117C36 /* Pods-Shifu_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Shifu_Example-umbrella.h"; sourceTree = "<group>"; };
-		8DF62A1F971FFFC84C36F474CF296297 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		95C209A5A3D33A6E5BF7612BF2F52441 /* UIColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		9659C06CA9893617CC72FC2580D54D68 /* Pods-Shifu_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Shifu_Example-dummy.m"; sourceTree = "<group>"; };
-		99976DAC209A1D42004AB8D4 /* os.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = os.swift; sourceTree = "<group>"; };
-		99976DAE209A2833004AB8D4 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
-		99976DB0209B4DB5004AB8D4 /* UITraitCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITraitCollectionExtension.swift; sourceTree = "<group>"; };
-		99976DB2209B4DE4004AB8D4 /* QuickSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSetter.swift; sourceTree = "<group>"; };
-		99976DB4209B508C004AB8D4 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
-		99976DB6209B50C5004AB8D4 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
-		99DDA4B820276C4F00DF72D9 /* EnumExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumExtension.swift; sourceTree = "<group>"; };
-		9C03D4622DFCFDD7DA7AAE364F8023A4 /* Pods-Shifu_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Shifu_Example.modulemap"; sourceTree = "<group>"; };
-		9C0A01F8E16526405263EBFE86396F52 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9CD7C0468A143BADE578050E80C553EE /* qrcode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = qrcode.swift; sourceTree = "<group>"; };
-		A2D2F8382360C935E0097F1CB2E26820 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
-		A3D1C4481771E7DFDCC76925FD4A3981 /* PinterestLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
-		A82124697E95B25065BF5AC6D962526C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AFAC84A8B19D258CD6F8BDB61A6CF6A1 /* CALayerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
-		B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
-		B5D284AADB85D1BCFBF37ADD3337E357 /* Manageable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Manageable.swift; sourceTree = "<group>"; };
-		B97CC7F7ED98D85D31663DDFAF034BBC /* FMDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FMDB.modulemap; sourceTree = "<group>"; };
-		C13DC78821E9C08BE3FE0BC3A2286F83 /* Shifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4BBD76359D36C69E5804A290D1C5ED2 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		C80DA57F8CD6FA6C1FE9516FC1FCBB41 /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
-		D13C5AA5B58CF8D93CF4735420DDCD94 /* CGFloatExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
-		D5085BA3C5279C337F6D921E5CAFB1FC /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
-		D7309314D1BB1D0DA96A322E1D8F5028 /* Shifu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Shifu.modulemap; sourceTree = "<group>"; };
-		D9599E993889DA0BA07AAFECEB42BD94 /* Pods-Shifu_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		D99BA3EE1283B75CC88A7117558FE02A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DA4295594DDA5DC42D1E2A4EEDCB0D28 /* Shifu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Shifu-prefix.pch"; sourceTree = "<group>"; };
-		DECFB7BAE033B9DB797BD428ED56682D /* Notification+Names.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Notification+Names.swift"; sourceTree = "<group>"; };
-		ED48C0E1AA39302CCDD55032B7544B36 /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
-		F1F546D17BEE96A3AC80F5733BACB23C /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		1BC6FF2A1CB96A1BA603BD560C86DF83 /* Shifu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Shifu-dummy.m"; sourceTree = "<group>"; };
+		1D499175A4E7854C18FFA9FADCC35445 /* FMDB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-umbrella.h"; sourceTree = "<group>"; };
+		26E24543381D5095819670DA6E62289F /* NSRegularExpressionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSRegularExpressionExtension.swift; sourceTree = "<group>"; };
+		26F47EC656EA2D99CFF2B4DDB227254A /* Announcer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Announcer.swift; sourceTree = "<group>"; };
+		293553C618BB71CEF00F7A80B0BB520E /* EnumExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EnumExtension.swift; sourceTree = "<group>"; };
+		2B3E57476206E6D7A02E5556D9648C50 /* ScalableTopHeaderFlowLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScalableTopHeaderFlowLayout.swift; sourceTree = "<group>"; };
+		2ECC1027C2866B067755F3F6D949F982 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		3CFEA20E7EBB9764A0709CFE56FEEE79 /* Notification+Names.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Notification+Names.swift"; sourceTree = "<group>"; };
+		3E5C396EAB120EAD1352B4B9603EEE91 /* Shifu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Shifu-umbrella.h"; sourceTree = "<group>"; };
+		41B8BDA5F2528D6BA445FE29FFEC9976 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		47926A06A2D53C6F1394CF0958D11EA4 /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
+		49802A67673AF325D234CF53A3EA3E24 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		4AEC16D66C23A31E2709B1B944E2EDA0 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
+		4B05AFB22C641A1D5775F86EE68C4590 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
+		513F37D56E8D79E72DD3E0AD00360FF5 /* URLExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		57F315D623A9CA0575F519845F618711 /* Pods-Shifu_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Shifu_Example-frameworks.sh"; sourceTree = "<group>"; };
+		591BCAF31B757C165BF4B4DA587E6275 /* qrcode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = qrcode.swift; sourceTree = "<group>"; };
+		5CCFD208AEEFBA86735279FC6CC03EA5 /* FMDB-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FMDB-Info.plist"; sourceTree = "<group>"; };
+		5EEF768B344F6F590EB3F801121B95EC /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
+		5F44996494198BB482F51204DBA8D120 /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		6521B2CD8DF6BC269079824E2C262BFB /* Pods-Shifu_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Shifu_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		66082809334C56556E351F19E930802A /* Pods-Shifu_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Shifu_Example-Info.plist"; sourceTree = "<group>"; };
+		6642DEE235C1E0A4343E3C6F77258116 /* Pods-Shifu_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Shifu_Example.modulemap"; sourceTree = "<group>"; };
+		66B9520718DA5104B7121969DC07AD8E /* Shifu-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Shifu-Info.plist"; sourceTree = "<group>"; };
+		68F1D770BBCF81B519B7EA8FD544941C /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		6931C3C6AD58863ACC90C84A9A559A12 /* UIImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		71A1B57CDFAEF1266F62D4A291DC7B9D /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		7473169142618EFAB4A873F48EC76530 /* UIColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		7BC5E47258BD77AC547A4276778F1D5D /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
+		7BF545286574ADB3F373E98036A953B9 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		81F97115D109E3B19A495386F0C530F9 /* CloudStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
+		8A898FAEED13E73C785BFF98E669CC8F /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ACB27E1BC2404524BC897796A118DD8 /* RoundedCornersView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoundedCornersView.swift; sourceTree = "<group>"; };
+		8BBEC95477E7F585C83B906138079D30 /* DispatchQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
+		984B33CCF9CD11B0BEE9A6B415A42FBF /* QuickSetter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = QuickSetter.swift; sourceTree = "<group>"; };
+		99C00B0A7381AE45DD719615554EA9D3 /* Pods-Shifu_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Shifu_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9A403596C092A189B80E9351779DEF0A /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
+		9B992647FD7C01E75C422A1A16C72995 /* SQLLiteManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SQLLiteManager.swift; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A58F84EB16BBEF9ACB0D4F1E93A0FF18 /* Shifu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Shifu.xcconfig; sourceTree = "<group>"; };
+		A5B507B0C4B74F5E8FE9FA989D1F163C /* Manageable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Manageable.swift; sourceTree = "<group>"; };
+		A7B933A3CBF11BEA2ED783D1296B1F27 /* Shifu.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = Shifu.podspec; sourceTree = "<group>"; tabWidth = 2; };
+		B06E92E119E7B2C33415F0FA663FFD78 /* UITraitCollectionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UITraitCollectionExtension.swift; sourceTree = "<group>"; };
+		B0DC83A8BF346205DF3FD7289921514C /* CollectionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		B2AAEBF5F44624856BE5E35528CCD3AB /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
+		B3E6D818239007BBEF8E9B54B8D1DF4C /* Shifu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Shifu-prefix.pch"; sourceTree = "<group>"; };
+		B69652FEA0A2319EC45E42A3603E647C /* Pods-Shifu_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		BC89D5AE489219502AB9FC71DAEA0A3A /* Shifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF1CF155F1ACBB669DA8E91777B721F2 /* CGFloatExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
+		BF7173E18E1E4CE232D8C3E098B26A6C /* os.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = os.swift; sourceTree = "<group>"; };
+		C07786C466DD2BDA986BA67EDC896258 /* Pods-Shifu_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Shifu_Example-umbrella.h"; sourceTree = "<group>"; };
+		CAB038D641E746154FD303267533C9A0 /* CALayerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		D59C3CFE07BF9AA77816001BF1019DA9 /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
+		DCF937E868E85A0F1ECF45486F7788C7 /* Pods_Shifu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD8A628D5CC233EEEB8710CD65B0EB45 /* CloudUtil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudUtil.swift; sourceTree = "<group>"; };
+		E0ABD771DD9F2D611D79D925C56966BC /* LocalStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		E173EA81E2FF09192C1354B73CCF50C3 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
+		E71F12BCD7F25AA3A7E8E7C1A8E94BE9 /* GlobalFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		E897571004DC997B7067AC70B335F515 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		ED6BE4040CB2DC20B9B62DB904CD92F3 /* Pods-Shifu_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Shifu_Example-dummy.m"; sourceTree = "<group>"; };
+		EEA17FFC87551019BB7EB506AB0E75AB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F045B102309DF7A8A339A36B00468FD7 /* Shifu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Shifu.modulemap; sourceTree = "<group>"; };
+		F2484E6545112E997612FF93ED1A8118 /* Pods-Shifu_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Shifu_Example.release.xcconfig"; sourceTree = "<group>"; };
+		F2750A0CD5EDD8F75CF0C07E8CD8CD8C /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		F3C4852C7801E29F5FC9F8DEAD5B8471 /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F43C8CAE7F6CA66ABAE4544AB142412D /* PinterestLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		FF4AF7183103BE7DB2862A01CEA8617E /* FMDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FMDB.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1146BD9BE1A6C00AA7375985AC7A77A0 /* Frameworks */ = {
+		64106CA1921ADEE6F2E02D9FFC3E6679 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90DB63C9C76F76B4DC8496CB51D0DFFC /* FMDB.framework in Frameworks */,
-				9AA425FB04C9A24E6E174F379F4C1581 /* Foundation.framework in Frameworks */,
+				4424DF20DB175F8E2CEFFB6BFB84D2F1 /* FMDB.framework in Frameworks */,
+				CE0A2BE990FF5EA1D0B0AF6281DC422F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		69EDDA3CAC528CE98530CBEFEF9E776A /* Frameworks */ = {
+		789752D5FC98988B9688B56BC14E9775 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67BACD77B18C45219BE8331B1D4E11B7 /* Foundation.framework in Frameworks */,
+				55C804E1E4D654E7B51280F0E5C9E036 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEFB61A65EB8DA6653B544822EB9CE44 /* Frameworks */ = {
+		CC7027CB7D7CB7C116E8D038FFD8A756 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72563ADE99DC9E753B27D48B16AA3654 /* Foundation.framework in Frameworks */,
+				6EA99DC2F76C3B925182E78E9A14F397 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		094EA278CAC4E7FAD4095BC1E6837C93 /* UI */ = {
+		2077B3504861AEA10CCD2604110A6847 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				A3D1C4481771E7DFDCC76925FD4A3981 /* PinterestLayout.swift */,
-				4F8B64152DF75ECC740EA404A635350C /* RoundedCornersView.swift */,
-				650BEE6CCCF0B088460FDBFABBC1835E /* ScalableTopHeaderFlowLayout.swift */,
+				F43C8CAE7F6CA66ABAE4544AB142412D /* PinterestLayout.swift */,
+				8ACB27E1BC2404524BC897796A118DD8 /* RoundedCornersView.swift */,
+				2B3E57476206E6D7A02E5556D9648C50 /* ScalableTopHeaderFlowLayout.swift */,
 			);
 			name = UI;
 			path = Shifu/Classes/UI;
 			sourceTree = "<group>";
 		};
-		19474D1128B1265E70E3A0CF023E899B /* Support Files */ = {
+		224EB198F2A024DBA4D91638256EC04A /* standard */ = {
 			isa = PBXGroup;
 			children = (
-				9C0A01F8E16526405263EBFE86396F52 /* Info.plist */,
-				D7309314D1BB1D0DA96A322E1D8F5028 /* Shifu.modulemap */,
-				097E8578690AC022072392F2B5110032 /* Shifu.xcconfig */,
-				40EA75D2CCB1F5EFAD642EB62436751D /* Shifu-dummy.m */,
-				DA4295594DDA5DC42D1E2A4EEDCB0D28 /* Shifu-prefix.pch */,
-				5610E66D08DBBAD1861E32B171B3F177 /* Shifu-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/Shifu";
-			sourceTree = "<group>";
-		};
-		2CE6CAA83C2533A6381CD0F860EAF409 /* DataManage */ = {
-			isa = PBXGroup;
-			children = (
-				66D3018BC3C420C907F916037D58F2A8 /* CloudStorage.swift */,
-				543CF68A4FAADD5B03BBE604C4602755 /* LocalStorage.swift */,
-				B5D284AADB85D1BCFBF37ADD3337E357 /* Manageable.swift */,
-			);
-			name = DataManage;
-			path = Shifu/Classes/DataManage;
-			sourceTree = "<group>";
-		};
-		2E8A70666402923F61614F521EE0CA29 /* FMDB */ = {
-			isa = PBXGroup;
-			children = (
-				F6DE655E75ADFE1AA964C216FFC0DF35 /* standard */,
-				B7ADE86BD1C1E36B1DE5372BFA4CDC0F /* Support Files */,
-			);
-			path = FMDB;
-			sourceTree = "<group>";
-		};
-		3934DA24A35AA31F6A02B00257B641AF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				776E628441E87CC80C4BCFB4318268DD /* FMDB.framework */,
-				4EC6987F78D3F8AE685F59BF0B0E66CB /* Pods_Shifu_Example.framework */,
-				C13DC78821E9C08BE3FE0BC3A2286F83 /* Shifu.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		622CF175CCC84A62FF734DD8A6D7B763 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F7B619D46B0FB03248BF76F7F11766AC /* Shifu */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		652FB470D723F03547AC38CC1CB21275 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				AFAC84A8B19D258CD6F8BDB61A6CF6A1 /* CALayerExtension.swift */,
-				D13C5AA5B58CF8D93CF4735420DDCD94 /* CGFloatExtension.swift */,
-				3D65AF37F9BB46FE4EE586B3539C97DB /* CollectionExtension.swift */,
-				DECFB7BAE033B9DB797BD428ED56682D /* Notification+Names.swift */,
-				73374EDB42205F04C89806EB673ABE2E /* NSRegularExpressionExtension.swift */,
-				4AD19FDD77FFE69070EA1A463FE57F64 /* StringExtension.swift */,
-				95C209A5A3D33A6E5BF7612BF2F52441 /* UIColorExtension.swift */,
-				4FD2ECAC74600E9930FD384F40B04551 /* UIImageExtension.swift */,
-				99DDA4B820276C4F00DF72D9 /* EnumExtension.swift */,
-				99976DAE209A2833004AB8D4 /* URLExtension.swift */,
-				99976DB0209B4DB5004AB8D4 /* UITraitCollectionExtension.swift */,
-				99976DB4209B508C004AB8D4 /* UIDeviceExtension.swift */,
-				99976DB6209B50C5004AB8D4 /* DispatchQueue.swift */,
-			);
-			name = Extensions;
-			path = Shifu/Classes/Extensions;
-			sourceTree = "<group>";
-		};
-		748AC6B0D04488ECD1585656A29E15E1 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				57B339C607FE63DDDF6BCBABD479561B /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		7DB346D0F39D3F0E887471402A8071AB = {
-			isa = PBXGroup;
-			children = (
-				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				622CF175CCC84A62FF734DD8A6D7B763 /* Development Pods */,
-				D2304513832E75413DFDFE967D300314 /* Frameworks */,
-				BFB8C92E749ED180124155E2270474D2 /* Pods */,
-				3934DA24A35AA31F6A02B00257B641AF /* Products */,
-				A4B501C8698584D20C516704929064F1 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		A4B501C8698584D20C516704929064F1 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				AE5C72BEC86CDE92B20E516CE3ED6623 /* Pods-Shifu_Example */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		AE5C72BEC86CDE92B20E516CE3ED6623 /* Pods-Shifu_Example */ = {
-			isa = PBXGroup;
-			children = (
-				D99BA3EE1283B75CC88A7117558FE02A /* Info.plist */,
-				9C03D4622DFCFDD7DA7AAE364F8023A4 /* Pods-Shifu_Example.modulemap */,
-				62F2DC1376D94B8A67641438850B0D29 /* Pods-Shifu_Example-acknowledgements.markdown */,
-				89AD9289C7818F82D554499ACDBA3803 /* Pods-Shifu_Example-acknowledgements.plist */,
-				9659C06CA9893617CC72FC2580D54D68 /* Pods-Shifu_Example-dummy.m */,
-				4A373E989BC430B8D48C5AAD30E50D65 /* Pods-Shifu_Example-frameworks.sh */,
-				4354C479350BBA1509C6D542481A0A44 /* Pods-Shifu_Example-resources.sh */,
-				8C5B96CCBC2EADEAFD2C9493E1117C36 /* Pods-Shifu_Example-umbrella.h */,
-				D9599E993889DA0BA07AAFECEB42BD94 /* Pods-Shifu_Example.debug.xcconfig */,
-				322238CE3B732E71B1F2E2DDF92B6299 /* Pods-Shifu_Example.release.xcconfig */,
-			);
-			name = "Pods-Shifu_Example";
-			path = "Target Support Files/Pods-Shifu_Example";
-			sourceTree = "<group>";
-		};
-		B7ADE86BD1C1E36B1DE5372BFA4CDC0F /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				B97CC7F7ED98D85D31663DDFAF034BBC /* FMDB.modulemap */,
-				B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */,
-				D5085BA3C5279C337F6D921E5CAFB1FC /* FMDB-dummy.m */,
-				C80DA57F8CD6FA6C1FE9516FC1FCBB41 /* FMDB-prefix.pch */,
-				774678108D22A09213789D973E2051AC /* FMDB-umbrella.h */,
-				A82124697E95B25065BF5AC6D962526C /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/FMDB";
-			sourceTree = "<group>";
-		};
-		B9F9BBCF0805D3EE6863011D2DAE6EAC /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				63D7290886F8EAE3D703AC6295168D84 /* Announcer.swift */,
-				4DA3954BD5D6F09A6BABE2967FA45201 /* CloudUtil.swift */,
-				4017A807A82A88285673C87FD91E93B5 /* GlobalFunctions.swift */,
-				9CD7C0468A143BADE578050E80C553EE /* qrcode.swift */,
-				99976DAC209A1D42004AB8D4 /* os.swift */,
-				99976DB2209B4DE4004AB8D4 /* QuickSetter.swift */,
-			);
-			name = Utils;
-			path = Shifu/Classes/Utils;
-			sourceTree = "<group>";
-		};
-		BFB8C92E749ED180124155E2270474D2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2E8A70666402923F61614F521EE0CA29 /* FMDB */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		D2304513832E75413DFDFE967D300314 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0078E8D5A781B47986A348FBCC779CF6 /* FMDB.framework */,
-				748AC6B0D04488ECD1585656A29E15E1 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F6DE655E75ADFE1AA964C216FFC0DF35 /* standard */ = {
-			isa = PBXGroup;
-			children = (
-				6CFEEF64A76609C0E88017B38B7E12DA /* FMDatabase.h */,
-				ED48C0E1AA39302CCDD55032B7544B36 /* FMDatabase.m */,
-				C4BBD76359D36C69E5804A290D1C5ED2 /* FMDatabaseAdditions.h */,
-				4B97A597AFE8B5A90EDFF8560393C46B /* FMDatabaseAdditions.m */,
-				01C9B19641620A44266703CB7F104828 /* FMDatabasePool.h */,
-				A2D2F8382360C935E0097F1CB2E26820 /* FMDatabasePool.m */,
-				351F8E59854BCD39585AB8A055AC2F52 /* FMDatabaseQueue.h */,
-				1F3E784FE473275B6CE21E9FC8AE454E /* FMDatabaseQueue.m */,
-				73E08DD3F409CC910BDF9AAC0E1BEB35 /* FMDB.h */,
-				F1F546D17BEE96A3AC80F5733BACB23C /* FMResultSet.h */,
-				8DF62A1F971FFFC84C36F474CF296297 /* FMResultSet.m */,
+				68F1D770BBCF81B519B7EA8FD544941C /* FMDatabase.h */,
+				5EEF768B344F6F590EB3F801121B95EC /* FMDatabase.m */,
+				41B8BDA5F2528D6BA445FE29FFEC9976 /* FMDatabaseAdditions.h */,
+				71A1B57CDFAEF1266F62D4A291DC7B9D /* FMDatabaseAdditions.m */,
+				7BC5E47258BD77AC547A4276778F1D5D /* FMDatabasePool.h */,
+				E173EA81E2FF09192C1354B73CCF50C3 /* FMDatabasePool.m */,
+				7BF545286574ADB3F373E98036A953B9 /* FMDatabaseQueue.h */,
+				2ECC1027C2866B067755F3F6D949F982 /* FMDatabaseQueue.m */,
+				4AEC16D66C23A31E2709B1B944E2EDA0 /* FMDB.h */,
+				F2750A0CD5EDD8F75CF0C07E8CD8CD8C /* FMResultSet.h */,
+				9A403596C092A189B80E9351779DEF0A /* FMResultSet.m */,
 			);
 			name = standard;
 			sourceTree = "<group>";
 		};
-		F7B619D46B0FB03248BF76F7F11766AC /* Shifu */ = {
+		24D19F4F0BF42E2A74A18B8DC617947A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5F244AE16F656DA73D14322F8400E386 /* Composite.swift */,
-				2CE6CAA83C2533A6381CD0F860EAF409 /* DataManage */,
-				652FB470D723F03547AC38CC1CB21275 /* Extensions */,
-				19474D1128B1265E70E3A0CF023E899B /* Support Files */,
-				094EA278CAC4E7FAD4095BC1E6837C93 /* UI */,
-				B9F9BBCF0805D3EE6863011D2DAE6EAC /* Utils */,
+				8A898FAEED13E73C785BFF98E669CC8F /* FMDB.framework */,
+				9BBC0469F50B354CA25718854A5B9FA6 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		31C75EB4DB2EDC2014A0751AC7C705EB /* Shifu */ = {
+			isa = PBXGroup;
+			children = (
+				A4C6D400A6D174007AB329DB2FC8D6C4 /* DataManage */,
+				F86F5C234ADC547FFB45112084025AE7 /* Extensions */,
+				C56CE917912A3EDC74FC242F5776D774 /* Pod */,
+				D7CEC056D73C90892A244B1A2A7A701A /* Support Files */,
+				2077B3504861AEA10CCD2604110A6847 /* UI */,
+				D7A463C1ECA7CA205D11754B563E7C75 /* Utils */,
 			);
 			name = Shifu;
 			path = ../..;
 			sourceTree = "<group>";
 		};
+		45C93771F36A86C9780A08B227CDB2DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F3C4852C7801E29F5FC9F8DEAD5B8471 /* FMDB.framework */,
+				DCF937E868E85A0F1ECF45486F7788C7 /* Pods_Shifu_Example.framework */,
+				BC89D5AE489219502AB9FC71DAEA0A3A /* Shifu.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		68DB21AE5492FC581291330CF6E902BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C4612C3A0C0F061375C39B28E771BD4D /* FMDB */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		745DD9357D69FA432517614FE5979DDA /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FF4AF7183103BE7DB2862A01CEA8617E /* FMDB.modulemap */,
+				B2AAEBF5F44624856BE5E35528CCD3AB /* FMDB.xcconfig */,
+				47926A06A2D53C6F1394CF0958D11EA4 /* FMDB-dummy.m */,
+				5CCFD208AEEFBA86735279FC6CC03EA5 /* FMDB-Info.plist */,
+				D59C3CFE07BF9AA77816001BF1019DA9 /* FMDB-prefix.pch */,
+				1D499175A4E7854C18FFA9FADCC35445 /* FMDB-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/FMDB";
+			sourceTree = "<group>";
+		};
+		834C70935A4E7A8E281DBE2363AFE463 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A21BA0DE06779CA0D7AFF4897C3AF9F9 /* Pods-Shifu_Example */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		9BBC0469F50B354CA25718854A5B9FA6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E897571004DC997B7067AC70B335F515 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		A21BA0DE06779CA0D7AFF4897C3AF9F9 /* Pods-Shifu_Example */ = {
+			isa = PBXGroup;
+			children = (
+				6642DEE235C1E0A4343E3C6F77258116 /* Pods-Shifu_Example.modulemap */,
+				99C00B0A7381AE45DD719615554EA9D3 /* Pods-Shifu_Example-acknowledgements.markdown */,
+				6521B2CD8DF6BC269079824E2C262BFB /* Pods-Shifu_Example-acknowledgements.plist */,
+				ED6BE4040CB2DC20B9B62DB904CD92F3 /* Pods-Shifu_Example-dummy.m */,
+				57F315D623A9CA0575F519845F618711 /* Pods-Shifu_Example-frameworks.sh */,
+				66082809334C56556E351F19E930802A /* Pods-Shifu_Example-Info.plist */,
+				C07786C466DD2BDA986BA67EDC896258 /* Pods-Shifu_Example-umbrella.h */,
+				B69652FEA0A2319EC45E42A3603E647C /* Pods-Shifu_Example.debug.xcconfig */,
+				F2484E6545112E997612FF93ED1A8118 /* Pods-Shifu_Example.release.xcconfig */,
+			);
+			name = "Pods-Shifu_Example";
+			path = "Target Support Files/Pods-Shifu_Example";
+			sourceTree = "<group>";
+		};
+		A4C6D400A6D174007AB329DB2FC8D6C4 /* DataManage */ = {
+			isa = PBXGroup;
+			children = (
+				81F97115D109E3B19A495386F0C530F9 /* CloudStorage.swift */,
+				E0ABD771DD9F2D611D79D925C56966BC /* LocalStorage.swift */,
+				A5B507B0C4B74F5E8FE9FA989D1F163C /* Manageable.swift */,
+				9B992647FD7C01E75C422A1A16C72995 /* SQLLiteManager.swift */,
+			);
+			name = DataManage;
+			path = Shifu/Classes/DataManage;
+			sourceTree = "<group>";
+		};
+		C4612C3A0C0F061375C39B28E771BD4D /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				224EB198F2A024DBA4D91638256EC04A /* standard */,
+				745DD9357D69FA432517614FE5979DDA /* Support Files */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		C56CE917912A3EDC74FC242F5776D774 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				49802A67673AF325D234CF53A3EA3E24 /* LICENSE */,
+				EEA17FFC87551019BB7EB506AB0E75AB /* README.md */,
+				A7B933A3CBF11BEA2ED783D1296B1F27 /* Shifu.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D9CE1CA843F68EB7E9314B0515A0CB52 /* Development Pods */,
+				24D19F4F0BF42E2A74A18B8DC617947A /* Frameworks */,
+				68DB21AE5492FC581291330CF6E902BA /* Pods */,
+				45C93771F36A86C9780A08B227CDB2DB /* Products */,
+				834C70935A4E7A8E281DBE2363AFE463 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D7A463C1ECA7CA205D11754B563E7C75 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				26F47EC656EA2D99CFF2B4DDB227254A /* Announcer.swift */,
+				DD8A628D5CC233EEEB8710CD65B0EB45 /* CloudUtil.swift */,
+				E71F12BCD7F25AA3A7E8E7C1A8E94BE9 /* GlobalFunctions.swift */,
+				BF7173E18E1E4CE232D8C3E098B26A6C /* os.swift */,
+				591BCAF31B757C165BF4B4DA587E6275 /* qrcode.swift */,
+				984B33CCF9CD11B0BEE9A6B415A42FBF /* QuickSetter.swift */,
+			);
+			name = Utils;
+			path = Shifu/Classes/Utils;
+			sourceTree = "<group>";
+		};
+		D7CEC056D73C90892A244B1A2A7A701A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F045B102309DF7A8A339A36B00468FD7 /* Shifu.modulemap */,
+				A58F84EB16BBEF9ACB0D4F1E93A0FF18 /* Shifu.xcconfig */,
+				1BC6FF2A1CB96A1BA603BD560C86DF83 /* Shifu-dummy.m */,
+				66B9520718DA5104B7121969DC07AD8E /* Shifu-Info.plist */,
+				B3E6D818239007BBEF8E9B54B8D1DF4C /* Shifu-prefix.pch */,
+				3E5C396EAB120EAD1352B4B9603EEE91 /* Shifu-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/Shifu";
+			sourceTree = "<group>";
+		};
+		D9CE1CA843F68EB7E9314B0515A0CB52 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				31C75EB4DB2EDC2014A0751AC7C705EB /* Shifu */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		F86F5C234ADC547FFB45112084025AE7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CAB038D641E746154FD303267533C9A0 /* CALayerExtension.swift */,
+				BF1CF155F1ACBB669DA8E91777B721F2 /* CGFloatExtension.swift */,
+				B0DC83A8BF346205DF3FD7289921514C /* CollectionExtension.swift */,
+				8BBEC95477E7F585C83B906138079D30 /* DispatchQueue.swift */,
+				293553C618BB71CEF00F7A80B0BB520E /* EnumExtension.swift */,
+				3CFEA20E7EBB9764A0709CFE56FEEE79 /* Notification+Names.swift */,
+				26E24543381D5095819670DA6E62289F /* NSRegularExpressionExtension.swift */,
+				5F44996494198BB482F51204DBA8D120 /* StringExtension.swift */,
+				7473169142618EFAB4A873F48EC76530 /* UIColorExtension.swift */,
+				4B05AFB22C641A1D5775F86EE68C4590 /* UIDeviceExtension.swift */,
+				6931C3C6AD58863ACC90C84A9A559A12 /* UIImageExtension.swift */,
+				B06E92E119E7B2C33415F0FA663FFD78 /* UITraitCollectionExtension.swift */,
+				513F37D56E8D79E72DD3E0AD00360FF5 /* URLExtension.swift */,
+			);
+			name = Extensions;
+			path = Shifu/Classes/Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		3D2A080C5CD4ED4520C6AEFA1D6BA26F /* Headers */ = {
+		2E0510C9A84D7D9C8381BAD6438A6A9F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F11FAB91014130EE233A3429439D38D7 /* FMDatabase.h in Headers */,
-				A548833BE5FAD40830428F36E77D0F52 /* FMDatabaseAdditions.h in Headers */,
-				9B8D84996694C541CD3434386E0A081A /* FMDatabasePool.h in Headers */,
-				22554065FA07F1BFE5308A685394CB12 /* FMDatabaseQueue.h in Headers */,
-				96E70B43FC04BC99AED1BBD4FB1D7581 /* FMDB-umbrella.h in Headers */,
-				CCB74062CE0F4B8E5B7483599BC398DA /* FMDB.h in Headers */,
-				3E43906B70EB01C06F3AE17008B853B9 /* FMResultSet.h in Headers */,
+				4C2E30B56688FB9D46995A05F45B5BCF /* FMDatabase.h in Headers */,
+				6BA162F850CF5A59143AC3FE0D58CE32 /* FMDatabaseAdditions.h in Headers */,
+				843A80393130C719092B84C3D0482B8B /* FMDatabasePool.h in Headers */,
+				B2152E19444F3499F643E212D051F8D0 /* FMDatabaseQueue.h in Headers */,
+				F20B46808E7B20CCDC347C8594647E07 /* FMDB-umbrella.h in Headers */,
+				E7A30E51E8F1D20F2D97C515D1D87D27 /* FMDB.h in Headers */,
+				2BC0F034FDD2774C3DDB9F33E45EFEFB /* FMResultSet.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A02D9896FA39FB109D18F0237C764888 /* Headers */ = {
+		5C96E27FC7F86684620042FC24856523 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A36A8EFCBAAF93AA9EB6D0706CD3F3 /* Pods-Shifu_Example-umbrella.h in Headers */,
+				162A60FA75B996D7DDEC0DA7DE0DB47A /* Shifu-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AF2F1D95FEF32BD22AACC43EC2D335AE /* Headers */ = {
+		899E95F5EB9C009965CF5682C6710D3F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9490C6F96AFB79A6B0B9ED400C090D57 /* Shifu-umbrella.h in Headers */,
+				ACFD6126741B0F89883688308C5830A9 /* Pods-Shifu_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0138CC6B905759B4CA7CE424CDD88FB4 /* Pods-Shifu_Example */ = {
+		3A97B7E3E280CF1197258404795CE41A /* Shifu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E33CEFBCE374312F6B1211E32FE371C0 /* Build configuration list for PBXNativeTarget "Pods-Shifu_Example" */;
+			buildConfigurationList = 75760ECCF77D615FF575146AA11745AB /* Build configuration list for PBXNativeTarget "Shifu" */;
 			buildPhases = (
-				66617D8CD281D7A067D5ADFEA3856478 /* Sources */,
-				69EDDA3CAC528CE98530CBEFEF9E776A /* Frameworks */,
-				A02D9896FA39FB109D18F0237C764888 /* Headers */,
+				5C96E27FC7F86684620042FC24856523 /* Headers */,
+				37D7F2DC459A9CFED7C2246739DB87C3 /* Sources */,
+				64106CA1921ADEE6F2E02D9FFC3E6679 /* Frameworks */,
+				34A7814E96C610145E6DA42536A22445 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5C11A4891E2119E0E755499DC27A4B27 /* PBXTargetDependency */,
-				934A14FDA7FE68BCD2C15B891DA3E0BE /* PBXTargetDependency */,
+				5768E34A5019AD5630BAD5B3033E0749 /* PBXTargetDependency */,
+			);
+			name = Shifu;
+			productName = Shifu;
+			productReference = BC89D5AE489219502AB9FC71DAEA0A3A /* Shifu.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		977EEA03956DCEAD0D7FAECBCB4FF326 /* Pods-Shifu_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC4538464432AA2A3F22AD6A7E3A541C /* Build configuration list for PBXNativeTarget "Pods-Shifu_Example" */;
+			buildPhases = (
+				899E95F5EB9C009965CF5682C6710D3F /* Headers */,
+				6A6E30F252E7A7DF355A91A1BEDEE3FF /* Sources */,
+				789752D5FC98988B9688B56BC14E9775 /* Frameworks */,
+				18A5D84927CCEBBE9A4AF493CE11F487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				81CB7190FDD77E09D196BC5BB2DC5EA2 /* PBXTargetDependency */,
+				0F7A07DBB175067BDC13B0D140384121 /* PBXTargetDependency */,
 			);
 			name = "Pods-Shifu_Example";
 			productName = "Pods-Shifu_Example";
-			productReference = 4EC6987F78D3F8AE685F59BF0B0E66CB /* Pods_Shifu_Example.framework */;
+			productReference = DCF937E868E85A0F1ECF45486F7788C7 /* Pods_Shifu_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		251BAD17812F7EBF6532EACF66F941C3 /* FMDB */ = {
+		9C130CD3AA849E8ADCC55D0BC8E1020E /* FMDB */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5B0566FF0CE681AC326D316CEC45A8CF /* Build configuration list for PBXNativeTarget "FMDB" */;
+			buildConfigurationList = 54320349FAF7EBC4F27F14598AAA4511 /* Build configuration list for PBXNativeTarget "FMDB" */;
 			buildPhases = (
-				8FE0D4B503A94502F3431DC0DCB58040 /* Sources */,
-				EEFB61A65EB8DA6653B544822EB9CE44 /* Frameworks */,
-				3D2A080C5CD4ED4520C6AEFA1D6BA26F /* Headers */,
+				2E0510C9A84D7D9C8381BAD6438A6A9F /* Headers */,
+				F59072949D67823723145257112F12B4 /* Sources */,
+				CC7027CB7D7CB7C116E8D038FFD8A756 /* Frameworks */,
+				A31E733A9011822CBEDFB2E937BA3317 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -453,185 +486,154 @@
 			);
 			name = FMDB;
 			productName = FMDB;
-			productReference = 776E628441E87CC80C4BCFB4318268DD /* FMDB.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		DF2AA78153C8FF11CF9DA9A4850D2DA7 /* Shifu */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 25847B42C214C57A91AD5753280E6DC7 /* Build configuration list for PBXNativeTarget "Shifu" */;
-			buildPhases = (
-				9A1802C7FD073B22D58595029C0841BB /* Sources */,
-				1146BD9BE1A6C00AA7375985AC7A77A0 /* Frameworks */,
-				AF2F1D95FEF32BD22AACC43EC2D335AE /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D794E7E897821FF8AE59EC14B75EDBB4 /* PBXTargetDependency */,
-			);
-			name = Shifu;
-			productName = Shifu;
-			productReference = C13DC78821E9C08BE3FE0BC3A2286F83 /* Shifu.framework */;
+			productReference = F3C4852C7801E29F5FC9F8DEAD5B8471 /* FMDB.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0930;
-				TargetAttributes = {
-					251BAD17812F7EBF6532EACF66F941C3 = {
-						LastSwiftMigration = 1000;
-					};
-					DF2AA78153C8FF11CF9DA9A4850D2DA7 = {
-						LastSwiftMigration = 1000;
-					};
-				};
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 1020;
 			};
-			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
-			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 3934DA24A35AA31F6A02B00257B641AF /* Products */;
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 45C93771F36A86C9780A08B227CDB2DB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				251BAD17812F7EBF6532EACF66F941C3 /* FMDB */,
-				0138CC6B905759B4CA7CE424CDD88FB4 /* Pods-Shifu_Example */,
-				DF2AA78153C8FF11CF9DA9A4850D2DA7 /* Shifu */,
+				9C130CD3AA849E8ADCC55D0BC8E1020E /* FMDB */,
+				977EEA03956DCEAD0D7FAECBCB4FF326 /* Pods-Shifu_Example */,
+				3A97B7E3E280CF1197258404795CE41A /* Shifu */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		18A5D84927CCEBBE9A4AF493CE11F487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34A7814E96C610145E6DA42536A22445 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A31E733A9011822CBEDFB2E937BA3317 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		66617D8CD281D7A067D5ADFEA3856478 /* Sources */ = {
+		37D7F2DC459A9CFED7C2246739DB87C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF86F5F0BD225956C019B850E28054C0 /* Pods-Shifu_Example-dummy.m in Sources */,
+				CF3FB91F127C44CC859AA59BAD3160F2 /* Announcer.swift in Sources */,
+				CC62F5D730C1558AA151DEC21880119E /* CALayerExtension.swift in Sources */,
+				690BD92BABEC22F6FF9BACAAD8557937 /* CGFloatExtension.swift in Sources */,
+				905D409427500B64217B2072A5A15475 /* CloudStorage.swift in Sources */,
+				1397BED2C2F31BB84DF990604A3E89DD /* CloudUtil.swift in Sources */,
+				CFE0AB25F9C249B1293F67321CB83C69 /* CollectionExtension.swift in Sources */,
+				6961C88BFCC5C884BBAF15C9AA8F3D73 /* DispatchQueue.swift in Sources */,
+				7B32DD732651109C45C9C81B6898E681 /* EnumExtension.swift in Sources */,
+				0FDDD0F0F1F8AFB3DD2B7754252C64B9 /* GlobalFunctions.swift in Sources */,
+				5215772700B8A6F0A349C7CAD06F153A /* LocalStorage.swift in Sources */,
+				0AE5075FBC77E1D0D5C960A0C697B7B5 /* Manageable.swift in Sources */,
+				E221A487B8EFD01B814E2AD8E11E8B2F /* Notification+Names.swift in Sources */,
+				00B26B9B50B58D5D31952FAD6C7DC2EF /* NSRegularExpressionExtension.swift in Sources */,
+				25110F5891F548D587A8BCB3AB381FAA /* os.swift in Sources */,
+				25536ACF254DB6C7A1A100FD59AB997D /* PinterestLayout.swift in Sources */,
+				7D46A149CF1C0879CB3CAEACF5A6EEA5 /* qrcode.swift in Sources */,
+				6AC11BE94080B9E56634526074341238 /* QuickSetter.swift in Sources */,
+				AD94496D2E20CBD2A6837A6F482577D4 /* RoundedCornersView.swift in Sources */,
+				B12C773E3E2E728910706A8B0E748C68 /* ScalableTopHeaderFlowLayout.swift in Sources */,
+				A56741A890C54424400725F184B79EBA /* Shifu-dummy.m in Sources */,
+				3D5439A18B02DAA619247AB01A2ADBE1 /* SQLLiteManager.swift in Sources */,
+				BB53D746C4C4DBB294AB844BA34DA615 /* StringExtension.swift in Sources */,
+				A7CAE29D72842BBD5800DB2A96DE4B0E /* UIColorExtension.swift in Sources */,
+				096EB2C38C9F260ED93BCB49B0893731 /* UIDeviceExtension.swift in Sources */,
+				EDE593D015B59EEADA4ABDC566B50E94 /* UIImageExtension.swift in Sources */,
+				4F3C21478C8463C954FAFB22BAF07501 /* UITraitCollectionExtension.swift in Sources */,
+				51F350351D27944D61231B527D966162 /* URLExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8FE0D4B503A94502F3431DC0DCB58040 /* Sources */ = {
+		6A6E30F252E7A7DF355A91A1BEDEE3FF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37F097E2269EF1BD238AD7449D796445 /* FMDatabase.m in Sources */,
-				99DDA4B920276C4F00DF72D9 /* EnumExtension.swift in Sources */,
-				9C11A290C9C5866A185A54F1EC04E2BB /* FMDatabaseAdditions.m in Sources */,
-				C605A44DF96E7FCACF7D6E37B62F795D /* FMDatabasePool.m in Sources */,
-				A1B5D80A8998311B8C9043E6942925E6 /* FMDatabaseQueue.m in Sources */,
-				D5991941DC41DDDDDACAE0B5D47A4639 /* FMDB-dummy.m in Sources */,
-				87ECA447DB887426665260651B7F147E /* FMResultSet.m in Sources */,
+				F5980496E16C96684623B7C9DB111A30 /* Pods-Shifu_Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A1802C7FD073B22D58595029C0841BB /* Sources */ = {
+		F59072949D67823723145257112F12B4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99976DB5209B508C004AB8D4 /* UIDeviceExtension.swift in Sources */,
-				99976DB3209B4DE4004AB8D4 /* QuickSetter.swift in Sources */,
-				A72E2033498BECFA1E2639EEDCBCBFD5 /* Announcer.swift in Sources */,
-				CB3FA5AC24BB6DF0B266E6EEF17F6BAD /* CALayerExtension.swift in Sources */,
-				523A7AB8E1B0142A5DF9551E06C99A6A /* CGFloatExtension.swift in Sources */,
-				0F3527178907C9238EE35C8397D9D1DF /* CloudStorage.swift in Sources */,
-				91B61A906B4B7409285275F1B580E872 /* CloudUtil.swift in Sources */,
-				014964D7E4942048C92E6AFCEAF4ACDF /* CollectionExtension.swift in Sources */,
-				047723D007AA9EDF213BC03D340B1E56 /* Composite.swift in Sources */,
-				99976DAD209A1D42004AB8D4 /* os.swift in Sources */,
-				C2F9F7990B38CF27452D887A17127305 /* GlobalFunctions.swift in Sources */,
-				99976DB7209B50C5004AB8D4 /* DispatchQueue.swift in Sources */,
-				2C45EC7973BACE1D011D697FEDD9FDE4 /* LocalStorage.swift in Sources */,
-				40565C34BE50592E8EFF8F0A5FA45E82 /* Manageable.swift in Sources */,
-				99976DAF209A2833004AB8D4 /* URLExtension.swift in Sources */,
-				4E05EC55CF24F8DF7962E5827A894BE8 /* Notification+Names.swift in Sources */,
-				9C304B009EE97D85747CDB6BBCB34924 /* NSRegularExpressionExtension.swift in Sources */,
-				3863251C7C0AF0ED6D398AB1D267384D /* PinterestLayout.swift in Sources */,
-				99976DB1209B4DB5004AB8D4 /* UITraitCollectionExtension.swift in Sources */,
-				27C5A658B56F0D65E3405302234AC75E /* qrcode.swift in Sources */,
-				83DA183B8336F35F8C817A5AA1EACEEC /* RoundedCornersView.swift in Sources */,
-				F2F21A81BF782AA45E5E25D129A21317 /* ScalableTopHeaderFlowLayout.swift in Sources */,
-				4C77955958CB05D662DDE2ABA6ECB91C /* Shifu-dummy.m in Sources */,
-				369DD6C8C380500F704902A058DBABE6 /* StringExtension.swift in Sources */,
-				DD2BF9E2C5608E7637D5AD0236395B5F /* UIColorExtension.swift in Sources */,
-				ECB4CEF44A0C2C74B67715CC7263595F /* UIImageExtension.swift in Sources */,
+				345ED7D1DE224E3C44BEFB66AA77444F /* FMDatabase.m in Sources */,
+				EBE4098D555B6DF8E362980173B9FFE4 /* FMDatabaseAdditions.m in Sources */,
+				9E571E872949B6C830D2663949733F28 /* FMDatabasePool.m in Sources */,
+				343B75E1B98C0E4169A0CD82B05480F2 /* FMDatabaseQueue.m in Sources */,
+				0C35EA82ECB4A24D772C66EB076F7867 /* FMDB-dummy.m in Sources */,
+				A059BACEA4B9C7791864C87ED449E9E5 /* FMResultSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5C11A4891E2119E0E755499DC27A4B27 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FMDB;
-			target = 251BAD17812F7EBF6532EACF66F941C3 /* FMDB */;
-			targetProxy = BAC594E57FA12C91353498BA8AF8FC64 /* PBXContainerItemProxy */;
-		};
-		934A14FDA7FE68BCD2C15B891DA3E0BE /* PBXTargetDependency */ = {
+		0F7A07DBB175067BDC13B0D140384121 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Shifu;
-			target = DF2AA78153C8FF11CF9DA9A4850D2DA7 /* Shifu */;
-			targetProxy = 2A59557A86F4362957935005B3FE7E8F /* PBXContainerItemProxy */;
+			target = 3A97B7E3E280CF1197258404795CE41A /* Shifu */;
+			targetProxy = 15FB50FD602E7315F520D5365C3C364C /* PBXContainerItemProxy */;
 		};
-		D794E7E897821FF8AE59EC14B75EDBB4 /* PBXTargetDependency */ = {
+		5768E34A5019AD5630BAD5B3033E0749 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FMDB;
-			target = 251BAD17812F7EBF6532EACF66F941C3 /* FMDB */;
-			targetProxy = 9C49DD4A52E7BD9D4E8D36E0CB1BCE99 /* PBXContainerItemProxy */;
+			target = 9C130CD3AA849E8ADCC55D0BC8E1020E /* FMDB */;
+			targetProxy = 72F5371838C608A82DB05DC9C9B60657 /* PBXContainerItemProxy */;
+		};
+		81CB7190FDD77E09D196BC5BB2DC5EA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FMDB;
+			target = 9C130CD3AA849E8ADCC55D0BC8E1020E /* FMDB */;
+			targetProxy = 7904D28211D361755BDF465AE91F0C49 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		74E2AE7134D4680DCAB5A99C54F15B29 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 097E8578690AC022072392F2B5110032 /* Shifu.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Shifu/Shifu-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Shifu/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Shifu/Shifu.modulemap";
-				PRODUCT_NAME = Shifu;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		86C079093B8FBCF1A9BF484597889B9D /* Release */ = {
+		3048B0C5C704DFFF688DA57F5380ED58 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -653,7 +655,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -672,17 +673,18 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
-		8F95872EB5B64B20DF31EAAEAF32C156 /* Release */ = {
+		3F7B3EAC710BDDD666F6B39B3C37FFC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 322238CE3B732E71B1F2E2DDF92B6299 /* Pods-Shifu_Example.release.xcconfig */;
+			baseConfigurationReference = B2AAEBF5F44624856BE5E35528CCD3AB /* FMDB.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -693,20 +695,49 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Example/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FMDB/FMDB-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Shifu_Example;
+				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
+				PRODUCT_MODULE_NAME = FMDB;
+				PRODUCT_NAME = FMDB;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		512C816655F93F05F8C1A9E7CEDCC383 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A58F84EB16BBEF9ACB0D4F1E93A0FF18 /* Shifu.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Shifu/Shifu-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Shifu/Shifu-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Shifu/Shifu.modulemap";
+				PRODUCT_MODULE_NAME = Shifu;
+				PRODUCT_NAME = Shifu;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -714,50 +745,18 @@
 			};
 			name = Release;
 		};
-		BC1B21FF8B09921ED950FC041F338A0C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9599E993889DA0BA07AAFECEB42BD94 /* Pods-Shifu_Example.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Shifu_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		CCD3670C2F6A09B7781D590F96EA83B0 /* Debug */ = {
+		5B0C8287D755FD95091CF35D87FB8B2D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -779,7 +778,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -800,20 +798,90 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		D672741B5299F651D5FC46A3C10AE7A4 /* Debug */ = {
+		8DDAB53519916204A9FEAE7A4820C3A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 097E8578690AC022072392F2B5110032 /* Shifu.xcconfig */;
+			baseConfigurationReference = B69652FEA0A2319EC45E42A3603E647C /* Pods-Shifu_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A27B3AF563655AED87B90679089DB3CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2484E6545112E997612FF93ED1A8118 /* Pods-Shifu_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D4A7AC16A47495B7AAA8A9A899D3AD88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A58F84EB16BBEF9ACB0D4F1E93A0FF18 /* Shifu.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -825,28 +893,27 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = "Target Support Files/Shifu/Shifu-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Shifu/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Shifu/Shifu-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Shifu/Shifu.modulemap";
+				PRODUCT_MODULE_NAME = Shifu;
 				PRODUCT_NAME = Shifu;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		DF59F9EAD3A14631E9FFD007E1A70265 /* Debug */ = {
+		F787A834808897010D65F80FA3026C88 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */;
+			baseConfigurationReference = B2AAEBF5F44624856BE5E35528CCD3AB /* FMDB.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -857,48 +924,17 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FMDB/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/FMDB/FMDB-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
+				PRODUCT_MODULE_NAME = FMDB;
 				PRODUCT_NAME = FMDB;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		F4A3BE47E5388D694D21599E3DD420CA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22114E7098BF8E52F899CCE1A91E6FE /* FMDB.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/FMDB/FMDB-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FMDB/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
-				PRODUCT_NAME = FMDB;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -909,43 +945,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		25847B42C214C57A91AD5753280E6DC7 /* Build configuration list for PBXNativeTarget "Shifu" */ = {
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D672741B5299F651D5FC46A3C10AE7A4 /* Debug */,
-				74E2AE7134D4680DCAB5A99C54F15B29 /* Release */,
+				5B0C8287D755FD95091CF35D87FB8B2D /* Debug */,
+				3048B0C5C704DFFF688DA57F5380ED58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+		54320349FAF7EBC4F27F14598AAA4511 /* Build configuration list for PBXNativeTarget "FMDB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CCD3670C2F6A09B7781D590F96EA83B0 /* Debug */,
-				86C079093B8FBCF1A9BF484597889B9D /* Release */,
+				3F7B3EAC710BDDD666F6B39B3C37FFC8 /* Debug */,
+				F787A834808897010D65F80FA3026C88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5B0566FF0CE681AC326D316CEC45A8CF /* Build configuration list for PBXNativeTarget "FMDB" */ = {
+		75760ECCF77D615FF575146AA11745AB /* Build configuration list for PBXNativeTarget "Shifu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF59F9EAD3A14631E9FFD007E1A70265 /* Debug */,
-				F4A3BE47E5388D694D21599E3DD420CA /* Release */,
+				D4A7AC16A47495B7AAA8A9A899D3AD88 /* Debug */,
+				512C816655F93F05F8C1A9E7CEDCC383 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E33CEFBCE374312F6B1211E32FE371C0 /* Build configuration list for PBXNativeTarget "Pods-Shifu_Example" */ = {
+		EC4538464432AA2A3F22AD6A7E3A541C /* Build configuration list for PBXNativeTarget "Pods-Shifu_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BC1B21FF8B09921ED950FC041F338A0C /* Debug */,
-				8F95872EB5B64B20DF31EAAEAF32C156 /* Release */,
+				8DDAB53519916204A9FEAE7A4820C3A1 /* Debug */,
+				A27B3AF563655AED87B90679089DB3CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 }
