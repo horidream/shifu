@@ -39,4 +39,6 @@ This is a common library that we are going to use in other projects
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'FMDB'
+  s.dependency 'RxSwift'
+  s.dependency 'RxCocoa'
 end

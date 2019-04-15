@@ -1,6 +1,6 @@
 {
   "name": "Shifu",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "summary": "A short description of Shifu.",
   "description": "This is a common library that we are going to use in other projects",
   "homepage": "https://github.com/horidream/Shifu",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/horidream/Shifu.git",
-    "tag": "0.1.6"
+    "tag": "0.1.7"
   },
   "platforms": {
     "ios": "8.0"
@@ -21,6 +21,12 @@
   "source_files": "Shifu/Classes/**/*",
   "dependencies": {
     "FMDB": [
+
+    ],
+    "RxSwift": [
+
+    ],
+    "RxCocoa": [
 
     ]
   }

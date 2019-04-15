@@ -1,8 +1,10 @@
+platform :ios, '10.0'
+
 use_frameworks!
 
 target 'Shifu_Example' do
   pod 'Shifu', :path => '../'
-  pod 'FMDB'
+  pod 'RxCocoa', :inhibit_warnings => true
 end
 
 

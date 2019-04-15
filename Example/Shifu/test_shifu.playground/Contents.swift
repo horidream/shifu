@@ -2,13 +2,22 @@
 
 import UIKit
 import Shifu
+import RxSwift
+import RxCocoa
 
-var s = "file:///var/mobile/Containers/Data/Application/F1C402B0-FBE4-402E-8C4D-730826B60D90/Documents/Documents/Inbox/Chapter%2001%20-%20The%20Boy%20Who%20Lived.mp3"
 
-let s1 = "file:///var/mobile/Containers/Data/Application/F1C402B0-FBE4-402E-8C4D-730826B60D90/Documents"
+enum Settings:Int{
+    case abmark, bookmark
+    var description:String{
+        return String(String(reflecting: self).split(separator: ".").last ?? "")
+    }
+}
+var d:[Settings: Int] = [.abmark: 11, .bookmark:12]
 
-let s2 = s.removeSubrange(s.range(of: s1)!)
-print(s)
+print(d.keys.sorted{ $0.rawValue < $1.rawValue}.map{ [$0.description: d[$0]!]})
+
+
+
 
 
 
