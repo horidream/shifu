@@ -20,7 +20,7 @@
 /* Begin PBXFileReference section */
 		15D7B88B0A792B4E2BFA3F4A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		1E35649DEF88C49F8A5D1CC6 /* Pods-Shifu_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shifu_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		524CEE15BF7996391B65A561 /* Shifu.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Shifu.podspec; path = ../Shifu.podspec; sourceTree = "<group>"; };
+		524CEE15BF7996391B65A561 /* Shifu.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Shifu.podspec; path = ../Shifu.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* Shifu_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shifu_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
