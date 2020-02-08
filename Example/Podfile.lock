@@ -8,7 +8,7 @@ PODS:
   - RxRelay (5.0.1):
     - RxSwift (~> 5)
   - RxSwift (5.0.1)
-  - Shifu (0.1.8):
+  - Shifu (0.1.9):
     - FMDB
     - RxCocoa
     - RxSwift
@@ -33,7 +33,7 @@ SPEC CHECKSUMS:
   RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
   RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
-  Shifu: 355697720bf502d623e75b54b60ea491541bc29e
+  Shifu: 224fb932b10e9dc3cbfffe07f194c56585df5bf9
 
 PODFILE CHECKSUM: ff45aeecc96893024e718a8c717a85bdc4172788
 
