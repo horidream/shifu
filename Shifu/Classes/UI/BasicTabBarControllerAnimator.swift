@@ -11,12 +11,70 @@ public class BasicTabBarControllerAnimator: NSObject{
     var anim: UIViewImplicitlyAnimating?
     unowned var tbc: UITabBarController
     public var duration: TimeInterval = 0.15
-    public init(_ tbc: UITabBarController, duration:TimeInterval = 0.15){
+    private(set) public var isInteractive: Bool = false
+    var context:UIViewControllerContextTransitioning?
+    public init(_ tbc: UITabBarController, interactive isInteractive: Bool = true, duration:TimeInterval = 0.15){
         self.tbc = tbc
         self.duration = duration
+        super.init()
+        if(isInteractive){
+            let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(pan))
+            leftPan.edges = .left
+            leftPan.delegate = self
+            tbc.view.addGestureRecognizer(leftPan)
+            
+            let rightPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(pan))
+            rightPan.edges = .right
+            rightPan.delegate = self
+            tbc.view.addGestureRecognizer(rightPan)
+        }
+    }
+    
+    @objc func pan(_ g: UIScreenEdgePanGestureRecognizer){
+        switch g.state {
+        case .began:
+            self.isInteractive = true
+            if g.edges == .right{
+                self.tbc.selectedIndex += 1
+            }else{
+                self.tbc.selectedIndex -= 1
+            }
+        case .changed:
+            let v = g.view!
+            let delta = g.translation(in:v)
+            let percent = abs(delta.x/v.bounds.size.width)
+            self.anim?.fractionComplete = percent
+            self.context?.updateInteractiveTransition(percent)
+        case .ended:
+            if #available(iOS 10.0, *) {
+                if let anim = self.anim as? UIViewPropertyAnimator{
+                    anim.pauseAnimation()
+                    if anim.fractionComplete < 0.33 {
+                        anim.isReversed = true
+                    }
+                    anim.continueAnimation(
+                        withTimingParameters:
+                        UICubicTimingParameters(animationCurve:.linear),
+                        durationFactor: 0.5)
+                    
+                }
+                
+            } else {
+                // Fallback on earlier versions
+            }
+        default:()
+            
+        }
     }
 }
 
+extension BasicTabBarControllerAnimator:UIGestureRecognizerDelegate{
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let idx = self.tbc.selectedIndex
+        return (gestureRecognizer as! UIScreenEdgePanGestureRecognizer).edges == .right ?
+            idx < self.tbc.viewControllers!.count - 1 : idx > 0
+    }
+}
 
 extension BasicTabBarControllerAnimator : UIViewControllerAnimatedTransitioning {
     public func transitionDuration(using ctx: UIViewControllerContextTransitioning?)
@@ -27,6 +85,10 @@ extension BasicTabBarControllerAnimator : UIViewControllerAnimatedTransitioning 
         if #available(iOS 10.0, *) {
             let anim = self.interruptibleAnimator(using: ctx)
             anim.startAnimation()
+            
+            
+            
+            
         } else {
             
         }
@@ -59,22 +121,51 @@ extension BasicTabBarControllerAnimator : UIViewControllerAnimatedTransitioning 
                 v2.frame = r2end
             }
             
-            anim.addCompletion { _ in
-                ctx.completeTransition(true)
+            anim.addCompletion { finish in
+                if(self.isInteractive){
+                    if finish == .end{
+                        ctx.finishInteractiveTransition()
+                        ctx.completeTransition(true)
+                    }else{
+                        ctx.cancelInteractiveTransition()
+                        ctx.completeTransition(false)
+                    }
+                    
+                }else{
+                    ctx.completeTransition(true)
+                    
+                }
             }
             
             self.anim = anim
             return anim
     }
+    
     public func animationEnded(_ transitionCompleted: Bool) {
         self.anim = nil
+        self.isInteractive = false
     }
 }
 
 extension BasicTabBarControllerAnimator : UITabBarControllerDelegate {
     public func tabBarController(_ tabBarController: UITabBarController,
-        animationControllerForTransitionFrom fromVC: UIViewController,
-        to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-            return self
+                                 animationControllerForTransitionFrom fromVC: UIViewController,
+                                 to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self.isInteractive ? nil : self
+    }
+    
+    public func tabBarController(_ tabBarController: UITabBarController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return self.isInteractive ? self : nil
+    }
+}
+
+extension BasicTabBarControllerAnimator: UIViewControllerInteractiveTransitioning{
+    public func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        if #available(iOS 10.0, *) {
+            self.anim = self.interruptibleAnimator(using: transitionContext)
+        } else {
+            // Fallback on earlier versions
+        }
+        self.context = transitionContext;
     }
 }
