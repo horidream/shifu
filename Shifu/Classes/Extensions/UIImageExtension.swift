@@ -94,19 +94,10 @@ public extension UIImage{
 }
 
 public extension UISlider {
-    public var currentThumbImageView: UIImageView? {
+    var currentThumbImageView: UIImageView? {
         guard let image = self.currentThumbImage else { return nil }
         return self.subviews.compactMap({ $0 as? UIImageView }).first(where: { $0.image == image })
     }
 }
 
-import MediaPlayer
-public extension MPVolumeView {
-    
-    public var currentThumbImageView: UIImageView? {
-        guard let image = self.volumeThumbImage(for: .normal) else { return nil }
-        let slider = self.subviews.compactMap({ $0 as? UISlider }).first
-        print(self.subviews)
-        return slider?.subviews.compactMap({ $0 as? UIImageView }).first(where: { $0.image == image })
-    }
-}
+
