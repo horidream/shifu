@@ -7,19 +7,29 @@
 
 import AVFoundation
 
-fileprivate let map = [
+fileprivate let propertyMap = [
     "scale" : "transform.scale",
     "scaleX": "transform.scale.x",
     "scaleY": "transform.scale.y",
-    "rotation": "transform.rotation"
+    "rotation": "transform.rotation",
+]
+
+fileprivate let easeMap:[String: CAMediaTimingFunction] = [
+    "easeIn": CAMediaTimingFunction(name:.easeIn),
+    "easeout": CAMediaTimingFunction(name:.easeOut),
+    "easeInOut": CAMediaTimingFunction(name:.easeInEaseOut),
+    "back": CAMediaTimingFunction(controlPoints: 0.2, -0.6, 0, 1.4)
 ]
 
 public class Tween{
     public static func from(_ target: CALayer, _ duration:TimeInterval , _ propertyies: Dictionary<String, Any>){
         var dic = propertyies
-        let ease = dic.removeValue(forKey: "ease")  as? CAMediaTimingFunction ?? CAMediaTimingFunction(name: .easeIn)
+        let easeValue = dic.removeValue(forKey: "ease")
+        let timingFunction =  easeValue as? CAMediaTimingFunction
+        let easeName = easeValue as? String
+        let ease = timingFunction ?? easeMap[easeName ?? "easeIn"]
         for key in dic.keys{
-            let anime = CABasicAnimation(keyPath: map[key] ?? key)
+            let anime = CABasicAnimation(keyPath: propertyMap[key] ?? key)
             anime.fromValue = propertyies[key]
             anime.duration = duration
             anime.timingFunction = ease
