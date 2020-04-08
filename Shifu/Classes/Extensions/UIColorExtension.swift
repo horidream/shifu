@@ -18,6 +18,11 @@ public extension UIColor {
         self.init(red:r,green:g,blue:b,alpha:alpha)
     }
     
+    var alpha: CGFloat {
+        var a: CGFloat = 0
+        getRed(nil, green: nil, blue: nil, alpha: &a)
+        return a
+    }
     
     var hexValue: Int? {
         var fRed : CGFloat = 0
@@ -42,15 +47,7 @@ public extension UIColor {
 
 
 
-public struct ui{
-    
-    public static func blurView(frame:CGRect, style:UIBlurEffect.Style = .light) -> UIVisualEffectView{
-        let blur = UIBlurEffect(style: style)
-        let ev = UIVisualEffectView(effect: blur)
-        ev.frame = frame
-        return ev
-    }
-}
+
 
 public extension Int{
     func toColor()->UIColor{
