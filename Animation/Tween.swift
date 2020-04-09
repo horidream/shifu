@@ -12,13 +12,22 @@ fileprivate let propertyMap = [
     "scaleX": "transform.scale.x",
     "scaleY": "transform.scale.y",
     "rotation": "transform.rotation",
+    "rotationX": "transform.rotation.x",
+    "rotationY": "transform.rotation.y",
+    "rotationZ": "transform.rotation.z",
+    "x": "transform.translation.x",
+    "y":"transform.translation.y",
+    "z": "transform.translation.z",
+    "position": "transform.translation"
 ]
 
 fileprivate let easeMap:[String: CAMediaTimingFunction] = [
     "easeIn": CAMediaTimingFunction(name:.easeIn),
     "easeout": CAMediaTimingFunction(name:.easeOut),
     "easeInOut": CAMediaTimingFunction(name:.easeInEaseOut),
-    "back": CAMediaTimingFunction(controlPoints: 0.2, -0.6, 0, 1.4)
+    "backIn": CAMediaTimingFunction(controlPoints: 0.5, -1, 0, 1),
+    "backOut": CAMediaTimingFunction(controlPoints: 0.1, 1, 0.3, 1.3),
+    "backInOut": CAMediaTimingFunction(controlPoints: 0.2, -0.6, 0, 1.4),
 ]
 
 public class Tween{

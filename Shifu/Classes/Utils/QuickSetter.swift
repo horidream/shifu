@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 public class QuickSetter{
     public static func showAlert(title:String, details:String){
@@ -47,5 +49,24 @@ public class QuickSetter{
             loadingCount = 0
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
+    }
+    
+    public static func load(_ path:String, _ callback: @escaping (_ data: Data)->Void)->Disposable{
+        return URLSession.shared.rx
+            .response(request: URLRequest(url: URL(string: path)!))
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext:{
+                _, data in
+                callback(data)
+            })
+    }
+    
+    @available(iOS 9.0, *)
+    public static func button(_ title: String, handler: @escaping (UIButton)-> ())->UIButton{
+        let btn = UIButton()
+        btn.setTitle(title, for: .normal)
+        btn.sizeToFit()
+        btn.addAction(action: handler)
+        return btn;
     }
 }

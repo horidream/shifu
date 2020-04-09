@@ -62,8 +62,9 @@ public extension String{
     }
     
     
-    func image(_ fontFamily:String, fontSize:CGFloat, fontColor:UIColor = .blue) -> UIImage{
-        let font = UIFont(name: fontFamily, size: fontSize)!
+    func image(_ fontFamily:String = "", fontSize:CGFloat = 12, fontColor:UIColor = .black) -> UIImage?{
+        let sysFont = UIFont.systemFont(ofSize: fontSize)
+        let font = fontFamily == "" ?  sysFont : UIFont(name: fontFamily, size: fontSize) ?? sysFont
         let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.alignment = .left
         let attr = [
@@ -78,6 +79,6 @@ public extension String{
         self.draw(in: rect, withAttributes: attr)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image!
+        return image
     }
 }
