@@ -18,7 +18,8 @@ fileprivate let propertyMap = [
     "x": "transform.translation.x",
     "y":"transform.translation.y",
     "z": "transform.translation.z",
-    "position": "transform.translation"
+    "position": "transform.translation",
+    "alpha":"opacity"
 ]
 
 fileprivate let easeMap:[String: CAMediaTimingFunction] = [
@@ -59,10 +60,10 @@ public class Tween{
             target.add(anime, forKey: key)
         }
     }
-    public static func staggerFrom(_ targets: [CALayer], _ duration:TimeInterval , _ propertyies: Dictionary<String, Any>, _ step: TimeInterval = 0.08){
+    public static func staggerFrom(_ targets: [CALayer?], _ duration:TimeInterval , _ propertyies: Dictionary<String, Any>, _ step: TimeInterval = 0.08){
         var dic = propertyies
         dic["delay"] = getDelay(&dic) - step
-        for target in targets{
+        for target in targets.compactMap({ layer in return layer}){
             dic["delay"] = getDelay(&dic) + step;
             from(target, duration, dic)
         }

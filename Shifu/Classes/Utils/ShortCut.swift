@@ -70,4 +70,21 @@ public class ShortCut{
         btn.addAction(action: handler)
         return btn;
     }
+    
+    public static func roundedCornerLayer(_ frame:CGRect, _ radius: CGFloat = 10)->CALayer{
+        let parent = CALayer()
+        parent.frame = frame
+        parent.cornerRadius = radius
+        let child = CALayer()
+        child.frame = CGRect(origin: .zero, size: frame.size)
+        child.cornerRadius = radius
+        child.masksToBounds = true
+        parent.addSublayer(child)
+        
+        parent.shadowOpacity = 0.3
+        parent.shadowOffset = .zero
+        parent.shadowRadius = 5;
+        return parent
+        
+    }
 }
