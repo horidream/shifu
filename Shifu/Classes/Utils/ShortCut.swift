@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-public class QuickSetter{
+public class ShortCut{
     public static func showAlert(title:String, details:String){
         let alert = UIAlertController(title: title, message: details, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -54,10 +54,11 @@ public class QuickSetter{
     public static func load(_ path:String, _ callback: @escaping (_ data: Data)->Void)->Disposable{
         return URLSession.shared.rx
             .response(request: URLRequest(url: URL(string: path)!))
-            .subscribeOn(MainScheduler.instance)
             .subscribe(onNext:{
                 _, data in
-                callback(data)
+                DispatchQueue.main.async{
+                    callback(data)
+                }
             })
     }
     
