@@ -9,7 +9,29 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+
 public class ShortCut{
+    public static var keyWindow: UIWindow?{
+        return UIApplication.shared.windows.first(where: {
+            $0.isKeyWindow
+        })
+    }
+    
+    public static func topViewController(_ base: UIViewController? = keyWindow?.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return topViewController(nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return topViewController(selected)
+            }
+        }
+        if let presented = base?.presentedViewController {
+            return topViewController(presented)
+        }
+        return base
+    }
+    
     public static func showAlert(title:String, details:String){
         let alert = UIAlertController(title: title, message: details, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
