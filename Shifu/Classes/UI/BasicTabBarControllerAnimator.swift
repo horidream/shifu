@@ -15,6 +15,7 @@ public class BasicTabBarControllerAnimator: NSObject{
     var context:UIViewControllerContextTransitioning?
     public init(_ tbc: UITabBarController, interactive isInteractive: Bool = true, duration:TimeInterval = 0.15){
         self.tbc = tbc
+        
         self.duration = duration
         super.init()
         if(isInteractive){
@@ -28,6 +29,7 @@ public class BasicTabBarControllerAnimator: NSObject{
             rightPan.delegate = self
             tbc.view.addGestureRecognizer(rightPan)
         }
+        self.tbc.delegate = self
     }
     
     @objc func pan(_ g: UIScreenEdgePanGestureRecognizer){
@@ -67,6 +69,7 @@ public class BasicTabBarControllerAnimator: NSObject{
         }
     }
 }
+
 
 extension BasicTabBarControllerAnimator:UIGestureRecognizerDelegate{
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -151,7 +154,7 @@ extension BasicTabBarControllerAnimator : UITabBarControllerDelegate {
     public func tabBarController(_ tabBarController: UITabBarController,
                                  animationControllerForTransitionFrom fromVC: UIViewController,
                                  to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return self.isInteractive ? nil : self
+        return self
     }
     
     public func tabBarController(_ tabBarController: UITabBarController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
