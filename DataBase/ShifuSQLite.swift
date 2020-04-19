@@ -1,9 +1,8 @@
 //
-//  Database.swift
-//  ScrumSolo
+//  ShifuSQLite.swift
+//  Shifu
 //
-//  Created by Baoli Zhai on 09/05/2017.
-//  Copyright © 2017 DreamStudio. All rights reserved.
+//  Created by Baoli Zhai on 2020/4/19.
 //
 
 import Foundation
@@ -11,8 +10,8 @@ import FMDB
 
 
 
-public class LocalStorage {
-    
+
+public class ShifuSQLite{
     private var db:FMDatabase
     public var lastInsertRowId:Int64{
         return db.lastInsertRowId
@@ -20,7 +19,7 @@ public class LocalStorage {
     
     public init(filename:String? = nil, overwritten:Bool = false){
         if let filename = filename{
-            let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory,.userDomainMask, true)
+            let paths = NSSearchPathForDirectoriesInDomains(.libraryDirectory,.userDomainMask, true)
             let path = paths.first!.appending("/\(filename)")
             if(overwritten){
                 try? FileManager.default.removeItem(at: URL(fileURLWithPath: path))
@@ -34,40 +33,28 @@ public class LocalStorage {
     
     /* Example: ls.create(tableName: "BookMark", schema: "id INTEGER PRIMARY KEY, fileHash TEXT, startPosition REAL, type INTEGER default 0, remark TEXT default \"\"")
      */
-    public func create(tableName table:String, schema:String)
+    public func create(tableName table:String, schema:String = "id INTEGER primary, name TEXT")
     {
         db.executeStatements("CREATE TABLE IF NOT EXISTS \(table) (\(schema))")
     }
     
-    public func fetch<T:Manageable>(_ query:String, args:[Any]! = [])->[T]{
-        return self.query(query, args: args) { (rst) -> T? in
-            return T.init(rst)
-        }
-    }
-    
-    
-    
-    @discardableResult public func exe(_ sql:String, args:[Any]! = nil)->Bool{
-        var result:Bool
-        if args == nil || args.count == 0{
-            result = db.executeStatements(sql)
-        }else{
-            result = db.executeUpdate(sql, withArgumentsIn: args)
-        }
-        if(!result){
-            print(db.lastError())
-        }
-        return result
-    }
-    
-    public func rowExists(id:Int64)->Bool{
-        
-        do{
-            let rs = try db.executeQuery("select id from items where id=?", values: [id])
-            return rs.next()
-        }catch{
-            return false
-        }
+    public func querySquence<T>(_ sql:String, args:[Any]! = nil, map block:@escaping (FMResultSet)->T?)->AnySequence<T>{
+        let rs = try? db.executeQuery(sql, values: args)
+            return AnySequence{
+                ()->AnyIterator<T> in
+                return AnyIterator{
+                    if let rs = rs{
+                        if(rs.next()){
+                            return block(rs);
+                        }else{
+                            return nil
+                        }
+                    }else{
+                        return nil
+                    }
+                }
+            }
+            
         
     }
     
@@ -83,13 +70,35 @@ public class LocalStorage {
         return result
     }
     
+    @discardableResult public func exe(_ sql:String, args:[Any]! = nil)->Bool{
+        var result:Bool
+        if args == nil || args.count == 0{
+            result = db.executeStatements(sql)
+        }else{
+            result = db.executeUpdate(sql, withArgumentsIn: args)
+        }
+        if(!result){
+            print(db.lastError())
+        }
+        return result
+    }
+    
+    
+    
+    
+
+    
+    public func rowExists(id:Int64)->Bool{
+        
+        do{
+            let rs = try db.executeQuery("select id from items where id=?", values: [id])
+            return rs.next()
+        }catch{
+            return false
+        }
+        
+    }
     public func clear(tableName table:String){
         db.executeStatements("delete from \(table)")
     }
-    
-    public func delete(){
-        
-    }
 }
-
-

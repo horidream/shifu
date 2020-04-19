@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Shifu
+
+  Created by Baoli Zhai on 2020/4/19.
+  Copyright © 2020 CocoaPods. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "Shifu";
