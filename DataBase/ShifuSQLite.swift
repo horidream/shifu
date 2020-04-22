@@ -12,7 +12,7 @@ import FMDB
 
 
 public class ShifuSQLite{
-    private var db:FMDatabase
+    public var db:FMDatabase
     public var lastInsertRowId:Int64{
         return db.lastInsertRowId
     }
@@ -30,15 +30,19 @@ public class ShifuSQLite{
         }
         db.open()
     }
-    
-    /* Example: ls.create(tableName: "BookMark", schema: "id INTEGER PRIMARY KEY, fileHash TEXT, startPosition REAL, type INTEGER default 0, remark TEXT default \"\"")
+    // MARK: - create/clear table
+    /* Example: sql.create(tableName: "BookMark", schema: "id INTEGER PRIMARY KEY, fileHash TEXT, startPosition REAL, type INTEGER default 0, remark TEXT default \"\"")
      */
     public func create(tableName table:String, schema:String = "id INTEGER primary, name TEXT")
     {
         db.executeStatements("CREATE TABLE IF NOT EXISTS \(table) (\(schema))")
     }
+    public func clear(tableName table:String){
+        db.executeStatements("delete from \(table)")
+    }
     
-    public func querySquence<T>(_ sql:String, args:[Any]! = nil, map block:@escaping (FMResultSet)->T?)->AnySequence<T>{
+    // MARK: - getter
+    public func querySequence<T>(_ sql:String, args:[Any]! = nil, map block:@escaping (FMResultSet)->T?)->AnySequence<T>{
         let rs = try? db.executeQuery(sql, values: args)
             return AnySequence{
                 ()->AnyIterator<T> in
@@ -70,6 +74,21 @@ public class ShifuSQLite{
         return result
     }
     
+    public func queryOne<T>(_ sql:String, args:[Any]! = nil, map block:(FMResultSet)->T?)->T?{
+        if let rs = try? db.executeQuery(sql, values: args) {
+            if rs.next() {
+                return block(rs)
+            }
+        }
+        return nil
+    }
+    
+    public func queryInt(_ sql:String, args:[Any]! = nil)->Int{
+        return Int(self.queryOne(sql){ $0.int(forColumnIndex: 0)}!)
+        
+    }
+    
+    // MARK: - setter
     @discardableResult public func exe(_ sql:String, args:[Any]! = nil)->Bool{
         var result:Bool
         if args == nil || args.count == 0{
@@ -87,7 +106,7 @@ public class ShifuSQLite{
     
     
 
-    
+    // MARK: - supporting
     public func rowExists(id:Int64)->Bool{
         
         do{
@@ -98,7 +117,5 @@ public class ShifuSQLite{
         }
         
     }
-    public func clear(tableName table:String){
-        db.executeStatements("delete from \(table)")
-    }
+
 }
