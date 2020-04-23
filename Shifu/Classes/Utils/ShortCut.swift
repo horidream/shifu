@@ -10,6 +10,9 @@ import RxSwift
 import RxCocoa
 
 
+
+
+
 public class ShortCut{
     public static var keyWindow: UIWindow?{
         return UIApplication.shared.windows.first(where: {
@@ -108,5 +111,25 @@ public class ShortCut{
         parent.shadowRadius = 5;
         return parent
         
+    }
+}
+
+
+
+public extension ShortCut{
+    class func emit(_ notification: Notification.Name, userInfo: [AnyHashable: Any]? = nil){
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: userInfo)
+    }
+    
+    @discardableResult class func on(_ notification:Notification.Name, _ block:@escaping (Notification)->Void)->(()->Void){
+        
+        let observer = NotificationCenter.default.addObserver(forName: notification, object: nil, queue: .main, using: {
+            (notification:Notification) in
+            block(notification)
+        })
+        return {
+            print("will remove observer: \(observer) with name: \(notification)")
+            NotificationCenter.default.removeObserver(observer, name: notification, object: nil)
+        }
     }
 }

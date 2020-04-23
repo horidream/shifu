@@ -8,33 +8,46 @@
 
 import UIKit
 import Shifu
+import FMDB
 
 struct Person{
     var name:String
     var age: Int
+   init(name :String, age: Int){
+        self.name = name
+        self.age = age
+    }
+    init(_ rst: FMResultSet){
+//        self.name = rst.string(forColumn: "name")!
+//        self.age =  Int(rst.int(forColumn: "age"))
+    self.init(name: rst.string(forColumn: "name")!, age: Int(rst.int(forColumn: "age")))
+    }
 }
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         self.view.backgroundColor = .black
         super.viewDidLoad()
         print(#function)
         let ls = ShifuSQLite(filename: "my.db", overwritten: false)
-        ls.exe("drop table if exists Test")
+        ls.clear(tableName: "Test")
         ls.create(tableName: "Test", schema: "name TEXT, age INTEGER")
         ls.exe("insert into Test (name, age) values(?, ?)", args: ["Baoli", 40])
-        let peoples = ls.querySquence("select * from Test") {
+        print(ls.queryInt("select count(*) from test where name=\"Baoli\""))
+        let peoples = ls.querySequence("select * from Test") {
             rst->Person in
-            let name = rst.string(forColumn: "name")!
-            let age = rst.int(forColumn: "age")
-            return Person(name: name, age: Int(age))
+            
+            return Person(rst)
         }
-
-        print(Array(peoples))
+        
+        for (n, c) in peoples.enumerated(){
+            print("\(n): '\(c)'")
+        }
+        
     }
-
-
-
+    
+    
+    
 }
 
