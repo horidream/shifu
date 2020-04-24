@@ -10,12 +10,22 @@ import AVFoundation
 import MediaPlayer
 
 
-extension URL{
+public extension URL{
     var filename:String{
         get{
             return self.deletingPathExtension().lastPathComponent
         }
     }
+    
+    var isDirectory:Bool{
+        return self.path.isDirectory
+    }
+    
+    var closestDirectoryName:String{
+        let comps = self.pathComponents
+        return (isDirectory ? comps.get(-1) : comps.get(-2))!
+    }
+    
     var artwork:MPMediaItemArtwork?{
         let playerItem = AVPlayerItem(url: self) //this will be your audio source
         

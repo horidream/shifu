@@ -10,7 +10,11 @@ import Foundation
 
 
 extension Array {
-    public subscript (safe index: Int) -> Element? {
-        return index < count && index >= 0 ? self[index] : nil
+    public func get( _ index: Int, _ defaultValue:Element? = nil) -> Element? {
+        var index = index;
+        if index < 0{
+            index = self.count + index;
+        }
+        return index < count && index >= 0 ? self[index] : defaultValue
     }
 }

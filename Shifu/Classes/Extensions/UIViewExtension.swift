@@ -10,7 +10,7 @@ import UIKit
 @available(iOS 9.0, *)
 public extension UIView{
     
-    func quickAlign(_ type:UInt, _ offsetX:CGFloat = 0, _ offsetY:CGFloat = 0, _ parent:UIView? = nil){
+    func quickAlign(_ type:UInt = 5, _ offsetX:CGFloat = 0, _ offsetY:CGFloat = 0, _ parent:UIView? = nil){
         if let parent = parent ?? self.superview{
             self.translatesAutoresizingMaskIntoConstraints = false
             switch type {

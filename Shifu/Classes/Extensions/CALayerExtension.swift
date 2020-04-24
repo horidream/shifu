@@ -8,13 +8,48 @@
 
 import Foundation
 
-extension CALayer{
-    public var image:UIImage?{
+public extension CALayer{
+    var image:UIImage?{
         UIGraphicsBeginImageContext(self.bounds.size)
         self.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+    
+    func quickAlign(_ type:UInt = 5, _ offsetX:CGFloat = 0, _ offsetY:CGFloat = 0){
+        func translateLayerPosition(_ p:CGPoint)->CGPoint{
+            return p.applying(.init(translationX: (anchorPoint.x-0.5)*frame.width, y: (anchorPoint.y-0.5)*frame.height))
+        }
+        if let parent = self.superlayer{
+            let pb = parent.bounds
+            let halfSize = CGPoint(x: bounds.width/2, y : bounds.height/2);
+            switch type {
+            
+            case 1:
+                self.position = translateLayerPosition(pb.origin + halfSize)
+            case 2:
+                self.position = translateLayerPosition(CGPoint(x: pb.midX, y: halfSize.y))
+            case 3:
+                self.position = translateLayerPosition(CGPoint(x: pb.maxX - halfSize.x, y: halfSize.y))
+            case 4:
+                self.position = translateLayerPosition(CGPoint(x: halfSize.x, y: pb.minY))
+            case 5:
+                self.position = translateLayerPosition(pb.center)
+            case 6:
+                self.position = translateLayerPosition(CGPoint(x: pb.maxX - halfSize.x, y: pb.minY))
+            case 7:
+                self.position = translateLayerPosition(CGPoint(x: halfSize.x, y: pb.maxY - halfSize.y))
+            case 8:
+                self.position = translateLayerPosition(CGPoint(x: pb.minX, y: pb.maxY - halfSize.y))
+            case 9:
+                self.position = translateLayerPosition(CGPoint(x: pb.maxX - halfSize.x, y: pb.maxY - halfSize.y))
+            case 0:
+                self.frame = pb
+            default:()
+                
+            }
+        }
     }
 }
 
@@ -31,12 +66,4 @@ extension CALayer:CALayerDelegate{
         }
         return nil
     }
-    
-//    public func onAddToStage(action:CAAction? = nil, _ callback:()->Void){
-//        self.delegate = self
-//        self.setValue(callback, forKey: "__shifu_on_add_to_stage__")
-//        if let action = action{
-//            self.setValue(action, forKey: "__shifu_on_add_to_stage_action__")
-//        }
-//    }
 }

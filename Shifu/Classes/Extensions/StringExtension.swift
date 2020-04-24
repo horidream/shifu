@@ -81,4 +81,19 @@ public extension String{
         UIGraphicsEndImageContext()
         return image
     }
+    
+    
+}
+
+
+public extension String{
+    var isDirectory:Bool{
+        var isDirectory:ObjCBool = false
+        FileManager.default.fileExists(atPath: self, isDirectory: &isDirectory)
+        return isDirectory.boolValue
+    }
+    var closestDirectoryName:String{
+        let comps = URL(fileURLWithPath: self).pathComponents
+        return (isDirectory ? comps.get(-1) : comps.get(-2))!
+    }
 }
