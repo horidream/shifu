@@ -96,4 +96,29 @@ public extension String{
         let comps = URL(fileURLWithPath: self).pathComponents
         return (isDirectory ? comps.get(-1) : comps.get(-2))!
     }
+    var file:URL{
+        return URL(fileURLWithPath: self)
+    }
+    
+    var url:URL?{
+        return URL(string:self)
+    }
+    
+//    var ns:NSString{
+//        return self as NSString
+//    }
 }
+
+
+public protocol NSCastable{
+    associatedtype NS
+    var ns:NS{ get }
+}
+public extension NSCastable{
+    var ns:NS{
+        return self as! NS
+    }
+}
+
+extension String:NSCastable{ public typealias NS = NSString }
+extension URL:NSCastable{ public typealias NS = NSURL }
