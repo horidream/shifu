@@ -48,3 +48,14 @@ public extension CGRect{
         return CGPoint(x: self.midX, y: self.midY)
     }
 }
+
+public extension CGSize{
+    init(_ width: CGFloat, _ height: CGFloat){
+        self.init(width: width, height: height)
+    }
+    
+    func perspectiveSize(at z: CGFloat, cameraDistance distance: CGFloat)->Self{
+        let scale = (distance - z) / distance
+        return CGSize(width: scale * width, height: scale * height )
+    }
+}

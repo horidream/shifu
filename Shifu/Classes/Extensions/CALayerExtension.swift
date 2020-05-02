@@ -33,11 +33,11 @@ public extension CALayer{
             case 3:
                 self.position = translateLayerPosition(CGPoint(x: pb.maxX - halfSize.x, y: halfSize.y))
             case 4:
-                self.position = translateLayerPosition(CGPoint(x: halfSize.x, y: pb.minY))
+                self.position = translateLayerPosition(CGPoint(x: halfSize.x, y: pb.midY))
             case 5:
                 self.position = translateLayerPosition(pb.center)
             case 6:
-                self.position = translateLayerPosition(CGPoint(x: pb.maxX - halfSize.x, y: pb.minY))
+                self.position = translateLayerPosition(CGPoint(x: pb.maxX - halfSize.x, y: pb.midY))
             case 7:
                 self.position = translateLayerPosition(CGPoint(x: halfSize.x, y: pb.maxY - halfSize.y))
             case 8:

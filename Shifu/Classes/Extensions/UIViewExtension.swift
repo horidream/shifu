@@ -10,7 +10,7 @@ import UIKit
 @available(iOS 9.0, *)
 public extension UIView{
     
-    func quickAlign(_ type:UInt = 5, _ offsetX:CGFloat = 0, _ offsetY:CGFloat = 0, _ parent:UIView? = nil){
+    @discardableResult func quickAlign(_ type:UInt = 5, _ offsetX:CGFloat = 0, _ offsetY:CGFloat = 0, _ parent:UIView? = nil)->Self{
         if let parent = parent ?? self.superview{
             self.translatesAutoresizingMaskIntoConstraints = false
             switch type {
@@ -69,6 +69,13 @@ public extension UIView{
                 
             }
         }
+        return self
     }
     
+    
+    
+    @discardableResult func add(to superView: UIView?)->Self{
+        superView?.addSubview(self)
+        return self
+    }
 }
