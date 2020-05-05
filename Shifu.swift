@@ -8,6 +8,24 @@
 import Foundation
 
 
+class EqutableWrapper: Equatable, Identifiable{
+    static func == (lhs: EqutableWrapper, rhs: EqutableWrapper) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    
+    static var globalID: UInt = 0;
+    let id: UInt = {
+        globalID += 1
+        return globalID;
+    }()
+    
+    var payload: Any? = nil
+    
+    
+}
+
+
 public class Shifu{
     public struct ui{
         public static func blurView(frame:CGRect, style:UIBlurEffect.Style = .light) -> UIVisualEffectView{

@@ -116,9 +116,24 @@ public class ShortCut{
 
 
 
+var notificationMap:[Notification.Name: [EqutableWrapper]] = [Notification.Name: [EqutableWrapper]]()
+
 public extension ShortCut{
     class func emit(_ notification: Notification.Name, userInfo: [AnyHashable: Any]? = nil){
         NotificationCenter.default.post(name: notification, object: nil, userInfo: userInfo)
+    }
+    
+    class func off(_ notification:Notification.Name)
+    {
+        
+        if let unwatchers = notificationMap[notification]{
+            unwatchers.forEach { (wrapper) in
+                if let cb = wrapper.payload as? ()->Void{
+                    cb()
+                }
+            }
+        }
+        notificationMap.removeValue(forKey: notification)
     }
     
     @discardableResult class func on(_ notification:Notification.Name, _ block:@escaping (Notification)->Void)->(()->Void){
@@ -127,9 +142,35 @@ public extension ShortCut{
             (notification:Notification) in
             block(notification)
         })
-        return {
-            print("will remove observer: \(observer) with name: \(notification)")
+        if notificationMap[notification] == nil{
+            notificationMap[notification] = []
+        }
+        let handler = EqutableWrapper()
+        let unwatch = { [weak handler] in
+            if let handler = handler, var list = notificationMap[notification],let idx = list.firstIndex(of: handler),  list.contains(handler){
+                list.remove(at: idx)
+            }
+            
             NotificationCenter.default.removeObserver(observer, name: notification, object: nil)
         }
+        
+        handler.payload = unwatch
+        notificationMap[notification]?.append(handler)
+        return unwatch
+    }
+    
+    @discardableResult class func on(_ notifications:[Notification.Name], _ block:@escaping (Notification)->Void)->(()->Void){
+        let arr = notifications.map { notification in
+            return self.on(notifications, block)
+        }
+        
+        return {
+            arr.forEach { (off) in
+                off()
+            }
+        }
+        
     }
 }
+
+
