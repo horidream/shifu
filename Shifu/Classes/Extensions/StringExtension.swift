@@ -122,3 +122,4 @@ public extension NSCastable{
 
 extension String:NSCastable{ public typealias NS = NSString }
 extension URL:NSCastable{ public typealias NS = NSURL }
+

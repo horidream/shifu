@@ -9,12 +9,14 @@ import Foundation
 import FMDB
 
 
-class SQLLiteManager{
+public class SQLLiteManager{
     private var database:FMDatabase
     private var lastInsertRowId:NSNumber?
-    private let forceOverwrite:Bool = false
-    init(name: String){
-        
+    private let forceOverwrite:Bool
+    private let name:String
+    public init(name: String, forceOverwrite:Bool = false){
+        self.name = name
+        self.forceOverwrite = forceOverwrite
         let bundlePath = Bundle.main.path(forResource: name, ofType: ".db")!
         let fm = FileManager.default
         let documentsFolder = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as String

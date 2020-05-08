@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Shifu
 import FMDB
+import Shifu
 
 struct Person{
     var name:String
@@ -30,20 +30,8 @@ class ViewController: UIViewController {
         self.view.backgroundColor = .black
         super.viewDidLoad()
         print(#function)
-        let ls = ShifuSQLite(filename: "my.db", overwritten: false)
-        ls.clear(tableName: "Test")
-        ls.create(tableName: "Test", schema: "name TEXT, age INTEGER")
-        ls.exe("insert into Test (name, age) values(?, ?)", args: ["Baoli", 40])
-        print(ls.queryInt("select count(*) from test where name=\"Baoli\""))
-        let peoples = ls.querySequence("select * from Test") {
-            rst->Person in
-            
-            return Person(rst)
-        }
+        _ = SQLLiteManager(name: "my.db")
         
-        for (n, c) in peoples.enumerated(){
-            print("\(n): '\(c)'")
-        }
         
     }
     
