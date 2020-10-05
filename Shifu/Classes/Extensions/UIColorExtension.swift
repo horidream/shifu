@@ -6,7 +6,7 @@
 //  Copyright © 2016 Baoli Zhai. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 

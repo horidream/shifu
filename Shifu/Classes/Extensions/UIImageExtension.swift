@@ -5,7 +5,7 @@
 //  Created by Baoli Zhai on 21/01/2017.
 //  Copyright © 2017 Baoli Zhai. All rights reserved.
 //
-
+import UIKit
 
 public extension UIImage{
     

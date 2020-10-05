@@ -5,7 +5,7 @@
 //  Created by Baoli Zhai on 2020/5/1.
 //
 
-import Foundation
+import UIKit
 
 
 public extension CGColor{

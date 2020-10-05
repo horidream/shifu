@@ -6,7 +6,7 @@
 //  Copyright © 2017 Baoli Zhai. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public extension CALayer{
     var image:UIImage?{

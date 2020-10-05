@@ -5,7 +5,7 @@
 //  Created by Baoli Zhai on 2020/4/12.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 import RxCocoa
 

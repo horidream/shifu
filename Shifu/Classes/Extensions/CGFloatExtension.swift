@@ -5,7 +5,7 @@
 //  Created by Baoli Zhai on 07/07/2017.
 //
 
-import Foundation
+import UIKit
 
 extension CGFloat{
     public func toRadian()->CGFloat{

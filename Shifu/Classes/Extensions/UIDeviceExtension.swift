@@ -5,7 +5,7 @@
 //  Created by Baoli Zhai on 2018/5/3.
 //
 
-import Foundation
+import UIKit
 
 public extension UIDevice {
     

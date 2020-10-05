@@ -5,7 +5,7 @@
 //  Created by Baoli Zhai on 2020/4/8.
 //
 
-import Foundation
+import UIKit
 
 
 class EqutableWrapper: Equatable, Identifiable{
@@ -27,6 +27,7 @@ class EqutableWrapper: Equatable, Identifiable{
 
 
 public class Shifu{
+    public static var name = "Shifu"
     public struct ui{
         public static func blurView(frame:CGRect, style:UIBlurEffect.Style = .light) -> UIVisualEffectView{
             let blur = UIBlurEffect(style: style)

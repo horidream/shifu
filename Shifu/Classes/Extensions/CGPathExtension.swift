@@ -5,7 +5,7 @@
 //  Created by Baoli Zhai on 2020/4/16.
 //
 
-import Foundation
+import UIKit
 
 public extension CGPath{
     //TODO: integrate https://github.com/pocketsvg/PocketSVG
