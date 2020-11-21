@@ -25,5 +25,8 @@ public extension FileManager {
             let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true) as [String]
             return paths.first!
         }
+        public static var temp:String{
+            return NSTemporaryDirectory()
+        }
     }
 }
