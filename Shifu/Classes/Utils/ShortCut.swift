@@ -14,6 +14,10 @@ import RxCocoa
 
 
 public class ShortCut{
+    public static func endEditing(){
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        NotificationCenter.default.post(name: Notification.Name("shifuEndNotification"), object: nil)
+    }
     public static var keyWindow: UIWindow?{
         return UIApplication.shared.windows.first(where: {
             $0.isKeyWindow

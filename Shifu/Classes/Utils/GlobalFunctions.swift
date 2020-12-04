@@ -11,8 +11,10 @@ import Foundation
 
 let namespace:String = "com.horidream.lib.shifu"
 
-public func delay(_ delay:Double, queue:DispatchQueue? = nil, closure:@escaping ()->()) {
+@discardableResult public func delay(_ delay:Double, queue:DispatchQueue? = nil, closure:@escaping ()->()) -> DispatchWorkItem {
     let q = queue ?? DispatchQueue.main
     let t = DispatchTime.now() + Double(Int64( delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-    q.asyncAfter(deadline: t, execute: closure)
+    let workItem = DispatchWorkItem() { closure() }
+    q.asyncAfter(deadline: t, execute: workItem)
+    return workItem
 }
