@@ -29,4 +29,31 @@ public extension FileManager {
             return NSTemporaryDirectory()
         }
     }
+    
+    func write(text: String, to fileName: String, appending:Bool = false, in directory: URL = url.document) {
+        let filePath = directory.appendingPathComponent(fileName).path
+        do{
+            if !fileExists(atPath: filePath) {
+                createFile(atPath: filePath, contents: text.data(using: .utf8), attributes: nil)
+            }else{
+                if(appending){
+                    if let fileHandle = FileHandle(forWritingAtPath: filePath) {
+                        defer {
+                            fileHandle.closeFile()
+                        }
+                        fileHandle.seekToEndOfFile()
+                        fileHandle.write(text.data(using: .utf8)!)
+                    }
+                }else{
+                    try text.write(toFile: filePath, atomically: true, encoding: .utf8)
+                }
+            }
+        }catch{
+            print(error)
+        }
+    }
+    func read(_ fileName: String, in directory: URL = url.document) -> String?{
+        let filePath = directory.appendingPathComponent(fileName).path
+        return try? String(contentsOfFile: filePath)
+    }
 }
