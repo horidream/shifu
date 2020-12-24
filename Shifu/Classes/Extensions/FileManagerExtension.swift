@@ -30,7 +30,8 @@ public extension FileManager {
         }
     }
     
-    func write(text: String, to fileName: String, appending:Bool = false, in directory: URL = url.document) {
+    @discardableResult
+    func write(text: String, to fileName: String, appending:Bool = false, in directory: URL = url.document) -> String?{
         let filePath = directory.appendingPathComponent(fileName).path
         do{
             if !fileExists(atPath: filePath) {
@@ -48,10 +49,12 @@ public extension FileManager {
                     try text.write(toFile: filePath, atomically: true, encoding: .utf8)
                 }
             }
+            return filePath
         }catch{
-            print(error)
+            return nil
         }
     }
+    
     func read(_ fileName: String, in directory: URL = url.document) -> String?{
         let filePath = directory.appendingPathComponent(fileName).path
         return try? String(contentsOfFile: filePath)
