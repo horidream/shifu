@@ -59,4 +59,9 @@ public extension FileManager {
         let filePath = directory.appendingPathComponent(fileName).path
         return try? String(contentsOfFile: filePath)
     }
+    
+    func exists(_ fileName: String, in directory: URL = url.document) -> Bool{
+        let filePath = directory.appendingPathComponent(fileName).path
+        return fileExists(atPath: filePath)
+    }
 }
