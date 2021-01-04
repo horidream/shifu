@@ -64,4 +64,8 @@ public extension FileManager {
         let filePath = directory.appendingPathComponent(fileName).path
         return fileExists(atPath: filePath)
     }
+    
+    func url(_ fileName: String, in directory: URL = url.document) -> URL{
+        return directory.appendingPathComponent(fileName)
+    }
 }
