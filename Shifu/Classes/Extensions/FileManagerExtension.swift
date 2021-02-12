@@ -12,6 +12,9 @@ public extension FileManager {
         public static var document:URL{
             return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         }
+        public static var temp:URL{
+            return URL(fileURLWithPath: NSTemporaryDirectory())
+        }
         public static var cache:URL{
             return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
         }
@@ -47,6 +50,32 @@ public extension FileManager {
                     }
                 }else{
                     try text.write(toFile: filePath, atomically: true, encoding: .utf8)
+                }
+            }
+            return filePath
+        }catch{
+            return nil
+        }
+    }
+    
+    func write(data: Data?, to fileName: String, appending:Bool = false, in directory: URL = url.document) -> String?{
+        guard data != nil else { return nil }
+        let fileURL = directory.appendingPathComponent(fileName)
+        let filePath = fileURL.path
+        do{
+            if !fileExists(atPath: filePath) {
+                createFile(atPath: filePath, contents: data, attributes: nil)
+            }else{
+                if(appending){
+                    if let fileHandle = FileHandle(forWritingAtPath: filePath) {
+                        defer {
+                            fileHandle.closeFile()
+                        }
+                        fileHandle.seekToEndOfFile()
+                        fileHandle.write(data!)
+                    }
+                }else{
+                    try data!.write(to: fileURL, options: .atomic)
                 }
             }
             return filePath
