@@ -20,6 +20,7 @@ public class Announcer: NSObject{
     let language:String
     var output: AVAudioFile?
     let rate:Float = 0.38
+    public var currentUtterance:AVSpeechUtterance?
     public let isPlaying: PassthroughSubject<Bool, Never> = PassthroughSubject()
     
         
@@ -30,9 +31,10 @@ public class Announcer: NSObject{
     }
     
     public func say(string:String){
-        let utterance = AVSpeechUtterance(string: string.replacingOccurrences(of: "\n", with: ";"))
+        let utterance = AVSpeechUtterance(string: string.toSpeechString())
         utterance.rate = rate
         utterance.voice = preferredLanguage
+        currentUtterance = utterance
         synthesizer.speak(utterance)
     }
     
@@ -50,10 +52,11 @@ public class Announcer: NSObject{
     
     @discardableResult public func write(string:String, url:URL)->Future<URL, Error>{
         
-        let utterance = AVSpeechUtterance(string: string.replacingOccurrences(of: "\n", with: ";"))
+        let utterance = AVSpeechUtterance(string: string.toSpeechString())
         let tempURL = FileManager.url.temp.appendingPathComponent("temp.caf")
         utterance.voice = preferredLanguage
         utterance.rate = rate
+        currentUtterance = utterance
         self.output = nil
         return Future<URL, Error> { (promise) in
             self.synthesizer.write(utterance) { (buffer) in
@@ -107,6 +110,11 @@ public class Announcer: NSObject{
     }
 }
 
+public extension String{
+    func toSpeechString()->Self{
+        return self.replacingOccurrences(of: "\n", with: ":")
+    }
+}
 
 @available(iOS 13.0, *)
 extension Announcer: AVSpeechSynthesizerDelegate{
