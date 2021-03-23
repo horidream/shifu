@@ -21,8 +21,10 @@ public class Announcer: NSObject{
     var output: AVAudioFile?
     let rate:Float = 0.38
     public var currentUtterance:AVSpeechUtterance?
-    public let isPlaying: PassthroughSubject<Bool, Never> = PassthroughSubject()
-    
+    private let _isPlaying: PassthroughSubject<Bool, Never> = PassthroughSubject()
+    public var isPlaying:AnyPublisher<Bool,Never>{
+        return _isPlaying.eraseToAnyPublisher()
+    }
         
     public init(_ language:String = "en-US"){
         self.language = language
@@ -31,11 +33,14 @@ public class Announcer: NSObject{
     }
     
     public func say(string:String){
-        let utterance = AVSpeechUtterance(string: string.toSpeechString())
-        utterance.rate = rate
-        utterance.voice = preferredLanguage
-        currentUtterance = utterance
-        synthesizer.speak(utterance)
+        _isPlaying.send(true)
+        DispatchQueue.global(qos: .userInteractive).async {
+            let utterance = AVSpeechUtterance(string: string.toSpeechString())
+            utterance.rate = self.rate
+            utterance.voice = self.preferredLanguage
+            self.currentUtterance = utterance
+            self.synthesizer.speak(utterance)
+        }
     }
     
     private var preferredLanguage:AVSpeechSynthesisVoice?{
@@ -121,23 +126,23 @@ extension Announcer: AVSpeechSynthesizerDelegate{
     
     
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        isPlaying.send(false)
+        _isPlaying.send(false)
     }
     
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
-        isPlaying.send(false)
+        _isPlaying.send(false)
     }
     
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
-        isPlaying.send(false)
+        _isPlaying.send(false)
     }
     
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        isPlaying.send(true)
+        _isPlaying.send(true)
     }
     
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
-        isPlaying.send(true)
+        _isPlaying.send(true)
     }
 }
 

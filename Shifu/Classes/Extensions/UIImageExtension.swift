@@ -93,6 +93,21 @@ public extension UIImage{
     }
 }
 
+public extension UIImage{
+    convenience init?(base64String:String){
+        var str = base64String
+        if let range = base64String.range(of: "^data.*;base64,", options: .regularExpression){
+            str.removeSubrange(range)
+            
+        }
+        if let data = Data(base64Encoded: str){
+            self.init(data:data)
+        }else{
+            return nil
+        }
+    }
+}
+
 public extension UISlider {
     var currentThumbImageView: UIImageView? {
         guard let image = self.currentThumbImage else { return nil }

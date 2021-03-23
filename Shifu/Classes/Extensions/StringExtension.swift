@@ -6,6 +6,7 @@
 //  Copyright © 2016 Baoli Zhai. All rights reserved.
 //
 import  UIKit
+import CoreServices
 
 public extension String{
     
@@ -124,3 +125,34 @@ public extension NSCastable{
 extension String:NSCastable{ public typealias NS = NSString }
 extension URL:NSCastable{ public typealias NS = NSURL }
 
+public extension String{
+    var normalized:String{
+        return self.replacingOccurrences(of: "\n", with: "\\n")
+            .replacingOccurrences(of: "\"", with: "\\\"")
+    }
+    
+    func toMIME()->Self?{
+        return UTTypeCopyPreferredTagWithClass(self as CFString, kUTTagClassMIMEType)?.takeRetainedValue() as String?
+    }
+    func toUTI()->Self?{
+        let rst =  UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, self as CFString, nil)?.takeRetainedValue() as String?
+        if (rst?.starts(with: "dyn.") == true){
+            return nil
+        }else{
+            return rst
+        }
+    }
+    
+    func UTIToExt()->Self?{
+        switch self {
+        case "org.openxmlformats.spreadsheetml.sheet":
+            return "xlsx"
+        default:
+            if let ext = UTTypeCopyPreferredTagWithClass(self as CFString, kUTTagClassFilenameExtension)?.takeRetainedValue() {
+                return ext as String
+            }
+            return nil
+        }
+        
+    }
+}
