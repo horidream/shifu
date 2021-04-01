@@ -37,5 +37,15 @@ public class Shifu{
         }
     }
     
+    static let namespace:String = "com.horidream.lib.shifu"
+
     
+    @discardableResult public class func delay(_ delay:Double, queue:DispatchQueue? = nil, closure:@escaping ()->()) -> DispatchWorkItem {
+        let q = queue ?? DispatchQueue.main
+        let t = DispatchTime.now() + Double(Int64( delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        let workItem = DispatchWorkItem() { closure() }
+        q.asyncAfter(deadline: t, execute: workItem)
+        return workItem
+    }
+
 }
