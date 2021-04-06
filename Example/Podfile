@@ -1,20 +1,11 @@
-platform :ios, '10.0'
+platform :ios, '14.0'
 
 use_frameworks!
 
-target 'Shifu_Example' do
+target 'ShifuExample' do
   pod 'Shifu', :path => '../'
-  pod 'RxCocoa', :inhibit_warnings => true
 end
 
 
 
-# post_install do |installer|
-#     installer.pods_project.build_configurations.each do |config|
-#         if config.name == 'Release'
-#           config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Owholemodule'
-#         else
-#           config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
-#         end
-#     end
-# end
+
