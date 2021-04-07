@@ -2,16 +2,8 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - RxCocoa (5.1.1):
-    - RxRelay (~> 5)
-    - RxSwift (~> 5)
-  - RxRelay (5.1.1):
-    - RxSwift (~> 5)
-  - RxSwift (5.1.1)
-  - Shifu (0.3.3):
+  - Shifu (0.4.0):
     - FMDB
-    - RxCocoa
-    - RxSwift
 
 DEPENDENCIES:
   - Shifu (from `../`)
@@ -19,9 +11,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - FMDB
-    - RxCocoa
-    - RxRelay
-    - RxSwift
 
 EXTERNAL SOURCES:
   Shifu:
@@ -29,11 +18,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  Shifu: 1bf42e408cdd2bf07e5e5f8ab291d09995228e9d
+  Shifu: c917a87ba694aedf974af169f7eb2e2796bb24ce
 
-PODFILE CHECKSUM: 49fc0af41a24676281bd8cc5d5366d97987f1487
+PODFILE CHECKSUM: 3b995b56afdcb0c08db6cbf2360323369c9d235f
 
 COCOAPODS: 1.10.1

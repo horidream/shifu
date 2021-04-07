@@ -7,15 +7,26 @@
 //
 
 import SwiftUI
-
+import Combine
+import Shifu
+struct Person:Codable{
+    let name:String
+    private enum CodingKeys : String, CodingKey {
+        case name = "title"
+    }
+}
 struct HomeView: View {
+    @State var name:String = "Hello"
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(name)
+            .onAppear(){
+//                print(try? JSONEncoder().encode(Person(title: "abc")))
+                ShortCut.load("https://jsonplaceholder.typicode.com/todos/1") { (data) in
+                    print("loaded")
+                    print(data?.md5)
+                }.retain("abc")
+            }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+

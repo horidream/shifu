@@ -6,9 +6,7 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
-
+import Combine
 
 
 
@@ -80,14 +78,40 @@ public class ShortCut{
         }
     }
     
-    public static func load(_ path:String, _ callback: @escaping (_ data: Data)->Void)->Disposable{
-        return URLSession.shared.rx
-            .response(request: URLRequest(url: URL(string: path)!))
-            .subscribe(onNext:{
-                _, data in
-                DispatchQueue.main.async{
-                    callback(data)
+    @available(iOS 13.0, *)
+    public static func load<T: Decodable>(_ path:String, _ callback: @escaping (_ data: T?)->Void)->AnyCancellable{
+        return URLSession.shared.dataTaskPublisher(for: URL(string: path)!)
+            .map{
+                (result)->Data in
+                return result.data
+            }
+            .decode(type: T.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (completion) -> Void in
+                switch completion{
+                case .finished: break
+                case .failure: callback(nil)
                 }
+                
+            }, receiveValue: { (value) in
+                callback(value)
+            })
+    }
+    @available(iOS 13.0, *)
+    public static func load(_ path:String, _ callback: @escaping (_ data: Data?)->Void)->AnyCancellable{
+        return URLSession.shared.dataTaskPublisher(for: URL(string: path)!)
+            .map{
+                (result)->Data in
+                return result.data
+            }
+            .sink(receiveCompletion: { (completion) -> Void in
+                switch completion{
+                case .finished: break
+                case .failure: callback(nil)
+                }
+                
+            }, receiveValue: { (value) in
+                callback(value)
             })
     }
     

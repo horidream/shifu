@@ -28,7 +28,7 @@ This is a common library that we are going to use in other projects
   s.source           = { :git => 'https://github.com/horidream/Shifu.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '14.0'
 
   s.source_files = 'Shifu/Classes/**/*'
   
@@ -39,6 +39,4 @@ This is a common library that we are going to use in other projects
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'FMDB'
-  s.dependency 'RxSwift'
-  s.dependency 'RxCocoa'
 end
