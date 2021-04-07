@@ -2,8 +2,14 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - GCDWebServer/Core (3.5.4)
+  - GCDWebServer/WebUploader (3.5.4):
+    - GCDWebServer/Core
+  - ReachabilitySwift (5.0.0)
   - Shifu (0.4.0):
     - FMDB
+    - GCDWebServer/WebUploader
+    - ReachabilitySwift
 
 DEPENDENCIES:
   - Shifu (from `../`)
@@ -11,6 +17,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - FMDB
+    - GCDWebServer
+    - ReachabilitySwift
 
 EXTERNAL SOURCES:
   Shifu:
@@ -18,7 +26,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  Shifu: c917a87ba694aedf974af169f7eb2e2796bb24ce
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  Shifu: 45f5cf9c8a9792a1524f856badd720ccf03f997d
 
 PODFILE CHECKSUM: 3b995b56afdcb0c08db6cbf2360323369c9d235f
 
