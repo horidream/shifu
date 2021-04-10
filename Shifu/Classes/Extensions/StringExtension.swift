@@ -147,6 +147,8 @@ public extension String{
         switch self {
         case "org.openxmlformats.spreadsheetml.sheet":
             return "xlsx"
+        case "public.utf8-plain-text":
+            return "txt"
         default:
             if let ext = UTTypeCopyPreferredTagWithClass(self as CFString, kUTTagClassFilenameExtension)?.takeRetainedValue() {
                 return ext as String

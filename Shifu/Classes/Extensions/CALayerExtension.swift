@@ -17,6 +17,10 @@ public extension CALayer{
         return image
     }
     
+    var hasAnimation:Bool{
+        return self.animationKeys()?.count ?? 0 > 0
+    }
+    
     func quickAlign(_ type:UInt = 5, _ offsetX:CGFloat = 0, _ offsetY:CGFloat = 0){
         func translateLayerPosition(_ p:CGPoint)->CGPoint{
             return p.applying(.init(translationX: (anchorPoint.x-0.5)*frame.width, y: (anchorPoint.y-0.5)*frame.height))

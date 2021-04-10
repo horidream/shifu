@@ -46,20 +46,28 @@ func getDelay( _ dic: inout Dictionary<String, Any> )->Double{
 
 
 public class Tween{
-    public static func from(_ target: CALayer, _ duration:TimeInterval , _ propertyies: Dictionary<String, Any>){
+    public static func from(_ target: CALayer, _ duration:TimeInterval , _ propertyies: Dictionary<String, Any>, to: Dictionary<String, Any> = [:]){
         var dic = propertyies
         let ease = getEase(&dic)
         let delay = getDelay(&dic)
         for key in dic.keys{
             let anime = CABasicAnimation(keyPath: propertyMap[key] ?? key)
             anime.fromValue = propertyies[key]
+            if to[key] != nil{
+                anime.toValue = to[key]
+            }
             anime.duration = duration
             anime.timingFunction = ease
-            anime.beginTime = CACurrentMediaTime() + delay
+            if delay != 0 {
+                anime.beginTime = target.convertTime(CACurrentMediaTime(), from: nil)
+ + delay
+            }
             anime.fillMode = .backwards
             target.add(anime, forKey: key)
         }
     }
+    
+    
     public static func staggerFrom(_ targets: [CALayer?], _ duration:TimeInterval , _ propertyies: Dictionary<String, Any>, _ step: TimeInterval = 0.08){
         var dic = propertyies
         dic["delay"] = getDelay(&dic) - step
