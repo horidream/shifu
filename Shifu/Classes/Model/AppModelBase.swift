@@ -17,7 +17,7 @@ public protocol AppModelBase: class {
     var isPhone: Bool {  get }
     var ext:[ String:Any] {  get set }
     func getProperty<T>(_ key:String, fallback:@autoclosure ()->T)->T
-    func setProperty<T:Equatable>(_ key:String, value:T)
+    func setProperty<T>(_ key:String, value:T)
 }
 
 @available(iOS 13.0, *)
@@ -53,11 +53,15 @@ public extension AppModelBase where Self: ObservableObject, Self.ObjectWillChang
         }
     }
 
-    func setProperty<T:Equatable>(_ key:String, value:T){
+    func setProperty<T>(_ key:String, value:T) where T:Equatable{
         if ext[key] as? T !=  value {
             objectWillChange.send()
             ext[key] = value
         }
+    }
+    func setProperty<T>(_ key:String, value:T) {
+        objectWillChange.send()
+        ext[key] = value
     }
 }
 

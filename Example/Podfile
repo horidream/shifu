@@ -8,12 +8,17 @@ end
 
 
 post_install do |installer|
+  framework = installer.pods_project.frameworks_group["iOS"]["MobileCoreServices.framework"]
+    framework.referrers.each do |ref|
+        if ref.isa == "PBXBuildFile"
+            ref.remove_from_project
+        end
+    end
+  framework.remove_from_project
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings.delete('ARCHS')
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
     end
   end
-  
 end
 

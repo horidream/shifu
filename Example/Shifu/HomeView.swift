@@ -20,7 +20,6 @@ struct HomeView: View {
     var body: some View {
         Text(name)
             .onAppear(){
-//                print(try? JSONEncoder().encode(Person(title: "abc")))
                 ShortCut.load("https://jsonplaceholder.typicode.com/todos/1") { (data) in
                     print("loaded")
                     print(data?.md5)
