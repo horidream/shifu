@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 @available(iOS 13.0, *)
-public protocol AppModelBase: class {
+public protocol AppModelBase: AnyObject {
     var appName:String { get }
     var version:String { get }
     var isPad:Bool { get }
