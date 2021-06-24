@@ -54,6 +54,18 @@ public extension CGSize{
         self.init(width: width, height: height)
     }
     
+    func scale(_ scale: CGFloat)->Self{
+        return CGSize(self.width * scale, self.height * scale);
+    }
+    
+    func extends(_ width:CGFloat, _ height: CGFloat)->CGSize{
+        return CGSize(self.width + width, self.height + height);
+    }
+    
+    var cgPoint:CGPoint{
+        return CGPoint(self.width, self.height);
+    }
+    
     func perspectiveSize(at z: CGFloat, cameraDistance distance: CGFloat)->Self{
         let scale = (distance - z) / distance
         return CGSize(width: scale * width, height: scale * height )

@@ -6,6 +6,7 @@
 //  Copyright © 2017 Baoli Zhai. All rights reserved.
 //
 import UIKit
+import AVFoundation
 
 public extension UIImage{
     
@@ -116,3 +117,45 @@ public extension UISlider {
 }
 
 
+public extension Array where Element: UIImage {
+    func vStack()->UIImage{
+        return self.stitchImages(isVertical: true)
+    }
+    func hStack()->UIImage{
+        return self.stitchImages(isVertical: false)
+    }
+    func stitchImages(isVertical: Bool) -> UIImage {
+        guard self.count > 1 else { return  self[0] ?? UIImage()}
+        
+        let firstSize = self[0].size
+        
+        let sizes:[CGSize] = self.compactMap { img in
+            let scale = isVertical ? firstSize.width / img.size.width : firstSize.height / img.size.height;
+            return img.size.scale(scale)
+        }
+        
+        let totalSize = sizes.dropFirst().reduce(firstSize) { cum, current in
+            let w = isVertical ? 0 : current.width
+            let h = isVertical ? current.height : 0
+            return cum.extends(w, h);
+        }
+        
+        
+        
+        let renderer = UIGraphicsImageRenderer(size: totalSize)
+
+        var currentPivot = CGPoint.zero
+        return renderer.image { (context) in
+            for (index, image) in self.enumerated() {
+                let size = sizes[index];
+                let rect = CGRect(origin: currentPivot, size: size)
+                image.draw(in: rect)
+                
+                
+                let shift:CGPoint = CGPoint(isVertical ? 0 : size.width, isVertical ? size.height : 0)
+                
+                currentPivot += shift
+            }
+        }
+    }
+}
