@@ -18,20 +18,20 @@ public protocol AppModelMountRoot {
 public extension AppModelMountRoot where Self:AppModelBase, Root:View, Self: ObservableObject, Self.ObjectWillChangePublisher == ObservableObjectPublisher{
     private var root: Root? {
         get{
-            ext["root"] as? Root
+            ext["\(type(of:self))::\(#function)"] as? Root
         }
         set{
             objectWillChange.send()
-            ext["root"] = newValue
+            ext["\(type(of:self))::\(#function)"] = newValue
         }
     }
     private var g:GeometryProxy? {
         get{
-            ext["AppModelMountRoot:g"] as? GeometryProxy
+            ext["\(type(of:self))::\(#function)"] as? GeometryProxy
         }
         set{
             objectWillChange.send()
-            ext["AppModelMountRoot:g"] = newValue
+            ext["\(type(of:self))::\(#function)"] = newValue
         }
     }
     
@@ -46,4 +46,7 @@ public extension AppModelMountRoot where Self:AppModelBase, Root:View, Self: Obs
     var vh:CGFloat{
         return g?.size.height ?? 0
     }
+    
 }
+
+
