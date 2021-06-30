@@ -28,6 +28,7 @@ class EqutableWrapper: Equatable, Identifiable{
 
 public class Shifu{
     public static var name = "Shifu"
+    public static var maxStitchedImageSize:CGFloat = 1000
     public struct ui{
         public static func blurView(frame:CGRect, style:UIBlurEffect.Style = .light) -> UIVisualEffectView{
             let blur = UIBlurEffect(style: style)

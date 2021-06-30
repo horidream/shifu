@@ -118,30 +118,40 @@ public extension UISlider {
 
 
 public extension Array where Element: UIImage {
-    func vStack()->UIImage{
-        return self.stitchImages(isVertical: true)
+    func vGroup(scale: CGFloat = 1.0)->UIImage{
+        return self.stitchImages(isVertical: true, scale: scale)
     }
-    func hStack()->UIImage{
-        return self.stitchImages(isVertical: false)
+    func hGroup(scale: CGFloat = 1.0)->UIImage{
+        return self.stitchImages(isVertical: false, scale: scale)
     }
-    func stitchImages(isVertical: Bool) -> UIImage {
-        guard self.count > 1 else { return  self[0] ?? UIImage()}
+    func stitchImages(isVertical: Bool, scale imageGroupScale:CGFloat = 1.0) -> UIImage {
+        guard self.count > 1 else { return
+            imageGroupScale == 1.0
+                ? self[0]
+                : self[0].resizedImage(scale:imageGroupScale)
+                    ?? UIImage()}
         
         let firstSize = self[0].size
         
-        let sizes:[CGSize] = self.compactMap { img in
+        var sizes:[CGSize] = self.compactMap { img in
             let scale = isVertical ? firstSize.width / img.size.width : firstSize.height / img.size.height;
-            return img.size.scale(scale)
+            return img.size.scale(scale * imageGroupScale)
         }
         
-        let totalSize = sizes.dropFirst().reduce(firstSize) { cum, current in
+        var totalSize = sizes.dropFirst().reduce(sizes.first!) { cum, current in
             let w = isVertical ? 0 : current.width
             let h = isVertical ? current.height : 0
             return cum.extends(w, h);
         }
         
+        let maxSize = Swift.max(totalSize.width, totalSize.height)
+        if(maxSize > Shifu.maxStitchedImageSize){
+            let downScale = Shifu.maxStitchedImageSize / maxSize
+            totalSize = totalSize.scale(downScale)
+            sizes = sizes.map{size in size.scale(downScale)}
+        }
         
-        
+        print(totalSize, sizes)
         let renderer = UIGraphicsImageRenderer(size: totalSize)
 
         var currentPivot = CGPoint.zero
