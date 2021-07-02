@@ -58,7 +58,7 @@ public extension FileManager {
         }
     }
     
-    func write(data: Data?, to fileName: String, appending:Bool = false, in directory: URL = url.document) -> String?{
+    @discardableResult func write(data: Data?, to fileName: String, appending:Bool = false, in directory: URL = url.document) -> String?{
         guard data != nil else { return nil }
         let fileURL = directory.appendingPathComponent(fileName)
         let filePath = fileURL.path

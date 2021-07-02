@@ -22,12 +22,13 @@ class EqutableWrapper: Equatable, Identifiable{
     
     var payload: Any? = nil
     
-    
 }
 
 
 public class Shifu{
+
     public static var name = "Shifu"
+    
     public static var maxStitchedImageSize:CGFloat = 1000
     public struct ui{
         public static func blurView(frame:CGRect, style:UIBlurEffect.Style = .light) -> UIVisualEffectView{

@@ -18,3 +18,16 @@ let namespace:String = "com.horidream.lib.shifu"
     q.asyncAfter(deadline: t, execute: workItem)
     return workItem
 }
+
+public var fm: FileManager {
+    return FileManager.default
+}
+
+public var pb: UIPasteboard{
+    return UIPasteboard.general
+}
+
+public typealias url = FileManager.url
+public typealias path = FileManager.path
+public typealias sc = ShortCut
+
