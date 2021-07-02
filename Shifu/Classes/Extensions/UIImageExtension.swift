@@ -125,15 +125,13 @@ public extension Array where Element: UIImage {
         return self.stitchImages(isVertical: false, scale: scale)
     }
     func stitchImages(isVertical: Bool, scale imageGroupScale:CGFloat = 1.0) -> UIImage {
-        guard self.count > 1 else { return
-            imageGroupScale == 1.0
-                ? self[0]
-                : self[0].resizedImage(scale:imageGroupScale)
-                    ?? UIImage()}
+        let arr = self.compactMap{ $0.size == .zero ? nil : $0}
+        guard arr.count > 0 else { return UIImage() }
+        guard arr.count != 1 else { return arr[0] }
         
-        let firstSize = self[0].size
+        let firstSize = arr[0].size
         
-        var sizes:[CGSize] = self.compactMap { img in
+        var sizes:[CGSize] = arr.compactMap { img in
             let scale = isVertical ? firstSize.width / img.size.width : firstSize.height / img.size.height;
             return img.size.scale(scale * imageGroupScale)
         }
@@ -151,7 +149,6 @@ public extension Array where Element: UIImage {
             sizes = sizes.map{size in size.scale(downScale)}
         }
         
-        print(totalSize, sizes)
         let renderer = UIGraphicsImageRenderer(size: totalSize)
 
         var currentPivot = CGPoint.zero
