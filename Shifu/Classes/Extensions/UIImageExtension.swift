@@ -60,6 +60,20 @@ public extension UIImage{
     }
     
     
+    func resizedImage(maxSize:CGFloat, smoothing:Bool = false) -> UIImage?{
+        
+        let size = self.size
+        let currentMaxSize = max(size.width, size.height)
+        if(currentMaxSize > maxSize){
+            return resizedImage(scale: maxSize/currentMaxSize)
+        }else{
+            return self
+        }
+        
+        
+    }
+    
+    
     func resizedImage(scale: CGFloat, smoothing:Bool = false) -> UIImage?{
         return resizedImage(scaleX: scale, scaleY: scale, smoothing:smoothing)
     }
