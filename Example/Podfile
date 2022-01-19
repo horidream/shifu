@@ -1,6 +1,7 @@
 platform :ios, '14.0'
 
 use_frameworks!
+inhibit_all_warnings!
 
 target 'ShifuExample' do
   pod 'Shifu', :path => '../'
@@ -17,7 +18,7 @@ post_install do |installer|
   framework.remove_from_project
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
     end
   end
 end

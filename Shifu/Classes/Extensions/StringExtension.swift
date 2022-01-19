@@ -84,6 +84,10 @@ public extension String{
         return image
     }
     
+    public func toNotificationName()->Notification.Name{
+        return Notification.Name(self)
+    }
+    
     
 }
 
