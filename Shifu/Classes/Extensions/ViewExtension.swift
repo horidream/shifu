@@ -28,6 +28,14 @@ public extension View {
         }
     }
     
+    func when(_ condition: Bool) -> some View {
+        if condition {
+            return AnyView(self)
+        } else {
+            return AnyView(EmptyView())
+        }
+    }
+    
     @ViewBuilder func `if2`<Content: View>(_ conditional: Bool, content: (Self) -> Content, else otherContent: ((Self)-> Content)? = nil) -> some View {
         if conditional {
             content(self)
