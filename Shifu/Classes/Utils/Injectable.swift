@@ -31,9 +31,9 @@ public extension Injectable where Self: View{
 }
 
 
-#if DEBUG
 private var isBundleLoaded = false
 private var loadInjection: () = {
+#if DEBUG
     guard !isBundleLoaded else { return }
     do {
 #if os(macOS)
@@ -55,6 +55,7 @@ private var loadInjection: () = {
     } catch {
         debugPrint("Injection注入失败\(error)")
     }
+    #endif
 }()
 
 
@@ -76,40 +77,29 @@ public class InjectionObserver: ObservableObject {
     
 }
 
+
+
 extension View {
+
+    public var _iO:ObservedObject<InjectionObserver> {
+        return observedInjectionObserver
+    }
     public func eraseToAnyView() -> some View {
         _ = loadInjection
         return AnyView(self)
     }
     public func onInjection(bumpState: @escaping () -> ()) -> some View {
         return self
+        #if DEBUG
             .onReceive(injectionObserver.publisher, perform: bumpState)
             .eraseToAnyView()
-    }
-    public func forceRefresh()-> some View{
-        self.when(iO.wrappedValue.injectionNumber >= 0)
-        
+            .when(_iO.wrappedValue.injectionNumber >= 0)
+        #endif
     }
 }
-#else
-extension View {
-    public func eraseToAnyView() -> some View { return self }
-    public func onInjection(bumpState: @escaping () -> ()) -> some View {
-        return self
-    }
-    public func forceRefresh()-> some View{
-        return self
-    }
-}
-#endif
 
-extension View {
-    public var iO:ObservedObject<InjectionObserver> {
-        return observedInjectionObserver
-    }
-    
-    
-}
+
+
 
 
 public extension UIApplicationDelegate{

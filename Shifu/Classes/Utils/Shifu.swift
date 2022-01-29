@@ -49,5 +49,11 @@ public class Shifu{
         q.asyncAfter(deadline: t, execute: workItem)
         return workItem
     }
+    
+    public static func clg(_ args:Any...){
+        print(args.reduce("bz -", { partialResult, item in
+            return "\(partialResult) \(item)"
+        }))
+    }
 
 }

@@ -14,4 +14,17 @@ extension Data{
         let computed = Insecure.MD5.hash(data: self)
         return computed.map { String(format: "%02hhx", $0) }.joined()
     }
+    
+    public var utf8String:String?{
+        return String(data: self, encoding: .utf8)
+    }
+    
+    public func parseJSON() -> AnyObject{
+        do{
+            return try JSONSerialization.jsonObject(with: self, options: .mutableContainers) as AnyObject
+        }catch{
+            return NSObject()
+        }
+        
+    }
 }

@@ -36,6 +36,8 @@ public extension View {
         }
     }
     
+
+    
     @ViewBuilder func `if2`<Content: View>(_ conditional: Bool, content: (Self) -> Content, else otherContent: ((Self)-> Content)? = nil) -> some View {
         if conditional {
             content(self)
@@ -54,4 +56,31 @@ public extension View {
     }
 }
 
+extension Text: HasEmptyView {
+    public var emptyView: Self{
+        return Text("")
+    }
+}
+
+extension Image: HasEmptyView {
+    public var emptyView: Self{
+        return Image(uiImage: UIImage())
+    }
+}
+
+
+
+public extension View where Self: HasEmptyView{
+    func when(_ condition: Bool) -> Self {
+        if condition {
+            return self
+        } else {
+            return emptyView
+        }
+    }
+}
+
+public protocol HasEmptyView {
+    var emptyView:Self { get }
+}
 
