@@ -50,10 +50,14 @@ public class Shifu{
         return workItem
     }
     
-    public static func clg(_ args:Any...){
-        print(args.reduce("bz -", { partialResult, item in
-            return "\(partialResult) \(item)"
-        }))
+    public static func clg(prefix:String) -> ((Any...)->Void){
+        
+        func _clg(_ args:Any...){
+            print(args.reduce(prefix, { partialResult, item in
+                return "\(partialResult) \(item)"
+            }))
+        }
+        return _clg
     }
 
 }

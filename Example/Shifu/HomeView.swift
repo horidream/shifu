@@ -11,7 +11,7 @@ import Combine
 import Shifu
 
 
-let clg = Shifu.clg
+let clg = Shifu.clg(prefix: "Hori -")
 struct Person:Codable{
     let name:String
     private enum CodingKeys : String, CodingKey {
@@ -33,7 +33,7 @@ struct HomeView: View {
                 Text(name)
                     .font(.largeTitle)
                     .onAppear(){
-                        print("bz - will load data")
+                        clg("will load data")
                         sc.load("https://jsonplaceholder.typicode.com/todos/1") { (data) in
                             clg(data?.parseJSON()["title"] as? String)
                         }.retain("abc")
