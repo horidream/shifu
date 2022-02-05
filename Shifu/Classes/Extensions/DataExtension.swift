@@ -20,11 +20,6 @@ extension Data{
     }
     
     public func parseJSON() -> AnyObject{
-        do{
-            return try JSONSerialization.jsonObject(with: self, options: .mutableContainers) as AnyObject
-        }catch{
-            return NSObject()
-        }
-        
+        return JSON.parse(self)
     }
 }

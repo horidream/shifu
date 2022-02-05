@@ -60,8 +60,8 @@ private var loadInjection: () = {
 
 
 
-public let injectionObserver = InjectionObserver()
-let observedInjectionObserver = ObservedObject(wrappedValue: injectionObserver)
+let _injectionObserver = InjectionObserver()
+let observedInjectionObserver = ObservedObject(wrappedValue: _injectionObserver)
 public class InjectionObserver: ObservableObject {
     @Published var injectionNumber = 0
     var cancellable: AnyCancellable? = nil
@@ -80,7 +80,9 @@ public class InjectionObserver: ObservableObject {
 
 
 extension View {
-
+    public static var injectionObserver:InjectionObserver {
+        _injectionObserver
+    }
     public var _iO:ObservedObject<InjectionObserver> {
         return observedInjectionObserver
     }
@@ -91,7 +93,7 @@ extension View {
     public func onInjection(bumpState: @escaping () -> ()) -> some View {
         return self
         #if DEBUG
-            .onReceive(injectionObserver.publisher, perform: bumpState)
+            .onReceive(_injectionObserver.publisher, perform: bumpState)
             .eraseToAnyView()
             .when(_iO.wrappedValue.injectionNumber >= 0)
         #endif

@@ -54,16 +54,22 @@ public extension View {
         block(self)
         return self
     }
+    
+    func on(_ notification: Notification.Name, perform block: @escaping (Notification)->Void) ->some View {
+        return self.onReceive(NotificationCenter.default.publisher(for: notification, object: nil)) { notification in
+            block(notification)
+        }
+    }
 }
 
 extension Text: HasEmptyView {
-    public var emptyView: Self{
+    static public var emptyView: Self{
         return Text("")
     }
 }
 
 extension Image: HasEmptyView {
-    public var emptyView: Self{
+    static public var emptyView: Self{
         return Image(uiImage: UIImage())
     }
 }
@@ -75,12 +81,12 @@ public extension View where Self: HasEmptyView{
         if condition {
             return self
         } else {
-            return emptyView
+            return Self.emptyView
         }
     }
 }
 
 public protocol HasEmptyView {
-    var emptyView:Self { get }
+    static var emptyView:Self { get }
 }
 

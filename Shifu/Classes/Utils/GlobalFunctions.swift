@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 
 let namespace:String = "com.horidream.lib.shifu"
@@ -30,4 +31,14 @@ public var pb: UIPasteboard{
 public typealias url = FileManager.url
 public typealias path = FileManager.path
 public typealias sc = ShortCut
+
+public protocol CurrentValuePubliserize {
+    var cvp:CurrentValueSubject<Self, Never>{ get }
+}
+
+public extension CurrentValuePubliserize {
+    var cvp:CurrentValueSubject<Self, Never>{
+        return CurrentValueSubject(self)
+    }
+}
 

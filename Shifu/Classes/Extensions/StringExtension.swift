@@ -88,6 +88,10 @@ public extension String{
         return Notification.Name(self)
     }
     
+    public func toNotificationPublisher(of object:AnyObject? = nil)->NotificationCenter.Publisher{
+        return NotificationCenter.default.publisher(for: self.toNotificationName(), object: object)
+    }
+    
     
 }
 
@@ -164,22 +168,7 @@ public extension String{
 }
 
 extension String {
-
     func parseJSON() -> AnyObject {
-
-        let data = self.data(using:.utf8, allowLossyConversion: false)
-
-        if let jsonData = data {
-            
-            do{
-            // Will return an object or nil if JSON decoding fails
-                return try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as AnyObject
-            }catch{
-                return NSObject()
-            }
-        } else {
-            // Lossless conversion of the string was not possible
-            return NSObject()
-        }
+        return JSON.parse(self)
     }
 }
