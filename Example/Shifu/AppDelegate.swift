@@ -60,7 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        clg("short cut item 1", options.shortcutItem)
         let sceneConfiguration = UISceneConfiguration(name: "Quick Action Scene", sessionRole: connectingSceneSession.role)
         sceneConfiguration.delegateClass = SceneDelegate.self
         return sceneConfiguration
@@ -85,7 +84,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
         scenePhase.value = .active
     }
     func sceneDidEnterBackground(_ scene: UIScene) {
-        clg("will set to background")
         scenePhase.value = .background
     }
     func sceneWillResignActive(_ scene: UIScene) {

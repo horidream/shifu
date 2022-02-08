@@ -151,6 +151,10 @@ public extension ShortCut{
         NotificationCenter.default.post(name: notification, object: nil, userInfo: userInfo)
     }
     
+    class func emit(_ notification: String, userInfo: [AnyHashable: Any]? = nil){
+        NotificationCenter.default.post(name: notification.toNotificationName(), object: nil, userInfo: userInfo)
+    }
+    
     class func off(_ notification:Notification.Name)
     {
         

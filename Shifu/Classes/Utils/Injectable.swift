@@ -31,10 +31,8 @@ public extension Injectable where Self: View{
 }
 
 
-private var isBundleLoaded = false
 private var loadInjection: () = {
 #if DEBUG
-    guard !isBundleLoaded else { return }
     do {
 #if os(macOS)
         let bundleName = "macOSInjection.bundle"
@@ -48,7 +46,6 @@ private var loadInjection: () = {
         let injectionBundle = Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/"+bundleName)
         if let bundle = injectionBundle {
             try bundle.loadAndReturnError()
-            isBundleLoaded = true
         }else {
             debugPrint("Injection注入失败,未能检测到Injection")
         }
@@ -86,15 +83,22 @@ extension View {
     public var _iO:ObservedObject<InjectionObserver> {
         return observedInjectionObserver
     }
-    public func eraseToAnyView() -> some View {
-        _ = loadInjection
+    public func eraseToAnyView() -> AnyView {
+        if let currentView = self as? AnyView{
+            print("is already AnyView")
+            return currentView
+        }
         return AnyView(self)
+    }
+    func ensureInjection()->Self{
+        _ = loadInjection
+        return self
     }
     public func onInjection(bumpState: @escaping () -> ()) -> some View {
         return self
         #if DEBUG
             .onReceive(_injectionObserver.publisher, perform: bumpState)
-            .eraseToAnyView()
+            .ensureInjection()
             .when(_iO.wrappedValue.injectionNumber >= 0)
         #endif
     }

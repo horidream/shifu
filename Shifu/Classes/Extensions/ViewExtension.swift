@@ -55,7 +55,13 @@ public extension View {
         return self
     }
     
-    func on(_ notification: Notification.Name, perform block: @escaping (Notification)->Void) ->some View {
+    func on(_ notification: String, perform block: @escaping (Notification)->Void) ->some View {
+        return self.onReceive(NotificationCenter.default.publisher(for: notification.toNotificationName(), object: nil)) { notification in
+            block(notification)
+        }
+    }
+    
+    func on(_ notification: Notification.Name, _ block:@escaping (Notification)->Void) ->some View {
         return self.onReceive(NotificationCenter.default.publisher(for: notification, object: nil)) { notification in
             block(notification)
         }
