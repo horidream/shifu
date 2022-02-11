@@ -73,3 +73,7 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 **/xcshareddata
+
+
+node_modules/
+Shifu/web/

@@ -7,7 +7,7 @@
 
 import UIKit
 
-
+let clg = Shifu.clg(prefix: "Hori -")
 class EqutableWrapper: Equatable, Identifiable{
     static func == (lhs: EqutableWrapper, rhs: EqutableWrapper) -> Bool {
         return lhs.id == rhs.id
@@ -24,11 +24,13 @@ class EqutableWrapper: Equatable, Identifiable{
     
 }
 
-
+private class EmptyClass{
+    
+}
 public class Shifu{
 
-    public static var name = "Shifu"
-    
+    public static let name = "Shifu"
+    public static let bundle = Bundle(for: EmptyClass.self)
     public static var maxStitchedImageSize:CGFloat = 1000
     public struct ui{
         public static func blurView(frame:CGRect, style:UIBlurEffect.Style = .light) -> UIVisualEffectView{

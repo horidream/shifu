@@ -27,15 +27,13 @@ class HomeViewModel: ObservableObject{
     
     func refresh(){
         featureList = [
-            FeatureViewModel(name: "Hello", viewBuilder: {
-                Text("Hello, Baoli.")
-                    .on("hello", perform: { notification in
-                        clg(notification.userInfo?["a"])
-                    })
-                    
-                    .onTapGesture {
-                        sc.emit("hello", userInfo: ["a":111])
-                    }
+            FeatureViewModel(name: "Mark Down", viewBuilder: {
+                VStack{
+                MarkDownView()
+                    MarkDownView(id:1)
+                }
+                    .navigationTitle("Mark Down in Shifu")
+                    .navigationBarTitleDisplayMode(.inline)
                     .eraseToAnyView()
             }),
             FeatureViewModel(name: "Image", viewBuilder: {
