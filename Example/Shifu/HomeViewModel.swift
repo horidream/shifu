@@ -18,23 +18,26 @@ struct FeatureViewModel<Content>{
     }
 }
 
+//func cast<T:AnyObject>(publisher: Published<T>.Publisher)->Binding<T>{
+//    return Binding {
+//        return publisher
+//    } set: {
+//        <#code#>
+//    }
+//
+//}
+
 class HomeViewModel: ObservableObject{
     @Published var featureList:[FeatureViewModel<AnyView>] = []
-    
+    @Published var script:String = ""
     init(){
         refresh()
     }
     
     func refresh(){
         featureList = [
-            FeatureViewModel(name: "Mark Down", viewBuilder: {
-                VStack{
-                MarkDownView()
-                    MarkDownView(id:1)
-                }
-                    .navigationTitle("Mark Down in Shifu")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .eraseToAnyView()
+            FeatureViewModel(name: "Markdown", viewBuilder: {
+                WebViewDemo().eraseToAnyView()
             }),
             FeatureViewModel(name: "Image", viewBuilder: {
                 Image(systemName: "helm")

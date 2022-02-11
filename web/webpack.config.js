@@ -34,7 +34,7 @@ module.exports = (env = {}, { mode = "production" }) => {
     );
   }
 
-  if (process.env.NODE_ENV == "copy") {
+  if (process.env.NODE_ENV == "dev") {
     console.log("is copy ", plugins);
     return {
       entry: {

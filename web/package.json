@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --watch package.json --watch webpack.config.js --exec \"cross-env NODE_ENV=development npx webpack serve --mode development --progress --hot \"",
     "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.config.js --progress",
-    "deploy": "cross-env NODE_ENV=copy webpack --watch --mode production --config webpack.config.js --progress",
+    "dev": "cross-env NODE_ENV=dev webpack --watch --mode production --config webpack.config.js --progress",
     "test": "karma start test/unit/karma.conf.js --single-run"
   },
   "browserslist": [

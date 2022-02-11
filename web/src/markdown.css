@@ -278,6 +278,8 @@ strong {
 
 img {
   max-width: 100%;
+  border: lightblue 1px solid;
+  border-radius: 10%;
 }
 
 button {

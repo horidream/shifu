@@ -23,8 +23,6 @@ extension Notification.Name{
 struct HomeView: View {
     @StateObject var vm = HomeViewModel()
     @ObservedObject private var injectObserver = Self.injectionObserver
-    let cvp = "Baoli".cvp
-    
     var body: some View {
         NavigationView{
             List{
@@ -44,6 +42,7 @@ struct HomeView: View {
                 }
                 
             }
+            .environmentObject(vm)
             .listStyle(.plain)
             .navigationBarTitle(Text("Shifu"))
             .onAppear(){

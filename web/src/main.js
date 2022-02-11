@@ -2,7 +2,7 @@ import cm from "grogu"
 const marked = require("marked");
 import hljs from "highlight.js";
 
-
+hljs.registerLanguage("objective-c", require("highlight.js/lib/languages/objectivec"));
 
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -25,7 +25,7 @@ marked.setOptions({
 window.marked = marked.marked;
 window.hljs = hljs;
 
-
+window.postToNative = window.postToNative || function (data) { console.log(data); };
 
 cm.declareModel("com.horidream.lib.shifu", async function(el, options){
   let store = {

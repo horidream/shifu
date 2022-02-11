@@ -45,4 +45,8 @@ public extension URL{
         }
         return nil
     }
+    
+    var content:String? {
+        return try? String(contentsOf: self)
+    }
 }

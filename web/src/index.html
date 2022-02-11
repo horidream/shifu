@@ -20,53 +20,31 @@
   </head>
   <body>
     <div id="app" v-cloak>
-      <h2>{{name}}</h2>
       <div v-html="htmlContent"></div>
     </div>
     <script src="./main.js"></script>
     <script>
       window["com.horidream.lib.shifu"]("#app", {
         state: {
-          name: "Shifu",
-          content: "abc"
+          content: ""
         },
         computed:{
             htmlContent(){
                 return marked(this.content);
             }
         }
+    });
+    
+    
+    fetch("./example.md")
+    .then(res => res.text())
+    .then(function(text){
+        m.vm.content = text;
+        postToNative({
+            type: "mounted",
+            content: text
+        })
       });
-
-
-  m.state.content =
-    '## copy file from src to des\n\
-\n\
-<button> Swift </button>\n\n\
-I have a greet idea `> echo hello`, and **then**, you get this...\n\
-```swift\n\
-let srcPath = Bundle.main.path(forResource: "1", ofType: "png") // get path in bundle\n\
-let src = URL(fileURLWithPath: srcPath!)\n\
-let desPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] // gt document path\n\
-let des = URL(fileURLWithPath:desPath).appendingPathComponent("0.png") // expand with string component\n\
-try? FileManager.default.copyItem(at: src, to: des) // copy from to with try?\n\
-```\n\
-```html\n\
-<body>\n\
-    <h2>\n\
-        abc\n\
-    </h2>\n\
-</body>\n\
-```\n\
-[google](http://google.com)\n\
-';
-  m.state.content += `* https://www.google.com/search?q=change+p+tag+height&oq=change+p+tag+height&aqs=chrome..69i57j0l7.4110j0j7&sourceid=chrome&ie=UTF-8
-
-\`\`\`objective-c
-- (NSString *)selectedText {
-    return [self.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-}
-\`\`\`
-`;
     
     </script>
   </body>
