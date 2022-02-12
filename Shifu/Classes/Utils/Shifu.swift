@@ -61,5 +61,9 @@ public class Shifu{
         }
         return _clg
     }
+    
+    public func escape(_ str:String)->String{
+        return str.normalized
+    }
 
 }

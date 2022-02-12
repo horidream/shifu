@@ -39,7 +39,6 @@
     fetch("./example.md")
     .then(res => res.text())
     .then(function(text){
-        m.vm.content = text;
         postToNative({
             type: "mounted",
             content: text

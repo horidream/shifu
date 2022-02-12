@@ -20,6 +20,7 @@ extension Notification.Name{
     static var hello = "hello".toNotificationName()
 }
 
+
 struct HomeView: View {
     @StateObject var vm = HomeViewModel()
     @ObservedObject private var injectObserver = Self.injectionObserver
@@ -27,36 +28,64 @@ struct HomeView: View {
         NavigationView{
             List{
                 Section(header: Text("Examples").font(.headline).padding(10)) {
-                    ForEach(vm.featureList, id: \.name){ feature in
-                        NavigationLink {
-                            feature.view
-                        } label: {
+                    ForEach(0..<vm.featureList.count){ idx in
+                        
+                        NavigationLink(isActive: $vm.featureList[idx].isActive, destination: {
+                            vm.featureList[idx].view
+                        }, label: {
                             HStack{
-                                Text(feature.name)
+                                Text(vm.featureList[idx].name)
                                     .frame(maxWidth: .infinity, alignment: .leading )
                                     .contentShape(Rectangle())
                                     .padding(12)
                             }
-                        }
+                        })
+                            .onTapGesture {
+                                vm.featureList[idx].isActive = true
+                                vm.objectWillChange.send()
+                            }
                     }
                 }
                 
             }
-            .environmentObject(vm)
             .listStyle(.plain)
             .navigationBarTitle(Text("Shifu"))
             .onAppear(){
+                // show first feature automatically
+                runOnce {
+                    vm.featureList[0].isActive = true
+                }
+                runOnce {
+                    clg("can I run?")
+                }
                 sandbox()
             }
             .onInjection {
-                sandbox()
                 clg("injected")
             }
             .ignoresSafeArea(.all, edges: .bottom)
-        }
+        }.environmentObject(vm)
     }
     
     func sandbox(){
-        vm.refresh()
+        
+    }
+}
+
+func runOnce(file:String = #file, line:Int = #line, block:()->Void){
+    let id = "\(file)-\(line)"
+    class Status {
+        static var dic = [String: Bool]()
+        static func canRun(_ id:String)->Bool{
+            return dic[id] ?? true
+        }
+        static func didRun(_ id:String){
+            dic[id] = false
+        }
+    }
+
+    if(Status.canRun(id)){
+        block()
+        Status.didRun(id)
     }
 }

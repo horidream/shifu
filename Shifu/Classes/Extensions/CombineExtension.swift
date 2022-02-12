@@ -14,8 +14,8 @@ fileprivate var count = 1
 public extension AnyCancellable{
     static var bag:[String:AnyCancellable] = [:]
     private static var _count:Int = 0
-    @discardableResult func retain(_ key:String? = nil ) -> Self {
-        let key = key ?? { count += 1; return "__global__\(count)" }()
+    @discardableResult func retain(_ key:String = #file, line:Int = #line ) -> Self {
+        let key = "\(key)-\(line)"
         AnyCancellable.bag[key] = self
         return self
     }

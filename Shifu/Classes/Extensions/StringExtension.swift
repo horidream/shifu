@@ -135,8 +135,12 @@ extension URL:NSCastable{ public typealias NS = NSURL }
 
 public extension String{
     var normalized:String{
-        return self.replacingOccurrences(of: "\n", with: "\\n")
-            .replacingOccurrences(of: "\"", with: "\\\"")
+        return self.replacingOccurrences(of: "\\",with: "\\\\")
+            .replacingOccurrences(of: "\n",with: "\\n")
+            .replacingOccurrences(of: "\r",with: "\\r")
+            .replacingOccurrences(of: "\t",with: "\\t")
+            .replacingOccurrences(of: "\"",with: "\\\"")
+            .replacingOccurrences(of: "\'",with: "\\\'")
     }
     
     func toMIME()->Self?{

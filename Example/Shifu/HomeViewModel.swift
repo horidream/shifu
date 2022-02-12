@@ -10,11 +10,17 @@ import Foundation
 import SwiftUI
 import Shifu
 
-struct FeatureViewModel<Content>{
+class FeatureViewModel<Content>: ObservableObject{
     let name:String
-    @ViewBuilder let viewBuilder:()-> Content
+    @Published var isActive = false
+    let viewBuilder:(FeatureViewModel)-> Content
+    
+    init(name:String, @ViewBuilder viewBuilder:@escaping (FeatureViewModel)->Content){
+        self.name = name
+        self.viewBuilder = viewBuilder
+    }
     var view:Content{
-        viewBuilder()
+        viewBuilder(self)
     }
 }
 
@@ -36,10 +42,11 @@ class HomeViewModel: ObservableObject{
     
     func refresh(){
         featureList = [
-            FeatureViewModel(name: "Markdown", viewBuilder: {
-                WebViewDemo().eraseToAnyView()
+            FeatureViewModel(name: "Markdown", viewBuilder: { model in
+                return WebViewDemo().eraseToAnyView()
+                
             }),
-            FeatureViewModel(name: "Image", viewBuilder: {
+            FeatureViewModel(name: "Image", viewBuilder: { _ in
                 Image(systemName: "helm")
                     .resizable()
                     .foregroundColor(.white)
