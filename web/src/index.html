@@ -3,13 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>Document</title>
     <link rel="stylesheet" href="./monokai.css" />
     <link rel="stylesheet" href="./markdown.css" />
     <style>
       #app[v-cloak] {
         opacity: 0;
+      }
+      body {
+        margin: 0;
+        padding: 0;
       }
       #app {
         opacity: 1;
@@ -32,18 +39,8 @@
             return marked(this.content);
           },
         },
-        watch:{
-            content(){
-                nextTick(() => {
-                    postToNative({
-                        type: "scrollHeight",
-                        value: document.body.scrollHeight
-                    });
-                });
-            }
-        }
       });
-      
+
       fetch("./example.md")
         .then((res) => res.text())
         .then(function (text) {
@@ -55,6 +52,17 @@
             content: text,
           });
         });
+
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          postToNative({
+            type: "scrollHeight",
+            value: entry.contentRect.height,
+          });
+        }
+      });
+
+      resizeObserver.observe(document.querySelector("html"));
     </script>
   </body>
 </html>

@@ -13,15 +13,20 @@ import Combine
 
 public struct MarkDownView: View{
     @State var isMounted:Bool = false
-    @Binding var content:String
     @State var script:String?
-    public init (content:Binding<String>){
+    
+    @Binding var content:String
+    @Binding var allowScroll:Bool
+    public init (content:Binding<String>, allowScroll:Bool = true){
         _content = content
+        _allowScroll = .constant(allowScroll)
     }
+    
+    
     
     public var body: some View{
         return
-        ShifuWebView(script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")))
+        ShifuWebView(script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")), allowScroll: $allowScroll)
             .onChange(of: content) { _ in
                 if(isMounted){
                     updateContent()

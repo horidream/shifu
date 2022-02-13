@@ -19,7 +19,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     
     @Binding var script:String?
     @Binding var url:URL?
-    
+    @Binding var allowScroll:Bool
     @State private var request = PassthroughSubject<(String, PassthroughSubject<Any?, Never>), Never>()
     
     public func exec(script:String, callback: @escaping (Any?)->Void){
@@ -33,15 +33,17 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         }.retain()
         
     }
-    public init (script:Binding<String?>, url: Binding<URL?>){
+    public init (script:Binding<String?>, url: Binding<URL?>, allowScroll: Binding<Bool> = .constant(false)){
         _script = script
         _url = url
+        _allowScroll = allowScroll
     }
     
     public func makeUIViewController(context: Context) -> ShifuWebViewController {
         
         return ShifuWebViewController{ vc in
             vc.url = url
+            
             if let script = script {
                 vc.webView.evaluateJavaScript(script)
             }
@@ -54,10 +56,13 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     }
     
     public func updateUIViewController(_ uiViewController: ShifuWebViewController, context: Context) {
+        if(!allowScroll){
+            uiViewController.webView.scrollView.bounces = false
+            uiViewController.webView.scrollView.isScrollEnabled = false
+        }
         if let url = url , uiViewController.webView.url != url{
             uiViewController.webView.load(URLRequest(url: url))
         }
-        uiViewController.webView.scrollView.bounces = false
         if let script = script , !script.isEmpty{
             uiViewController.exec(script: script)
         }
@@ -131,3 +136,4 @@ extension Buildable where Self:UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

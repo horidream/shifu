@@ -32,14 +32,15 @@ struct ColorThemeManagerDemo:View{
                 .cornerRadius(15)
                 .padding()
             
-            MarkDownView(content: $source)
+            MarkDownView(content: $source, allowScroll: false)
                 .frame(height: sourceViewHeight)
+                .padding()
             
         }
         .on("scrollHeight"){
             if let height = $0.userInfo?["value"] as? CGFloat{
                 clg(height)
-                sourceViewHeight = height + 80
+                sourceViewHeight = height
             }
         }
         .onAppear(perform: {
@@ -48,6 +49,8 @@ struct ColorThemeManagerDemo:View{
                 source = content
             }
         })
+        .navigationTitle("ColorThemeManager Demo")
+        .navigationBarTitleDisplayMode(.inline)
         .onInjection {
             
         }
