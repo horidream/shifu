@@ -23,6 +23,7 @@ extension Notification.Name{
 
 struct HomeView: View {
     @StateObject var vm = HomeViewModel()
+    @StateObject var colorManager = ColorSchemeMananger()
     @ObservedObject private var injectObserver = Self.injectionObserver
     var body: some View {
         NavigationView{
@@ -53,18 +54,18 @@ struct HomeView: View {
             .onAppear(){
                 // show first feature automatically
                 runOnce {
-                    vm.featureList[0].isActive = true
+                    vm.featureList[1].isActive = true
                 }
-                runOnce {
-                    clg("can I run?")
-                }
-                sandbox()
+                colorManager.applyColorScheme()
             }
             .onInjection {
                 clg("injected")
             }
             .ignoresSafeArea(.all, edges: .bottom)
-        }.environmentObject(vm)
+        }
+        .environmentObject(vm)
+        .environmentObject(colorManager)
+        
     }
     
     func sandbox(){

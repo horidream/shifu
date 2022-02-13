@@ -12,6 +12,7 @@ import WebKit
 import Combine
 
 public struct MarkDownView: View{
+    @State var isMounted:Bool = false
     @Binding var content:String
     @State var script:String?
     public init (content:Binding<String>){
@@ -21,9 +22,20 @@ public struct MarkDownView: View{
     public var body: some View{
         return
         ShifuWebView(script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")))
-            .onChange(of: content) { newValue in
-                script = #"m.vm.content = "\#(newValue.normalized)""#
+            .onChange(of: content) { _ in
+                if(isMounted){
+                    updateContent()
+                }
             }
+            .on(.MOUNTED){ _ in
+                updateContent()
+                isMounted = true
+            }
+    }
+    
+    public func updateContent(){
+        clg("will update content \(content)")
+        script = #"m.vm.content = "\#(content.normalized)""#
     }
 }
 

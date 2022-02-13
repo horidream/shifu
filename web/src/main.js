@@ -33,7 +33,9 @@ cm.declareModel("com.horidream.lib.shifu", async function(el, options){
     }
   }
   let model = await cm.genModel(store, options, el);
-  options.onStart && options.onStart.call(model);
+  postToNative({
+    type: "mounted",
+  });
   return model;
 });
 

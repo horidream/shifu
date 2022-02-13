@@ -62,8 +62,17 @@ public class Shifu{
         return _clg
     }
     
-    public func escape(_ str:String)->String{
+    public static func escape(_ str:String)->String{
         return str.normalized
+    }
+    
+    public static var keyWindow: UIWindow?{
+        guard let scene = UIApplication.shared.connectedScenes.first,
+              let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+              let window = windowSceneDelegate.window else{
+                  return nil
+              }
+        return window
     }
 
 }

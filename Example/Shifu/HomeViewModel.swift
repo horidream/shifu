@@ -46,15 +46,9 @@ class HomeViewModel: ObservableObject{
                 return WebViewDemo().eraseToAnyView()
                 
             }),
-            FeatureViewModel(name: "Image", viewBuilder: { _ in
-                Image(systemName: "helm")
-                    .resizable()
-                    .foregroundColor(.white)
-                    .frame(width: 200, height: 200)
-                    .padding()
-                    .background(Color.yellow)
-                    .cornerRadius(15)
-                    .eraseToAnyView()
+            FeatureViewModel(name: "Color Theme Manager", viewBuilder: { model in
+                return ColorThemeManagerDemo().eraseToAnyView()
+                
             })
         ]
     }

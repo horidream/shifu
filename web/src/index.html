@@ -5,17 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./monokai.css">
-    <link rel="stylesheet" href="./markdown.css">
+    <link rel="stylesheet" href="./monokai.css" />
+    <link rel="stylesheet" href="./markdown.css" />
     <style>
-      #app[v-cloak]{
+      #app[v-cloak] {
         opacity: 0;
       }
-      #app{
+      #app {
         opacity: 1;
         transition: opacity 0.2s linear;
       }
-    
     </style>
   </head>
   <body>
@@ -26,25 +25,36 @@
     <script>
       window["com.horidream.lib.shifu"]("#app", {
         state: {
-          content: ""
+          content: "",
         },
-        computed:{
-            htmlContent(){
-                return marked(this.content);
+        computed: {
+          htmlContent() {
+            return marked(this.content);
+          },
+        },
+        watch:{
+            content(){
+                nextTick(() => {
+                    postToNative({
+                        type: "scrollHeight",
+                        value: document.body.scrollHeight
+                    });
+                });
             }
         }
-    });
-    
-    
-    fetch("./example.md")
-    .then(res => res.text())
-    .then(function(text){
-        postToNative({
-            type: "mounted",
-            content: text
-        })
       });
-    
+      
+      fetch("./example.md")
+        .then((res) => res.text())
+        .then(function (text) {
+          if (!window.webkit) {
+            m.vm.content = text;
+          }
+          postToNative({
+            type: "example",
+            content: text,
+          });
+        });
     </script>
   </body>
 </html>

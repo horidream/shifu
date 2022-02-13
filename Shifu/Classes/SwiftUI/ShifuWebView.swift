@@ -57,7 +57,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         if let url = url , uiViewController.webView.url != url{
             uiViewController.webView.load(URLRequest(url: url))
         }
-        
+        uiViewController.webView.scrollView.bounces = false
         if let script = script , !script.isEmpty{
             uiViewController.exec(script: script)
         }

@@ -29,7 +29,7 @@ struct WebViewDemo:View{
         .navigationTitle("Mark Down in Shifu")
         .navigationBarTitleDisplayMode(.inline)
         
-        .on("mounted".toNotificationName(), { notification in
+        .on("example".toNotificationName(), { notification in
             if let content = notification.userInfo?["content"] as? String{
                 self.content = content
             }
