@@ -37,7 +37,7 @@ struct ColorThemeManagerDemo:View{
                 .padding()
             
         }
-        .on("scrollHeight"){
+        .on("contentHeight"){
             if let height = $0.userInfo?["value"] as? CGFloat{
                 clg(height)
                 sourceViewHeight = height

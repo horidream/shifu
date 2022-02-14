@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Shifu'
-  s.version          = '0.6.0'
+  s.version          = '0.6.1'
   s.summary          = 'Shifu.'
 
 # This description is used to generate tags and improve search results.
@@ -31,10 +31,10 @@ This is a common library that we are going to use in other projects
   s.ios.deployment_target = '14.0'
 
   s.source_files = 'Shifu/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'Shifu' => ['Shifu/Assets/*.png']
-  # }
+  s.resources = ['Shifu/web']
+  #  s.resource_bundles = {
+  #    'Shifu' => ['Shifu/web']
+  #  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

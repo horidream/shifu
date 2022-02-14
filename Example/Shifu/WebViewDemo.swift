@@ -31,7 +31,7 @@ struct WebViewDemo:View{
         }
         .navigationTitle("Markdown in Shifu")
         .navigationBarTitleDisplayMode(.inline)
-        .on("scrollHeight".toNotificationName()){
+        .on("contentHeight".toNotificationName()){
             if let height = $0.userInfo?["value"] as? CGFloat{
                 clg(height)
                 withAnimation(.easeIn(duration: 0.87)) {

@@ -33,6 +33,16 @@
     </div>
     <script src="./main.js"></script>
     <script>
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          postToNative({
+            type: "contentHeight",
+            value: entry.contentRect.height,
+          });
+        }
+      });
+
+      resizeObserver.observe(document.querySelector("html"));
       window["com.horidream.lib.shifu"]("#app", {
         state: {
           content: "",
@@ -56,16 +66,7 @@
           });
         });
 
-      const resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-          postToNative({
-            type: "scrollHeight",
-            value: entry.contentRect.height,
-          });
-        }
-      });
-
-      resizeObserver.observe(document.querySelector("html"));
+      
     </script>
   </body>
 </html>

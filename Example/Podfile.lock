@@ -6,7 +6,7 @@ PODS:
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
   - ReachabilitySwift (5.0.0)
-  - Shifu (0.5.0):
+  - Shifu (0.6.1):
     - FMDB
     - GCDWebServer/WebUploader
     - ReachabilitySwift
@@ -28,8 +28,8 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  Shifu: 4afb4b6523407ba025e6bb11f1f06fcf923594c1
+  Shifu: 776f8026e9663c02b270dd5fb750119f42e775bb
 
-PODFILE CHECKSUM: a45d39ec943dadf77b9de6e8362c31a23efe85b2
+PODFILE CHECKSUM: 9179311da57da00702984c1b8a9012cad1b1a66a
 
 COCOAPODS: 1.11.2
