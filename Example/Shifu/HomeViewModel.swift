@@ -49,6 +49,10 @@ class HomeViewModel: ObservableObject{
             FeatureViewModel(name: "Color Theme Manager", viewBuilder: { model in
                 return ColorThemeManagerDemo().eraseToAnyView()
                 
+            }),
+            FeatureViewModel(name: "Shifu Web View", viewBuilder: { model in
+                return ShifuWebViewDemo().eraseToAnyView()
+                
             })
         ]
     }

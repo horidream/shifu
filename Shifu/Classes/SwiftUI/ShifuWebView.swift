@@ -10,17 +10,32 @@ import SwiftUI
 import WebKit
 import Combine
 
+
+
+public class ShifuWebViewModel:ObservableObject{
+    public init(){}
+    public init(builder: (ShifuWebViewModel)->Void){
+        builder(self)
+    }
+    
+    @Published public var html:String?
+    public var baseURL: URL?
+    
+}
+
 public struct ShifuWebView: UIViewControllerRepresentable{
     public func makeCoordinator() -> Coordinator {
         return Coordinator()
     }
     
     
-    
+    let viewModel:ShifuWebViewModel
     @Binding var script:String?
     @Binding var url:URL?
     @Binding var allowScroll:Bool
     @State private var request = PassthroughSubject<(String, PassthroughSubject<Any?, Never>), Never>()
+    
+
     
     public func exec(script:String, callback: @escaping (Any?)->Void){
         let response = PassthroughSubject<Any?, Never>()
@@ -33,19 +48,19 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         }.retain()
         
     }
-    public init (script:Binding<String?>, url: Binding<URL?>, allowScroll: Binding<Bool> = .constant(false)){
+    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel(), script:Binding<String?> = .constant(nil), url: Binding<URL?> = .constant(nil), allowScroll: Binding<Bool> = .constant(false)){
+        self.viewModel = viewModel
         _script = script
         _url = url
         _allowScroll = allowScroll
     }
     
     public func makeUIViewController(context: Context) -> ShifuWebViewController {
-        
-        return ShifuWebViewController{ vc in
+        ShifuWebViewController{ vc in
             vc.url = url
-            
             if let script = script {
                 vc.webView.evaluateJavaScript(script)
+                
             }
             request.sink { script, response in
                 vc.webView.evaluateJavaScript(script) { data, _ in
@@ -66,6 +81,9 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         if let script = script , !script.isEmpty{
             uiViewController.exec(script: script)
         }
+        if let html = viewModel.html{
+            uiViewController.webView.loadHTMLString(html, baseURL: viewModel.baseURL)
+        }
     }
     
     public typealias UIViewControllerType = ShifuWebViewController
@@ -84,7 +102,7 @@ final public class ShifuWebViewController: UIViewController, Buildable, WKScript
             clg(message.body)
         }else{
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
-                sc.emit(type.toNotificationName(), userInfo: dic)
+                NotificationCenter.default.post(name: type.toNotificationName(), object: self, userInfo: dic)
             }
         }
         
@@ -136,4 +154,39 @@ extension Buildable where Self:UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+public class EmptyObject{
+    public static let shared = EmptyObject()
+}
+protocol MarkdownViewModifer {
+    associatedtype Body: View
+    func body(_ webView: MarkdownView) -> Body
+}
+
+struct AutoResizableModifier: MarkdownViewModifer {
+    @Binding var contentHeight:CGFloat
+    func body(_ webView: MarkdownView) -> some View {
+        return webView
+            .on("contentHeight"){
+                if let height = $0.userInfo?["value"] as? CGFloat, let vc = $0.object as? ShifuWebViewController, vc.webView.title == "Markdown"{
+                    self.contentHeight = height
+                }
+            }
+            .frame(minHeight: contentHeight)
+    }
+}
+
+extension MarkdownView{
+    func modifier<M: MarkdownViewModifer>(_ theModifier: M) -> some View {
+        return theModifier.body(self)
+    }
+}
+
+public extension MarkdownView{
+    public func autoResize(_ contentHeight:Binding<CGFloat>) -> some View{
+        self.modifier(AutoResizableModifier(contentHeight: contentHeight))
+    }
+}
+
+
 

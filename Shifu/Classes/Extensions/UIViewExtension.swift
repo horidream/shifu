@@ -78,4 +78,17 @@ public extension UIView{
         superView?.addSubview(self)
         return self
     }
+    
+    
+    func blink(duration:TimeInterval = 2, count: Int = 3, delay:TimeInterval = 0 ){
+        UIView.animateKeyframes(withDuration: 2, delay: 0, options: [KeyframeAnimationOptions(rawValue: UIView.AnimationOptions.curveLinear.rawValue)], animations: {
+            let step = count * 2
+            let relativePiece:Double = 1 / Double(step)
+            for i in (0..<step){
+                UIView.addKeyframe(withRelativeStartTime: Double(i) * relativePiece, relativeDuration:  relativePiece) {
+                    self.alpha = i % 2 == 1 ? 1 : 0
+                }
+            }
+        })
+    }
 }

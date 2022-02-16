@@ -54,7 +54,7 @@ struct HomeView: View {
             .onAppear(){
                 // show first feature automatically
                 runOnce {
-                    vm.featureList[1].isActive = true
+                    vm.featureList.get(-1)?.isActive = true
                 }
                 colorManager.applyColorScheme()
             }

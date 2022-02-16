@@ -16,7 +16,7 @@ struct WebViewDemo:View{
     @EnvironmentObject var vm:HomeViewModel
     @ObservedObject private var injectObserver = Self.injectionObserver
     var body: some View{
-        let md = MarkDownView(content: $content)
+        let md = MarkdownView(content: $content)
         return VStack{
             md
 //                .frame(height: markdownHeight)
@@ -33,7 +33,6 @@ struct WebViewDemo:View{
         .navigationBarTitleDisplayMode(.inline)
         .on("contentHeight".toNotificationName()){
             if let height = $0.userInfo?["value"] as? CGFloat{
-                clg(height)
                 withAnimation(.easeIn(duration: 0.87)) {
                     markdownHeight = height
                     

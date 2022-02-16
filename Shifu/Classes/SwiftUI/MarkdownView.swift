@@ -11,22 +11,24 @@ import UIKit
 import WebKit
 import Combine
 
-public struct MarkDownView: View{
+public struct MarkdownView: View{
+    @ObservedObject var viewModel:ShifuWebViewModel;
     @State var isMounted:Bool = false
     @State var script:String?
     
     @Binding var content:String
-    @Binding var allowScroll:Bool
-    public init (content:Binding<String>, allowScroll:Bool = true){
+    @State var allowScroll:Bool = true
+    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel(), content:Binding<String>, allowScroll:Bool = true){
+        self.viewModel = viewModel
         _content = content
-        _allowScroll = .constant(allowScroll)
+        _allowScroll = State(initialValue: allowScroll)
     }
     
     
-    
     public var body: some View{
+        
         return
-        ShifuWebView(script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")), allowScroll: $allowScroll)
+        ShifuWebView(viewModel: viewModel, script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")), allowScroll: $allowScroll)
             .onChange(of: content) { _ in
                 if(isMounted){
                     updateContent()
