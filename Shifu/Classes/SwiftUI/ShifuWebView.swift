@@ -11,6 +11,9 @@ import WebKit
 import Combine
 
 
+public enum ShifuWebViewAction{
+    case none, snapshot(WKSnapshotConfiguration? = nil, SnapshotTarget = .clipboard(.jpg))
+}
 
 public class ShifuWebViewModel:ObservableObject{
     public init(){}
@@ -19,6 +22,7 @@ public class ShifuWebViewModel:ObservableObject{
     }
     
     @Published public var html:String?
+    @Published public var action:ShifuWebViewAction = .none
     public var baseURL: URL?
     
 }
@@ -48,6 +52,8 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         }.retain()
         
     }
+    
+    
     public init (viewModel:ShifuWebViewModel = ShifuWebViewModel(), script:Binding<String?> = .constant(nil), url: Binding<URL?> = .constant(nil), allowScroll: Binding<Bool> = .constant(false)){
         self.viewModel = viewModel
         _script = script
@@ -83,6 +89,14 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         }
         if let html = viewModel.html{
             uiViewController.webView.loadHTMLString(html, baseURL: viewModel.baseURL)
+        }
+        
+        switch viewModel.action{
+        case .none:()
+        case .snapshot(let (config,target)):
+            uiViewController.webView.snapshot(config: config, target: target)
+            viewModel.action = .none
+            
         }
     }
     
@@ -139,54 +153,21 @@ final public class ShifuWebViewController: UIViewController, Buildable, WKScript
     
 }
 
-protocol Buildable{
+public protocol Buildable{
     init(builder: (Self)->Void)
 }
 
-extension Buildable where Self:UIViewController {
-
-    init(builder: (Self)->Void){
+public extension Buildable where Self:NSObject {
+    public init(builder: (Self)->Void){
         self.init()
         builder(self)
     }
-    
-    init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
+
+
 
 public class EmptyObject{
     public static let shared = EmptyObject()
 }
-protocol MarkdownViewModifer {
-    associatedtype Body: View
-    func body(_ webView: MarkdownView) -> Body
-}
-
-struct AutoResizableModifier: MarkdownViewModifer {
-    @Binding var contentHeight:CGFloat
-    func body(_ webView: MarkdownView) -> some View {
-        return webView
-            .on("contentHeight"){
-                if let height = $0.userInfo?["value"] as? CGFloat, let vc = $0.object as? ShifuWebViewController, vc.webView.title == "Markdown"{
-                    self.contentHeight = height
-                }
-            }
-            .frame(minHeight: contentHeight)
-    }
-}
-
-extension MarkdownView{
-    func modifier<M: MarkdownViewModifer>(_ theModifier: M) -> some View {
-        return theModifier.body(self)
-    }
-}
-
-public extension MarkdownView{
-    public func autoResize(_ contentHeight:Binding<CGFloat>) -> some View{
-        self.modifier(AutoResizableModifier(contentHeight: contentHeight))
-    }
-}
-
 
 

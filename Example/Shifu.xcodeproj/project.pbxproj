@@ -41,7 +41,6 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		75080B2D4DF860209E4A6DA9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		991EA5ED1F0016AF001B4DA1 /* test_shifu.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = test_shifu.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		99244B5C261C9FDA0027A1D7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99BA8071244BF2B0006E839F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		99BA8073244BF348006E839F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -131,7 +130,6 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				3C3C46D827B9156700BCB074 /* launch.png */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				991EA5ED1F0016AF001B4DA1 /* test_shifu.playground */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
 				99BA8072244BF2B0006E839F /* InfoPlist.strings */,

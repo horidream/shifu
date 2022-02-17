@@ -15,9 +15,10 @@ struct ColorThemeManagerDemo:View{
     @State var source:String = ""
     @State var height: CGFloat = 0
     @EnvironmentObject var colorManager: ColorSchemeMananger
-    
     @ObservedObject private var injectObserver = Self.injectionObserver
-    var body: some View{
+    let webViewModel = ShifuWebViewModel()
+    
+    var scrollView:some View{
         ScrollView{
             Picker("", selection: $colorManager.colorScheme){
                 Text("Light").tag(ColorSchemeMananger.ColorScheme.light)
@@ -38,27 +39,34 @@ struct ColorThemeManagerDemo:View{
                     sc.emit("contentHeight", userInfo: ["value": CGFloat(Int.random(in: 100...300))])
                 }
             
-            MarkdownView(viewModel:ShifuWebViewModel(), content: $source, allowScroll: false)
+            MarkdownView(viewModel: webViewModel,  content: $source, allowScroll: false)
                 .autoResize($height)
-//                .frame(height: height)
                 .padding()
-//                .on("contentHeight"){
-//                    if let height = $0.userInfo?["value"] as? CGFloat{
-//                        clg("will set content height to \(height)")
-//                        self.height = height
-//                    }
-//                }
-            
         }
-        
         .onAppear(perform: {
             if let content = Bundle.main.url(forResource: "source/ColorThemeManagerDemo", withExtension: "md")?.content
             {
                 source = content
             }
         })
-        .navigationTitle("ColorThemeManager Demo")
-        .navigationBarTitleDisplayMode(.inline)
+        
+    }
+    
+    var body: some View{
+        scrollView
+            .navigationTitle("ColorThemeManager Demo")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        webViewModel.action = .snapshot()
+                    }
+                     label: {
+                        Image(systemName: "camera")
+                    }
+
+                }
+            }
         .onInjection {
             
         }

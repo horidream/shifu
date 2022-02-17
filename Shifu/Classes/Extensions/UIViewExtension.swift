@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import WebKit
+import CoreServices
 
 @available(iOS 9.0, *)
 public extension UIView{
@@ -91,4 +93,33 @@ public extension UIView{
             }
         })
     }
+    
+}
+
+public enum SnapshotTarget{
+    case album, clipboard(SnapshotType), none
+}
+public enum SnapshotType{
+    case png, jpg
+}
+
+public extension WKWebView{
+    func snapshot(config: WKSnapshotConfiguration? = nil, target: SnapshotTarget = .clipboard(.jpg)){
+        self.takeSnapshot(with: config) { (image, error) in
+            if let image = image{
+                switch target{
+                case .album:
+                    image.writeToAlbum()
+                case .clipboard(let type):
+                    if type == .jpg{
+                        UIPasteboard.general.setData(image.pngData() ?? Data(), forPasteboardType: kUTTypeJPEG as String)
+                    }else{
+                        UIPasteboard.general.setData(image.jpegData(compressionQuality: 0.5) ?? Data(), forPasteboardType: kUTTypePNG as String)
+                    }
+                default:()
+                }
+            }
+        }
+    }
+    
 }

@@ -106,6 +106,10 @@ public extension UIImage{
         }
         return nil
     }
+    
+    func writeToAlbum(){
+        UIImageWriteToSavedPhotosAlbum(self, nil, nil, nil)
+    }
 }
 
 public extension UIImage{

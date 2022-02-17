@@ -58,9 +58,9 @@ private var loadInjection: () = {
 
 
 let _injectionObserver = InjectionObserver()
-let observedInjectionObserver = ObservedObject(wrappedValue: _injectionObserver)
+//let observedInjectionObserver = ObservedObject(wrappedValue: _injectionObserver)
 public class InjectionObserver: ObservableObject {
-    @Published var injectionNumber = 0
+    @Published public var injectionNumber = 0
     var cancellable: AnyCancellable? = nil
     let publisher = PassthroughSubject<Void, Never>()
     init() {
@@ -80,9 +80,9 @@ extension View {
     public static var injectionObserver:InjectionObserver {
         _injectionObserver
     }
-    public var _iO:ObservedObject<InjectionObserver> {
-        return observedInjectionObserver
-    }
+//    public var _iO:ObservedObject<InjectionObserver> {
+//        return observedInjectionObserver
+//    }
     public func eraseToAnyView() -> AnyView {
         if let currentView = self as? AnyView{
             print("is already AnyView")
@@ -99,7 +99,7 @@ extension View {
         #if DEBUG
             .onReceive(_injectionObserver.publisher, perform: bumpState)
             .ensureInjection()
-            .when(_iO.wrappedValue.injectionNumber >= 0)
+            .when(_injectionObserver.injectionNumber >= 0)
         #endif
     }
 }

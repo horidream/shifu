@@ -66,6 +66,21 @@ public extension View {
             block(notification)
         }
     }
+    
+    func snapshot(width: CGFloat = UIScreen.main.bounds.size.width, height: CGFloat = UIScreen.main.bounds.size.height) -> UIImage {
+        let controller = UIHostingController(rootView: self)
+        let view = controller.view
+        
+        let targetSize = CGSize(width, height)
+        view?.bounds = CGRect(origin: .zero, size: targetSize)
+        view?.backgroundColor = .clear
+        
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        
+        return renderer.image { _ in
+            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+        }
+    }
 }
 
 extension Text: HasEmptyView {
@@ -90,6 +105,8 @@ public extension View where Self: HasEmptyView{
             return Self.emptyView
         }
     }
+    
+    
 }
 
 public protocol HasEmptyView {

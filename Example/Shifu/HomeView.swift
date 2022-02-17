@@ -24,7 +24,7 @@ extension Notification.Name{
 struct HomeView: View {
     @StateObject var vm = HomeViewModel()
     @StateObject var colorManager = ColorSchemeMananger()
-    @ObservedObject private var injectObserver = Self.injectionObserver
+    @ObservedObject private var iO = Self.injectionObserver
     var body: some View {
         NavigationView{
             List{
@@ -52,14 +52,10 @@ struct HomeView: View {
             .listStyle(.plain)
             .navigationBarTitle(Text("Shifu"))
             .onAppear(){
-                // show first feature automatically
-                runOnce {
-                    vm.featureList.get(-1)?.isActive = true
-                }
                 colorManager.applyColorScheme()
             }
             .onInjection {
-                clg("injected")
+                vm.refresh()
             }
             .ignoresSafeArea(.all, edges: .bottom)
         }

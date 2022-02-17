@@ -42,19 +42,20 @@ class HomeViewModel: ObservableObject{
     
     func refresh(){
         featureList = [
-            FeatureViewModel(name: "Markdown", viewBuilder: { model in
+            FeatureViewModel(name: "MarkdownView", viewBuilder: { model in
                 return WebViewDemo().eraseToAnyView()
                 
             }),
-            FeatureViewModel(name: "Color Theme Manager", viewBuilder: { model in
+            FeatureViewModel(name: "ColorThemeManager", viewBuilder: { model in
                 return ColorThemeManagerDemo().eraseToAnyView()
                 
             }),
-            FeatureViewModel(name: "Shifu Web View", viewBuilder: { model in
+            FeatureViewModel(name: "ShifuWebView", viewBuilder: { model in
                 return ShifuWebViewDemo().eraseToAnyView()
                 
             })
         ]
+        featureList.get(-1)?.isActive = true
     }
     
 }
