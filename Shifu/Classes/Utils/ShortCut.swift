@@ -40,14 +40,14 @@ public class ShortCut{
     public static func showAlert(title:String, details:String){
         let alert = UIAlertController(title: title, message: details, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+        Shifu.keyWindow?.rootViewController?.present(alert, animated: true)
     }
     
     public static func showAlert(title:String, details:String, confirmBtn:String, confirmCallback:((UIAlertAction) -> Void)? = nil){
         let alert = UIAlertController(title: title, message: details, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "cancel button label in alert"), style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: confirmBtn, style: .default, handler: confirmCallback))
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+        Shifu.keyWindow?.rootViewController?.present(alert, animated: true)
     }
     public static func clearUserDefaults(){
         if let bundleID = Bundle.main.bundleIdentifier {
@@ -66,7 +66,7 @@ public class ShortCut{
     private static var loadingCount = 0
     public static func startNetworking(){
         if loadingCount == 0{
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//            UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
         loadingCount += 1
     }
@@ -74,7 +74,7 @@ public class ShortCut{
         loadingCount -= 1
         if(loadingCount <= 0){
             loadingCount = 0
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
     

@@ -14,8 +14,8 @@ public protocol Injectable{ }
 public extension Injectable where Self: NSObjectProtocol{
     func startInjection(){
 #if DEBUG
-        if self.responds(to:Selector("layoutViews:")){
-            NotificationCenter.default.addObserver(self, selector: Selector("layoutViews:"), name: NSNotification.Name("INJECTION_BUNDLE_NOTIFICATION"), object: nil)
+        if self.responds(to:Selector(("layoutViews:"))){
+            NotificationCenter.default.addObserver(self, selector: Selector(("layoutViews:")), name: NSNotification.Name("INJECTION_BUNDLE_NOTIFICATION"), object: nil)
         }
 #endif
     }

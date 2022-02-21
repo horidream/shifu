@@ -93,7 +93,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         
         switch viewModel.action{
         case .none:()
-        case .snapshot(let (config,target)):
+        case .snapshot(let config, let target):
             uiViewController.webView.snapshot(config: config, target: target)
             viewModel.action = .none
             
@@ -158,7 +158,7 @@ public protocol Buildable{
 }
 
 public extension Buildable where Self:NSObject {
-    public init(builder: (Self)->Void){
+    init(builder: (Self)->Void){
         self.init()
         builder(self)
     }

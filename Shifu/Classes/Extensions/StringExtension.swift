@@ -84,11 +84,11 @@ public extension String{
         return image
     }
     
-    public func toNotificationName()->Notification.Name{
+    func toNotificationName()->Notification.Name{
         return Notification.Name(self)
     }
     
-    public func toNotificationPublisher(of object:AnyObject? = nil)->NotificationCenter.Publisher{
+    func toNotificationPublisher(of object:AnyObject? = nil)->NotificationCenter.Publisher{
         return NotificationCenter.default.publisher(for: self.toNotificationName(), object: object)
     }
     

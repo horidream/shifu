@@ -26,8 +26,6 @@ public struct MarkdownView: View{
     
     
     public var body: some View{
-        
-        return
         ShifuWebView(viewModel: viewModel, script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")), allowScroll: $allowScroll)
             .onChange(of: content) { _ in
                 if(isMounted){
@@ -82,7 +80,7 @@ extension MarkdownView{
 }
 
 public extension MarkdownView{
-    public func autoResize(_ contentHeight:Binding<CGFloat>) -> some View{
+    func autoResize(_ contentHeight:Binding<CGFloat>) -> some View{
         self.modifier(AutoResizableModifier(contentHeight: contentHeight))
     }
 }
