@@ -23,6 +23,7 @@ public class ShifuWebViewModel:ObservableObject{
     
     @Published public var html:String?
     @Published public var action:ShifuWebViewAction = .none
+    @Published public var contentHeight: CGFloat = 0
     public var baseURL: URL?
     
 }

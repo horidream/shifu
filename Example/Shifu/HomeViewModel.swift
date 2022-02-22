@@ -53,6 +53,10 @@ class HomeViewModel: ObservableObject{
             FeatureViewModel(name: "ShifuWebView", viewBuilder: { model in
                 return ShifuWebViewDemo().eraseToAnyView()
                 
+            }),
+            FeatureViewModel(name: "SoundWaveImageDemo", viewBuilder: { model in
+                return SoundWaveImageDemo().eraseToAnyView()
+                
             })
         ]
         featureList.get(-1)?.isActive = true

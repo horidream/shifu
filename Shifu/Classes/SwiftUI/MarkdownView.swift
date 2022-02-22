@@ -27,6 +27,7 @@ public struct MarkdownView: View{
     
     public var body: some View{
         ShifuWebView(viewModel: viewModel, script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")), allowScroll: $allowScroll)
+            .environmentObject(viewModel)
             .onChange(of: content) { _ in
                 if(isMounted){
                     updateContent()
@@ -36,6 +37,18 @@ public struct MarkdownView: View{
                 updateContent()
                 isMounted = true
             }
+    }
+    
+    public func autoResize()-> some View{
+        self
+            .frame(minHeight: viewModel.contentHeight)
+            .on("contentHeight"){
+            if let height = $0.userInfo?["value"] as? CGFloat, let vc = $0.object as? ShifuWebViewController, vc.webView.title == "Markdown"{
+                clg("update height to \(height)")
+                self.viewModel.contentHeight = height
+            }
+                
+        }
     }
     
     public func updateContent(){
@@ -55,33 +68,4 @@ extension Notification.Name{
 
 
 
-protocol MarkdownViewModifer {
-    associatedtype Body: View
-    func body(_ webView: MarkdownView) -> Body
-}
-
-struct AutoResizableModifier: MarkdownViewModifer {
-    @Binding var contentHeight:CGFloat
-    func body(_ webView: MarkdownView) -> some View {
-        return webView
-            .on("contentHeight"){
-                if let height = $0.userInfo?["value"] as? CGFloat, let vc = $0.object as? ShifuWebViewController, vc.webView.title == "Markdown"{
-                    self.contentHeight = height
-                }
-            }
-            .frame(minHeight: contentHeight)
-    }
-}
-
-extension MarkdownView{
-    func modifier<M: MarkdownViewModifer>(_ theModifier: M) -> some View {
-        return theModifier.body(self)
-    }
-}
-
-public extension MarkdownView{
-    func autoResize(_ contentHeight:Binding<CGFloat>) -> some View{
-        self.modifier(AutoResizableModifier(contentHeight: contentHeight))
-    }
-}
 

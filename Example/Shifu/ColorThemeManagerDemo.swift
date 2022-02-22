@@ -13,10 +13,9 @@ import SwiftUI
 
 struct ColorThemeManagerDemo:View{
     @State var source:String = ""
-    @State var height: CGFloat = 0
     @EnvironmentObject var colorManager: ColorSchemeMananger
     @ObservedObject private var injectObserver = Self.injectionObserver
-    let webViewModel = ShifuWebViewModel()
+    @ObservedObject var webViewModel = ShifuWebViewModel()
     
     var scrollView:some View{
         ScrollView{
@@ -40,7 +39,7 @@ struct ColorThemeManagerDemo:View{
                 }
             
             MarkdownView(viewModel: webViewModel,  content: $source, allowScroll: false)
-                .autoResize($height)
+                .autoResize()
                 .padding()
         }
         .onAppear(perform: {

@@ -58,7 +58,7 @@ struct ShifuWebViewDemo: View{
     }
     </style>
     <script src="https://unpkg.com/vue@3"></script>
-    <div id="app">{{ message }}<img style='border: 1px solid green; border-radius: 99px;' :src='imgSrc'/></div>
+    <div id="app">{{ message }}<img style='border: 5px solid green; border-radius: 99px;' :src='imgSrc'/></div>
     <script>
       Vue.createApp({
         data() {
