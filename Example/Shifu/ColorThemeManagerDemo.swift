@@ -15,7 +15,7 @@ struct ColorThemeManagerDemo:View{
     @State var source:String = ""
     @EnvironmentObject var colorManager: ColorSchemeMananger
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @ObservedObject var webViewModel = ShifuWebViewModel()
+    @StateObject var webViewModel = ShifuWebViewModel()
     
     var scrollView:some View{
         ScrollView{
@@ -34,10 +34,6 @@ struct ColorThemeManagerDemo:View{
                 .background(Color.yellow)
                 .cornerRadius(15)
                 .padding()
-                .onTapGesture {
-                    clg("emit contentHeight ")
-                    sc.emit("contentHeight", userInfo: ["value": CGFloat(Int.random(in: 100...300))])
-                }
             
             MarkdownView(viewModel: webViewModel,  content: .constant("@source/ColorThemeManagerDemo.md".url?.content ?? ""))
                 .autoResize()

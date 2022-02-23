@@ -59,7 +59,7 @@ class HomeViewModel: ObservableObject{
                 
             })
         ]
-        featureList.get(-1)?.isActive = true
+        featureList.get(-3)?.isActive = true
     }
     
 }

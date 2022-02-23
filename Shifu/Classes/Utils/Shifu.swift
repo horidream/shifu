@@ -41,7 +41,7 @@ public class Shifu{
         }
     }
     
-    static let namespace:String = "com.horidream.lib.shifu"
+    public static let namespace:String = "com.horidream.lib.shifu"
 
     
     @discardableResult public class func delay(_ delay:Double, queue:DispatchQueue? = nil, closure:@escaping ()->()) -> DispatchWorkItem {

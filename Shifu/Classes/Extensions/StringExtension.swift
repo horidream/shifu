@@ -115,11 +115,22 @@ public extension String{
             var path = self
             path.removeFirst()
             return Bundle.main.url(forResource: path, withExtension: nil)
+        }else{
+            let arr = self.split(separator: "@")
+            if arr.count == 2, let bundleId = arr.get(0)?.string, let path = arr.get(1)?.string
+            {
+                return Bundle(identifier: bundleId)?.url(forResource: path, withExtension: nil)
+            }
         }
         return URL(string:self)
     }
 }
 
+public extension String.SubSequence{
+    var string: String{
+        return String(self)
+    }
+}
 
 public protocol NSCastable{
     associatedtype NS

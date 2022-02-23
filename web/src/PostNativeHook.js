@@ -1,0 +1,1 @@
+resizeObserver.observe(document.querySelector("html"));

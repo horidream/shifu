@@ -104,7 +104,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         if let script = script , !script.isEmpty{
             uiViewController.exec(script: script)
         }
-        if let html = viewModel.html{
+        if let html = viewModel.html, html != viewModel.html{
             uiViewController.webView.loadHTMLString(html, baseURL: viewModel.baseURL)
         }
         
@@ -157,9 +157,11 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
         view = webView
         
         
-        if let source = Shifu.bundle.url(forResource: "web/NativeHook", withExtension: "js")?.content{
+        if let source = Shifu.bundle.url(forResource: "web/NativeHook", withExtension: "js")?.content, let postSource = Shifu.bundle.url(forResource: "web/PostNativeHook", withExtension: "js")?.content{
             let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+            let postScript = WKUserScript(source: postSource, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
             webView.configuration.userContentController.addUserScript(script)
+            webView.configuration.userContentController.addUserScript(postScript)
             // register the bridge script that listens for the output
             webView.configuration.userContentController.add(self, name: "logHandler")
             webView.configuration.userContentController.add(self, name: "native")
