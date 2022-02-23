@@ -17,9 +17,32 @@ public extension String{
         return self
     }
     
-    func substring(with range:Range<Int>)->String{
-        let r = self.index(self.startIndex, offsetBy: range.lowerBound) ..< self.index(self.startIndex, offsetBy: range.upperBound)
-        return String(self[r])
+
+    
+    func substring(_ start:Int, _ end:Int = -1)->String{
+        var from = getIndex(start)
+        var to = getIndex(end)
+        if(self.distance(from: from, to: to) >= 0 ){
+            return String(self[from..<to])
+        }else{
+            return String(self[to..<from])
+        }
+    }
+    
+    func substr(_ start:Int, _ length:Int = .max)->String{
+        guard length > 0 else { return "" }
+        var from = getIndex(start)
+        var to = self.index(from, offsetBy: min(length, self.distance(from: from, to: self.endIndex)))
+        return String(self[from..<to])
+    }
+    
+    private func getIndex(_ offset:Int)->String.Index{
+        let maxValue = self.distance(from: self.startIndex, to: self.endIndex)
+        if(offset >= 0){
+            return self.index(self.startIndex, offsetBy: min(offset, maxValue))
+        }else{
+            return self.index(self.endIndex, offsetBy: max(offset, -maxValue))
+        }
     }
     
     subscript(n: Int)->String?{
@@ -184,7 +207,7 @@ public extension String{
 }
 
 extension String {
-    func parseJSON() -> AnyObject {
+    func json() -> AnyObject {
         return JSON.parse(self)
     }
 }
