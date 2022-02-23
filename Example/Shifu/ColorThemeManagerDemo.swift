@@ -35,6 +35,7 @@ struct ColorThemeManagerDemo:View{
                 .cornerRadius(15)
                 .padding()
                 .onTapGesture {
+                    clg("emit contentHeight ")
                     sc.emit("contentHeight", userInfo: ["value": CGFloat(Int.random(in: 100...300))])
                 }
             

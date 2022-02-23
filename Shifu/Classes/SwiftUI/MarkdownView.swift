@@ -18,10 +18,13 @@ public struct MarkdownView: View{
     
     @Binding var content:String
     @State var allowScroll:Bool = true
+    @State var webView:ShifuWebView?
     public init (viewModel:ShifuWebViewModel = ShifuWebViewModel(), content:Binding<String>, allowScroll:Bool = true){
         self.viewModel = viewModel
         _content = content
         _allowScroll = State(initialValue: allowScroll)
+
+        
     }
     
     
@@ -42,9 +45,8 @@ public struct MarkdownView: View{
     public func autoResize()-> some View{
         self
             .frame(minHeight: viewModel.contentHeight)
-            .on("contentHeight"){
-            if let height = $0.userInfo?["value"] as? CGFloat, let vc = $0.object as? ShifuWebViewController, vc.webView.title == "Markdown"{
-                clg("update height to \(height)")
+            .on("contentHeight", target: viewModel.id){
+            if let height = $0.userInfo?["value"] as? CGFloat{
                 self.viewModel.contentHeight = height
             }
                 
@@ -52,7 +54,6 @@ public struct MarkdownView: View{
     }
     
     public func updateContent(){
-        clg("will update content \(content)")
         script = #"m.vm.content = "\#(content.normalized)""#
     }
 }

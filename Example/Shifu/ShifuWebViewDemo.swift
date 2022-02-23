@@ -22,12 +22,6 @@ struct ShifuWebViewDemo: View{
         VStack{
             ShifuWebView(viewModel:vm)
                 .frame(maxHeight: 160)
-//            Button("render me", action: updateVue)
-//                .padding(8)
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 8)
-//                        .stroke(.green)
-//                )
             TextEditor(text: $vm.html.safe(default: ""))
                 .padding(8)
                 .border(.green)
@@ -57,7 +51,7 @@ struct ShifuWebViewDemo: View{
         font-size: 80px;
     }
     </style>
-    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./vue.global.prod.js"></script>
     <div id="app">{{ message }}<img style='border: 5px solid green; border-radius: 99px;' :src='imgSrc'/></div>
     <script>
       Vue.createApp({
