@@ -111,12 +111,13 @@ public extension String{
     }
     
     var url:URL?{
+        if self.starts(with: "@"){
+            var path = self
+            path.removeFirst()
+            return Bundle.main.url(forResource: path, withExtension: nil)
+        }
         return URL(string:self)
     }
-    
-//    var ns:NSString{
-//        return self as NSString
-//    }
 }
 
 

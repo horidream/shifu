@@ -39,17 +39,10 @@ struct ColorThemeManagerDemo:View{
                     sc.emit("contentHeight", userInfo: ["value": CGFloat(Int.random(in: 100...300))])
                 }
             
-            MarkdownView(viewModel: webViewModel,  content: $source, allowScroll: false)
+            MarkdownView(viewModel: webViewModel,  content: .constant("@source/ColorThemeManagerDemo.md".url?.content ?? ""))
                 .autoResize()
                 .padding()
         }
-        .onAppear(perform: {
-            if let content = Bundle.main.url(forResource: "source/ColorThemeManagerDemo", withExtension: "md")?.content
-            {
-                source = content
-            }
-        })
-        
     }
     
     var body: some View{

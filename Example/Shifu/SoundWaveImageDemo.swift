@@ -11,29 +11,22 @@ import Shifu
 
 struct SoundWaveImageDemo: View {
     let webViewModel = ShifuWebViewModel()
-    @State var source:String = ""
     @ObservedObject private var injectObserver = Self.injectionObserver
     var url =  Bundle.main.url(forResource: "source/test", withExtension: "mp3") ?? URL(fileURLWithPath: "")
     @State var image = UIImage()
     var body: some View {
         VStack{
-        Image(uiImage: image)
-            .resizable()
-            .aspectRatio(4, contentMode: .fit)
-            .padding()
-            .cornerRadius(15)
-            .padding()
-            MarkdownView(viewModel: webViewModel,  content: $source, allowScroll: false)
+            Image(uiImage: image)
+                .resizable()
+                .aspectRatio(4, contentMode: .fit)
+                .padding()
+                .cornerRadius(15)
+                .padding()
+            MarkdownView(viewModel: webViewModel,  content: .constant( "@source/SoundWaveImageDemo.md".url?.content ?? ""))
                 .autoResize()
                 .padding()
         }
-        .onAppear {
-            drawWave()
-            if let content = Bundle.main.url(forResource: "source/SoundWaveImageDemo", withExtension: "md")?.content
-            {
-                source = content
-            }
-        }
+        .onAppear(perform: drawWave)
         .onInjection {
             drawWave()
         }

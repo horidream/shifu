@@ -11,6 +11,8 @@ import UIKit
 import WebKit
 import Combine
 
+
+
 public struct MarkdownView: View{
     @ObservedObject var viewModel:ShifuWebViewModel;
     @State var isMounted:Bool = false
@@ -19,7 +21,7 @@ public struct MarkdownView: View{
     @Binding var content:String
     @State var allowScroll:Bool = true
     @State var webView:ShifuWebView?
-    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel(), content:Binding<String>, allowScroll:Bool = true){
+    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel{ $0.allowScroll = true }, content:Binding<String>){
         self.viewModel = viewModel
         _content = content
         _allowScroll = State(initialValue: allowScroll)
@@ -29,7 +31,7 @@ public struct MarkdownView: View{
     
     
     public var body: some View{
-        ShifuWebView(viewModel: viewModel, script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")), allowScroll: $allowScroll)
+        ShifuWebView(viewModel: viewModel, script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")))
             .environmentObject(viewModel)
             .onChange(of: content) { _ in
                 if(isMounted){

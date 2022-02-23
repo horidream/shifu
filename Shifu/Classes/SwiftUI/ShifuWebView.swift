@@ -25,8 +25,11 @@ public class ShifuWebViewModel:ObservableObject{
     }
     
     @Published public var html:String?
+    @Published public var allowScroll = false
     @Published public var action:ShifuWebViewAction = .none
+    
     @Published public var contentHeight: CGFloat = 0
+    
     let id = SimpleObject()
     public var baseURL: URL?
     
@@ -41,7 +44,6 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     let viewModel:ShifuWebViewModel
     @Binding var script:String?
     @Binding var url:URL?
-    @Binding var allowScroll:Bool
     
     @State private var request = PassthroughSubject<(String, PassthroughSubject<Any?, Never>), Never>()
     
@@ -70,11 +72,10 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         }
     }
     
-    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel(), script:Binding<String?> = .constant(nil), url: Binding<URL?> = .constant(nil), allowScroll: Binding<Bool> = .constant(false)){
+    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel(), script:Binding<String?> = .constant(nil), url: Binding<URL?> = .constant(nil)){
         self.viewModel = viewModel
         _script = script
         _url = url
-        _allowScroll = allowScroll
     }
     
     public func makeUIViewController(context: Context) -> ShifuWebViewController {
@@ -93,7 +94,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     }
     
     public func updateUIViewController(_ uiViewController: ShifuWebViewController, context: Context) {
-        if(!allowScroll){
+        if(!viewModel.allowScroll){
             uiViewController.webView.scrollView.bounces = false
             uiViewController.webView.scrollView.isScrollEnabled = false
         }
