@@ -16,3 +16,11 @@ public extension Binding {
         }
     }
 }
+
+@available(iOS 13.0, *)
+public prefix func ! (value: Binding<Bool>) -> Binding<Bool> {
+    Binding<Bool>(
+        get: { !value.wrappedValue },
+        set: { value.wrappedValue = !$0 }
+    )
+}

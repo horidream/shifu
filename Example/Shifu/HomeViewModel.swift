@@ -57,6 +57,10 @@ class HomeViewModel: ObservableObject{
             FeatureViewModel(name: "SoundWaveImageDemo", viewBuilder: { model in
                 return SoundWaveImageDemo().eraseToAnyView()
                 
+            }),
+            FeatureViewModel(name: "ToMarkdownDemo", viewBuilder: { model in
+                return ToMarkdownDemo().eraseToAnyView()
+                
             })
         ]
         featureList.get(-1)?.isActive = true

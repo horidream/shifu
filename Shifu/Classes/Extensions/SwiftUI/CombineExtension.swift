@@ -61,10 +61,13 @@ public func debounce(_ id:String, closure:@escaping ()->Void)->(()->Void){
     return publisher.send
 }
 
-@available(iOS 13.0, *)
-public prefix func ! (value: Binding<Bool>) -> Binding<Bool> {
-    Binding<Bool>(
-        get: { !value.wrappedValue },
-        set: { value.wrappedValue = !$0 }
-    )
+
+public protocol CVSTransform {
+    var cvs:CurrentValueSubject<Self, Never>{ get }
+}
+
+public extension CVSTransform {
+    var cvs:CurrentValueSubject<Self, Never>{
+        return CurrentValueSubject(self)
+    }
 }

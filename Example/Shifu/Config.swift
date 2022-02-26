@@ -11,5 +11,5 @@ import Shifu
 
 
 let clg = Shifu.clg(prefix: "Hori -")
-extension String: CurrentValuePubliserize{}
+extension String: CVSTransform{}
 

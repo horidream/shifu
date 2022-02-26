@@ -10,15 +10,24 @@ import SwiftUI
 import WebKit
 import Combine
 
-class SimpleObject{
+public class SimpleObject{
     
 }
 
 public enum ShifuWebViewAction{
-    case none, snapshot(WKSnapshotConfiguration? = nil, SnapshotTarget = .clipboard(.jpg))
+    case snapshot(WKSnapshotConfiguration? = nil, SnapshotTarget = .clipboard(.jpg))
+    
 }
 
 public class ShifuWebViewModel:ObservableObject{
+    public weak var delegate: ShifuWebViewController?
+    public static var markdown:ShifuWebViewModel {
+        .init {
+            $0.allowScroll = true
+            $0.url = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
+        }
+    }
+    
     public init(){}
     public init(builder: (ShifuWebViewModel)->Void){
         builder(self)
@@ -26,13 +35,19 @@ public class ShifuWebViewModel:ObservableObject{
     
     @Published public var html:String?
     @Published public var allowScroll = false
-    @Published public var action:ShifuWebViewAction = .none
-    
+    @Published public var url:URL?
     @Published public var contentHeight: CGFloat = 0
-    
-    let id = SimpleObject()
+
     public var baseURL: URL?
     
+    public func exec(_ action: ShifuWebViewAction){
+        switch action{
+        case .snapshot(let config, let target):
+            delegate?.webView.snapshot(config: config, target: target)
+        default: ()
+        
+        }
+    }
 }
 
 public struct ShifuWebView: UIViewControllerRepresentable{
@@ -41,80 +56,44 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     }
     
     
-    let viewModel:ShifuWebViewModel
-    @Binding var script:String?
-    @Binding var url:URL?
-    
-    @State private var request = PassthroughSubject<(String, PassthroughSubject<Any?, Never>), Never>()
-    
-
-    
-    public func exec(script:String, callback: @escaping (Any?)->Void){
-        let response = PassthroughSubject<Any?, Never>()
-        request.send((script, response))
-        response
-            .timeout(10, scheduler: RunLoop.main)
-            .first()
-            .sink { data in
-            callback(data)
-        }.retain()
-        
-    }
+    @ObservedObject var viewModel:ShifuWebViewModel
     
     public func autoResize()-> some View{
         self
             .frame(minHeight: viewModel.contentHeight)
             .on("contentHeight"){
-            if let height = $0.userInfo?["value"] as? CGFloat, let vc = $0.object as? ShifuWebViewController, vc.webView.title == "Markdown"{
-                self.viewModel.contentHeight = height
+                if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
+                    self.viewModel.contentHeight = height
+                }
             }
-                
-        }
     }
     
-    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel(), script:Binding<String?> = .constant(nil), url: Binding<URL?> = .constant(nil)){
+    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel()){
         self.viewModel = viewModel
-        _script = script
-        _url = url
     }
     
     public func makeUIViewController(context: Context) -> ShifuWebViewController {
-        let vc = ShifuWebViewController(id: viewModel.id)
-        vc.url = url
-        if let script = script {
-            vc.webView.evaluateJavaScript(script)
-            
+        let vc = ShifuWebViewController()
+        if let html = viewModel.html, html != viewModel.html{
+            vc.webView.loadHTMLString(html, baseURL: viewModel.baseURL)
         }
-        request.sink { script, response in
-            vc.webView.evaluateJavaScript(script) { data, _ in
-                response.send(data)
-            }
-        }.store(in: &context.coordinator.bag)
+        viewModel.delegate = vc
         return vc
     }
     
     public func updateUIViewController(_ uiViewController: ShifuWebViewController, context: Context) {
-        if(!viewModel.allowScroll){
-            uiViewController.webView.scrollView.bounces = false
-            uiViewController.webView.scrollView.isScrollEnabled = false
+        let webView = uiViewController.webView
+        webView.scrollView.bounces = viewModel.allowScroll
+        webView.scrollView.isScrollEnabled = viewModel.allowScroll
+        if let url = viewModel.url , webView.url != url{
+            webView.load(URLRequest(url: url))
         }
-        if let url = url , uiViewController.webView.url != url{
-            uiViewController.webView.load(URLRequest(url: url))
-        }
-        if let script = script , !script.isEmpty{
-            uiViewController.exec(script: script)
-        }
-        if let html = viewModel.html, html != viewModel.html{
-            uiViewController.webView.loadHTMLString(html, baseURL: viewModel.baseURL)
+        if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
+            uiViewController.lastLoadedHTML = html
+            webView.loadHTMLString(html, baseURL: viewModel.baseURL)
         }
         
-        switch viewModel.action{
-        case .none:()
-        case .snapshot(let config, let target):
-            uiViewController.webView.snapshot(config: config, target: target)
-            viewModel.action = .none
-            
-        }
+        
     }
     
     public typealias UIViewControllerType = ShifuWebViewController
@@ -128,10 +107,8 @@ public struct ShifuWebView: UIViewControllerRepresentable{
 
 
 final public class ShifuWebViewController: UIViewController, WKScriptMessageHandler{
-    
-    let id:SimpleObject
+    var lastLoadedHTML:String?
     init(id: SimpleObject = SimpleObject()){
-        self.id = id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -144,7 +121,8 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             clg(message.body)
         }else{
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
-                NotificationCenter.default.post(name: type.toNotificationName(), object: self.id, userInfo: dic)
+                clg(type, dic)
+                NotificationCenter.default.post(name: type.toNotificationName(), object: self, userInfo: dic)
             }
         }
         
@@ -155,6 +133,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     
     public override func loadView() {
         view = webView
+        webView.isOpaque = false
         
         
         if let source = Shifu.bundle.url(forResource: "web/NativeHook", withExtension: "js")?.content, let postSource = Shifu.bundle.url(forResource: "web/PostNativeHook", withExtension: "js")?.content{

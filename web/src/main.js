@@ -8,8 +8,9 @@ marked.setOptions({
   renderer: new marked.Renderer(),
   highlight: function (code, language) {
     if (!hljs.getLanguage(language)) {
-      language = "plaintext";
+      return hljs.highlightAuto(code).value;
     }
+    
     return hljs.highlight(code, { language }).value;
   },
   pedantic: false,
@@ -26,6 +27,7 @@ window.marked = marked.marked;
 window.hljs = hljs;
 
 window.postToNative = window.postToNative || function (data) { console.log(data); };
+window.eb = window.eb || new EventTarget();
 
 cm.declareModel("com.horidream.lib.shifu", async function(el, options){
   let store = {

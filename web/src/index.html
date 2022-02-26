@@ -8,8 +8,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>Markdown</title>
-    <link rel="stylesheet" href="./monokai.css" />
-    <link rel="stylesheet" href="./markdown.css" />
+    <link rel="stylesheet" href="./main.css" />
     <style>
       #app[v-cloak] {
         opacity: 0;
@@ -18,8 +17,8 @@
         margin: 0;
         padding: 0;
       }
-      h2{
-          margin: 20px 8px
+      h2 {
+        margin: 20px 8px;
       }
       #app {
         opacity: 1;
@@ -32,8 +31,9 @@
       <div v-html="htmlContent"></div>
     </div>
     <script src="./main.js"></script>
+    <script src="./to_markdown.js"></script>
+
     <script>
-      
       window["com.horidream.lib.shifu"]("#app", {
         state: {
           content: "",
@@ -57,7 +57,20 @@
           });
         });
 
-      
+      function onReceiveNative(html) {
+        try {
+          postToNative({
+            type: "toMarkdown",
+            value: toMarkdown(html),
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+      eb.addEventListener("toMarkdown", function (e) {
+        onReceiveNative(e.detail);
+      });
     </script>
   </body>
 </html>

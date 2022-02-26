@@ -10,7 +10,7 @@ import SwiftUI
 import Shifu
 
 struct SoundWaveImageDemo: View {
-    let webViewModel = ShifuWebViewModel()
+    @StateObject var webViewModel = ShifuWebViewModel()
     @ObservedObject private var injectObserver = Self.injectionObserver
     var url =  Bundle.main.url(forResource: "source/test", withExtension: "mp3") ?? URL(fileURLWithPath: "")
     @State var image = UIImage()

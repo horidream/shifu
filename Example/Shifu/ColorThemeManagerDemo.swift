@@ -12,10 +12,9 @@ import SwiftUI
 
 
 struct ColorThemeManagerDemo:View{
-    @State var source:String = ""
     @EnvironmentObject var colorManager: ColorSchemeMananger
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @StateObject var webViewModel = ShifuWebViewModel()
+    @StateObject var webViewModel:ShifuWebViewModel = .markdown
     
     var scrollView:some View{
         ScrollView{
@@ -27,13 +26,6 @@ struct ColorThemeManagerDemo:View{
             .pickerStyle(.segmented)
             .padding()
             
-            Image(systemName: "helm")
-                .resizable()
-                .aspectRatio(1, contentMode: .fit)
-                .padding()
-                .background(Color.yellow)
-                .cornerRadius(15)
-                .padding()
             
             MarkdownView(viewModel: webViewModel,  content: .constant("@source/ColorThemeManagerDemo.md".url?.content ?? ""))
                 .autoResize()
@@ -48,16 +40,16 @@ struct ColorThemeManagerDemo:View{
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        webViewModel.action = .snapshot()
+                        webViewModel.exec(.snapshot())
                     }
-                     label: {
-                        Image(systemName: "camera")
-                    }
-
+                label: {
+                    Image(systemName: "camera")
+                }
+                    
                 }
             }
-        .onInjection {
-            
-        }
+            .onInjection {
+                
+            }
     }
 }

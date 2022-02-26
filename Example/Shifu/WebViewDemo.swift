@@ -12,7 +12,6 @@ import Shifu
 
 struct WebViewDemo:View{
     @State var content:String = ""
-    @State var markdownHeight:CGFloat = 0
     @EnvironmentObject var vm:HomeViewModel
     @ObservedObject private var injectObserver = Self.injectionObserver
     var body: some View{
@@ -31,14 +30,6 @@ struct WebViewDemo:View{
         }
         .navigationTitle("Markdown in Shifu")
         .navigationBarTitleDisplayMode(.inline)
-        .on("contentHeight".toNotificationName()){
-            if let height = $0.userInfo?["value"] as? CGFloat{
-                withAnimation(.easeIn(duration: 0.87)) {
-                    markdownHeight = height
-                    
-                }
-            }
-        }
         .on("example".toNotificationName(), { notification in
             if let content = notification.userInfo?["content"] as? String{
                 self.content = content

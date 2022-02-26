@@ -26,7 +26,13 @@ module.exports = (env = {}, { mode = "production" }) => {
             from: srcPath,
             to: outputPath,
             globOptions: {
-              ignore: ["**/main.js", "**/.DS_Store", "index.js"],
+              ignore: [
+                "**/main.js",
+                "**/.DS_Store",
+                "index.js",
+                "**/empty.js",
+                "**/to_markdown.js",
+              ],
             },
           },
         ],
@@ -57,6 +63,7 @@ module.exports = (env = {}, { mode = "production" }) => {
   return {
     entry: {
       main: "./src/main.js",
+      to_markdown: "./src/to_markdown.js",
     },
     output: {
       path: outputPath,

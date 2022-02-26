@@ -16,23 +16,37 @@ import Combine
 public struct MarkdownView: View{
     @ObservedObject var viewModel:ShifuWebViewModel;
     @State var isMounted:Bool = false
-    @State var script:String?
-    
     @Binding var content:String
-    @State var allowScroll:Bool = true
-    @State var webView:ShifuWebView?
-    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel{ $0.allowScroll = true }, content:Binding<String>){
+    let markdownPageURL: URL? = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
+    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel{
+        $0.allowScroll = true
+        $0.url = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
+    }, content:Binding<String>){
         self.viewModel = viewModel
         _content = content
-        _allowScroll = State(initialValue: allowScroll)
-
         
     }
     
     
+    public func transforom(html:String?,  callback: @escaping (String?)->()){
+        "onMarkdown".toNotificationPublisher(of: viewModel.delegate)
+            .first()
+            .sink { notification in
+                if let md = notification.userInfo?["value"] as? String{
+                    callback(md)
+                }
+                callback(nil)
+            }
+            .retain()
+            
+            
+    }
+    
     public var body: some View{
-        ShifuWebView(viewModel: viewModel, script: $script, url: .constant(Shifu.bundle.url(forResource: "web/index", withExtension: "html")))
-            .environmentObject(viewModel)
+        if(viewModel.url != markdownPageURL){
+            viewModel.url = markdownPageURL
+        }
+        return ShifuWebView(viewModel: viewModel)
             .onChange(of: content) { _ in
                 if(isMounted){
                     updateContent()
@@ -45,18 +59,21 @@ public struct MarkdownView: View{
     }
     
     public func autoResize()-> some View{
-        self
+        if(viewModel.allowScroll){
+            viewModel.allowScroll = false
+        }
+        return self
             .frame(minHeight: viewModel.contentHeight)
-            .on("contentHeight", target: viewModel.id){
-            if let height = $0.userInfo?["value"] as? CGFloat{
+            .on("contentHeight", target: viewModel.delegate){
+            if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
                 self.viewModel.contentHeight = height
             }
-                
+
         }
     }
     
     public func updateContent(){
-        script = #"m.vm.content = "\#(content.normalized)""#
+        viewModel.delegate?.exec(script: #"m.vm.content = "\#(content.normalized)""#)
     }
 }
 

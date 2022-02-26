@@ -19,7 +19,7 @@ public extension String{
     
 
     
-    func substring(_ start:Int, _ end:Int = -1)->String{
+    func substring(_ start:Int, _ end:Int = .max)->String{
         var from = getIndex(start)
         var to = getIndex(end)
         if(self.distance(from: from, to: to) >= 0 ){
