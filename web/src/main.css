@@ -88,7 +88,8 @@ pre {
   font-family: Monaco, Andale Mono, Courier New, monospace;
 }
 code {
-  background-color: goldenrod;
+  font-family: consolas, monaco, monospace;
+  background-color: plum;
   color: black;
   padding: 1px 3px;
   font-size: 12px;

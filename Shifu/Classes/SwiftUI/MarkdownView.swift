@@ -27,21 +27,6 @@ public struct MarkdownView: View{
         
     }
     
-    
-    public func transforom(html:String?,  callback: @escaping (String?)->()){
-        "onMarkdown".toNotificationPublisher(of: viewModel.delegate)
-            .first()
-            .sink { notification in
-                if let md = notification.userInfo?["value"] as? String{
-                    callback(md)
-                }
-                callback(nil)
-            }
-            .retain()
-            
-            
-    }
-    
     public var body: some View{
         if(viewModel.url != markdownPageURL){
             viewModel.url = markdownPageURL
@@ -73,7 +58,7 @@ public struct MarkdownView: View{
     }
     
     public func updateContent(){
-        viewModel.delegate?.exec(script: #"m.vm.content = "\#(content.normalized)""#)
+        viewModel.apply("m.vm.content = content", arguments: ["content": content ])
     }
 }
 
@@ -88,4 +73,24 @@ extension Notification.Name{
 
 
 
+public extension ShifuWebViewModel{
+    func html2md(_ html:String, callback: @escaping (String?)->Void){
+        guard delegate?.webView.title == "Markdown" else {
+            callback(nil)
+            return
+        }
+        
+        apply("return toMarkdown(html)", arguments: ["html": html]) {
+            switch $0{
+            case .success(let result):
+                if let result = result as? String{
+                    callback(result)
+                }else{
+                    callback(nil)
+                }
+            default: callback(nil)
+            }
+        }
+    }
+}
 

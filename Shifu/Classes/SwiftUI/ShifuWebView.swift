@@ -17,6 +17,7 @@ public class SimpleObject{
 public enum ShifuWebViewAction{
     case snapshot(WKSnapshotConfiguration? = nil, SnapshotTarget = .clipboard(.jpg))
     
+    
 }
 
 public class ShifuWebViewModel:ObservableObject{
@@ -48,6 +49,10 @@ public class ShifuWebViewModel:ObservableObject{
         
         }
     }
+    
+    public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil){
+        self.delegate?.webView.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+    }
 }
 
 public struct ShifuWebView: UIViewControllerRepresentable{
@@ -61,7 +66,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     public func autoResize()-> some View{
         self
             .frame(minHeight: viewModel.contentHeight)
-            .on("contentHeight"){
+            .on("contentHeight", target: viewModel.delegate){
                 if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
                     self.viewModel.contentHeight = height
                 }

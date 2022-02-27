@@ -21,12 +21,6 @@ struct ToMarkdownDemo: View {
                 .padding(8)
                 .border(Color.red)
                 .padding(.horizontal)
-                .on("toMarkdown", target: vm.delegate){
-                    if let md = $0.userInfo?["value"] as? String{
-                        UIPasteboard.general.string = md
-                        content = md
-                    }
-                }
             TextEditor(text: $content)
                 .disableAutocorrection(true)
                 .autocapitalization(.allCharacters)
@@ -35,8 +29,13 @@ struct ToMarkdownDemo: View {
                 .padding(.horizontal)
 
             Button {
-                if let content:String  = pb.rawHTML{
-                    vm.delegate?.exec(script:  #"onNative("toMarkdown", "\#(content)")"#)
+                if let content:String  = pb.html{
+                    vm.apply("return toMarkdown(content)", arguments: ["content": content]){
+                        if case .success(let md) = $0, let md = md as? String {
+                            UIPasteboard.general.string = md
+                            self.content = md
+                        }
+                    }
                 }else{
                     content = pb.string ?? ""
                 }
