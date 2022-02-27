@@ -63,6 +63,13 @@ hr {
   border: 0;
   border-bottom: 1px solid #ccc;
 }
+table {
+    border-collapse:  collapse; /* セルの線を重ねる */
+    width:  100%;               /* 幅指定 */
+}
+th,td {
+    border: solid 1px;          /* 枠線指定 */
+}
 blockquote {
   padding: 13px 13px 21px 15px;
   margin-bottom: 18px;

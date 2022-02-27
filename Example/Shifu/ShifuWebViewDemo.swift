@@ -50,6 +50,11 @@ struct ShifuWebViewDemo: View{
         align-items: center;
         font-size: 80px;
     }
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: #fff;
+      }
+    }
     </style>
     <script src="./vue.global.prod.js"></script>
     <div id="app">{{ message }}<img style='border: 5px solid green; border-radius: 99px;' :src='imgSrc'/></div>
