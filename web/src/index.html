@@ -14,18 +14,36 @@
         opacity: 0;
       }
       body {
-        margin: 0;
+        margin: v-bind("margin");
         padding: 0;
       }
       #app {
         opacity: 1;
         transition: opacity 0.2s linear;
       }
+      hr.dotted {
+        border: none;
+        margin-top: 8px;
+        border-top: 3px dotted #bbb;
+      }
+      #content {
+        padding: 8px;
+        white-space: pre-wrap;
+        border: 1px solid #ddd;
+      }
     </style>
   </head>
   <body>
     <div id="app" v-cloak>
       <div v-html="htmlContent"></div>
+
+      <div v-if="isDebug">
+        <hr class="dotted" />
+        <h3>Raw Markdown</h3>
+        <div id="content">
+          {{content}}
+        </div>
+      </div>
     </div>
     <script src="./main.js"></script>
     <script src="./to_markdown.js"></script>
@@ -38,6 +56,12 @@
         computed: {
           htmlContent() {
             return marked(this.content);
+          },
+          isDebug() {
+            return !window.webkit;
+          },
+          margin() {
+            return this.isDebug ? 8 : 0;
           },
         },
       });
@@ -67,6 +91,15 @@
 
       eb.addEventListener("toMarkdown", function (e) {
         onReceiveNative(e.detail);
+      });
+      document.addEventListener("paste", function (e) {
+        let html = e.clipboardData.getData("text/html");
+        let text = html
+          ? toMarkdown(html)
+          : e.clipboardData.getData("text/plain");
+        m.vm.content = text;
+        e.preventDefault();
+        e.stopPropagation();
       });
     </script>
   </body>
