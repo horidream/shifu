@@ -17,6 +17,8 @@ struct ToMarkdownDemo: View {
     var body: some View {
         
         VStack{
+            ThemePicker()
+                .padding(.horizontal)
             MarkdownView(viewModel: vm, content: $content)
                 .padding(8)
                 .border(Color.red)
@@ -32,7 +34,6 @@ struct ToMarkdownDemo: View {
                 if let content:String  = pb.html{
                     vm.apply("return toMarkdown(content)", arguments: ["content": content]){
                         if case .success(let md) = $0, let md = md as? String {
-                            UIPasteboard.general.string = md
                             self.content = md
                         }
                     }
@@ -43,6 +44,17 @@ struct ToMarkdownDemo: View {
                 Text("Transform to Markdown")
             }
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    UIPasteboard.general.string = self.content
+                }
+            label: {
+                Image(systemName: "doc.on.doc")
+            }
+                
+            }
+        })
         .navigationBarTitle(Text("To Markdown"))
         .navigationBarTitleDisplayMode(.inline)
         

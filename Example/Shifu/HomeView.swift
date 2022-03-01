@@ -23,7 +23,6 @@ extension Notification.Name{
 
 struct HomeView: View {
     @StateObject var vm = HomeViewModel()
-    @StateObject var colorManager = ColorSchemeMananger()
     @ObservedObject private var iO = Self.injectionObserver
     var body: some View {
         NavigationView{
@@ -51,16 +50,12 @@ struct HomeView: View {
             }
             .listStyle(.plain)
             .navigationBarTitle(Text("Shifu"))
-            .onAppear(){
-                colorManager.applyColorScheme()
-            }
             .onInjection {
                 vm.refresh()
             }
             .ignoresSafeArea(.all, edges: .bottom)
         }
         .environmentObject(vm)
-        .environmentObject(colorManager)
         
     }
     
