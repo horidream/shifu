@@ -14,7 +14,7 @@
         opacity: 0;
       }
       body {
-        margin: v-bind("margin");
+        margin: 0 auto;
         padding: 0;
       }
       #app {
@@ -30,18 +30,43 @@
         padding: 8px;
         white-space: pre-wrap;
         border: 1px solid #ddd;
+        position: relative;
+      }
+      [contenteditable] {
+        outline: 0px solid transparent;
+      }
+      #copyButton {
+        position: absolute;
+        right: 8px;
+        top: -30px;
+      }
+      textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        overflow: hidden;
+        border: none;
       }
     </style>
   </head>
   <body>
     <div id="app" v-cloak>
-      <div v-html="htmlContent"></div>
-
-      <div v-if="isDebug">
-        <hr class="dotted" />
-        <h3>Raw Markdown</h3>
-        <div id="content">
-          {{content}}
+      <div v-bind:style="appStyle">
+        <div v-html="htmlContent"></div>
+        <div v-if="isDebug">
+          <hr class="dotted" />
+          <h3>Markdown</h3>
+          <div id="content">
+            <button @click="copyToClipboard" id="copyButton">Copy</button>
+            <!-- <p contenteditable="true" @input="handleInput">
+              {{content}}
+            </p> -->
+            <textarea
+              contenteditable="true"
+              type="text"
+              v-model="content"
+            ></textarea>
+          </div>
         </div>
       </div>
     </div>
@@ -52,17 +77,50 @@
       window["com.horidream.lib.shifu"]("#app", {
         state: {
           content: "",
+          allowDebug: true,
+        },
+        methods: {
+          copyToClipboard: function () {
+            navigator.clipboard.writeText(this.content);
+          },
+          handleInput(e) {
+            var innerText = e.currentTarget.innerText;
+            this.content = innerText;
+          },
+          adjustHeight() {
+            if(this.isDebug){
+              let target = document.querySelector("textarea");
+              target.style.height = "5px";
+              nextTick(() => {
+                var height = target.scrollHeight;
+                target.style.height = height + "px";
+              });
+            }
+          },
+        },
+        watch:{
+          content(){
+            this.adjustHeight();
+          },
+          isDebug(){
+            nextTick().then(this.adjustHeight);
+          }
         },
         computed: {
           htmlContent() {
             return marked(this.content);
           },
           isDebug() {
-            return !window.webkit;
+            return this.allowDebug && !window.webkit;
           },
-          margin() {
-            return this.isDebug ? 8 : 0;
+          appStyle() {
+            return { margin: this.isDebug ? "8px" : "0px" };
           },
+        },
+        mounted() {
+          setTimeout(() => {
+            this.adjustHeight();
+          }, 300);
         },
       });
 
@@ -78,21 +136,24 @@
           });
         });
 
-      function onReceiveNative(html) {
-        try {
-          postToNative({
-            type: "toMarkdown",
-            value: toMarkdown(html),
-          });
-        } catch (e) {
-          console.log(e);
-        }
-      }
+      // function onReceiveNative(html) {
+      //   try {
+      //     postToNative({
+      //       type: "toMarkdown",
+      //       value: toMarkdown(html),
+      //     });
+      //   } catch (e) {
+      //     console.log(e);
+      //   }
+      // }
 
-      eb.addEventListener("toMarkdown", function (e) {
-        onReceiveNative(e.detail);
-      });
+      // eb.addEventListener("toMarkdown", function (e) {
+      //   onReceiveNative(e.detail);
+      // });
       document.addEventListener("paste", function (e) {
+        if (e.target.getAttribute("contenteditable")) {
+          return;
+        }
         let html = e.clipboardData.getData("text/html");
         let text = html
           ? toMarkdown(html)
