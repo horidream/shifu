@@ -22,7 +22,7 @@ extension Notification.Name{
 
 
 struct HomeView: View {
-    @StateObject var vm = HomeViewModel()
+    @EnvironmentObject var vm:HomeViewModel
     @ObservedObject private var iO = Self.injectionObserver
     var body: some View {
         NavigationView{
@@ -54,9 +54,7 @@ struct HomeView: View {
                 vm.refresh()
             }
             .ignoresSafeArea(.all, edges: .bottom)
-        }
-        .environmentObject(vm)
-        
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     func sandbox(){

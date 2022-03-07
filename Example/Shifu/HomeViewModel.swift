@@ -24,16 +24,11 @@ class FeatureViewModel<Content>: ObservableObject{
     }
 }
 
-//func cast<T:AnyObject>(publisher: Published<T>.Publisher)->Binding<T>{
-//    return Binding {
-//        return publisher
-//    } set: {
-//        <#code#>
-//    }
-//
-//}
 
-class HomeViewModel: ObservableObject{
+class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachability{
+    var ext: [String : Any] = [:]
+    typealias Root = HomeView
+    
     @Published var featureList:[FeatureViewModel<AnyView>] = []
     @Published var script:String = ""
     init(){
@@ -60,6 +55,10 @@ class HomeViewModel: ObservableObject{
             }),
             FeatureViewModel(name: "ToMarkdownDemo", viewBuilder: { model in
                 return ToMarkdownDemo().eraseToAnyView()
+                
+            }),
+            FeatureViewModel(name: "Models", viewBuilder: { model in
+                return ModelDemo().eraseToAnyView()
                 
             })
         ]

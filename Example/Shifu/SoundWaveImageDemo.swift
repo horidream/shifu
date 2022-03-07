@@ -15,7 +15,7 @@ struct SoundWaveImageDemo: View {
     var url =  Bundle.main.url(forResource: "source/test", withExtension: "mp3") ?? URL(fileURLWithPath: "")
     @State var image = UIImage()
     var body: some View {
-        VStack{
+        ScrollView{
             Image(uiImage: image)
                 .resizable()
                 .aspectRatio(4, contentMode: .fit)

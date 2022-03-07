@@ -17,13 +17,15 @@ public protocol AppModelReachability {
 public extension AppModelReachability where Self: AppModelBase{
     var isNetworkAvailable:Bool{
         get{
-            self.getProperty("isNetworkAvailable", fallback: false)
+            startObserveReachability()
+            return self.getProperty("isNetworkAvailable", fallback: false)
         }
         set{
             self.setProperty("isNetworkAvailable", value: newValue)
         }
     }
     func startObserveReachability(){
+        guard ext["reachability"] == nil else { return }
         let reachability = self.getProperty("reachability", fallback: { try? Reachability() }())
         NotificationCenter.default.publisher(for: .reachabilityChanged)
             .sink { (n) in

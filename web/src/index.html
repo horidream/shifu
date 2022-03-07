@@ -9,16 +9,15 @@
     />
     <title>Markdown</title>
     <link rel="stylesheet" href="./main.css" />
+    <script src="./main.js"></script>
+    <script src="./to_markdown.js"></script>
     <style>
-      #app[v-cloak] {
-        opacity: 0;
-      }
       body {
         margin: 0 auto;
-        padding: 0;
       }
       #app {
         opacity: 1;
+        margin: 0 auto;
         transition: opacity 0.2s linear;
       }
       hr.dotted {
@@ -70,8 +69,6 @@
         </div>
       </div>
     </div>
-    <script src="./main.js"></script>
-    <script src="./to_markdown.js"></script>
 
     <script>
       window["com.horidream.lib.shifu"]("#app", {
@@ -88,7 +85,7 @@
             this.content = innerText;
           },
           adjustHeight() {
-            if(this.isDebug){
+            if (this.isDebug) {
               let target = document.querySelector("textarea");
               target.style.height = "5px";
               nextTick(() => {
@@ -98,13 +95,13 @@
             }
           },
         },
-        watch:{
-          content(){
+        watch: {
+          content() {
             this.adjustHeight();
           },
-          isDebug(){
+          isDebug() {
             nextTick().then(this.adjustHeight);
-          }
+          },
         },
         computed: {
           htmlContent() {
@@ -114,7 +111,7 @@
             return this.allowDebug && !window.webkit;
           },
           appStyle() {
-            return { margin: this.isDebug ? "8px" : "0px" };
+            return { margin: this.isDebug ? "8px auto" : "0px" };
           },
         },
         mounted() {

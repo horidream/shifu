@@ -15,13 +15,15 @@ public protocol AppModelBase: AnyObject {
     var version:String { get }
     var isPad:Bool { get }
     var isPhone: Bool {  get }
-    var ext:[ String:Any] {  get set }
+    var ext:[ String:Any] {  get set  }
     func getProperty<T>(_ key:String, fallback:@autoclosure ()->T)->T
     func setProperty<T>(_ key:String, value:T)
 }
 
+
 @available(iOS 13.0, *)
 public extension AppModelBase where Self: ObservableObject, Self.ObjectWillChangePublisher == ObservableObjectPublisher{
+
     var version:String {
         get{ getProperty("version",  fallback: (Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "UNKNOWN") as! String)
         }
@@ -42,6 +44,13 @@ public extension AppModelBase where Self: ObservableObject, Self.ObjectWillChang
         }
     }
     
+    var language: String{
+        get {
+            getProperty("language", fallback: Locale.current.languageCode ?? "en")
+        }
+    }
+    
+    
     
     func getProperty<T>(_ key:String, fallback:@autoclosure ()->T)->T{
         if ext[key] != nil, let instance = ext[key] as? T {
@@ -59,6 +68,7 @@ public extension AppModelBase where Self: ObservableObject, Self.ObjectWillChang
             ext[key] = value
         }
     }
+    
     func setProperty<T>(_ key:String, value:T) {
         objectWillChange.send()
         ext[key] = value
