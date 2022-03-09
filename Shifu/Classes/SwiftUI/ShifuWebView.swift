@@ -20,6 +20,7 @@ public enum ShifuWebViewAction{
     
 }
 
+@available(iOS 14.0, *)
 public class ShifuWebViewModel:ObservableObject{
     public weak var delegate: ShifuWebViewController?
     public static var markdown:ShifuWebViewModel {
@@ -55,6 +56,7 @@ public class ShifuWebViewModel:ObservableObject{
     }
 }
 
+@available(iOS 14.0, *)
 public struct ShifuWebView: UIViewControllerRepresentable{
     public func makeCoordinator() -> Coordinator {
         return Coordinator()
@@ -126,7 +128,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             clg(message.body)
         }else{
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
-                clg(type, dic)
+//                clg(type, dic)
                 NotificationCenter.default.post(name: type.toNotificationName(), object: self, userInfo: dic)
             }
         }

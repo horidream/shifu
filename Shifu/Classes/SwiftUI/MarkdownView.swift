@@ -12,7 +12,7 @@ import WebKit
 import Combine
 
 
-
+@available(iOS 14.0, *)
 public struct MarkdownView: View{
     @ObservedObject var viewModel:ShifuWebViewModel;
     @State var isMounted:Bool = false
@@ -72,7 +72,7 @@ extension Notification.Name{
 
 
 
-
+@available(iOS 14.0, *)
 public extension ShifuWebViewModel{
     func html2md(_ html:String, callback: @escaping (String?)->Void){
         guard delegate?.webView.title == "Markdown" else {
