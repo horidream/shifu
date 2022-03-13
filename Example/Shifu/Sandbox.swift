@@ -7,26 +7,39 @@
 //
 
 import SwiftUI
-
+import Shifu
 
 struct Sandbox:View{
   @ObservedObject private var injectObserver = Self.injectionObserver
   var body: some View{
-    Text("Birthday: \("19990823".date(timezone: .current)?.toString(locale: .current) ?? "")")
-      .foregroundColor(.white)
-      .padding(8, 16)
-      .background(
-        Capsule()
-          .fill(Color.blue)
-      )
-      .onInjection {
-        sandbox()
+    let strings = [
+      "100823".date(timezone: .gmt + 8)?.toString() ?? "",
+      "19990823121149".date(timezone: .current)?.toString() ?? "",
+      Date().toString(formatter: .formatter(with:"yyyyMMMMddhhmmss", timeZone: .current - 15, locale: .ja_JP)) ?? ""
+    ]
+    Group{
+      ForEach(strings, id: \.self) { content in
+        Text(content)
+          .onTapGesture {
+            Announcer.say(content, locale: .ja_JP)
+          }
       }
-      .onAppear(perform: sandbox)
+    }
+    .foregroundColor(.white)
+    .padding(8, 16)
+    .background(
+      Capsule()
+        .fill(Color.blue)
+    )
+    .onInjection {
+      sandbox()
+    }
+    .onAppear(perform: sandbox)
   }
   
   func sandbox(){
-    clg("what!")
+    
+    clg("hot reloading!")
     
   }
 }

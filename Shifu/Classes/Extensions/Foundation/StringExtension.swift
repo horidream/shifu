@@ -213,11 +213,25 @@ public extension String {
 }
 
 public extension String{
-    func date(format: String = "yyyyMMdd", timezone:TimeZone = .gmt)->Date?{
-        let df = DateFormatter()
-        df.timeZone = timezone
-        df.dateFormat = format
-        return df.date(from: self)
+  func date(format: String? = nil, timezone:TimeZone = .gmt)->Date?{
+    var autoFormat:String = ""
+    switch self.count{
+    case 8:
+      autoFormat = "yyyyMMdd"
+    case 6:
+      autoFormat = "yyMMdd"
+    case 14:
+      autoFormat = "yyyyMMddhhmmss"
+    case 10:
+      autoFormat = "yyMMddhhmmss"
+    default:()
     }
+    
+    clg(self.count, autoFormat)
+    let df = DateFormatter()
+    df.timeZone = timezone
+    df.dateFormat = format ?? autoFormat
+    return df.date(from: self)
+  }
 }
 
