@@ -206,8 +206,18 @@ public extension String{
     }
 }
 
-extension String {
+public extension String {
     func json() -> AnyObject {
         return JSON.parse(self)
     }
 }
+
+public extension String{
+    func date(format: String = "yyyyMMdd", timezone:TimeZone = .gmt)->Date?{
+        let df = DateFormatter()
+        df.timeZone = timezone
+        df.dateFormat = format
+        return df.date(from: self)
+    }
+}
+

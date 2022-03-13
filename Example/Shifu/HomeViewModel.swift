@@ -60,6 +60,10 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
             FeatureViewModel(name: "Models", viewBuilder: { model in
                 return ModelDemo().eraseToAnyView()
                 
+            }),
+            FeatureViewModel(name: "Sandbox", viewBuilder: { model in
+                return Sandbox().eraseToAnyView()
+                
             })
         ]
         featureList.get(-1)?.isActive = true
