@@ -15,7 +15,7 @@ struct Sandbox:View{
     let strings = [
       "100823".date(timezone: .gmt + 8)?.toString() ?? "",
       "19990823121149".date(timezone: .current)?.toString() ?? "",
-      Date().toString(formatter: .formatter(with:"yyyyMMMMddhhmmss", timeZone: .current - 15, locale: .ja_JP)) ?? ""
+      Date().toString(formatter: .formatter(with:"yyyyMMMMddhhmmss", timeZone: .gmt + 9, locale: .ja_JP)) ?? ""
     ]
     Group{
       ForEach(strings, id: \.self) { content in
@@ -39,7 +39,7 @@ struct Sandbox:View{
   
   func sandbox(){
     
-    clg("hot reloading!")
+    clg("hot reloading!!")
     
   }
 }

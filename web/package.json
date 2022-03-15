@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "highlight.js": "^11.4.0",
+    "katex": "^0.15.3",
     "marked": "^4.0.12"
   }
 }

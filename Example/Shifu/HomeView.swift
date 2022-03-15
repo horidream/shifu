@@ -17,7 +17,7 @@ struct Person:Codable{
     }
 }
 extension Notification.Name{
-    static var hello = "hello".toNotificationName()
+  static var hello = "hello".toNotificationName()
 }
 
 
@@ -28,7 +28,7 @@ struct HomeView: View {
         NavigationView{
             List{
                 Section(header: Text("Examples").font(.headline).padding(10)) {
-                    ForEach(0..<vm.featureList.count){ idx in
+                  ForEach(0..<vm.featureList.count, id: \.self){ idx in
                         
                         NavigationLink(isActive: $vm.featureList[idx].isActive, destination: {
                             vm.featureList[idx].view
