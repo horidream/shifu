@@ -127,3 +127,9 @@ public protocol HasEmptyView {
   static var emptyView:Self { get }
 }
 
+
+public extension Color{
+    static var random:Color{
+        return Color(red: Double.random(in: 0...255)/255, green: Double.random(in: 0...255)/255, blue: Double.random(in: 0...255)/255)
+    }
+}

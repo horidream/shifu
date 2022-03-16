@@ -62,6 +62,9 @@ public extension UIColor {
             return nil
         }
     }
+    static var random:UIColor{
+        return UIColor(UInt.random(in: 0...0xFFFFFF))
+    }
 }
 
 

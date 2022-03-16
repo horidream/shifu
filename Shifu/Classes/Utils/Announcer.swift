@@ -15,7 +15,7 @@ public enum AnnouncerError:Error{
 
 @available(iOS 13.0, *)
 public class Announcer: NSObject{
-  static var shared = Announcer()
+  public static let shared = Announcer()
   public static func say(_ string:String, wait:Bool = false,  locale:Locale = .current){
     if(!wait){
       shared.stop()
