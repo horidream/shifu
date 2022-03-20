@@ -96,25 +96,34 @@ code {
   background-color: plum;
   color: black;
   padding: 1px 3px;
-  font-size: 11px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+
+
 pre {
   display: block;
   padding: 14px;
-  margin: 0 0 18px;
+  margin: 0 16px 18px;
   line-height: 16px;
   font-size: 11px;
   border: 1px solid #d9d9d9;
   white-space: pre-wrap;
   word-wrap: break-word;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
+
 pre code {
   background-color: #fff;
   font-size: 11px;
   padding: 0;
+}
+
+strong{
+  font-weight: bold;
+  color: darkgoldenrod;
 }
 @media screen and (min-width: 960px) {
   body {

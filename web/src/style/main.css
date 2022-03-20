@@ -1,0 +1,34 @@
+body {
+  margin: 0 auto;
+}
+#app {
+  opacity: 1;
+  margin: 0 auto;
+  transition: opacity 0.2s linear;
+}
+hr.dotted {
+  border: none;
+  margin-top: 8px;
+  border-top: 3px dotted #bbb;
+}
+#content {
+  padding: 8px;
+  white-space: pre-wrap;
+  border: 1px solid #ddd;
+  position: relative;
+}
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+#copyButton {
+  position: absolute;
+  right: 8px;
+  top: -30px;
+}
+textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  overflow: hidden;
+  border: none;
+}

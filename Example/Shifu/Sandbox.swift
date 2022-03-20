@@ -11,7 +11,7 @@ import Shifu
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var locale:Locale = .ja_JP
+    @State var locale:Locale = .zh_CN
     @State var progress: CGFloat = 0
     @State var displayMessage:String = ""
     @State var currentColor:Color = .white
