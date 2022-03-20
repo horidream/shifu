@@ -23,6 +23,21 @@ public struct ShifuTextEditor: UIViewRepresentable {
                 tv.delegate?.textViewDidChange?(tv)
             }
         }
+        
+        public func modifySelection(modifier:(String)->(string: String, selectioOffset: Int)){
+            if let txt = delegate?.text, let selectedRange = delegate?.selectedRange{
+                let p1 = txt.substring(0, selectedRange.lowerBound)
+                let p2 = txt.substring(selectedRange.lowerBound, selectedRange.upperBound)
+                let p3 = txt.substr(selectedRange.upperBound)
+                let modified = modifier(p2)
+                update(text:  p1 + modified.string + p3)
+                delay(0.01){
+                    let r = NSMakeRange(p1.count + modified.selectioOffset, 0)
+                    self.delegate?.selectedRange = r
+                    self.delegate?.scrollRangeToVisible(r)
+                }
+            }
+        }
     }
     
     let textView = UITextView()

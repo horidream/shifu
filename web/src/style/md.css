@@ -27,6 +27,11 @@ a:hover {
 a img {
   border: none;
 }
+input[type="checkbox"], input[type="checkbox"]:disabled{
+  margin: 0 5px 0 0;
+  transform: translateY(3px);
+  /* filter: sepia(100%) hue-rotate(290deg); */
+}
 p {
   margin-bottom: 9px;
 }
@@ -105,13 +110,13 @@ code {
 pre {
   display: block;
   padding: 14px;
-  margin: 0 16px 18px;
+  margin: 0 2px 18px;
   line-height: 16px;
   font-size: 11px;
-  border: 1px solid #d9d9d9;
+  /* border: 1px solid #d9d9d9; */
   white-space: pre-wrap;
   word-wrap: break-word;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
@@ -166,6 +171,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
   }
   pre {
     border: 1px solid #bf370f;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.15);
   }
   pre code {
     background-color: initial;
