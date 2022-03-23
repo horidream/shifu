@@ -8,11 +8,13 @@
 import Foundation
 
 public class JSON{
-    public static func stringify(_ obj:AnyObject?) -> String{
-        if let obj = obj, let data = try? JSONSerialization.data(withJSONObject: obj){
-            return (String(bytes: data, encoding: .utf8)) ?? ""
+    public static func stringify(_ obj:Any?) -> String?{
+        if JSONSerialization.isValidJSONObject(obj),
+            let obj = obj,
+            let data = try? JSONSerialization.data(withJSONObject: obj, options: []){
+            return (String(bytes: data, encoding: .utf8))
         }
-        return ""
+        return nil
     }
     
     public static func parse(_ data:Data?) -> AnyObject{
@@ -45,5 +47,36 @@ public class JSON{
     
     static var emptyObject:AnyObject {
         [String: AnyObject]() as AnyObject
+    }
+}
+
+public extension Dictionary where Key == String{
+    func stringify()->String?{
+        return JSON.stringify(self)
+    }
+}
+
+public extension NSObject{
+    func stringify()->String?{
+        return JSON.stringify(self)
+    }
+}
+
+
+public extension Encodable{
+    func stringify()->String?{
+        if let data = try? JSONEncoder().encode(self){
+            return data.utf8String
+        }
+        return nil
+    }
+}
+
+public extension Decodable{
+    static func from(_ string:String)->Self?{
+        if let data = string.data(using: .utf8){
+            return try? JSONDecoder().decode(Self.self, from: data)
+        }
+        return nil
     }
 }

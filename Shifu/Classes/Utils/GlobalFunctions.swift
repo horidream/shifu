@@ -20,14 +20,15 @@ let namespace:String = "com.horidream.lib.shifu"
     return workItem
 }
 
-public var fm: FileManager {
-    return FileManager.default
+@discardableResult public func with<T>(_ target:T, block:(T)->Void) -> T{
+    block(target)
+    return target
 }
 
-public var pb: UIPasteboard{
-    return UIPasteboard.general
-}
 
+
+public var fm: FileManager = FileManager.default
+public let pb: UIPasteboard = UIPasteboard.general
 public typealias url = FileManager.url
 public typealias path = FileManager.path
 public typealias sc = ShortCut

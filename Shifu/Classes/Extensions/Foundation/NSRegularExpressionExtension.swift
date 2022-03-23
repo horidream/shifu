@@ -10,19 +10,17 @@ import Foundation
 
 public extension NSRegularExpression{
     
-    func findall(_ string:String, options:NSRegularExpression.MatchingOptions = [])->[[String?]]{
+    func findall(_ string:String, options:NSRegularExpression.MatchingOptions = [])->[[String]]{
         let matches = self.matches(in: string, options: options, range:NSMakeRange(0, string.utf16.count))
-        var result:[[String?]] = []
+        var result:[[String]] = []
         for m in matches as [NSTextCheckingResult]{
-            var sub:[String?] = []
+            var sub:[String] = []
             for g in 0..<m.numberOfRanges{
                 let subrange = m.range(at: g)
-                var substring:String? 
                 if(subrange.location != NSNotFound){
-                    substring = (string as NSString).substring(with: subrange)
-                    
+                    let substring = (string as NSString).substring(with: subrange)
+                    sub.append(substring)
                 }
-                sub.append(substring)
             }
             result.append(sub)
         }

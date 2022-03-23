@@ -71,6 +71,7 @@ struct ToMarkdownDemo: View {
 
         ]
     }
+
     var body: some View {
         VStack{
             ThemePicker()
@@ -82,7 +83,7 @@ struct ToMarkdownDemo: View {
             ShifuTextEditor(viewModel: tevm)
                 .disableAutocorrection(true)
                 .padding(8)
-                .border(Color.blue, width: 1)
+                .border(.blue, width: 1)
                 .padding(.horizontal)
 
             Button {

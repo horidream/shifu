@@ -7,7 +7,7 @@
 
 import UIKit
 
-let clg = Shifu.clg(prefix: "Hori -")
+let clg = Shifu.clg(prefix: "bz -")
 class EqutableWrapper: Equatable, Identifiable{
   static func == (lhs: EqutableWrapper, rhs: EqutableWrapper) -> Bool {
     return lhs.id == rhs.id
@@ -56,7 +56,7 @@ public class Shifu{
     
     func _clg(_ args:Any...){
       print(args.reduce(prefix, { partialResult, item in
-        return "\(partialResult) \(item)"
+          return "\(partialResult) \(item)".replacingOccurrences(of: "\n", with: "\n\(prefix) ")
       }))
     }
     return _clg

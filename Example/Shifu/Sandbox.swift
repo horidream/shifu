@@ -75,12 +75,17 @@ struct Sandbox:View{
         ta($currentColor).to(.random, duration: 5)
         displayMessage = msg
         if(!isSilent){
-            Announcer.say(msg, wait: false,  locale: locale)
+//            Announcer.say(msg, wait: false,  locale: locale)
         }
     }
     
     func sandbox(){
-        clg("hot reloading!!")
+        clg("hello")
+        clg("hot \nreloading!!".findall(pattern: "o(t|a)").compactMap{ $0.spread2() })
         
+        if let (a, b) = [3,6,9].spread2(){
+            clg(a,b)
+        }
+
     }
 }
