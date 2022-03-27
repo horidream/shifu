@@ -142,7 +142,7 @@ public extension Array where Element: UIImage {
     func hGroup(scale: CGFloat = 1.0)->UIImage{
         return self.stitchImages(isVertical: false, scale: scale)
     }
-    func stitchImages(isVertical: Bool, scale imageGroupScale:CGFloat = 1.0) -> UIImage {
+    func stitchImages(isVertical: Bool, scale imageGroupScale:CGFloat = 1.0, maxStitchedImageSize:CGFloat = Shifu.maxStitchedImageSize) -> UIImage {
         let arr = self.compactMap{ $0.size == .zero ? nil : $0}
         guard arr.count > 0 else { return UIImage() }
         guard arr.count != 1 else { return arr[0] }
@@ -161,8 +161,8 @@ public extension Array where Element: UIImage {
         }
         
         let maxSize = Swift.max(totalSize.width, totalSize.height)
-        if(maxSize > Shifu.maxStitchedImageSize){
-            let downScale = Shifu.maxStitchedImageSize / maxSize
+        if(maxSize > maxStitchedImageSize){
+            let downScale = maxStitchedImageSize / maxSize
             totalSize = totalSize.scale(downScale)
             sizes = sizes.map{size in size.scale(downScale)}
         }

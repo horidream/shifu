@@ -25,10 +25,14 @@ let namespace:String = "com.horidream.lib.shifu"
     return target
 }
 
+public func suppressConstraitError(){
+    UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+}
 
 
-public var fm: FileManager = FileManager.default
+public let fm: FileManager = FileManager.default
 public let pb: UIPasteboard = UIPasteboard.general
+public let ud = UserDefaults.standard
 public typealias url = FileManager.url
 public typealias path = FileManager.path
 public typealias sc = ShortCut

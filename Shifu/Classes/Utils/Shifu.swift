@@ -7,7 +7,16 @@
 
 import UIKit
 
-let clg = Shifu.clg(prefix: "bz -")
+var clg:((Any...)->Void) {
+    get{
+        return Shifu.CurrentCLG.clg ?? {
+            print($0.reduce(""){
+                partialResult, item in
+                return partialResult.isEmpty ? "\(item)" : "\(partialResult) \(item)"
+            })
+        }
+    }
+}
 class EqutableWrapper: Equatable, Identifiable{
   static func == (lhs: EqutableWrapper, rhs: EqutableWrapper) -> Bool {
     return lhs.id == rhs.id
@@ -52,14 +61,24 @@ public class Shifu{
     return workItem
   }
   
-  public static func clg(prefix:String) -> ((Any...)->Void){
-    
-    func _clg(_ args:Any...){
-      print(args.reduce(prefix, { partialResult, item in
-          return "\(partialResult) \(item)".replacingOccurrences(of: "\n", with: "\n\(prefix) ")
-      }))
+    struct CurrentCLG{
+        static var prefix: String?
+        static var clg: ((Any...)->Void)?
     }
-    return _clg
+    
+  public static func clg(prefix:String) -> ((Any...)->Void){
+      if let currentPrefix = CurrentCLG.prefix, prefix == currentPrefix , let clg = CurrentCLG.clg{
+          return clg
+      }else{
+          func _clg(_ args:Any...){
+              print(args.reduce(prefix, { partialResult, item in
+                  return "\(partialResult) \(item)".replacingOccurrences(of: "\n", with: "\n\(prefix) ")
+              }))
+          }
+          CurrentCLG.prefix = prefix
+          CurrentCLG.clg = _clg
+          return _clg
+      }
   }
   
   public static func escape(_ str:String)->String{

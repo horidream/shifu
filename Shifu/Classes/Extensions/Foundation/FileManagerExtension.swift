@@ -86,7 +86,10 @@ public extension FileManager {
     
     func read(_ fileName: String, in directory: URL = url.document) -> String?{
         let filePath = directory.appendingPathComponent(fileName).path
-        return try? String(contentsOfFile: filePath)
+        if(filePath.url?.isFileURL ?? false){
+            return try? String(contentsOfFile: filePath)
+        }
+        return nil
     }
     
     func exists(_ fileName: String, in directory: URL = url.document) -> Bool{

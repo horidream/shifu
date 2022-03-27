@@ -21,7 +21,6 @@ public extension AppModelMountRoot where Self:AppModelBase, Root:View, Self: Obs
       ext["\(type(of:self))::\(#function)"] as? Root
     }
     set{
-      clg("will set root")
       objectWillChange.send()
       ext["\(type(of:self))::\(#function)"] = newValue
     }

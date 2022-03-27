@@ -54,7 +54,8 @@ struct HomeView: View {
                 vm.refresh()
             }
             .ignoresSafeArea(.all, edges: .bottom)
-        }.navigationViewStyle(StackNavigationViewStyle())
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func sandbox(){

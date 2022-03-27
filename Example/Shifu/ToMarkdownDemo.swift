@@ -15,6 +15,12 @@ struct ToMarkdownDemo: View {
     @StateObject var vm = ShifuWebViewModel.markdown
     @StateObject private var tevm = ShifuTextEditor.ViewModel{ m in
         m.inputAccessoryItems = [
+            UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.backward"), style: .done, closure: { bar in
+                m.go(-1)
+            }),
+            UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.forward"), style: .done, closure: { bar in
+                m.go(1)
+            }),
             UIBarButtonItem(image: UIImage(systemName: "highlighter"), style: .done, closure: { bar in
                 if let txt = m.delegate?.text, let selectedRange = m.delegate?.selectedRange{
                     let p1 = txt.substring(0, selectedRange.lowerBound)
@@ -111,11 +117,24 @@ struct ToMarkdownDemo: View {
                 
             }
         })
+        .onReceive(tevm.history.objectWillChange, perform: {
+            updateToolbar()
+        })
+        .onAppear(){
+            updateToolbar()
+        }
         .navigationBarTitle(Text("To Markdown"))
         .navigationBarTitleDisplayMode(.inline)
         
     }
     
+    func updateToolbar(){
+        if let toolbar = tevm.delegate?.inputAccessoryView as? UIToolbar{
+            toolbar.items?.get(0)?.tintColor = tevm.hasHistory(-1) ?  nil : .gray
+            toolbar.items?.get(1)?.tintColor = tevm.hasHistory(1) ? nil : .gray
+        }
+        
+    }
 
 }
 

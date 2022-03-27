@@ -78,15 +78,33 @@ public class ShortCut{
         }
     }
     
+//    @available(iOS 13.0, *)
+//    public static func load<T: Decodable>(_ path:String, _ callback: @escaping (_ data: T?)->Void){
+//        URLSession.shared.dataTaskPublisher(for: URL(string: path)!)
+//            .map{
+//                (result)->Data in
+//                return result.data
+//            }
+//            .decode(type: T.self, decoder: JSONDecoder())
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveCompletion: { (completion) -> Void in
+//                switch completion{
+//                case .finished: break
+//                case .failure: callback(nil)
+//                }
+//
+//            }, receiveValue: { (value) in
+//                callback(value)
+//            })
+//            .retain(path)
+//    }
     @available(iOS 13.0, *)
-    public static func load<T: Decodable>(_ path:String, _ callback: @escaping (_ data: T?)->Void)->AnyCancellable{
-        return URLSession.shared.dataTaskPublisher(for: URL(string: path)!)
+    public static func load(_ path:String, retain key:Any? = nil , _ callback: @escaping (_ data: Data?)->Void) {
+        URLSession.shared.dataTaskPublisher(for: URL(string: path)!)
             .map{
                 (result)->Data in
                 return result.data
             }
-            .decode(type: T.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (completion) -> Void in
                 switch completion{
                 case .finished: break
@@ -96,23 +114,7 @@ public class ShortCut{
             }, receiveValue: { (value) in
                 callback(value)
             })
-    }
-    @available(iOS 13.0, *)
-    public static func load(_ path:String, _ callback: @escaping (_ data: Data?)->Void)->AnyCancellable{
-        return URLSession.shared.dataTaskPublisher(for: URL(string: path)!)
-            .map{
-                (result)->Data in
-                return result.data
-            }
-            .sink(receiveCompletion: { (completion) -> Void in
-                switch completion{
-                case .finished: break
-                case .failure: callback(nil)
-                }
-                
-            }, receiveValue: { (value) in
-                callback(value)
-            })
+            .retain(path+String.init(describing: key))
     }
     
     @available(iOS 9.0, *)

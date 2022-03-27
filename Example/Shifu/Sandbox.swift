@@ -80,12 +80,7 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        clg("hello")
-        clg("hot \nreloading!!".findall(pattern: "o(t|a)").compactMap{ $0.spread2() })
-        
-        if let (a, b) = [3,6,9].spread2(){
-            clg(a,b)
-        }
-
     }
 }
+
+

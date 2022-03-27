@@ -17,18 +17,18 @@ public class JSON{
         return nil
     }
     
-    public static func parse(_ data:Data?) -> AnyObject{
+    public static func parse(_ data:Data?) -> AnyObject?{
         if let data = data{
             do{
                 return try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as AnyObject
             }catch{
-                return emptyObject
+                return nil
             }
         }
-        return emptyObject
+        return nil
     }
     
-    public static func parse(_ str:String?) -> AnyObject{
+    public static func parse(_ str:String?) -> AnyObject?{
         let data = str?.data(using:.utf8, allowLossyConversion: false)
         
         if let jsonData = data {
@@ -37,22 +37,22 @@ public class JSON{
                 // Will return an object or nil if JSON decoding fails
                 return try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as AnyObject
             }catch{
-                return emptyObject
+                return nil
             }
         } else {
             // Lossless conversion of the string was not possible
-            return emptyObject
+            return nil
         }
-    }
-    
-    static var emptyObject:AnyObject {
-        [String: AnyObject]() as AnyObject
     }
 }
 
 public extension Dictionary where Key == String{
     func stringify()->String?{
         return JSON.stringify(self)
+    }
+    
+    func value(for key:String)->Any?{
+        return (self as NSDictionary).value(forKey:key)
     }
 }
 

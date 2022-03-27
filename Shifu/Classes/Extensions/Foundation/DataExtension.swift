@@ -19,7 +19,14 @@ extension Data{
         return String(data: self, encoding: .utf8)
     }
     
-    public func parseJSON() -> AnyObject{
+    public func json() -> AnyObject?{
         return JSON.parse(self)
+    }
+    
+    public func parse<T:Decodable>(to: T.Type)->T?{
+        if let jsonString = JSON.stringify(json()){
+            return T.from(jsonString)
+        }
+        return nil
     }
 }

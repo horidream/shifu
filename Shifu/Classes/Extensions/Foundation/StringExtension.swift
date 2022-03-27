@@ -261,3 +261,18 @@ public extension String{
     }
 }
 
+
+public extension Character {
+    var isAscii: Bool {
+        return unicodeScalars.first?.isASCII == true
+    }
+    var ascii: UInt32? {
+        return isAscii ? unicodeScalars.first?.value : nil
+    }
+}
+
+public extension StringProtocol {
+    var ascii: [UInt32] {
+        return compactMap { $0.ascii }
+    }
+}
