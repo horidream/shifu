@@ -14,7 +14,7 @@ import Combine
 var scenePhase = CurrentValueSubject<ScenePhase, Never>(.inactive)
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 

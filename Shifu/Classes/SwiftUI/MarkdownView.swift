@@ -14,14 +14,35 @@ import Combine
 
 public struct SimpleMarkdownViewer: View{
     @StateObject public var viewModel:ShifuWebViewModel = .markdown
-    var path: String
-    public init(path : String){
+    var path: String?
+    var content: String?
+    var animated: Bool
+    var stringContent:String{
+        content ?? path?.url?.content ?? ""
+    }
+    
+    public init(path : String, animated: Bool = true){
         self.path = path
+        self.animated = animated
     }
+    
+    public init(content: String, animated:Bool = true){
+        self.content = content
+        self.animated = animated
+    }
+    
+    
     public var body: some View{
-        MarkdownView(viewModel: viewModel,  content: .constant(path.url?.content ?? ""))
+        MarkdownView(viewModel: viewModel,  content: .constant(stringContent))
             .autoResize()
+            .if(animated){
+                $0.animation(.none, value: viewModel.contentHeight)
+                    .scaleEffect(viewModel.contentHeight == 0 ? 0.973 : 1, anchor: .top)
+                    .opacity(viewModel.contentHeight == 0 ? 0 : 1)
+                    .animation(.default, value: viewModel.contentHeight)
+            }
     }
+
 }
 
 @available(iOS 14.0, *)
@@ -60,7 +81,7 @@ public struct MarkdownView: View{
             viewModel.allowScroll = false
         }
         return self
-            .frame(minHeight: viewModel.contentHeight)
+            .frame(height: viewModel.contentHeight)
             .on("contentHeight", target: viewModel.delegate){
             if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
                 self.viewModel.contentHeight = height

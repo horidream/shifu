@@ -12,9 +12,18 @@ import Shifu
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
     var body: some View{
-        ScrollView(.vertical, showsIndicators: false) {
-            
+        VStack(){
+            SimpleMarkdownViewer(content: "## Hello World \n> Stay Hungry, Stay Foolish")
+                .padding()
+                
+//                .background(.yellow)
+            Circle()
+                .foregroundColor(.red)
+//                .background(.green)
+                .padding()
+            Spacer()
         }
+        .navigationTitle("Sandbox")
         .onInjection {
             sandbox()
         }
@@ -23,9 +32,10 @@ struct Sandbox:View{
         }
     }
     
-   
+    
     
     func sandbox(){
+        clg("good to go")
     }
 }
 
