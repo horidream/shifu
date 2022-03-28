@@ -12,6 +12,18 @@ import WebKit
 import Combine
 
 
+public struct SimpleMarkdownViewer: View{
+    @StateObject public var viewModel:ShifuWebViewModel = .markdown
+    var path: String
+    public init(path : String){
+        self.path = path
+    }
+    public var body: some View{
+        MarkdownView(viewModel: viewModel,  content: .constant(path.url?.content ?? ""))
+            .autoResize()
+    }
+}
+
 @available(iOS 14.0, *)
 public struct MarkdownView: View{
     @ObservedObject var viewModel:ShifuWebViewModel;

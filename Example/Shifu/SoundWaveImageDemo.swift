@@ -10,7 +10,6 @@ import SwiftUI
 import Shifu
 
 struct SoundWaveImageDemo: View {
-    @StateObject var webViewModel = ShifuWebViewModel()
     @ObservedObject private var injectObserver = Self.injectionObserver
     var url =  Bundle.main.url(forResource: "source/test", withExtension: "mp3") ?? URL(fileURLWithPath: "")
     @State var image = UIImage()
@@ -22,8 +21,7 @@ struct SoundWaveImageDemo: View {
                 .padding()
                 .cornerRadius(15)
                 .padding()
-            MarkdownView(viewModel: webViewModel,  content: .constant( "@source/SoundWaveImageDemo.md".url?.content ?? ""))
-                .autoResize()
+            SimpleMarkdownViewer(path: "@source/SoundWaveImageDemo.md")
                 .padding()
         }
         .onAppear(perform: drawWave)

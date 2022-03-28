@@ -20,7 +20,6 @@ struct ColorThemeManagerDemo:View{
       ThemePicker()
         .padding()
       
-      
       MarkdownView(viewModel: webViewModel,  content: .constant("@source/ColorThemeManagerDemo.md".url?.content ?? ""))
         .autoResize()
         .padding()

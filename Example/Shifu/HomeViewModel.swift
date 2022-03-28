@@ -50,11 +50,11 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return ShifuWebViewDemo().eraseToAnyView()
                 
             }),
-            FeatureViewModel(name: "SoundWaveImageDemo", viewBuilder: { model in
+            FeatureViewModel(name: "SoundWaveImage", viewBuilder: { model in
                 return SoundWaveImageDemo().eraseToAnyView()
                 
             }),
-            FeatureViewModel(name: "ToMarkdownDemo", viewBuilder: { model in
+            FeatureViewModel(name: "ToMarkdown", viewBuilder: { model in
                 return ToMarkdownDemo().eraseToAnyView()
                 
             }),
@@ -62,12 +62,20 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return ModelDemo().eraseToAnyView()
                 
             }),
+            FeatureViewModel(name: "Animation Demo", viewBuilder: { model in
+                return AnimationDemo().eraseToAnyView()
+                
+            }),
+            FeatureViewModel(name: "NavigationStyle", viewBuilder: { model in
+                return NavigationStyleDemo().eraseToAnyView()
+                
+            }),
             FeatureViewModel(name: "Sandbox", viewBuilder: { model in
                 return Sandbox().eraseToAnyView()
                 
             })
         ]
-        featureList.get(-3)?.isActive = true
+        featureList.get(-1)?.isActive = true
     }
     
 }
