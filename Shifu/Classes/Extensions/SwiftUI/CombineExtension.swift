@@ -9,15 +9,35 @@ import Combine
 import UIKit
 import SwiftUI
 
-fileprivate var count = 1
+fileprivate func getRetainKey(key:String, line:Int)->String{
+    return "\(key)-\(line)"
+}
+
 @available(iOS 13.0, *)
 public extension AnyCancellable{
     static var bag:[String:AnyCancellable] = [:]
-    private static var _count:Int = 0
     @discardableResult func retain(_ key:String = #file, line:Int = #line ) -> Self {
-        let key = "\(key)-\(line)"
+        let key = getRetainKey(key: key, line: line)
         AnyCancellable.bag[key] = self
+        clg(AnyCancellable.bag)
         return self
+    }
+    
+    
+    
+    func release(){
+        if let key = key{
+            AnyCancellable.release(key: key)
+        }
+    }
+    
+    var key:String? {
+        for item in AnyCancellable.bag{
+            if(item.value == self){
+                return item.key
+            }
+        }
+        return nil
     }
     
     static func release(key:String){
@@ -35,6 +55,26 @@ public extension AnyCancellable{
         bag.keys.filter({ $0.range(of: pattern, options: .regularExpression) != nil }).forEach { (key) in
             release(key: key)
         }
+    }
+}
+
+
+public extension Publisher{
+    func onReceive(_ block:@escaping (Output)->Void, key:String = #file, line:Int = #line){
+        self.sink { error in } receiveValue: { value in
+            block(value)
+        }
+        .retain(key, line: line)
+    }
+    
+    func onReceiveCancellable(_ block:@escaping (Output, ()->Void)->Void, key:String = #file, line:Int = #line){
+        
+        self.sink { error in } receiveValue: { value in
+            block(value, {
+                AnyCancellable.release(key: getRetainKey(key: key, line: line))
+            })
+        }
+        .retain(key, line: line)
     }
 }
 

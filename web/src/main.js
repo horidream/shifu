@@ -71,7 +71,6 @@ renderer.checkbox = function (value) {
   return value ? `<input checked="" type="checkbox">` : `<input type="checkbox">`;
 }
 
-console.log(renderer)
 window.marked = marked.marked;
 window.hljs = hljs;
 

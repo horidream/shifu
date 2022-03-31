@@ -8,6 +8,8 @@
 
 import SwiftUI
 import Shifu
+import JavaScriptCore
+import Combine
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
@@ -35,8 +37,12 @@ struct Sandbox:View{
     
     
     func sandbox(){
-        clg("good to go")
+        clg(Test().stringify()?.parse(to: Test.self)?.color.alpha)
     }
+}
+
+class Test:Codable{
+    @CodableColor public var color = .red.withAlphaComponent(0.3)
 }
 
 

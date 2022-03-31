@@ -44,6 +44,13 @@ public extension UIColor {
         }
     }
     
+    var hexString: String?{
+        if let hexValue = hexValue{
+            return String(format: "%08X", hexValue)
+        }
+        return nil
+    }
+    
     var hexValueWithoutAlpha: Int? {
         var fRed : CGFloat = 0
         var fGreen : CGFloat = 0

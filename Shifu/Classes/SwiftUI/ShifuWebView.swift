@@ -125,7 +125,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "logHandler" {
-            clg(message.body)
+            clg("logHandler", message.body)
         }else{
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
 //                clg(type, dic)
