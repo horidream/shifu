@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import JavaScriptCore
 
 public class JSON{
     public static func stringify(_ obj:Any?) -> String?{
@@ -81,6 +82,38 @@ public extension Decodable{
     }
 }
 
+
+
+public protocol JsonMergeable: Codable{
+    func merge(_ other: Self)->Self
+}
+
+public extension JsonMergeable {
+    
+    func merge(_ other: Self)->Self{
+        let a = self.stringify() ?? "{}"
+        let b = other.stringify() ?? "{}"
+        let js = JSContext()
+        let cmd = "JSON.stringify(Object.assign(JSON.parse('\(a)'), JSON.parse('\(b)')))"
+        let rst = js?.evaluateScript(cmd)
+        if let json = rst?.toString(){
+            return json.parse(to: Self.self) ?? self
+        }
+        return self
+    }
+    
+    func merge(_ other: String)->Self{
+        let a = self.stringify() ?? "{}"
+        let b = other
+        let js = JSContext()
+        let cmd = "JSON.stringify(Object.assign(JSON.parse('\(a)'), JSON.parse('\(b)')))"
+        let rst = js?.evaluateScript(cmd)
+        if let json = rst?.toString(){
+            return json.parse(to: Self.self) ?? self
+        }
+        return self
+    }
+}
 
 @propertyWrapper
 public struct CodableColor {

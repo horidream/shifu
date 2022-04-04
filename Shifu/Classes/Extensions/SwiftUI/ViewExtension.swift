@@ -96,7 +96,13 @@ public extension View {
     }
   }
   
-  
+    var rootViewController: UIViewController{
+        guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                let root = screen.windows.first?.rootViewController else {
+            return .init()
+        }
+        return root
+    }
 }
 
 extension Text: HasEmptyView {

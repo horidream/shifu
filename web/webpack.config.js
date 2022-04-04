@@ -6,6 +6,7 @@ console.log(process.env.NODE_ENV);
 module.exports = (env = {}, { mode = "production" }) => {
   const isProd = mode === "production";
   const srcPath = path.resolve(__dirname, "./src");
+  const publicPath = path.resolve(__dirname, "./public");
   const outputPath = path.resolve(__dirname, "../Shifu/web");
   const devtool =
     process.env.NODE_ENV === "production" ? false : "eval-source-map";
@@ -35,13 +36,16 @@ module.exports = (env = {}, { mode = "production" }) => {
               ],
             },
           },
+          {
+            from: publicPath,
+            to: outputPath
+          }
         ],
       })
     );
   }
 
   if (process.env.NODE_ENV == "dev") {
-    console.log("is copy ", plugins);
     return {
       entry: {
         empty: "./src/empty.js",

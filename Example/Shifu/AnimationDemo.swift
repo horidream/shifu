@@ -69,7 +69,6 @@ struct AnimationDemo: View {
     
     func render(date: Date){
         let msg = date.toString(formatter: .formatter(with:"yyyyMMMMddhhmm", timeZone: .gmt + 9, locale: locale)) ?? ""
-        
         ta($progress).from(0, to: 1, duration: 60)
         prevColor = currentColor
         ta($currentColor).to(.random, duration: 5)
