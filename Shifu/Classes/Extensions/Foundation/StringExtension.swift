@@ -8,6 +8,9 @@
 import  UIKit
 import CoreServices
 
+
+private let predicateForUpperCase = NSPredicate.init(format: "SELF MATCHES %@", "^[A-Z]$")
+
 public extension String{
     
     func replace(pattern:String, with template:String, options:NSRegularExpression.Options = [])->String{
@@ -84,14 +87,12 @@ public extension String{
     }
     
     var leadingLetter:String{
-        let mutableString = NSMutableString.init(string: self)
+        let mutableString = NSMutableString.init(string: self.substring(0,1) ?? "")
         CFStringTransform(mutableString as CFMutableString, nil, kCFStringTransformToLatin, false)
         let pinyinString = mutableString.folding(options: String.CompareOptions.diacriticInsensitive, locale: NSLocale.current)
         let strPinYin = pinyinString.uppercased()
         let firstString = String(strPinYin[..<strPinYin.index(strPinYin.startIndex, offsetBy:1)])
-        let regexA = "^[A-Z]$"
-        let predA = NSPredicate.init(format: "SELF MATCHES %@", regexA)
-        return predA.evaluate(with: firstString) ? firstString : "#"
+        return predicateForUpperCase.evaluate(with: firstString) ? firstString : "#"
         
     }
     

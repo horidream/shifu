@@ -29,6 +29,12 @@ public func suppressConstraitError(){
     UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
 }
 
+public func performance(title:String, operation:()->()) {
+    let startTime = CFAbsoluteTimeGetCurrent()
+    operation()
+    let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+    clg("Time elapsed for \(title): \(timeElapsed) s.")
+}
 
 public let fm: FileManager = FileManager.default
 public let pb: UIPasteboard = UIPasteboard.general
