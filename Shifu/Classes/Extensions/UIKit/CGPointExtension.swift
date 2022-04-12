@@ -50,6 +50,11 @@ public extension CGRect{
 }
 
 public extension CGSize{
+    
+    init(_ size: CGFloat){
+        self.init(width: size, height: size)
+    }
+    
     init(_ width: CGFloat, _ height: CGFloat){
         self.init(width: width, height: height)
     }

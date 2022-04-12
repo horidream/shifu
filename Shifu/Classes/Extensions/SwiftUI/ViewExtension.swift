@@ -139,3 +139,16 @@ public extension Color{
         return Color(red: Double.random(in: 0...255)/255, green: Double.random(in: 0...255)/255, blue: Double.random(in: 0...255)/255)
     }
 }
+
+// MARK: - computed properties
+public extension View{
+    var safeArea:UIEdgeInsets{
+        guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else{
+            return .init()
+        }
+        guard let safeArea = screen.windows.first?.safeAreaInsets else{
+            return .init()
+        }
+        return safeArea
+    }
+}
