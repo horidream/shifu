@@ -21,12 +21,26 @@
 		3C3C46EA27BB9F2C00BCB074 /* ShifuWebViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */; };
 		3C9C98BC27C48D9800D4B8B9 /* SoundWaveImageDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9C98BB27C48D9700D4B8B9 /* SoundWaveImageDemo.swift */; };
 		3CA9D78627C90CD700A32044 /* ToMarkdownDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9D78527C90CD700A32044 /* ToMarkdownDemo.swift */; };
+		3CB106FD28071C89007E4F5B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB106FA28071BA0007E4F5B /* Test.swift */; };
+		3CB10720280721D2007E4F5B /* ShifuExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB1071F280721D2007E4F5B /* ShifuExampleTests.swift */; };
+		3CB10723280723B1007E4F5B /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB10722280723B1007E4F5B /* GeneratedMocks.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		99244B5D261C9FDA0027A1D7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99244B5C261C9FDA0027A1D7 /* HomeView.swift */; };
 		99BA8070244BF2B0006E839F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99BA8072244BF2B0006E839F /* InfoPlist.strings */; };
+		B757972E6B16479D3511D066 /* Pods_ShifuExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6CAA8E7FC3862D7C704DDA /* Pods_ShifuExampleTests.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3CB1071A280721B8007E4F5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = ShifuExample;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		15D7B88B0A792B4E2BFA3F4A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -46,6 +60,10 @@
 		3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShifuWebViewDemo.swift; sourceTree = "<group>"; };
 		3C9C98BB27C48D9700D4B8B9 /* SoundWaveImageDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundWaveImageDemo.swift; sourceTree = "<group>"; };
 		3CA9D78527C90CD700A32044 /* ToMarkdownDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToMarkdownDemo.swift; sourceTree = "<group>"; };
+		3CB106FA28071BA0007E4F5B /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		3CB10716280721B8007E4F5B /* ShifuExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShifuExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CB1071F280721D2007E4F5B /* ShifuExampleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShifuExampleTests.swift; sourceTree = "<group>"; };
+		3CB10722280723B1007E4F5B /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		524CEE15BF7996391B65A561 /* Shifu.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Shifu.podspec; path = ../Shifu.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* ShifuExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShifuExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,15 +71,26 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		75080B2D4DF860209E4A6DA9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		7C6CAA8E7FC3862D7C704DDA /* Pods_ShifuExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShifuExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99244B5C261C9FDA0027A1D7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99BA8071244BF2B0006E839F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		99BA8073244BF348006E839F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		AC28D7DBEE050356A7759EA7 /* Pods-Shifu_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shifu_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.release.xcconfig"; sourceTree = "<group>"; };
+		B3B324223DF4BCD83B564ABE /* Pods-ShifuExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		C89C6B3E4560ADB5E346F7F9 /* Pods-ShifuExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3F66D9DD1D994C430599B30 /* Pods_Shifu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABA4CEFA6CB57BAD5570379 /* Pods_ShifuExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShifuExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3CB10713280721B8007E4F5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B757972E6B16479D3511D066 /* Pods_ShifuExampleTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCD1AFB9204008FA782 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -80,6 +109,8 @@
 				AC28D7DBEE050356A7759EA7 /* Pods-Shifu_Example.release.xcconfig */,
 				2B6DB5CF4B3C2D719C036C8F /* Pods-ShifuExample.debug.xcconfig */,
 				1644DEFD6C63BD54572233F6 /* Pods-ShifuExample.release.xcconfig */,
+				C89C6B3E4560ADB5E346F7F9 /* Pods-ShifuExampleTests.debug.xcconfig */,
+				B3B324223DF4BCD83B564ABE /* Pods-ShifuExampleTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -101,11 +132,21 @@
 			name = features;
 			sourceTree = "<group>";
 		};
+		3CB10717280721B8007E4F5B /* ShifuExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				3CB10722280723B1007E4F5B /* GeneratedMocks.swift */,
+				3CB1071F280721D2007E4F5B /* ShifuExampleTests.swift */,
+			);
+			path = ShifuExampleTests;
+			sourceTree = "<group>";
+		};
 		539B620D0F2F326D30CAF029 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				D3F66D9DD1D994C430599B30 /* Pods_Shifu_Tests.framework */,
 				FABA4CEFA6CB57BAD5570379 /* Pods_ShifuExample.framework */,
+				7C6CAA8E7FC3862D7C704DDA /* Pods_ShifuExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,6 +156,7 @@
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for Shifu */,
+				3CB10717280721B8007E4F5B /* ShifuExampleTests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				068B4BB1F6DFAD3AFE9CE685 /* Pods */,
 				539B620D0F2F326D30CAF029 /* Frameworks */,
@@ -125,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD01AFB9204008FA782 /* ShifuExample.app */,
+				3CB10716280721B8007E4F5B /* ShifuExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +175,7 @@
 		607FACD21AFB9204008FA782 /* Example for Shifu */ = {
 			isa = PBXGroup;
 			children = (
+				3CB106FA28071BA0007E4F5B /* Test.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				99244B5C261C9FDA0027A1D7 /* HomeView.swift */,
 				3C3C46CE27B2C40C00BCB074 /* HomeViewModel.swift */,
@@ -168,6 +212,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3CB10715280721B8007E4F5B /* ShifuExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3CB1071C280721B8007E4F5B /* Build configuration list for PBXNativeTarget "ShifuExampleTests" */;
+			buildPhases = (
+				51F457C6C2E4FFE409325C6A /* [CP] Check Pods Manifest.lock */,
+				3CB10721280721EF007E4F5B /* cuckoo */,
+				3CB10712280721B8007E4F5B /* Sources */,
+				3CB10713280721B8007E4F5B /* Frameworks */,
+				3CB10714280721B8007E4F5B /* Resources */,
+				3F4586E1716B83AF1A1BC89C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3CB1071B280721B8007E4F5B /* PBXTargetDependency */,
+			);
+			name = ShifuExampleTests;
+			productName = ShifuExampleTests;
+			productReference = 3CB10716280721B8007E4F5B /* ShifuExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		607FACCF1AFB9204008FA782 /* ShifuExample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "ShifuExample" */;
@@ -194,10 +259,16 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
+					3CB10715280721B8007E4F5B = {
+						CreatedOnToolsVersion = 13.3.1;
+						DevelopmentTeam = 5296P9QS3C;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = 5296P9QS3C;
@@ -220,11 +291,19 @@
 			projectRoot = "";
 			targets = (
 				607FACCF1AFB9204008FA782 /* ShifuExample */,
+				3CB10715280721B8007E4F5B /* ShifuExampleTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3CB10714280721B8007E4F5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCE1AFB9204008FA782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -260,6 +339,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShifuExample/Pods-ShifuExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3CB10721280721EF007E4F5B /* cuckoo */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = cuckoo;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ $ACTION == \"indexbuild\" ]; then\n  echo \"Not running Cuckoo generator during indexing.\"\n  exit 0 \nfi\n\n# Skip for preview builds\nif [ \"${ENABLE_PREVIEWS}\" = \"YES\" ]; then\n  echo \"Not running Cuckoo generator during preview builds.\"\n  exit 0\nfi\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}ExampleTests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\n\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}Example\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Test.swift\"\n";
+		};
+		3F4586E1716B83AF1A1BC89C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Shifu/Shifu.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Shifu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		51F457C6C2E4FFE409325C6A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShifuExampleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		60C66E10653CDB318887C103 /* [CP] Check Pods Manifest.lock */ = {
@@ -300,6 +443,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3CB10712280721B8007E4F5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CB10720280721D2007E4F5B /* ShifuExampleTests.swift in Sources */,
+				3CB10723280723B1007E4F5B /* GeneratedMocks.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,6 +459,7 @@
 				3C3C46DE27B92E6F00BCB074 /* ColorThemeManagerDemo.swift in Sources */,
 				99244B5D261C9FDA0027A1D7 /* HomeView.swift in Sources */,
 				3C2F1CE327F1E3DA0027F24F /* NavigationStyleDemo.swift in Sources */,
+				3CB106FD28071C89007E4F5B /* Test.swift in Sources */,
 				3C3C46EA27BB9F2C00BCB074 /* ShifuWebViewDemo.swift in Sources */,
 				3C2F1CE127F155BC0027F24F /* AnimationDemo.swift in Sources */,
 				3C1A646127DE30EE0093A98B /* Sandbox.swift in Sources */,
@@ -321,6 +474,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3CB1071B280721B8007E4F5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* ShifuExample */;
+			targetProxy = 3CB1071A280721B8007E4F5B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
@@ -343,6 +504,65 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3CB1071D280721B8007E4F5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C89C6B3E4560ADB5E346F7F9 /* Pods-ShifuExampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5296P9QS3C;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.horidream.apps.ShifuExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShifuExample.app/ShifuExample";
+			};
+			name = Debug;
+		};
+		3CB1071E280721B8007E4F5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3B324223DF4BCD83B564ABE /* Pods-ShifuExampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5296P9QS3C;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.horidream.apps.ShifuExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShifuExample.app/ShifuExample";
+			};
+			name = Release;
+		};
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -525,6 +745,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3CB1071C280721B8007E4F5B /* Build configuration list for PBXNativeTarget "ShifuExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3CB1071D280721B8007E4F5B /* Debug */,
+				3CB1071E280721B8007E4F5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "Shifu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

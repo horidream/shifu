@@ -3,11 +3,19 @@ $projectName = 'ShifuExample'
 $version = '15.0'
 platform :ios, $version
 
-use_frameworks!
-inhibit_all_warnings!
+
 
 target $projectName do
+  use_frameworks!
+  inhibit_all_warnings!
   pod 'Shifu', :path => '../'
+end
+
+target 'ShifuExampleTests' do
+  use_frameworks!
+  inhibit_all_warnings!
+  pod 'Shifu', :path => '../'
+  pod "Cuckoo"
 end
 
 
@@ -22,7 +30,7 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = $version
-      if config.name == "Debug"
+      if target.name.include? $projectName or target.name.include? "Shifu" and config.name == "Debug"
         xcconfig_path = config.base_configuration_reference.real_path
         File.open(xcconfig_path, "a") {|file| file.puts "OTHER_LDFLAGS[sdk=iphonesimulator*] = $(inherited) -Xlinker -interposable -undefined dynamic_lookup"}
       end

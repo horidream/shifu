@@ -32,19 +32,10 @@ struct Sandbox:View{
     
     func sandbox(){
         
-        clg(Test() is Testable)
     }
 }
 
-class Test{
-    var a = 11
-}
 
-protocol Testable {
-    var a:Int { get }
-}
-
-extension Test: Testable {}
 
 
 
