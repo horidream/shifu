@@ -29,7 +29,8 @@ This is a common library that we are going to use in other projects
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '14.0'
-
+  s.osx.deployment_target = '11.0'
+  
   s.source_files = 'Shifu/Classes/**/*'
   s.resources = ['Shifu/web']
   #  s.resource_bundles = {

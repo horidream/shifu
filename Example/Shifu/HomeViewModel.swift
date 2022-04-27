@@ -70,6 +70,10 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return NavigationStyleDemo().eraseToAnyView()
                 
             }),
+            FeatureViewModel(name: "Validate2FAPrototype", viewBuilder: { model in
+                return Validate2FAPrototype().eraseToAnyView()
+                
+            }),
             FeatureViewModel(name: "Sandbox", viewBuilder: { model in
                 return Sandbox().eraseToAnyView()
                 

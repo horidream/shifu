@@ -5,7 +5,6 @@
 //  Created by Baoli Zhai on 2020/4/8.
 //
 
-import UIKit
 
 var clg:((Any...)->Void) {
     get{
