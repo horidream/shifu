@@ -80,9 +80,13 @@ struct Validate2FAPrototype:View{
     }
 }
 
+protocol Merchant2FAValidator{
+    var validated:CurrentValueSubject<Bool, Never> { get }
+    var onValidationComplete:((Bool)->Void)? { get set }
+}
 
 class Merchant2FAViewController:UIViewController{
-    var dismissCallback:((Bool)->Void)?
+    var onValidationComplete:((Bool)->Void)?
     var validated = CurrentValueSubject<Bool, Never>(false)
     override func viewDidLoad() {
         let label = UILabel()
@@ -115,15 +119,15 @@ class Merchant2FAViewController:UIViewController{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isBeingDismissed {
-            dismissCallback?(validated.value)
+            onValidationComplete?(validated.value)
         }
     }
 }
 
 extension UIViewController{
-    func presend2FAViewController(result: @escaping (Bool)->Void ){
+    func presend2FAViewController(onValidationComplete: @escaping (Bool)->Void ){
         let m2fa = Merchant2FAViewController()
-        m2fa.dismissCallback = result
+        m2fa.onValidationComplete = onValidationComplete
         self.show(m2fa, sender: self)
     }
 }

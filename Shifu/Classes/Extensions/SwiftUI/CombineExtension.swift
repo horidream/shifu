@@ -19,7 +19,6 @@ public extension AnyCancellable{
     @discardableResult func retain(_ key:String = #file, line:Int = #line ) -> Self {
         let key = getRetainKey(key: key, line: line)
         AnyCancellable.bag[key] = self
-        clg(AnyCancellable.bag)
         return self
     }
     

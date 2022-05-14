@@ -17,7 +17,7 @@ struct Person:Codable{
     }
 }
 extension Notification.Name{
-  static var hello = "hello".toNotificationName()
+    static var hello = "hello".toNotificationName()
 }
 
 
@@ -28,7 +28,7 @@ struct HomeView: View {
         NavigationView{
             List{
                 Section(header: Text("Examples").font(.headline).padding(10)) {
-                  ForEach(0..<vm.featureList.count, id: \.self){ idx in
+                    ForEach(0..<vm.featureList.count, id: \.self){ idx in
                         
                         NavigationLink(isActive: $vm.featureList[idx].isActive, destination: {
                             vm.featureList[idx].view
@@ -40,10 +40,10 @@ struct HomeView: View {
                                     .padding(12)
                             }
                         })
-                            .onTapGesture {
-                                vm.featureList[idx].isActive = true
-                                vm.objectWillChange.send()
-                            }
+                        .onTapGesture {
+                            vm.featureList[idx].isActive = true
+                            vm.objectWillChange.send()
+                        }
                     }
                 }
                 
@@ -51,7 +51,7 @@ struct HomeView: View {
             .listStyle(.plain)
             .navigationBarTitle(Text("Shifu"))
             .onInjection {
-                vm.refresh()
+//                vm.refresh()
             }
             .ignoresSafeArea(.all, edges: .bottom)
         }
@@ -74,7 +74,7 @@ func runOnce(file:String = #file, line:Int = #line, block:()->Void){
             dic[id] = false
         }
     }
-
+    
     if(Status.canRun(id)){
         block()
         Status.didRun(id)

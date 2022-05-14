@@ -10,10 +10,12 @@ import SwiftUI
 import Shifu
 import JavaScriptCore
 import Combine
+import UIKit
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var content = ""
+    @State var content = "# haha"
+    @State var datasource:UITableViewDiffableDataSource<String, String>!
     var body: some View{
         VStack(){
             SimpleMarkdownViewer(content: content)
@@ -21,40 +23,20 @@ struct Sandbox:View{
                 .padding()
             
             Spacer()
+            Circle()
+                .aspectRatio(0.73, contentMode: .fit)
+                .foregroundColor(.red)
+                .padding()
 
         }
         .navigationTitle("Sandbox")
-        .onInjection {
-            sandbox()
+        .debug {
+            clg("OK")
         }
-        .onAppear{
-            sandbox()
-            
-        }
-    }
-    
-    func sandbox(){
-        content = "## Sandbox\n> This is the `way`."
-        let i1 = Item(name: "OK", price: 99)
-        let i2 = Item(name: "OK", price: 99)
         
-        clg(i1.hashValue == i2.hashValue, i1 == i2)
-        
-        var hasher = Hasher()
-        hasher.combine("OK")
-        clg(i1.hashValue, hasher.finalize())
     }
 }
 
 
-struct Item: Hashable, Equatable {
-    static func == (lhs: Item, rhs: Item)->Bool{
-        return lhs.hashValue == rhs.hashValue
-    }
-    var name:String
-    var price:Double
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-//        hasher.combine(price)
-    }
-}
+
+

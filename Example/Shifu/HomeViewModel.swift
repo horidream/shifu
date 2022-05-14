@@ -74,12 +74,16 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return Validate2FAPrototype().eraseToAnyView()
                 
             }),
+            FeatureViewModel(name: "ShimmerDemo", viewBuilder: { model in
+                return ShimmerDemo().eraseToAnyView()
+                
+            }),
             FeatureViewModel(name: "Sandbox", viewBuilder: { model in
                 return Sandbox().eraseToAnyView()
                 
             })
-        ]
-        featureList.get(-1)?.isActive = true
+        ].reversed()
+        featureList.get(0)?.isActive = true
     }
     
 }
