@@ -22,15 +22,13 @@ struct Sandbox:View{
         Group{
             if isOn {
                 ZStack{
-                    
-//                        .padding()
-//                        .id(content)
+
                     Circle()
                         .matchedGeometryEffect(id: "AlbumTitle", in: animation)
                         .frame(width: 1200, height: 1200)
                         .foregroundColor(.yellow)
                         .ignoresSafeArea()
-                    SimpleMarkdownViewer(content: content)
+                    SimpleMarkdownViewer(content: content, config: "theme.current = 'dark'")
                         .frame(width: 300, height: 100)
                         .padding()
                         .background(.white.opacity(0.3))
@@ -55,6 +53,7 @@ struct Sandbox:View{
                 
             }
         }
+        
         .onInjection{
             sandbox()
         }

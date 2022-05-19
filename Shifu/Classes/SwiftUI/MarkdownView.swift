@@ -13,7 +13,7 @@ import Combine
 
 
 public struct SimpleMarkdownViewer: View{
-    @StateObject public var viewModel:ShifuWebViewModel = .markdown
+    @StateObject public var viewModel:ShifuWebViewModel
     var path: String?
     var content: String?
     var animated: Bool
@@ -21,16 +21,23 @@ public struct SimpleMarkdownViewer: View{
         content ?? path?.url?.content ?? ""
     }
     
-    public init(path : String, animated: Bool = true){
+    public init(path : String, animated: Bool = true, config:String? = nil){
         self.path = path
         self.animated = animated
+        _viewModel = StateObject(wrappedValue: with(.markdown){
+            $0.configuration = config
+        })
     }
     
-    public init(content: String, animated:Bool = true){
+    public init(content: String, animated:Bool = true, config:String? = nil){
         self.content = content
         self.animated = animated
+        _viewModel = StateObject(wrappedValue: with(.markdown){
+            $0.configuration = config
+        })
     }
     
+
     
     public var body: some View{
         MarkdownView(viewModel: viewModel,  content: .constant(stringContent))
@@ -88,6 +95,11 @@ public struct MarkdownView: View{
             }
 
         }
+    }
+    
+    public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil)-> MarkdownView{
+        viewModel.apply(funtionBody, arguments: arguments, callback: callback)
+        return self
     }
     
     public func updateContent(){

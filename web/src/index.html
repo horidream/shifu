@@ -10,9 +10,9 @@
     <link rel="icon" href="/style/favicon.ico" />
     <title>Markdown</title>
     <link rel="stylesheet" href="style/md.css" />
-    <link title="dark" href="style/md-dark.css" disabled=""/>
-    <link title="light" href="style/md-light.css" disabled=""/>
-    <link title="auto" rel="stylesheet" href="style/md-auto.css"/>
+    <link title="dark" href="style/md-dark.css" disabled="" />
+    <link title="light" href="style/md-light.css" disabled="" />
+    <link title="auto" rel="stylesheet" href="style/md-auto.css" />
     <link rel="stylesheet" href="style/main.css" />
     <script src="./main.js"></script>
     <script src="./to_markdown.js"></script>
@@ -25,7 +25,6 @@
           background-color: black;
         }
       }
-
     </style>
     <script>
       let style = document.getElementById("dynamicStyle");
@@ -42,6 +41,29 @@
         <div v-html="htmlContent"></div>
         <div v-if="isDebug">
           <hr class="dotted" />
+          <div style="position: fixed; top: 10px; right: 10px">
+            <label
+              ><input
+                type="radio"
+                v-model="currentTheme"
+                value="light"
+              />Light</label
+            >
+            <label
+              ><input
+                type="radio"
+                v-model="currentTheme"
+                value="dark"
+              />Dark</label
+            >
+            <label
+              ><input
+                type="radio"
+                v-model="currentTheme"
+                value="auto"
+              />Auto</label
+            >
+          </div>
           <h3>Markdown</h3>
           <div id="content">
             <button @click="copyToClipboard" id="copyButton">Copy</button>
@@ -57,45 +79,18 @@
     </div>
 
     <script>
-      
-      let theme = new Proxy({}, {
-        get: (target, key) => {
-          if (key === "current") {
-            return target.theme || $('link[title]:not([disabled])').attr("title");
-          }
-          return target[key];
-        },
-        set: (target, key, value) => {
-          if (key === "current") {
-            target.theme = value;
-            for(var title of ["auto", "dark", "light"]){
-              if (value == title) {
-                $(`link[title='${title}']`).removeAttr("disabled").attr("rel", "stylesheet");
-              } else {
-                $(`link[title='${title}']`).attr("disabled", "").removeAttr("rel");
-              }
-            }
-            switch(value){
-              case "dark":
-                $("body").css("background-color", "black");
-                break;
-              case "light":
-                $("body").css("background-color", "white");
-                break;
-              default:
-                $("body").css("background-color", "");
-                break;
-            }
-          }
-          target[key] = value;
-          return true;
-        }
-      });
       window["com.horidream.lib.shifu"]("#app", {
+        userDefaults: !window.webkit,
         state: {
           content: "",
           allowDebug: true,
         },
+        data() {
+          return {
+            currentTheme: "auto",
+          };
+        },
+
         methods: {
           copyToClipboard: function () {
             var textToCopy = this.content;
@@ -136,6 +131,34 @@
           },
         },
         watch: {
+          currentTheme(value) {
+            console.log("will set current theme to " + value);
+            this.userDefaults.set("theme", value);
+            for (var title of ["auto", "dark", "light"]) {
+              if (value == title) {
+                $(`link[title='${title}']`)
+                  .removeAttr("disabled")
+                  .attr("rel", "stylesheet");
+              } else {
+                $(`link[title='${title}']`)
+                  .attr("disabled", "")
+                  .removeAttr("rel");
+              }
+            }
+            if (!window.webkit) {
+              switch (value) {
+                case "dark":
+                  $("body").css("background-color", "black");
+                  break;
+                case "light":
+                  $("body").css("background-color", "white");
+                  break;
+                default:
+                  $("body").css("background-color", "");
+                  break;
+              }
+            }
+          },
           content() {
             this.adjustHeight();
           },
@@ -155,14 +178,19 @@
           },
           appStyle() {
             return {
-              margin: this.isDebug ? "8px auto" : "0px",
+              margin: this.isDebug ? "24px" : "0px",
             };
           },
         },
-        mounted() {
+        async mounted() {
           setTimeout(() => {
             this.adjustHeight();
           }, 300);
+          if (this.isDebug) {
+            this.currentTheme =
+              (await this.userDefaults.get("theme")) ||
+              $("link[title]:not([disabled])").attr("title");
+          }
         },
       });
 
@@ -192,7 +220,51 @@
       // eb.addEventListener("toMarkdown", function (e) {
       //   onReceiveNative(e.detail);
       // });
-
+      let theme = new Proxy(
+        {},
+        {
+          get: (target, key) => {
+            if (key === "current") {
+              return (
+                target.theme || $("link[title]:not([disabled])").attr("title")
+              );
+            }
+            return target[key];
+          },
+          set: (target, key, value) => {
+            if (key === "current") {
+              vm.currentTheme = value;
+              target.theme = value;
+              for (var title of ["auto", "dark", "light"]) {
+                if (value == title) {
+                  $(`link[title='${title}']`)
+                    .removeAttr("disabled")
+                    .attr("rel", "stylesheet");
+                } else {
+                  $(`link[title='${title}']`)
+                    .attr("disabled", "")
+                    .removeAttr("rel");
+                }
+              }
+              if (!window.webkit) {
+                switch (value) {
+                  case "dark":
+                    $("body").css("background-color", "black");
+                    break;
+                  case "light":
+                    $("body").css("background-color", "white");
+                    break;
+                  default:
+                    $("body").css("background-color", "");
+                    break;
+                }
+              }
+            }
+            target[key] = value;
+            return true;
+          },
+        }
+      );
       document.addEventListener("paste", function (e) {
         if (e.target.getAttribute("contenteditable")) {
           return;
@@ -253,7 +325,6 @@
             break;
         }
       });
-
     </script>
   </body>
 </html>

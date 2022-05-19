@@ -6,6 +6,9 @@ body {
   margin: 0 auto;
   transition: opacity 0.2s linear;
 }
+[v-cloak]{
+  opacity: 0;
+}
 hr.dotted {
   border: none;
   margin-top: 8px;

@@ -710,7 +710,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPRESS_INTERNAL_LOG = "";
+				SUPPRESS_INTERNAL_LOG = disable;
 				"SUPPRESS_INTERNAL_LOG[sdk=iphonesimulator*]" = disable;
 				SWIFT_VERSION = 5.0;
 			};

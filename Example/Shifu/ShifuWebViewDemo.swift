@@ -22,6 +22,7 @@ struct ShifuWebViewDemo: View{
         VStack{
             ShifuWebView(viewModel:vm)
                 .frame(maxHeight: 160)
+                
             TextEditor(text: $vm.html.safe(default: ""))
                 .padding(8)
                 .border(.green)

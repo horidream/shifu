@@ -39,9 +39,9 @@ public class ShifuWebViewModel:ObservableObject{
     @Published public var allowScroll = false
     @Published public var url:URL?
     @Published public var contentHeight: CGFloat = 0
-
-    public var baseURL: URL?
     
+    public var configuration: String?
+    public var baseURL: URL?
     public func exec(_ action: ShifuWebViewAction){
         switch action{
         case .snapshot(let config, let target):
@@ -84,6 +84,11 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         if let html = viewModel.html, html != viewModel.html{
             vc.webView.loadHTMLString(html, baseURL: viewModel.baseURL)
         }
+        if let conf = viewModel.configuration{
+            clg(conf)
+            let script = WKUserScript(source: conf, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+            vc.webView.configuration.userContentController.addUserScript(script)
+        }
         viewModel.delegate = vc
         return vc
     }
@@ -95,6 +100,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         if let url = viewModel.url , webView.url != url{
             webView.load(URLRequest(url: url))
         }
+        
         if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
             uiViewController.lastLoadedHTML = html
             webView.loadHTMLString(html, baseURL: viewModel.baseURL)
