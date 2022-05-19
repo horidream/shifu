@@ -142,7 +142,6 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
         view = webView
         webView.isOpaque = false
         
-        
         if let source = Shifu.bundle.url(forResource: "web/NativeHook", withExtension: "js")?.content, let postSource = Shifu.bundle.url(forResource: "web/PostNativeHook", withExtension: "js")?.content{
             let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
             let postScript = WKUserScript(source: postSource, injectionTime: .atDocumentEnd, forMainFrameOnly: false)

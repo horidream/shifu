@@ -7,12 +7,34 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <link rel="icon" href="/style/favicon.ico">
+    <link rel="icon" href="/style/favicon.ico" />
     <title>Markdown</title>
     <link rel="stylesheet" href="style/md.css" />
+    <link title="dark" href="style/md-dark.css" disabled=""/>
+    <link title="light" href="style/md-light.css" disabled=""/>
+    <link title="auto" rel="stylesheet" href="style/md-auto.css"/>
     <link rel="stylesheet" href="style/main.css" />
     <script src="./main.js"></script>
     <script src="./to_markdown.js"></script>
+    <style id="dynamicStyle">
+      body {
+        background-color: white;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: black;
+        }
+      }
+
+    </style>
+    <script>
+      let style = document.getElementById("dynamicStyle");
+      if (!window.webkit) {
+        style.removeAttribute("media");
+      } else {
+        style.setAttribute("media", "max-width: 1px");
+      }
+    </script>
   </head>
   <body>
     <div id="app" v-cloak>
@@ -23,9 +45,6 @@
           <h3>Markdown</h3>
           <div id="content">
             <button @click="copyToClipboard" id="copyButton">Copy</button>
-            <!-- <p contenteditable="true" @input="handleInput">
-              {{content}}
-            </p> -->
             <textarea
               contenteditable="true"
               type="text"
@@ -38,6 +57,40 @@
     </div>
 
     <script>
+      
+      let theme = new Proxy({}, {
+        get: (target, key) => {
+          if (key === "current") {
+            return target.theme || $('link[title]:not([disabled])').attr("title");
+          }
+          return target[key];
+        },
+        set: (target, key, value) => {
+          if (key === "current") {
+            target.theme = value;
+            for(var title of ["auto", "dark", "light"]){
+              if (value == title) {
+                $(`link[title='${title}']`).removeAttr("disabled").attr("rel", "stylesheet");
+              } else {
+                $(`link[title='${title}']`).attr("disabled", "").removeAttr("rel");
+              }
+            }
+            switch(value){
+              case "dark":
+                $("body").css("background-color", "black");
+                break;
+              case "light":
+                $("body").css("background-color", "white");
+                break;
+              default:
+                $("body").css("background-color", "");
+                break;
+            }
+          }
+          target[key] = value;
+          return true;
+        }
+      });
       window["com.horidream.lib.shifu"]("#app", {
         state: {
           content: "",
@@ -86,8 +139,11 @@
           content() {
             this.adjustHeight();
           },
-          isDebug() {
-            nextTick().then(this.adjustHeight);
+          isDebug: {
+            handler() {
+              nextTick().then(this.adjustHeight);
+            },
+            immediate: false,
           },
         },
         computed: {
@@ -98,7 +154,9 @@
             return this.allowDebug && !window.webkit;
           },
           appStyle() {
-            return { margin: this.isDebug ? "8px auto" : "0px" };
+            return {
+              margin: this.isDebug ? "8px auto" : "0px",
+            };
           },
         },
         mounted() {
@@ -195,6 +253,7 @@
             break;
         }
       });
+
     </script>
   </body>
 </html>

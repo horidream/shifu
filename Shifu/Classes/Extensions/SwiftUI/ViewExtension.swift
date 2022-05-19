@@ -16,17 +16,6 @@ public extension View {
         return self
     }
     
-    func debug(_ block: @escaping ()->Void)-> some View{
-        self
-            #if DEBUG
-            .onAppear{
-                block()
-            }
-            .onInjection {
-                block()
-            }
-            #endif
-    }
     func padding(_ top: CGFloat, _ rest:CGFloat...)->some View{
         let edges = [top] + rest
         switch edges.count{
