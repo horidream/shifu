@@ -91,7 +91,10 @@ public struct MarkdownView: View{
             .frame(height: viewModel.contentHeight)
             .on("contentHeight", target: viewModel.delegate){
             if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
-                self.viewModel.contentHeight = height
+                withAnimation {
+                    self.viewModel.contentHeight = height
+                    
+                }
             }
 
         }

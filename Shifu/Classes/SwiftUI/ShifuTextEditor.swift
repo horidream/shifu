@@ -121,7 +121,7 @@ public struct ShifuTextEditor: UIViewRepresentable {
         let toolbar = UIToolbar(frame: CGRect(x:0, y:0, width: textView.frame.size.width, height: 50))
         toolbar.items = viewModel.inputAccessoryItems
         textView.inputAccessoryView = toolbar
-        
+        textView.autocapitalizationType = .none
         return textView
     }
     

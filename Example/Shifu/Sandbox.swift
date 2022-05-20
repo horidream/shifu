@@ -14,9 +14,10 @@ import UIKit
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var content = "## haha\n\n Hello world"
+    @State var content = ""
     @State var datasource:UITableViewDiffableDataSource<String, String>!
     @State var isOn = false
+    @State var isDark = true
     @Namespace var animation
     var body: some View{
         Group{
@@ -28,18 +29,21 @@ struct Sandbox:View{
                         .frame(width: 1200, height: 1200)
                         .foregroundColor(.yellow)
                         .ignoresSafeArea()
-                    SimpleMarkdownViewer(content: content, config: "theme.current = 'dark'")
-                        .frame(width: 300, height: 100)
+                    SimpleMarkdownViewer(content: content, config: "theme.current = '\(isDark ? "dark": "light")'")
+                        .id(content + "\(isDark)")
+                        .frame(width: 300)
                         .padding()
-                        .background(.white.opacity(0.3))
+                        .background((isDark ? Color.black: Color.white).opacity(0.5))
                         .cornerRadius(10)
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 5, y: 5)
+//                        .rotation3DEffect(.degrees(45), axis: (0,1,0), perspective: 1)
                 }
             } else {
                 VStack(){
                     Spacer()
                     Circle()
                         .matchedGeometryEffect(id: "AlbumTitle", in: animation)
-                        .frame(width: 100, height: 100)
+                        .frame(width: 50, height: 50)
                         .foregroundColor(.yellow)
                         .padding()
                 }
@@ -63,28 +67,8 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        rootViewController.view.viewWithTag(99)?.removeFromSuperview()
-        //        let tableView = UITableView()
-        //        tableView.tag = 99
-        //        rootViewController.view.addSubview(tableView)
-        //        tableView.quickMargin(0,0,0,0)
-        //        tableView.delegate = TestDelegate.shared
-        //
-        //        // setup datasource
-        //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        //        // You need to retain the datasource property
-        //        datasource = UITableViewDiffableDataSource<String, String>(tableView: tableView) { tableView, indexPath, itemIdentifier in
-        //            let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        //            cell?.backgroundColor = indexPath.section == 0 ? .purple : .blue
-        //            cell?.textLabel?.textColor = .white
-        //            cell?.textLabel?.text = "Item: \(itemIdentifier)"
-        //            return cell
-        //        }
-        //        // update datasource
-        //        let data = [("0", ["1", "2", "3"]), ("B", ["4", "5", "6"])]
-        //        applySnapshot(data: data)
-        //
-        //        print(data.map{ $0.0 })
+        isDark = true
+        content = "![](https://cdn.i-scmp.com/sites/default/files/styles/1200x800/public/d8/video/thumbnail/2021/08/14/lotr.jpg?itok=y_dh_Rrp)<br><br>\nMay it be an evening star    \nShines down upon you    \nMay it be when darkness falls    \nYour heart will be true    \nYou walk a lonely road    \nOh, how far you are from home    \nMornie utulie    \nBelieve and you will find your way    \nMornie alantie    \nA promise lives within you now    \nMay it be the shadow's call will fly away    \nMay it be your journey on to light the day    \nWhen the night is overcome    \nYou may rise to find the sun    \nMornie utulie    \nBelieve and you will find your way    \nMornie alantie    \nA promise lives within you now    \nA promise lives within you now"
     }
     
     var navi: UINavigationController? {
