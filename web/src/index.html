@@ -132,7 +132,6 @@
         },
         watch: {
           currentTheme(value) {
-            console.log("will set current theme to " + value);
             this.userDefaults.set("theme", value);
             for (var title of ["auto", "dark", "light"]) {
               if (value == title) {
@@ -285,9 +284,9 @@
         let p3 = this.value.substring(end);
         switch (e.keyCode) {
           case 67:
-            e.preventDefault();
-            e.stopPropagation();
             if (e.ctrlKey) {
+              e.preventDefault();
+              e.stopPropagation();
               this.value = p1 + "\n```\n" + p2 + "\n```\n" + p3;
               this.selectionStart = this.selectionEnd = end + 5;
               m.vm.content = this.value;

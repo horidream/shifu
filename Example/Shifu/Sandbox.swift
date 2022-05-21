@@ -24,11 +24,12 @@ struct Sandbox:View{
             if isOn {
                 ZStack{
 
-                    Circle()
+                    Rectangle()
                         .matchedGeometryEffect(id: "AlbumTitle", in: animation)
-                        .frame(width: 1200, height: 1200)
+//                        .frame(width: 1200, height: 1200)
                         .foregroundColor(.yellow)
                         .ignoresSafeArea()
+                        .aspectRatio(contentMode: .fill)
                     SimpleMarkdownViewer(content: content, config: "theme.current = '\(isDark ? "dark": "light")'")
                         .id(content + "\(isDark)")
                         .frame(width: 300)
@@ -67,8 +68,19 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        isDark = true
-        content = "![](https://cdn.i-scmp.com/sites/default/files/styles/1200x800/public/d8/video/thumbnail/2021/08/14/lotr.jpg?itok=y_dh_Rrp)<br><br>\nMay it be an evening star    \nShines down upon you    \nMay it be when darkness falls    \nYour heart will be true    \nYou walk a lonely road    \nOh, how far you are from home    \nMornie utulie    \nBelieve and you will find your way    \nMornie alantie    \nA promise lives within you now    \nMay it be the shadow's call will fly away    \nMay it be your journey on to light the day    \nWhen the night is overcome    \nYou may rise to find the sun    \nMornie utulie    \nBelieve and you will find your way    \nMornie alantie    \nA promise lives within you now    \nA promise lives within you now"
+        let code = """
+```swift
+import Shifu
+import SwiftUI
+
+struct ColorThemeManagerDemo:View{
+    
+}
+```
+
+"""
+        isDark = false
+        content = code +  "![](https://cdn.i-scmp.com/sites/default/files/styles/1200x800/public/d8/video/thumbnail/2021/08/14/lotr.jpg?itok=y_dh_Rrp)<br><br>\nMay it be an evening star    \nShines down upon you    \nMay it be when darkness falls    \nYour heart will be true    \nYou walk a lonely road    \nOh, how far you are from home    \nMornie utulie    \nBelieve and you will find your way    \nMornie alantie    \nA promise lives within you now    \nMay it be the shadow's call will fly away    \nMay it be your journey on to light the day    \nWhen the night is overcome    \nYou may rise to find the sun    \nMornie utulie    \nBelieve and you will find your way    \nMornie alantie    \nA promise lives within you now    \nA promise lives within you now"
     }
     
     var navi: UINavigationController? {

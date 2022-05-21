@@ -1,7 +1,9 @@
 ## How to use Result in Swift 
 
 
-![](https://cdn.i-scmp.com/sites/default/files/styles/1200x800/public/d8/video/thumbnail/2021/08/14/lotr.jpg?itok=y_dh_Rrp)
+![](https://i0.wp.com/dorkygeekynerdy.com/wp-content/uploads/2019/02/lord-of-the-rings-tolkien-trivia-header.jpg)
+<!-- ![](https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg) -->
+
 `$$ E= MC^2 $$`
 
 [SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) introduced a `Result` type into the standard library, giving us a simpler, clearer way of handling errors in complex code such as asynchronous APIs. This is something folks have been asking for since the very earliest days of Swift, so it's great to see it finally arrived in Swift 5!
