@@ -4,9 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --watch package.json --watch webpack.config.js --exec \"cross-env NODE_ENV=development npx webpack serve --mode development --progress --hot \"",
+    "start": "npm run dev & npm run build & npm run deploy",
     "build": "nodemon --watch main.js --watch to_markdown.js --exec \"cross-env NODE_ENV=production webpack --mode production --config webpack.config.js --progress\"",
-    "dev": "cross-env NODE_ENV=dev webpack --watch --mode production --config webpack.config.js --progress",
+    "deploy": "cross-env NODE_ENV=dev webpack --watch --mode production --config webpack.config.js --progress",
+    "dev": "nodemon --watch package.json --watch webpack.config.js --exec \"cross-env NODE_ENV=development npx webpack serve --mode development --progress --hot \"",
     "test": "karma start test/unit/karma.conf.js --single-run"
   },
   "browserslist": [

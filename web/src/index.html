@@ -133,12 +133,11 @@
         watch: {
           currentTheme(value) {
             this.userDefaults.set("theme", value);
+            $(`link[title='${value}']`)
+              .removeAttr("disabled")
+              .attr("rel", "stylesheet");
             for (var title of ["auto", "dark", "light"]) {
-              if (value == title) {
-                $(`link[title='${title}']`)
-                  .removeAttr("disabled")
-                  .attr("rel", "stylesheet");
-              } else {
+              if (value != title) {
                 $(`link[title='${title}']`)
                   .attr("disabled", "")
                   .removeAttr("rel");
@@ -234,12 +233,11 @@
             if (key === "current") {
               vm.currentTheme = value;
               target.theme = value;
+              $(`link[title='${value}']`)
+                .removeAttr("disabled")
+                .attr("rel", "stylesheet");
               for (var title of ["auto", "dark", "light"]) {
-                if (value == title) {
-                  $(`link[title='${title}']`)
-                    .removeAttr("disabled")
-                    .attr("rel", "stylesheet");
-                } else {
+                if (value != title) {
                   $(`link[title='${title}']`)
                     .attr("disabled", "")
                     .removeAttr("rel");
