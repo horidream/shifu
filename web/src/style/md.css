@@ -105,9 +105,8 @@ blockquote p {
   margin-bottom: 0;
   font-style: italic;
 }
-code,
-pre {
-  font-family: Monaco, Andale Mono, Courier New, monospace;
+ul{
+  list-style-type: disc;
 }
 code {
   font-family: consolas, monaco, monospace;
@@ -121,6 +120,7 @@ code {
 
 
 pre {
+  font-family: consolas, monaco, monospace;
   display: block;
   padding: 14px;
   margin: 0 2px 18px;

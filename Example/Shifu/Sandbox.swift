@@ -14,102 +14,41 @@ import UIKit
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var content = ""
-    @State var datasource:UITableViewDiffableDataSource<String, String>!
-    @State var isOn = false
-    @State var isDark = true
+    @State var snapshot:NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>  = {
+        var snapshot = NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>()
+        snapshot.appendSections(["A", "B"])
+        snapshot.appendItems((1...2).map{AnyDiffableData("\($0)")}, toSection: "A")
+        snapshot.appendItems((10...12).map{AnyDiffableData("\($0)")}, toSection: "B")
+        return snapshot
+    }()
     @Namespace var animation
     var body: some View{
-        Group{
-            if isOn {
-                ZStack{
-
-                    Rectangle()
-                        .matchedGeometryEffect(id: "AlbumTitle", in: animation)
-//                        .frame(width: 1200, height: 1200)
-                        .foregroundColor(.yellow)
-                        .ignoresSafeArea()
-                        .aspectRatio(contentMode: .fill)
-                    SimpleMarkdownViewer(content: content, config: "theme.current = '\(isDark ? "dark": "light")'")
-                        .id(content + "\(isDark)")
-                        .frame(width: 300)
-                        .padding()
-                        .background((isDark ? Color.black: Color.white).opacity(0.5))
-                        .cornerRadius(10)
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 5, y: 5)
-//                        .rotation3DEffect(.degrees(45), axis: (0,1,0), perspective: 1)
-                }
-            } else {
-                VStack(){
-                    Spacer()
-                    Circle()
-                        .matchedGeometryEffect(id: "AlbumTitle", in: animation)
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(.yellow)
-                        .padding()
-                }
-                
+        PowerTable(snapshot: $snapshot)
+            .onTapGesture {
+                snapshot.addSection("八仙过海")
+                snapshot.appendItems([AnyDiffableData(Int.random(in: 100...200).stringify())])
             }
-        }
-        .navigationTitle("Sandbox")
-        .onTapGesture {
-            withAnimation {
-                isOn.toggle()
-                
+            .navigationTitle("Sandbox")
+            .onInjection{
+                sandbox()
             }
-        }
-        
-        .onInjection{
-            sandbox()
-        }
-        .onAppear{
-            sandbox()
-        }
+            .onAppear{
+                sandbox()
+            }
     }
     
     func sandbox(){
-        let code = """
-```swift
-import Shifu
-import SwiftUI
-
-struct ColorThemeManagerDemo:View{
-    
+        
+        
+    }
 }
-```
 
-"""
-        isDark = false
-        content = code +  "![](https://cdn.i-scmp.com/sites/default/files/styles/1200x800/public/d8/video/thumbnail/2021/08/14/lotr.jpg?itok=y_dh_Rrp)<br><br>\nMay it be an evening star    \nShines down upon you    \nMay it be when darkness falls    \nYour heart will be true    \nYou walk a lonely road    \nOh, how far you are from home    \nMornie utulie    \nBelieve and you will find your way    \nMornie alantie    \nA promise lives within you now    \nMay it be the shadow's call will fly away    \nMay it be your journey on to light the day    \nWhen the night is overcome    \nYou may rise to find the sun    \nMornie utulie    \nBelieve and you will find your way    \nMornie alantie    \nA promise lives within you now    \nA promise lives within you now"
-    }
-    
-    var navi: UINavigationController? {
-        return rootViewController.children.first as? UINavigationController
-    }
-    
-    
-    func applySnapshot(data: [(String, [String])]){
-        var snapshot = NSDiffableDataSourceSnapshot<String, String>()
-        for (section, items) in data{
-            snapshot.appendSections([section])
-            snapshot.appendItems(items)
+
+extension UITableViewCell: Updatable{
+    public func update(_ data: Any?)  {
+        if let data = data as? AnyDiffableData, let text = data.payload as? String{
+            self.textLabel?.text = text
         }
-        datasource.apply(snapshot)
     }
 }
 
-
-
-
-class TestDelegate: NSObject, UITableViewDelegate {
-    static let shared:TestDelegate = TestDelegate()
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        clg("can give you")
-        if let datasource = tableView.dataSource as? UITableViewDiffableDataSource<String, String>{
-            label.text = datasource.sectionIdentifier(for: section)
-            label.textColor = .black
-        }
-        return label
-    }
-}

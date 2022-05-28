@@ -36,6 +36,10 @@ extension Int{
         return CGFloat(self)
     }
     
+    public var double:Double {
+        return Double(self)
+    }
+    
     public func toRadian()->CGFloat{
         return CGFloat(self) / 180 * CGFloat.pi
     }
