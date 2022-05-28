@@ -6,7 +6,7 @@ PODS:
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
   - ReachabilitySwift (5.0.0)
-  - Shifu (0.7.2):
+  - Shifu (0.7.6):
     - GCDWebServer/WebUploader
     - ReachabilitySwift
 
@@ -28,7 +28,7 @@ SPEC CHECKSUMS:
   Cuckoo: 9e258d68137c411df47c6390f72901d5276b4f03
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  Shifu: 85a1987b6a93c2dbc4d82b02881952adc8b30edf
+  Shifu: 558df76f8167e80c83a0c140aeb810c6f7d4c07b
 
 PODFILE CHECKSUM: bba794fd2951eaff16dd1ead58db9494e1d99156
 

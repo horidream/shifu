@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Shifu'
-  s.version          = 0.7.3
+  s.version          = '0.7.6'
   s.summary          = 'Shifu.'
 
 # This description is used to generate tags and improve search results.
@@ -43,4 +43,3 @@ This is a common library that we are going to use in other projects
   s.dependency 'ReachabilitySwift'
   s.dependency 'GCDWebServer/WebUploader'
 end
-d
