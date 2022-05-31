@@ -97,7 +97,7 @@ public extension String{
     }
     
     
-    func image(_ fontFamily:String = "", fontSize:CGFloat = 12, fontColor:UIColor = .black) -> UIImage?{
+    func image(_ fontFamily:String = "FontAwesome6Free-Regular", fontSize:CGFloat = 40, fontColor:UIColor = .purple) -> UIImage?{
         let sysFont = UIFont.systemFont(ofSize: fontSize)
         let font = fontFamily == "" ?  sysFont : UIFont(name: fontFamily, size: fontSize) ?? sysFont
         let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -115,6 +115,14 @@ public extension String{
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+    
+    
+    func canBeRenderedBy(_ fontName: String) -> Bool {
+        let uniChars = Array(self.utf16)
+        let font = CTFontCreateWithName(fontName as CFString, 0.0, nil)
+        var glyphs: [CGGlyph] = [0, 0]
+        return CTFontGetGlyphsForCharacters(font, uniChars, &glyphs, uniChars.count)
     }
     
     func toNotificationName()->Notification.Name{

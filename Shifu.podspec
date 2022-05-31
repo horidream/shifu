@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Shifu'
-  s.version          = '0.7.6'
+  s.version          = '0.7.7'
   s.summary          = 'Shifu.'
 
 # This description is used to generate tags and improve search results.
@@ -32,7 +32,7 @@ This is a common library that we are going to use in other projects
   s.osx.deployment_target = '11.0'
   
   s.source_files = 'Shifu/Classes/**/*'
-  s.resources = ['Shifu/web']
+  s.resources = ['Shifu/web', 'Shifu/assets']
   #  s.resource_bundles = {
   #    'Shifu' => ['Shifu/web']
   #  }

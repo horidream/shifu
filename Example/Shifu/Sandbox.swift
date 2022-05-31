@@ -14,41 +14,26 @@ import UIKit
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var snapshot:NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>  = {
-        var snapshot = NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>()
-        snapshot.appendSections(["A", "B"])
-        snapshot.appendItems((1...2).map{AnyDiffableData("\($0)")}, toSection: "A")
-        snapshot.appendItems((10...12).map{AnyDiffableData("\($0)")}, toSection: "B")
-        return snapshot
-    }()
-    @Namespace var animation
     var body: some View{
-        PowerTable(snapshot: $snapshot)
-            .onTapGesture {
-                snapshot.addSection("八仙过海")
-                snapshot.appendItems([AnyDiffableData(Int.random(in: 100...200).stringify())])
-            }
-            .navigationTitle("Sandbox")
-            .onInjection{
-                sandbox()
-            }
-            .onAppear{
-                sandbox()
-            }
+        TimelineView(.animation){ context in
+            Image.icon(.vuejs)
+                .foregroundColor(.green)
+                .padding(30)
+                .rotation3DEffect(.degrees( context.date.timeIntervalSince1970.truncatingRemainder(dividingBy: 360) * 360 / 5 ), axis: (0, 1, 0))
+            
+        }
+        .onInjection{
+            sandbox()
+        }
+        .onAppear{
+            sandbox()
+        }
     }
     
     func sandbox(){
         
-        
     }
 }
 
 
-extension UITableViewCell: Updatable{
-    public func update(_ data: Any?)  {
-        if let data = data as? AnyDiffableData, let text = data.payload as? String{
-            self.textLabel?.text = text
-        }
-    }
-}
 

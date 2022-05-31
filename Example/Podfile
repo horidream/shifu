@@ -29,6 +29,7 @@ post_install do |installer|
   framework.remove_from_project
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
+      config.build_settings.delete 'ARCHS'
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = $version
       if target.name.include? $projectName or target.name.include? "Shifu" and config.name == "Debug"
         xcconfig_path = config.base_configuration_reference.real_path

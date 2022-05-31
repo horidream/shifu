@@ -21,7 +21,6 @@
 		3C3C46EA27BB9F2C00BCB074 /* ShifuWebViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */; };
 		3C9C98BC27C48D9800D4B8B9 /* SoundWaveImageDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9C98BB27C48D9700D4B8B9 /* SoundWaveImageDemo.swift */; };
 		3CA9D78627C90CD700A32044 /* ToMarkdownDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9D78527C90CD700A32044 /* ToMarkdownDemo.swift */; };
-		3CB106FD28071C89007E4F5B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB106FA28071BA0007E4F5B /* Test.swift */; };
 		3CB10720280721D2007E4F5B /* ShifuExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB1071F280721D2007E4F5B /* ShifuExampleTests.swift */; };
 		3CB10723280723B1007E4F5B /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB10722280723B1007E4F5B /* GeneratedMocks.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
@@ -32,6 +31,7 @@
 		B757972E6B16479D3511D066 /* Pods_ShifuExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6CAA8E7FC3862D7C704DDA /* Pods_ShifuExampleTests.framework */; };
 		C72CB725282961BD000FBF12 /* ShimmerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CB724282961BD000FBF12 /* ShimmerDemo.swift */; };
 		C7804F9828190A92006AC449 /* Validate2FAPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */; };
+		C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7965CD728426DB3002C825A /* PowerTableDemo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +62,6 @@
 		3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShifuWebViewDemo.swift; sourceTree = "<group>"; };
 		3C9C98BB27C48D9700D4B8B9 /* SoundWaveImageDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundWaveImageDemo.swift; sourceTree = "<group>"; };
 		3CA9D78527C90CD700A32044 /* ToMarkdownDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToMarkdownDemo.swift; sourceTree = "<group>"; };
-		3CB106FA28071BA0007E4F5B /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		3CB10716280721B8007E4F5B /* ShifuExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShifuExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CB1071F280721D2007E4F5B /* ShifuExampleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShifuExampleTests.swift; sourceTree = "<group>"; };
 		3CB10722280723B1007E4F5B /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
@@ -81,6 +80,7 @@
 		B3B324223DF4BCD83B564ABE /* Pods-ShifuExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		C72CB724282961BD000FBF12 /* ShimmerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDemo.swift; sourceTree = "<group>"; };
 		C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate2FAPrototype.swift; sourceTree = "<group>"; };
+		C7965CD728426DB3002C825A /* PowerTableDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerTableDemo.swift; sourceTree = "<group>"; };
 		C89C6B3E4560ADB5E346F7F9 /* Pods-ShifuExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3F66D9DD1D994C430599B30 /* Pods_Shifu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABA4CEFA6CB57BAD5570379 /* Pods_ShifuExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShifuExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,16 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				3C3C46E127B9406300BCB074 /* source */,
-				3C3C46D427B6A44E00BCB074 /* WebViewDemo.swift */,
-				3C3C46DD27B92E6F00BCB074 /* ColorThemeManagerDemo.swift */,
-				3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */,
-				3C9C98BB27C48D9700D4B8B9 /* SoundWaveImageDemo.swift */,
-				3CA9D78527C90CD700A32044 /* ToMarkdownDemo.swift */,
-				3C1A645827D64ADD0093A98B /* ModelDemo.swift */,
-				3C2F1CE027F155BC0027F24F /* AnimationDemo.swift */,
-				3C2F1CE227F1E3DA0027F24F /* NavigationStyleDemo.swift */,
-				C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */,
-				C72CB724282961BD000FBF12 /* ShimmerDemo.swift */,
+				C7965CD928426E3C002C825A /* demos */,
 				3C1A646027DE30EE0093A98B /* Sandbox.swift */,
 			);
 			name = features;
@@ -181,7 +172,6 @@
 		607FACD21AFB9204008FA782 /* Example for Shifu */ = {
 			isa = PBXGroup;
 			children = (
-				3CB106FA28071BA0007E4F5B /* Test.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				99244B5C261C9FDA0027A1D7 /* HomeView.swift */,
 				3C3C46CE27B2C40C00BCB074 /* HomeViewModel.swift */,
@@ -213,6 +203,24 @@
 				75080B2D4DF860209E4A6DA9 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		C7965CD928426E3C002C825A /* demos */ = {
+			isa = PBXGroup;
+			children = (
+				3C3C46D427B6A44E00BCB074 /* WebViewDemo.swift */,
+				3C3C46DD27B92E6F00BCB074 /* ColorThemeManagerDemo.swift */,
+				3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */,
+				3C9C98BB27C48D9700D4B8B9 /* SoundWaveImageDemo.swift */,
+				3CA9D78527C90CD700A32044 /* ToMarkdownDemo.swift */,
+				3C1A645827D64ADD0093A98B /* ModelDemo.swift */,
+				3C2F1CE027F155BC0027F24F /* AnimationDemo.swift */,
+				3C2F1CE227F1E3DA0027F24F /* NavigationStyleDemo.swift */,
+				C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */,
+				C72CB724282961BD000FBF12 /* ShimmerDemo.swift */,
+				C7965CD728426DB3002C825A /* PowerTableDemo.swift */,
+			);
+			name = demos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -465,8 +473,8 @@
 				3C3C46DE27B92E6F00BCB074 /* ColorThemeManagerDemo.swift in Sources */,
 				99244B5D261C9FDA0027A1D7 /* HomeView.swift in Sources */,
 				3C2F1CE327F1E3DA0027F24F /* NavigationStyleDemo.swift in Sources */,
-				3CB106FD28071C89007E4F5B /* Test.swift in Sources */,
 				3C3C46EA27BB9F2C00BCB074 /* ShifuWebViewDemo.swift in Sources */,
+				C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */,
 				3C2F1CE127F155BC0027F24F /* AnimationDemo.swift in Sources */,
 				C72CB725282961BD000FBF12 /* ShimmerDemo.swift in Sources */,
 				3C1A646127DE30EE0093A98B /* Sandbox.swift in Sources */,
@@ -712,7 +720,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPRESS_INTERNAL_LOG = disable;
 				"SUPPRESS_INTERNAL_LOG[sdk=iphonesimulator*]" = disable;
+				SWIFT_SUPPRESS_WARNINGS = NO;
 				SWIFT_VERSION = 5.0;
+				WARNING_LDFLAGS = "";
 			};
 			name = Debug;
 		};
@@ -749,7 +759,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPRESS_INTERNAL_LOG = "";
+				SWIFT_SUPPRESS_WARNINGS = NO;
 				SWIFT_VERSION = 5.0;
+				WARNING_LDFLAGS = "";
 			};
 			name = Release;
 		};

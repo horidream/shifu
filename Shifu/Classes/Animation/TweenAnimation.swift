@@ -20,9 +20,9 @@ public class TweenAnimation<T:Equatable>{
         self.animation = animation
     }
     
-    @discardableResult public func play()->TweenAnimation{
+    @discardableResult public func play(delay: Double = 0)->TweenAnimation{
         guard startValue != endValue else { return self }
-        withAnimation(animation) {
+        withAnimation(animation.delay(delay)) {
             if (value != startValue) {
                 withAnimation(.linear(duration: 0)){
                     value = startValue
@@ -44,6 +44,7 @@ public enum TweenAnimationType{
 
 public class ta<T:Equatable> {
     @Binding var target:T
+    var currentAnimation: TweenAnimation<T>?
     let defaultDuration:Double = 0.35
     public init(_ target: Binding<T>){
         _target = target
@@ -91,18 +92,23 @@ public class ta<T:Equatable> {
     }
     
     
+    @discardableResult public func delay(_ delay: Double)->ta<T>{
+        currentAnimation?.play(delay: delay)
+        return self
+    }
+    
     @discardableResult public func to(_ value: T, duration: Double? = nil, type: TweenAnimationType = .default)->ta<T>{
-        TweenAnimation($target, to: value, animation: getAnimation(type, duration: duration)).play()
+        currentAnimation =  TweenAnimation($target, to: value, animation: getAnimation(type, duration: duration)).play()
         return self
     }
     
     @discardableResult public func from(_ value: T, duration: Double? = nil, type: TweenAnimationType = .default)->ta<T>{
-        TweenAnimation($target, from: value, animation: getAnimation(type, duration: duration)).play()
+        currentAnimation = TweenAnimation($target, from: value, animation: getAnimation(type, duration: duration)).play()
         return self
     }
     
     @discardableResult public func from(_ value: T, to:T,  duration: Double? = nil, type: TweenAnimationType = .default)->ta<T>{
-        TweenAnimation($target, from: value, to: to, animation: getAnimation(type, duration: duration)).play()
+        currentAnimation = TweenAnimation($target, from: value, to: to, animation: getAnimation(type, duration: duration)).play()
         return self
     }
 }

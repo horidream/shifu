@@ -32,7 +32,8 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
     @Published var featureList:[FeatureViewModel<AnyView>] = []
     @Published var script:String = ""
     init(){
-      Shifu.locale = .zh_CN
+        UIFont.useFontAwesome()
+        Shifu.locale = .zh_CN
         refresh()
     }
     
@@ -76,6 +77,10 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
             }),
             FeatureViewModel(name: "ShimmerDemo", viewBuilder: { model in
                 return ShimmerDemo().eraseToAnyView()
+                
+            }),
+            FeatureViewModel(name: "PowerTableDemo", viewBuilder: { model in
+                return PowerTableDemo().eraseToAnyView()
                 
             }),
             FeatureViewModel(name: "Sandbox", viewBuilder: { model in

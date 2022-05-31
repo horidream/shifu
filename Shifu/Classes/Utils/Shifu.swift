@@ -49,7 +49,7 @@ public class Shifu{
     }
   }
   
-  public static let namespace:String = "com.horidream.lib.shifu"
+  public static let namespace:String = "org.cocoapods.Shifu"
   public static var locale:Locale = .current
   
   @discardableResult public class func delay(_ delay:Double, queue:DispatchQueue? = nil, closure:@escaping ()->()) -> DispatchWorkItem {
