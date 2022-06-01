@@ -7,8 +7,11 @@
 
 import Foundation
 import SwiftUI
+
+fileprivate var isFontLoaded = false
 public extension UIFont {
     static func useFontAwesome(){
+        guard !isFontLoaded else { return }
         if let path = Shifu.bundle.path(forResource: "assets/fa-regular-400", ofType: "ttf") {
             Self.register(path: path )
         }
@@ -18,6 +21,7 @@ public extension UIFont {
         if let path = Shifu.bundle.path(forResource: "assets/fa-brands-400", ofType: "ttf") {
             Self.register(path: path )
         }
+        isFontLoaded = true
     }
     static func register(path: String) -> Bool {
         guard let fontData = NSData(contentsOfFile: path),    let dataProvider = CGDataProvider.init(data: fontData) else {
@@ -37,6 +41,7 @@ public extension UIFont {
 
 public class FontAwesome{
     static func icon(_ code:String, size:CGFloat, color:UIColor)-> UIImage{
+        UIFont.useFontAwesome()
         if code.canBeRenderedBy("FontAwesome6Free-Regular"){
             return code.image("FontAwesome6Free-Regular", fontSize: size, fontColor: color) ?? UIImage()
         }else if code.canBeRenderedBy("FontAwesome6Free-Solid"){

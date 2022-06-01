@@ -32,7 +32,6 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
     @Published var featureList:[FeatureViewModel<AnyView>] = []
     @Published var script:String = ""
     init(){
-        UIFont.useFontAwesome()
         Shifu.locale = .zh_CN
         refresh()
     }
