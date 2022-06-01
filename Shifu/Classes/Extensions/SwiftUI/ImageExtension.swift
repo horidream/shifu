@@ -14,8 +14,15 @@ public extension Image{
         self = Image(uiImage: uiImage)
     }
     
-    static func icon(_ name: FontAwesome.Name)->some View{
+    static func faIcon(_ name: FontAwesome.Name)->some View{
         return Image(uiImage: FontAwesome.icon(name, size: UIScreen.main.bounds.size.width))
+            .resizable()
+            .renderingMode(.template)
+            .aspectRatio(contentMode: .fit)
+    }
+    
+    static func sfIcon(_ name: SFSymbols.Name)->some View{
+        return Image(systemName: name.rawValue)
             .resizable()
             .renderingMode(.template)
             .aspectRatio(contentMode: .fit)

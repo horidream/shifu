@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 public extension UIFont {
     static func useFontAwesome(){
         if let path = Shifu.bundle.path(forResource: "assets/fa-regular-400", ofType: "ttf") {
@@ -50,5 +51,11 @@ public class FontAwesome{
         return FontAwesome.icon(name.rawValue, size: size, color: color)
     }
     
+}
+
+public class SFSymbols{
+    public static func icon(_ name: SFSymbols.Name, size: CGFloat = 40, color: UIColor = .red)->UIImage{
+        return UIImage(systemName: name.rawValue) ?? UIImage()
+    }
 }
 
