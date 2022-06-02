@@ -24,7 +24,7 @@ struct PowerTableDemo:View{
     var body: some View{
         PowerTable(snapshot: $snapshot, delegate: MyCo())
             .onTapGesture {
-                snapshot.addSection(DiffableDataFactory.headerAndFooter("オリジナル劇場アニメ", footer: "1219 年 ‧ 科幻/爱情 ‧ 1 小时 38 分钟"))
+                snapshot.addSection(DiffableDataFactory.headerAndFooter("オリジナル劇場アニメ", footer: "2019 年 ‧ 科幻/爱情 ‧ 1 小时 38 分钟"))
                 snapshot.appendItems([AnyDiffableData(Int.random(in: 100...120).stringify())])
             }
             .navigationTitle("PowerTable Demo")

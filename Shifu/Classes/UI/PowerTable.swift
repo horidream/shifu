@@ -40,12 +40,21 @@ public struct PowerTable: UIViewControllerRepresentable{
         public var style: UITableView.Style?
         
         public var defaultHeaderViewClass: UIView.Type?
-        
         public var defaultFooterViewClass: UIView.Type?
+        
+        func defaultHeight(position: ViewPosition)-> CGFloat {
+            switch position{
+            case .header :
+                return defaultHeaderViewClass == nil ? 0 : .minimumMagnitude(1, 1)
+            case .footer :
+                return defaultFooterViewClass == nil ? 0 : .minimumMagnitude(1, 1)
+            }
+        }
         
         public enum ViewPosition{
             case header, footer
         }
+        
         public func defaultViewClass(for position: ViewPosition)-> UIView.Type? {
             switch  position {
             case .header:
@@ -84,7 +93,7 @@ public struct PowerTable: UIViewControllerRepresentable{
         }
         
         public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-            return headerIdentifier(section: section)?.estimatedHeight ?? 0
+            return headerIdentifier(section: section)?.estimatedHeight ?? defaultHeight(position: .header)
         }
         
         public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -96,7 +105,7 @@ public struct PowerTable: UIViewControllerRepresentable{
         }
         
         public func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-            return footerIdentifier(section: section)?.estimatedHeight ?? 0
+            return footerIdentifier(section: section)?.estimatedHeight ?? defaultHeight(position: .footer)
         }
     }
     
@@ -184,7 +193,7 @@ public struct AnyDiffableData: TableViewCellModel{
 
 extension AnyDiffableData: ExpressibleByStringLiteral{
     public init(stringLiteral value: String){
-        self.init(value, estimatedHeight: 0.01)
+        self.init(value)
     }
 }
 
