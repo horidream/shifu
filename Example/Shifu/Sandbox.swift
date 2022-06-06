@@ -14,38 +14,35 @@ import UIKit
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var paused = false
     var body: some View{
-        TimelineView(.animation(minimumInterval: 0.0167, paused: paused)){ context in
-            Image.faIcon(.swift)
-                .foregroundColor(.red)
-                .padding(30)
-                .rotation3DEffect(.degrees( context.date.timeIntervalSince1970.truncatingRemainder(dividingBy: 360) * 360 / 5 ), axis: (0, 1, 0))
-            
-            Image.sfIcon(.swift)
-                .foregroundStyle(.orange, .yellow)
-                .padding(30)
-                .rotation3DEffect(.degrees( context.date.timeIntervalSince1970.truncatingRemainder(dividingBy: 360) * 360 / 5 ), axis: (0, 1, 0))
-        }
-        .onTapGesture {
-            paused.toggle()
-        }
-        .frame(maxWidth: .infinity)
-        .background(
-            LinearGradient(gradient: .init(colors: [.blue, .black]), startPoint: .topLeading, endPoint: .bottomTrailing)
-        )
-        .onInjection{
-            sandbox()
-        }
-        .onAppear{
-            sandbox()
-        }
+        Text("hello")
+            .onInjection{
+                sandbox()
+            }
+            .onAppear{
+                sandbox()
+            }
     }
     
+    
     func sandbox(){
-     
+        
+        
+        struct Features: OptionSet {
+            let rawValue: Int
+            
+            static let feature1   = Features(rawValue: 1 << 0)
+            static let feature2   = Features(rawValue: 1 << 1)
+            static let feature3   = Features(rawValue: 1 << 2)
+            static let extra      = Features(rawValue: 1 << 3)
+            
+            static let standard: Features = [.feature1, .feature2]
+            static let premium: Features = [standard, .feature3, .extra]
+        }
+        print(Features.premium.contains(.extra)) // true
+        print(Features.premium.rawValue) // 15
+        
     }
 }
-
 
 

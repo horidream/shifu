@@ -82,12 +82,16 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return PowerTableDemo().eraseToAnyView()
                 
             }),
+            FeatureViewModel(name: "IconsDemo", viewBuilder: { model in
+                return IconsDemo().eraseToAnyView()
+                
+            }),
             FeatureViewModel(name: "Sandbox", viewBuilder: { model in
                 return Sandbox().eraseToAnyView()
                 
             })
         ].reversed()
-        featureList.get(0)?.isActive = true
+        featureList.get(2)?.isActive = true
     }
     
 }

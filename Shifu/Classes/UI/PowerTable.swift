@@ -15,12 +15,6 @@ public protocol DefaultTableSettings{
     var defaultFooterViewClass: UIView.Type? { get }
 }
 
-//public extension DefaultTableSettings{
-//    var style: UITableView.Style? { nil }
-//    var defaultHeaderViewClass: UIView.Type? { nil }
-//    var defaultFooterViewClass: UIView.Type? { nil }
-//}
-
 public struct PowerTable: UIViewControllerRepresentable{
     
     @Binding var snapshot:NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>
@@ -38,9 +32,10 @@ public struct PowerTable: UIViewControllerRepresentable{
     }
     open class Coordinator: NSObject, DefaultTableSettings, UITableViewDelegate{
         public var style: UITableView.Style?
-        
+        public var tableHeaderView: UIView?
         public var defaultHeaderViewClass: UIView.Type?
         public var defaultFooterViewClass: UIView.Type?
+        public var defaultCellViewClass: UIView.Type? = DefaultTableViewCell.self
         
         func defaultHeight(position: ViewPosition)-> CGFloat {
             switch position{
@@ -76,12 +71,20 @@ public struct PowerTable: UIViewControllerRepresentable{
         }
         
         func footerIdentifier(section:Int) -> AnyDiffableData?{
-            return (dataSource.sectionIdentifier(for: section)?.payload as? (AnyDiffableData?,AnyDiffableData?))?.1
+            return (dataSource?.sectionIdentifier(for: section)?.payload as? (AnyDiffableData?,AnyDiffableData?))?.1
         }
         
         func headerIdentifier(section:Int) -> AnyDiffableData?{
-            let sectionIdentier = dataSource.sectionIdentifier(for: section)
+            let sectionIdentier = dataSource?.sectionIdentifier(for: section)
             return (sectionIdentier?.payload as? (AnyDiffableData?,AnyDiffableData?))?.0 ?? sectionIdentier
+        }
+        
+        public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return dataSource.itemIdentifier(for: indexPath)?.estimatedHeight ?? UITableView.automaticDimension
+        }
+        
+        public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+            return dataSource.itemIdentifier(for: indexPath)?.estimatedHeight ?? UITableView.automaticDimension
         }
         
         public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -112,20 +115,22 @@ public struct PowerTable: UIViewControllerRepresentable{
     public func makeUIViewController(context: Context) -> UITableViewController {
         let tableViewController =  UITableViewController(style: context.coordinator.style ?? .grouped)
         if let tableView = tableViewController.tableView {
-            tableView.delegate = context.coordinator
+            
             tableView.backgroundColor = .clear
             tableView.sectionFooterHeight = 0
             tableView.sectionHeaderHeight = 0
             tableView.sectionHeaderTopPadding = 0
+            tableView.tableHeaderView = context.coordinator.tableHeaderView
             context.coordinator.dataSource = UITableViewDiffableDataSource(tableView: tableViewController.tableView, cellProvider: self.cellProvider ?? { tableView, indexPath, itemIdentifier in
-                if let viewClass = itemIdentifier.viewClass as? UITableViewCell.Type, let reuseIdentifier = itemIdentifier.reuseIdentifier{
+                if let viewClass = (itemIdentifier.viewClass as? UITableViewCell.Type) ?? (context.coordinator.defaultCellViewClass as? UITableViewCell.Type), let reuseIdentifier = itemIdentifier.reuseIdentifier{
                     tableView.register(viewClass, forCellReuseIdentifier: reuseIdentifier)
                     let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)
-                    (cell as? Updatable)?.update(itemIdentifier)
+                    (cell as? Updatable)?.update(itemIdentifier.payload)
                     return cell
                 }
                 return nil
             })
+            tableView.delegate = context.coordinator
         }
         return tableViewController
     }
@@ -150,7 +155,6 @@ public protocol TableViewCellModel: Hashable {
 
 public extension TableViewCellModel {
     var reuseIdentifier: String? { String(describing: viewClass) }
-    var estimatedHeight: CGFloat? { 0 }
 }
 
 public struct AnyDiffableData: TableViewCellModel{
@@ -158,9 +162,6 @@ public struct AnyDiffableData: TableViewCellModel{
         lhs.hashValue == rhs.hashValue
     }
     
-    public static var defaultViewClassFactory: ((Any? ) -> ViewClass.Type)? = { _ in
-        DefaultTableViewCell.self
-    }
     public var viewClass: ViewClass.Type?
     public var estimatedHeight: CGFloat?
     public var payload: Any?
@@ -174,7 +175,7 @@ public struct AnyDiffableData: TableViewCellModel{
         userDefinedHash: @autoclosure ()->AnyHashable? = nil)
     {
         self.payload = payload
-        self.viewClass = viewClass ?? AnyDiffableData.defaultViewClassFactory?(payload)
+        self.viewClass = viewClass
         self.estimatedHeight = estimatedHeight
         self.userDefinedHash = userDefinedHash()
     }
@@ -201,11 +202,11 @@ public protocol Updatable{
     func update(_ data: Any?)
 }
 
-public protocol UpdatableCell: UITableViewCell, Updatable, ViewClass { }
+public protocol UpdatableCell: UITableViewCell, Updatable { }
 
 public extension Updatable where Self: UITableViewCell{
     public func update(_ data: Any?)  {
-        if let data = data as? AnyDiffableData, let text = data.payload as? String{
+        if let text = data as? String{
             self.selectionStyle = .none
             self.textLabel?.numberOfLines = 0
             self.textLabel?.text = text
