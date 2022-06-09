@@ -220,6 +220,24 @@ public extension NSDiffableDataSourceSnapshot where SectionIdentifierType == Any
             self.appendSections([section])
         }
     }
+    
+    mutating func update(_ section: AnyDiffableData, items: [AnyDiffableData], reset: Bool = false) where ItemIdentifierType == AnyDiffableData{
+        if reset {
+            deleteSections([section])
+        }
+        addSection(section)
+        appendItems(items, toSection: section)
+    }
+    
+    mutating func update(_ data: [(AnyDiffableData, [AnyDiffableData])], reset: Bool = false) where ItemIdentifierType == AnyDiffableData{
+        for (section, items) in data{
+            if reset {
+                deleteSections([section])
+            }
+            addSection(section)
+            appendItems(items, toSection: section)
+        }
+    }
 }
 
 
