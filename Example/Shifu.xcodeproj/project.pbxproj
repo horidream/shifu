@@ -219,8 +219,8 @@
 				3C2F1CE227F1E3DA0027F24F /* NavigationStyleDemo.swift */,
 				C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */,
 				C72CB724282961BD000FBF12 /* ShimmerDemo.swift */,
-				C7965CD728426DB3002C825A /* PowerTableDemo.swift */,
 				3C2F1CE027F155BC0027F24F /* AnimationDemo.swift */,
+				C7965CD728426DB3002C825A /* PowerTableDemo.swift */,
 				C7177D10284A11F500372629 /* IconsDemo.swift */,
 			);
 			name = demos;

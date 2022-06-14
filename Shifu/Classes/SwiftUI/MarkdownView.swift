@@ -11,6 +11,19 @@ import UIKit
 import WebKit
 import Combine
 
+fileprivate func getConfiguration(script:String?, css:String?)->String?{
+    guard script ?? css != nil else { return nil }
+    var rst = script ?? ""
+    if let css = css{
+        rst += """
+var __style = document.createElement('style');
+__style.innerHTML = '\(css)';
+document.head.appendChild(__style);
+"""
+    }
+    return rst
+    
+}
 
 public struct SimpleMarkdownViewer: View{
     @StateObject public var viewModel:ShifuWebViewModel
@@ -21,23 +34,21 @@ public struct SimpleMarkdownViewer: View{
         content ?? path?.url?.content ?? ""
     }
     
-    public init(path : String, animated: Bool = true, config:String? = nil){
+    public init(path : String, animated: Bool = true, postScript:String? = nil, css:String? = nil){
         self.path = path
         self.animated = animated
         _viewModel = StateObject(wrappedValue: with(.markdown){
-            $0.configuration = config
+            $0.configuration = getConfiguration(script: postScript, css: css)
         })
     }
     
-    public init(content: String, animated:Bool = true, config:String? = nil){
+    public init(content: String, animated:Bool = true, postScript:String? = nil, css:String? = nil){
         self.content = content
         self.animated = animated
         _viewModel = StateObject(wrappedValue: with(.markdown){
-            $0.configuration = config
+            $0.configuration = getConfiguration(script: postScript, css: css)
         })
     }
-    
-
     
     public var body: some View{
         MarkdownView(viewModel: viewModel,  content: .constant(stringContent))

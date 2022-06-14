@@ -14,30 +14,45 @@ import UIKit
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-    var c = CurrentValueSubject<[(AnyDiffableData, [AnyDiffableData])], Never>([])
     var body: some View{
-        Text("hello world")
-            .onTapGesture {
-                c.value.append(("Hello", []))
+        Group{
+            if #available(iOS 16.0, *) {
+                NavigationStack{
+                        NavigationLink(value: "OK"){
+                            Label {
+                                Text("Go, Baoli, Go!!")
+                            } icon: {
+                                Image.icon(.youtube)
+                                    .foregroundColor(.red)
+                                Image.icon(.greaterthanSquareFill)
+
+                            }
+                            .frame(height: 50)
+                            
+                        }
+                        
+                    .navigationDestination(for: String.self) { value in
+                        Text(value)
+                    }
+                }
+                
+            } else {
+                Text("Not Implemented")
             }
-            .onInjection{
-                sandbox()
-            }
-//            .onReceive(c){
-//                clg($0)
-//            }
-            .onAppear{
-                sandbox()
-            }
+        }
+        .onInjection{
+            sandbox()
+        }
+        .onAppear{
+            sandbox()
+        }
     }
     
     
     func sandbox(){
         
-
-        
-        
+        let a = "abc_fa"
+        print(a.substring(0, -3))
     }
 }
-
 

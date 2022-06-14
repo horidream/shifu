@@ -28,20 +28,23 @@ struct HomeView: View {
         NavigationView{
             List{
                 Section(header: Text("Examples").font(.headline).padding(10)) {
-                    ForEach(0..<vm.featureList.count, id: \.self){ idx in
+                    ForEach($vm.featureList){ $f in
                         
-                        NavigationLink(isActive: $vm.featureList[idx].isActive, destination: {
-                            vm.featureList[idx].view
+                        NavigationLink(isActive: $f.isActive, destination: {
+                            f.view
                         }, label: {
                             HStack{
-                                Text(vm.featureList[idx].name)
+                                Image.faIcon(f.icon ?? .swift)
+                                    .frame(width: 33)
+                                    .foregroundColor(f.color)
+                                    .padding(.trailing, 8)
+                                Text(f.name)
                                     .frame(maxWidth: .infinity, alignment: .leading )
                                     .contentShape(Rectangle())
-                                    .padding(12)
                             }
                         })
                         .onTapGesture {
-                            vm.featureList[idx].isActive = true
+                            f.isActive = true
                             vm.objectWillChange.send()
                         }
                     }

@@ -28,7 +28,7 @@ public extension Locale{
 }
 
 public extension DateFormatter{
-    static func formatter(with format:String , timeZone: TimeZone = .current, locale:Locale = Shifu.locale)->DateFormatter{
+    static func formatter(with format:String = "yyyyMMMMdd" , timeZone: TimeZone = .current, locale:Locale = Shifu.locale)->DateFormatter{
         let df = DateFormatter()
         df.timeZone = timeZone
         df.locale = locale

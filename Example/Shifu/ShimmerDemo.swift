@@ -13,7 +13,7 @@ struct ShimmerDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     var body: some View {
         VStack(spacing: 25){
-            Text("iPhone 5")
+            Text("iPhone 14")
                 .font(.system(size: 75, weight: .bold))
                 .modifier(Shimmer())
         }

@@ -138,6 +138,10 @@ public extension Color{
     static var random:Color{
         return Color(red: Double.random(in: 0...255)/255, green: Double.random(in: 0...255)/255, blue: Double.random(in: 0...255)/255)
     }
+    
+    init(_ hexValue:UInt, alpha:CGFloat = 1.0){
+        self.init(uiColor:  UIColor(hexValue, alpha: alpha))
+    }
 }
 
 // MARK: - computed properties

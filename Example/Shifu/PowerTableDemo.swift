@@ -21,12 +21,14 @@ struct PowerTableDemo:View{
         snapshot.appendItems((1...2).map{AnyDiffableData("Super Man \($0)")}, toSection: "A")
         snapshot.appendItems(["We won’t define default parameters at the Baz nor BazMock but we will use a protocol extension which will be the only place that the default values will be defined. That way both implementations of the same protocol have the same default values."], toSection: "B")
         snapshot.update("A", items:(10...12).map{AnyDiffableData("Super Man \($0)")})
-    
+        snapshot.appendSections(["c"])
         return snapshot
     }()
+    @State var id = 1
     var loadMorePublisher: PassthroughSubject<Void, Never> = PassthroughSubject<Void, Never>()
     var body: some View{
         PowerTable(snapshot: $snapshot, delegate: MyCo(loadMorePublisher))
+            .id(id)
             .navigationTitle("PowerTable Demo")
             .onReceive(loadMorePublisher){
                 snapshot.deleteItems([DiffableDataFactory.loadMoreCell()])
@@ -53,7 +55,8 @@ struct PowerTableDemo:View{
     }
     
     func sandbox(){
-        clg(Date.now)
+        id += 1
+        clg(CGFloat.leastNormalMagnitude, CGFloat.minimumMagnitude(1,1))
         snapshot.appendItems([DiffableDataFactory.loadMoreCell(loadMorePublisher)])
     }
 }
@@ -154,7 +157,7 @@ class MyLabel2: UILabel, Updatable{
 
 class DiffableDataFactory{
     static func header(_ title: String)->AnyDiffableData {
-        AnyDiffableData(title, viewClass: MyLabel.self, estimatedHeight: 1)
+        AnyDiffableData(title, viewClass: MyLabel.self)
     }
     
     static func headerAndFooter(_ title: String, footer: String)->AnyDiffableData {

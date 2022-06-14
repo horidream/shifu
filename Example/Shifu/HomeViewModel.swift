@@ -10,8 +10,15 @@ import Foundation
 import SwiftUI
 import Shifu
 
-class FeatureViewModel<Content>: ObservableObject{
+class FeatureViewModel<Content>: ObservableObject, Hashable, Identifiable{
+    static func == (lhs: FeatureViewModel<Content>, rhs: FeatureViewModel<Content>) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
     let name:String
+    var icon: FontAwesome.Name? = .swift
+    var color: Color? = .orange
+    let id = UUID()
     @Published var isActive = false
     let viewBuilder:(FeatureViewModel)-> Content
     
@@ -21,6 +28,10 @@ class FeatureViewModel<Content>: ObservableObject{
     }
     var view:Content{
         viewBuilder(self)
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
     }
 }
 
@@ -38,23 +49,32 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
     
     func refresh(){
         featureList = [
-            FeatureViewModel(name: "MarkdownView", viewBuilder: { model in
+            FeatureViewModel(name: "MarkdownView") { model in
+                model.color = .blue
+                model.icon = .markdown
                 return WebViewDemo().eraseToAnyView()
-                
-            }),
+            },
             FeatureViewModel(name: "ColorThemeManager", viewBuilder: { model in
+                model.color = .purple
+                model.icon = .masksTheater
                 return ColorThemeManagerDemo().eraseToAnyView()
                 
             }),
             FeatureViewModel(name: "ShifuWebView", viewBuilder: { model in
+                model.color = .red
+                model.icon = .jedi
                 return ShifuWebViewDemo().eraseToAnyView()
                 
             }),
             FeatureViewModel(name: "SoundWaveImage", viewBuilder: { model in
+                model.icon = .fileWaveform
+                model.color = .teal
                 return SoundWaveImageDemo().eraseToAnyView()
                 
             }),
             FeatureViewModel(name: "ToMarkdown", viewBuilder: { model in
+                model.icon = .markdown
+                model.color = .init(0xFFD700)
                 return ToMarkdownDemo().eraseToAnyView()
                 
             }),
@@ -63,6 +83,8 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 
             }),
             FeatureViewModel(name: "Animation Demo", viewBuilder: { model in
+                model.icon = .earthOceania
+                model.color = .blue
                 return AnimationDemo().eraseToAnyView()
                 
             }),
@@ -70,28 +92,35 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return NavigationStyleDemo().eraseToAnyView()
                 
             }),
-            FeatureViewModel(name: "Validate2FAPrototype", viewBuilder: { model in
-                return Validate2FAPrototype().eraseToAnyView()
-                
-            }),
-            FeatureViewModel(name: "ShimmerDemo", viewBuilder: { model in
+//            FeatureViewModel(name: "Validate2FAPrototype", viewBuilder: { model in
+//                return Validate2FAPrototype().eraseToAnyView()
+//                
+//            }),
+            FeatureViewModel(name: "ShimmerDemo") { model in
+                model.icon = .star
+                model.color = .purple
                 return ShimmerDemo().eraseToAnyView()
-                
-            }),
-            FeatureViewModel(name: "PowerTableDemo", viewBuilder: { model in
+            },
+            FeatureViewModel(name: "PowerTableDemo"){ model in
+                model.icon = .table
+                model.color = .yellow
                 return PowerTableDemo().eraseToAnyView()
                 
-            }),
+            },
             FeatureViewModel(name: "IconsDemo", viewBuilder: { model in
+                model.icon = .artstation
+                model.color = .indigo
                 return IconsDemo().eraseToAnyView()
                 
             }),
-            FeatureViewModel(name: "Sandbox", viewBuilder: { model in
+            FeatureViewModel(name: "Sandbox") { model in
+                model.icon = .gitlab
+                model.color = .green
                 return Sandbox().eraseToAnyView()
                 
-            })
+            }
         ].reversed()
-        featureList.get(2)?.isActive = true
+        featureList.get(0)?.isActive = true
     }
     
 }
