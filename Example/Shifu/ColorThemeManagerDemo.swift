@@ -43,11 +43,9 @@ struct ColorThemeManagerDemo:View{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     screenShotModel.exec(.snapshot())
+                } label: {
+                    Image(systemName: "camera")
                 }
-            label: {
-                Image(systemName: "camera")
-            }
-                
             }
         }
         .onInjection {

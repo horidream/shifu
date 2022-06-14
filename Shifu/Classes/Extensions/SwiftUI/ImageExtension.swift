@@ -30,20 +30,5 @@ public extension Image{
         }
         
     }
-    
-    static func faIcon(_ name: FontAwesome.Name, size:CGFloat = 40)->some View{
-        return Image(uiImage: FontAwesome.icon(name, size: size))
-            .resizable()
-            .renderingMode(.template)
-            .aspectRatio(contentMode: .fit)
-    }
-    
-    static func sfIcon(_ name: SFSymbols.Name, size:CGFloat = 40)->some View{
-        return Image(systemName: name.rawValue)
-            .resizable()
-            .renderingMode(.template)
-            .font(.system(size: size))
-            .aspectRatio(contentMode: .fit)
-    }
 }
 

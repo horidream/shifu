@@ -53,19 +53,7 @@ public class FontAwesome{
         }
         return UIImage()
     }
-    
-    public static func icon(_ name: FontAwesome.Name, size: CGFloat = 40, color: UIColor = .red)->UIImage{
-        return FontAwesome.icon(name.rawValue, size: size, color: color)
-    }
-    
 }
-
-public class SFSymbols{
-    public static func icon(_ name: SFSymbols.Name, size: CGFloat = 40, color: UIColor = .red)->UIImage{
-        return UIImage(systemName: name.rawValue) ?? UIImage()
-    }
-}
-
 
 public class Icons{
     public static func icon(_ name: Icons.Name, size: CGFloat = 40, color: UIColor = .red)->UIImage{

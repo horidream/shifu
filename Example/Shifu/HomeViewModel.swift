@@ -16,7 +16,7 @@ class FeatureViewModel<Content>: ObservableObject, Hashable, Identifiable{
     }
     
     let name:String
-    var icon: FontAwesome.Name? = .swift
+    var icon: Icons.Name? = .swift_fa
     var color: Color? = .orange
     let id = UUID()
     @Published var isActive = false
@@ -50,19 +50,18 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
     func refresh(){
         featureList = [
             FeatureViewModel(name: "MarkdownView") { model in
-                model.color = .blue
                 model.icon = .markdown
+                model.color = .blue
                 return WebViewDemo().eraseToAnyView()
             },
             FeatureViewModel(name: "ColorThemeManager", viewBuilder: { model in
                 model.color = .purple
                 model.icon = .masksTheater
                 return ColorThemeManagerDemo().eraseToAnyView()
-                
             }),
             FeatureViewModel(name: "ShifuWebView", viewBuilder: { model in
-                model.color = .red
                 model.icon = .jedi
+                model.color = .red
                 return ShifuWebViewDemo().eraseToAnyView()
                 
             }),
@@ -92,12 +91,14 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return NavigationStyleDemo().eraseToAnyView()
                 
             }),
-//            FeatureViewModel(name: "Validate2FAPrototype", viewBuilder: { model in
-//                return Validate2FAPrototype().eraseToAnyView()
-//                
-//            }),
+            FeatureViewModel(name: "Validate2FAPrototype", viewBuilder: { model in
+                model.icon = .paypal
+                model.color = .blue
+                return Validate2FAPrototype().eraseToAnyView()
+                
+            }),
             FeatureViewModel(name: "ShimmerDemo") { model in
-                model.icon = .star
+                model.icon = .star_fa
                 model.color = .purple
                 return ShimmerDemo().eraseToAnyView()
             },

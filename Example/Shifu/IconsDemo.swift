@@ -15,12 +15,12 @@ struct IconsDemo: View{
     @State var paused = false
     var body: some View{
         TimelineView(.animation(minimumInterval: 0.0167, paused: paused)){ context in
-            Image.faIcon(.swift, size: 200)
+            Image.icon(.swift_fa, size: 200)
                 .foregroundColor(.red)
                 .padding(30)
                 .rotation3DEffect(.degrees( context.date.timeIntervalSince1970.truncatingRemainder(dividingBy: 360) * 360 / 5 ), axis: (0, 1, 0))
             
-            Image.sfIcon(.swift)
+            Image.icon(.swift_sf)
                 .foregroundStyle(.orange, .yellow)
                 .padding(30)
                 .rotation3DEffect(.degrees( context.date.timeIntervalSince1970.truncatingRemainder(dividingBy: 360) * 360 / 5 ), axis: (0, 1, 0))

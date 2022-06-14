@@ -34,7 +34,7 @@ struct HomeView: View {
                             f.view
                         }, label: {
                             HStack{
-                                Image.faIcon(f.icon ?? .swift)
+                                Image.icon(f.icon ?? .swift_fa)
                                     .frame(width: 33)
                                     .foregroundColor(f.color)
                                     .padding(.trailing, 8)
