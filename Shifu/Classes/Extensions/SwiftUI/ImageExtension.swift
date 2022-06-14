@@ -17,7 +17,7 @@ public extension Image{
     
     static func icon(_ name: Icons.Name, size:CGFloat = 40)->some View{
         if name.isFontAwesome {
-            return AnyView(Image(uiImage: Icons.icon(name, size: size))
+            return AnyView(Image(uiImage: Icons.image(name, size: size))
                 .resizable()
                 .renderingMode(.template)
                 .aspectRatio(contentMode: .fit))

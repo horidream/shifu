@@ -42,7 +42,7 @@ public extension UIFont {
 }
 
 public class FontAwesome{
-    static func icon(_ code:String, size:CGFloat, color:UIColor)-> UIImage{
+    static func image(_ code:String, size:CGFloat, color:UIColor)-> UIImage{
         UIFont.useFontAwesome()
         if code.canBeRenderedBy("FontAwesome6Free-Regular"){
             return code.image("FontAwesome6Free-Regular", fontSize: size, fontColor: color) ?? UIImage()
@@ -56,9 +56,9 @@ public class FontAwesome{
 }
 
 public class Icons{
-    public static func icon(_ name: Icons.Name, size: CGFloat = 40, color: UIColor = .red)->UIImage{
+    public static func image(_ name: Icons.Name, size: CGFloat = 40, color: UIColor = .red)->UIImage{
         if name.isFontAwesome {
-            return FontAwesome.icon(name.value, size: size, color: color)
+            return FontAwesome.image(name.value, size: size, color: color)
         } else {
             return UIImage(systemName: name.value) ?? UIImage()
         }

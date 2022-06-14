@@ -78,6 +78,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 
             }),
             FeatureViewModel(name: "Models", viewBuilder: { model in
+                model.icon = .modx
                 return ModelDemo().eraseToAnyView()
                 
             }),

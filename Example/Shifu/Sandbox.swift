@@ -51,8 +51,7 @@ struct Sandbox:View{
     
     func sandbox(){
         
-        let a = "abc_fa"
-        print(a.substring(0, -3))
+        
     }
 }
 
