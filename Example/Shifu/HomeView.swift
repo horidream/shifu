@@ -119,3 +119,12 @@ extension View {
         self.modifier(DeviceShakeViewModifier(action: action))
     }
 }
+
+
+struct MyPreviewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeViewModel().view {
+            HomeView()
+        }
+    }
+}

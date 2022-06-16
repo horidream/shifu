@@ -56,7 +56,7 @@ public class FontAwesome{
 }
 
 public class Icons{
-    public static func image(_ name: Icons.Name, size: CGFloat = 40, color: UIColor = .red)->UIImage{
+    public static func image(_ name: Icons.Name, size: CGFloat = 40, color: UIColor = .black)->UIImage{
         if name.isFontAwesome {
             return FontAwesome.image(name.value, size: size, color: color)
         } else {

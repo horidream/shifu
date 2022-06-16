@@ -40,9 +40,9 @@ public struct PowerTable: UIViewControllerRepresentable{
         func defaultHeight(position: ViewPosition)-> CGFloat {
             switch position{
             case .header :
-                return defaultHeaderViewClass == nil ? 0 : .minimumMagnitude(1, 1)
+                return defaultHeaderViewClass == nil ? 0 : .leastNonzeroMagnitude
             case .footer :
-                return defaultFooterViewClass == nil ? 0 : .minimumMagnitude(1, 1)
+                return defaultFooterViewClass == nil ? 0 : .leastNonzeroMagnitude
             }
         }
         
@@ -60,6 +60,7 @@ public struct PowerTable: UIViewControllerRepresentable{
         }
         public var dataSource: UITableViewDiffableDataSource<AnyDiffableData, AnyDiffableData>!
         func view(for data: AnyDiffableData?, position: ViewPosition) -> UIView?{
+            guard data?.estimatedHeight != 0 else {  return nil }
             var rst: UIView?
             if let viewClass = data?.viewClass as? UIView.Type, !(viewClass is UITableViewCell.Type) {
                 rst = viewClass.init()
@@ -157,7 +158,7 @@ public extension TableViewCellModel {
     var reuseIdentifier: String? { String(describing: viewClass) }
 }
 
-public struct AnyDiffableData: TableViewCellModel{
+public struct AnyDiffableData: TableViewCellModel, Wrappable{
     static public func == (lhs: AnyDiffableData, rhs: AnyDiffableData) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
@@ -191,6 +192,19 @@ public struct AnyDiffableData: TableViewCellModel{
     }
 }
 
+public protocol Wrappable{
+    func wrap(_ viewClass: ViewClass.Type?, estimatedHeight: CGFloat?, userDefinedHash: @autoclosure ()->AnyHashable?)->AnyDiffableData
+}
+
+public extension Wrappable{
+    func wrap(
+        _ viewClass: ViewClass.Type? = nil,
+        estimatedHeight: CGFloat? = nil,
+        userDefinedHash: @autoclosure ()->AnyHashable? = nil)->AnyDiffableData{
+        return self as? AnyDiffableData ?? AnyDiffableData(self, viewClass: viewClass, estimatedHeight: estimatedHeight, userDefinedHash: userDefinedHash())
+    }
+}
+
 
 extension AnyDiffableData: ExpressibleByStringLiteral{
     public init(stringLiteral value: String){
@@ -202,14 +216,16 @@ public protocol Updatable{
     func update(_ data: Any?)
 }
 
-public protocol UpdatableCell: UITableViewCell, Updatable { }
+//public protocol UpdatableCell: UITableViewCell, Updatable { }
 
 public extension Updatable where Self: UITableViewCell{
     public func update(_ data: Any?)  {
+        self.selectionStyle = .none
+        self.textLabel?.numberOfLines = 0
         if let text = data as? String{
-            self.selectionStyle = .none
-            self.textLabel?.numberOfLines = 0
             self.textLabel?.text = text
+        }else{
+            self.textLabel?.text = String(describing: data!)
         }
     }
 }
@@ -229,6 +245,16 @@ public extension NSDiffableDataSourceSnapshot where SectionIdentifierType == Any
         appendItems(items, toSection: section)
     }
     
+    mutating func update(_ data: [(Wrappable, [Wrappable])], reset: Bool = false) where ItemIdentifierType == AnyDiffableData{
+        for (section, items) in data{
+            if reset {
+                deleteSections([section.wrap()])
+            }
+            addSection(section.wrap())
+            appendItems(items.map{ $0.wrap() }, toSection: section.wrap())
+        }
+    }
+    
     mutating func update(_ data: [(AnyDiffableData, [AnyDiffableData])], reset: Bool = false) where ItemIdentifierType == AnyDiffableData{
         for (section, items) in data{
             if reset {
@@ -241,4 +267,4 @@ public extension NSDiffableDataSourceSnapshot where SectionIdentifierType == Any
 }
 
 
-public class DefaultTableViewCell: UITableViewCell, UpdatableCell { }
+public class DefaultTableViewCell: UITableViewCell, Updatable { }

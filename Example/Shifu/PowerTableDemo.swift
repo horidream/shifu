@@ -21,7 +21,7 @@ struct PowerTableDemo:View{
         snapshot.appendItems((1...2).map{AnyDiffableData("Super Man \($0)")}, toSection: "A")
         snapshot.appendItems(["We won’t define default parameters at the Baz nor BazMock but we will use a protocol extension which will be the only place that the default values will be defined. That way both implementations of the same protocol have the same default values."], toSection: "B")
         snapshot.update("A", items:(10...12).map{AnyDiffableData("Super Man \($0)")})
-        snapshot.appendSections(["c"])
+        snapshot.appendSections([AnyDiffableData("c", estimatedHeight: 0), "D"])
         return snapshot
     }()
     @State var id = 1
@@ -32,12 +32,13 @@ struct PowerTableDemo:View{
             .navigationTitle("PowerTable Demo")
             .onReceive(loadMorePublisher){
                 snapshot.deleteItems([DiffableDataFactory.loadMoreCell()])
+                var last = Date.now
                 let section1 = (
                     DiffableDataFactory.headerAndFooter("オリジナル劇場アニメ", footer: "2019 年 ‧ 科幻/爱情 ‧ 1 小时 38 分钟"),
                     
-                    (1...10).map{ _ -> AnyDiffableData in
+                    (1...10).compactMap{ _ in
                         let now = Date.now
-                        return AnyDiffableData(now.stringify(),userDefinedHash: now)
+                        return now.stringify()?.wrap()
                     }
                 )
                 snapshot.update([section1])
@@ -56,13 +57,12 @@ struct PowerTableDemo:View{
     
     func sandbox(){
         id += 1
-        clg(CGFloat.leastNormalMagnitude, CGFloat.minimumMagnitude(1,1))
         snapshot.appendItems([DiffableDataFactory.loadMoreCell(loadMorePublisher)])
     }
 }
 
 
-
+extension String: Wrappable {}
 class MyCo: PowerTable.Coordinator{
     private var loadMorePublisher: PassthroughSubject<Void, Never>?
     init(_ loadMorePublisher: PassthroughSubject<Void, Never>?){

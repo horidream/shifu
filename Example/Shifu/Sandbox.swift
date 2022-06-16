@@ -18,19 +18,17 @@ struct Sandbox:View{
         Group{
             if #available(iOS 16.0, *) {
                 NavigationStack{
-                        NavigationLink(value: "OK"){
-                            Label {
-                                Text("Go, Baoli, Go!!")
-                            } icon: {
-                                Image.icon(.youtube)
-                                    .foregroundColor(.red)
-                                Image.icon(.greaterthanSquareFill)
-
-                            }
-                            .frame(height: 50)
-                            
+                    NavigationLink(value: "OK"){
+                        Label {
+                            Text("YouTube")
+                                .bold()
+                        } icon: {
+                            Image(.youtube)
+                                .foregroundColor(.red)
                         }
-                        
+                        .frame(height: 50)
+                    }
+                    
                     .navigationDestination(for: String.self) { value in
                         Text(value)
                     }
@@ -47,11 +45,9 @@ struct Sandbox:View{
             sandbox()
         }
     }
-    
-    
+
     func sandbox(){
-        
-        
+
     }
 }
 

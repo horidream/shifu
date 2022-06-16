@@ -2,10 +2,10 @@ import Foundation
 
 public extension Icons{
     enum Name:String, CaseIterable {
-        var isFontAwesome:Bool{
+        public var isFontAwesome:Bool{
             rawValue.substr(-3, 3)  == "_fa"
         }
-        var value: String{
+        public var value: String{
             rawValue.substring(0, -3)
         }
         case `_0Circle` = "0.circle_sf"

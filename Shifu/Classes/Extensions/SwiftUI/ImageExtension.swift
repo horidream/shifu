@@ -14,21 +14,25 @@ public extension Image{
         self = Image(uiImage: uiImage)
     }
     
+    init(_ name: Icons.Name, size: CGFloat = 40){
+        if name.isFontAwesome {
+            self = Image(uiImage: Icons.image(name, size: size)).renderingMode(.template)
+        } else {
+            self = Image(systemName: name.value)
+        }
+    }
     
     static func icon(_ name: Icons.Name, size:CGFloat = 40)->some View{
+        var img:Image!
         if name.isFontAwesome {
-            return AnyView(Image(uiImage: Icons.image(name, size: size))
-                .resizable()
-                .renderingMode(.template)
-                .aspectRatio(contentMode: .fit))
+            img =  Image(uiImage: Icons.image(name, size: size))
         } else {
-            return AnyView(Image(systemName: name.value)
-                .resizable()
-                .renderingMode(.template)
-                .font(.system(size: size))
-                .aspectRatio(contentMode: .fit))
+            img = Image(systemName: name.value)
         }
-        
+        return img.resizable()
+            .renderingMode(.template)
+            .font(.system(size: size))
+            .aspectRatio(contentMode: .fit)
     }
 }
 
