@@ -32,7 +32,6 @@ struct PowerTableDemo:View{
             .navigationTitle("PowerTable Demo")
             .onReceive(loadMorePublisher){
                 snapshot.deleteItems([DiffableDataFactory.loadMoreCell()])
-                var last = Date.now
                 let section1 = (
                     DiffableDataFactory.headerAndFooter("オリジナル劇場アニメ", footer: "2019 年 ‧ 科幻/爱情 ‧ 1 小时 38 分钟"),
                     

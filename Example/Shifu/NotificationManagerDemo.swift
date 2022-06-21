@@ -1,18 +1,15 @@
 //
-//  Sandbox.swift
+//  NotificationManagerDemo.swift
 //  ShifuExample
 //
-//  Created by Baoli Zhai on 2022/3/13.
+//  Created by Baoli Zhai on 2022/6/21.
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
 import SwiftUI
 import Shifu
-import JavaScriptCore
-import Combine
-import UIKit
 
-struct Sandbox:View{
+struct NotificationManagerDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     @ObservedObject private var nm = NotificationManager.shared
     var body: some View{
@@ -29,7 +26,7 @@ struct Sandbox:View{
                 HStack{
                     if(nm.isGranted){
                         Button{
-                            nm.scheduleLocalNotification(title: "Hello", body: "Baoli Sama")
+                            nm.scheduleLocalNotification(title: "Hello", body: "宝利， 你好！")
                         } label: {
                             Text("Schedule")
                         }.foregroundColor(.purple)

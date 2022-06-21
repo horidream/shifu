@@ -57,6 +57,7 @@ struct HomeView: View {
 //                vm.refresh()
             }
             .onShake {
+                sandbox()
                 vm.refresh()
             }
             .ignoresSafeArea(.all, edges: .bottom)
@@ -65,7 +66,6 @@ struct HomeView: View {
     }
     
     func sandbox(){
-        
     }
 }
 

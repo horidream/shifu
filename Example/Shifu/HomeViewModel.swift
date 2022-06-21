@@ -115,14 +115,20 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return IconsDemo().eraseToAnyView()
                 
             }),
+            FeatureViewModel(name: "NotificationManagerDemo", viewBuilder: { model in
+                model.icon = .note
+                model.color = .green
+                return NotificationManagerDemo().eraseToAnyView()
+                
+            }),
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
-                model.color = .green
+                model.color = .blue
                 return Sandbox().eraseToAnyView()
                 
             }
         ].reversed()
-        featureList.get(2)?.isActive = true
+        featureList.get(0)?.isActive = true
     }
     
 }
