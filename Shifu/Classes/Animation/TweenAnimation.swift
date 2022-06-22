@@ -37,7 +37,7 @@ public class TweenAnimation<T:Equatable>{
 
 
 public enum TweenAnimationType{
-    case `default`, linear, easeIn, easeOut, easeInOut, spring
+    case `default`, linear, easeIn, easeOut, easeInOut, spring, back, custom(Animation)
 }
 
 
@@ -45,52 +45,10 @@ public enum TweenAnimationType{
 public class ta<T:Equatable> {
     @Binding var target:T
     var currentAnimation: TweenAnimation<T>?
-    let defaultDuration:Double = 0.35
+
     public init(_ target: Binding<T>){
         _target = target
     }
-    
-    func getAnimation(_ type:TweenAnimationType, duration: Double? = nil)-> Animation{
-        switch type{
-        case .default:
-            if let duration = duration{
-                return .linear(duration: duration)
-            }
-            return .default
-        case .linear:
-            if let duration = duration, duration != defaultDuration{
-                return .linear(duration: duration)
-            }else{
-                return .linear
-            }
-        case .easeIn:
-            if let duration = duration, duration != defaultDuration{
-                return .easeIn(duration: duration)
-            }else{
-                return .easeIn
-            }
-        case .easeOut:
-            if let duration = duration, duration != defaultDuration{
-                return .easeOut(duration: duration)
-            }else{
-                return .easeOut
-            }
-        case .easeInOut:
-            if let duration = duration, duration != defaultDuration{
-                return .easeInOut(duration: duration)
-            }else{
-                return .easeInOut
-            }
-        case .spring:
-            if let duration = duration, duration != defaultDuration{
-                return .spring().speed(defaultDuration / duration)
-            }else{
-                return .spring()
-            }
-        default:()
-        }
-    }
-    
     
     @discardableResult public func delay(_ delay: Double)->ta<T>{
         currentAnimation?.play(delay: delay)
@@ -112,3 +70,176 @@ public class ta<T:Equatable> {
         return self
     }
 }
+
+let defaultDuration:Double = 0.35
+private func getAnimation(_ type:TweenAnimationType, duration: Double? = nil)-> Animation{
+    switch type{
+    case .default:
+        if let duration = duration{
+            return .linear(duration: duration)
+        }
+        return .default
+    case .linear:
+        if let duration = duration, duration != defaultDuration{
+            return .linear(duration: duration)
+        }else{
+            return .linear
+        }
+    case .easeIn:
+        if let duration = duration, duration != defaultDuration{
+            return .easeIn(duration: duration)
+        }else{
+            return .easeIn
+        }
+    case .easeOut:
+        if let duration = duration, duration != defaultDuration{
+            return .easeOut(duration: duration)
+        }else{
+            return .easeOut
+        }
+    case .easeInOut:
+        if let duration = duration, duration != defaultDuration{
+            return .easeInOut(duration: duration)
+        }else{
+            return .easeInOut
+        }
+    case .spring:
+        if let duration = duration, duration != defaultDuration{
+            return .spring().speed(defaultDuration / duration)
+        }else{
+            return .spring()
+        }
+    case .back:
+        var d = duration ?? defaultDuration
+        var speed = d <= 0 ? 100 : defaultDuration/d
+        return .interpolatingSpring(stiffness: 200, damping: 15)
+            .speed(speed)
+    case .custom(let animation):
+        return animation
+    default:()
+    }
+}
+
+
+public class TweenProps: ObservableObject{
+    public init() {}
+    @Published public var rotation:Double = .zero
+    @Published public var rotationX:Double = .zero
+    @Published public var rotationY:Double = .zero
+    @Published public var rotationZ:Double = .zero
+    @Published public var scale:Double = 1
+    @Published public var scaleX:Double = 1
+    @Published public var scaleY:Double = 1
+    @Published public var alpha:Double = 1
+    @Published public var x:Double = 0
+    @Published public var y:Double = 0
+    @Published public var color: Double = 0
+}
+
+public extension View{
+    func tweenProps(_ props: TweenProps)->some View{
+        return self.modifier(TweenModifier(props: props))
+    }
+}
+
+struct TweenModifier:ViewModifier{
+    @ObservedObject var props:TweenProps = TweenProps()
+    
+    func body(content: Content) -> some View {
+        
+        return content
+            .foregroundColor(Color(UInt(props.color)))
+            .offset(x: props.x.cgFloat, y: props.y.cgFloat)
+            .scaleEffect(props.scale)
+            .scaleEffect(x: props.scaleX, y: props.scaleY)
+            .rotationEffect(Angle(degrees: props.rotation))
+            .opacity(props.alpha)
+            .rotation3DEffect(Angle(degrees: props.rotationX), axis: (1, 0, 0))
+            .rotation3DEffect(Angle(degrees: props.rotationY), axis: (0, 1, 0))
+            .rotation3DEffect(Angle(degrees: props.rotationZ), axis: (0, 0, 1))
+    }
+}
+
+//public func tween(_ target:ObservedObject<TweenProps>.Wrapper, to dic:[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue]){
+//    var arr = [(Binding<Double>, Double)]()
+//    withAnimation {
+//        for item in dic{
+//            guard let prop = target[keyPath: item.key] as? Binding<Double> else { continue }
+//            if let value = item.value as? Double{
+//                prop.wrappedValue = value
+//            } else if let value = item.value as? String{
+//                prop.wrappedValue = prop.wrappedValue + value.double
+//            }
+//        }
+//    }
+//}
+//
+//public func tween(_ target:ObservedObject<TweenProps>.Wrapper, from dic:[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue]){
+//    var arr = [(Binding<Double>, Double)]()
+//    withAnimation {
+//        withAnimation(.linear(duration: 0)){
+//            for item in dic{
+//                guard let prop = target[keyPath: item.key] as? Binding<Double> else { continue }
+//                arr.append((prop, prop.wrappedValue))
+//                if let value = item.value as? Double{
+//                    prop.wrappedValue = value
+//                } else if let value = item.value as? String{
+//                    prop.wrappedValue = prop.wrappedValue + value.double
+//                }
+//            }
+//        }
+//        for item in arr{
+//            item.0.wrappedValue = item.1
+//        }
+//    }
+//}
+
+public func tween(_ target:ObservedObject<TweenProps>.Wrapper,
+                  from :[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue] = [:],
+                  to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue] = [:],
+                  duration: Double? = nil,
+                  delay: Double = 0,
+                  type: TweenAnimationType = .default){
+    var arr = [(Binding<Double>, Double)]()
+    withAnimation(getAnimation(type, duration: duration).delay(delay)) {
+        withAnimation(.linear(duration: 0)){
+            for item in from{
+                guard let prop = target[keyPath: item.key] as? Binding<Double> else { continue }
+                arr.append((prop, prop.wrappedValue))
+                if let value = item.value as? Double{
+                    prop.wrappedValue = value
+                } else if let value = item.value as? String{
+                    prop.wrappedValue = prop.wrappedValue + value.double
+                }
+            }
+        }
+        for item in arr{
+            item.0.wrappedValue = item.1
+        }
+        for item in to{
+            guard let prop = target[keyPath: item.key] as? Binding<Double> else { continue }
+            if let value = item.value as? Double{
+                prop.wrappedValue = value
+            } else if let value = item.value as? String{
+                prop.wrappedValue = prop.wrappedValue + value.double
+            }
+        }
+    }
+}
+
+public protocol TweenValue: Equatable{
+    var double: Double { get }
+}
+
+extension Double: TweenValue {
+    public var double: Double {
+        return self
+    }
+}
+extension String: TweenValue {
+    public var double: Double {
+        return Double(self) ?? 0
+    }
+}
+
+

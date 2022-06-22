@@ -35,7 +35,7 @@ struct PowerTableDemo:View{
                 let section1 = (
                     DiffableDataFactory.headerAndFooter("オリジナル劇場アニメ", footer: "2019 年 ‧ 科幻/爱情 ‧ 1 小时 38 分钟"),
                     
-                    (1...10).compactMap{ _ in
+                    (1...10).compactMap{ _ -> AnyDiffableData? in
                         let now = Date.now
                         return now.stringify()?.wrap()
                     }

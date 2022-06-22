@@ -29,7 +29,7 @@ struct Validate2FAPrototype:View{
             Spacer()
             
             Button{
-                rootViewController.presend2FAViewController{
+                _rootViewController.presend2FAViewController{
                     is2FAValidated = $0
                 }
             } label: {

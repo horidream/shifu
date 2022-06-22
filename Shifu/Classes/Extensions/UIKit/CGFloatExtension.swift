@@ -48,3 +48,9 @@ extension Int{
         return CGFloat(self) / CGFloat.pi * 180
     }
 }
+
+extension Double{
+    public var cgFloat:CGFloat{
+        return CGFloat(self)
+    }
+}

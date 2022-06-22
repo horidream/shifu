@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 
 let namespace:String = "com.horidream.lib.shifu"

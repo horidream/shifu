@@ -96,7 +96,7 @@ public extension View {
         }
     }
     
-    var rootViewController: UIViewController{
+    var _rootViewController: UIViewController{
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let root = screen.windows.first?.rootViewController else {
             return .init()
@@ -140,7 +140,7 @@ public extension Color{
     }
     
     init(_ hexValue:UInt, alpha:CGFloat = 1.0){
-        self.init(uiColor:  UIColor(hexValue, alpha: alpha))
+        self.init(UIColor(hexValue, alpha: alpha).cgColor)
     }
 }
 

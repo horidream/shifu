@@ -15,6 +15,14 @@ public protocol DefaultTableSettings{
     var defaultFooterViewClass: UIView.Type? { get }
 }
 
+public extension UITableViewDiffableDataSource{
+    @available(iOS, obsoleted: 15, message: "")
+    @MainActor func sectionIdentifier(for index: Int) -> SectionIdentifierType?{
+        return snapshot().sectionIdentifiers.get(index)
+    }
+    
+}
+
 public struct PowerTable: UIViewControllerRepresentable{
     
     @Binding var snapshot:NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>
@@ -120,7 +128,9 @@ public struct PowerTable: UIViewControllerRepresentable{
             tableView.backgroundColor = .clear
             tableView.sectionFooterHeight = 0
             tableView.sectionHeaderHeight = 0
-            tableView.sectionHeaderTopPadding = 0
+            if #available(iOS 15.0, *) {
+                tableView.sectionHeaderTopPadding = 0
+            }
             tableView.tableHeaderView = context.coordinator.tableHeaderView
             context.coordinator.dataSource = UITableViewDiffableDataSource(tableView: tableViewController.tableView, cellProvider: self.cellProvider ?? { tableView, indexPath, itemIdentifier in
                 if let viewClass = (itemIdentifier.viewClass as? UITableViewCell.Type) ?? (context.coordinator.defaultCellViewClass as? UITableViewCell.Type), let reuseIdentifier = itemIdentifier.reuseIdentifier{

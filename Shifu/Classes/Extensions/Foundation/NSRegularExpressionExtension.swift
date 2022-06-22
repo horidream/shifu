@@ -35,9 +35,8 @@ extension Collection where Iterator.Element == [String]{
     }
 }
 
-@available(iOS 16.0, *)
-public extension Regex{
-    func findall(_ string: String)->Regex<Output>.Match?{
-        try? self.firstMatch(in: string)
-    }
-}
+//public extension Regex{
+//    func findall(_ string: String)->Regex<Output>.Match?{
+//        try? self.firstMatch(in: string)
+//    }
+//}

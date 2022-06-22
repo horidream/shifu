@@ -14,32 +14,29 @@ struct NotificationManagerDemo: View {
     @ObservedObject private var nm = NotificationManager.shared
     var body: some View{
         Group{
-            if #available(iOS 16.0, *) {
-                HStack{
-                    Image(.youtube)
-                        .foregroundColor(.red)
-                    Text("YouTube")
-                }
-                .frame(maxHeight: .infinity)
-
-                Text("Notification " + (nm.isGranted ? "Granted" : "Not Granted"))
-                HStack{
-                    if(nm.isGranted){
-                        Button{
-                            nm.scheduleLocalNotification(title: "Hello", body: "宝利， 你好！")
-                        } label: {
-                            Text("Schedule")
-                        }.foregroundColor(.purple)
-                    }
-                    Button{
-                        nm.openSettings()
-                    } label: {
-                        Text("Settings")
-                    }
-                }
-            } else {
-                Text("Not Implemented")
+            HStack{
+                Image(.youtube)
+                    .foregroundColor(.red)
+                Text("YouTube")
             }
+            .frame(maxHeight: .infinity)
+            
+            Text("Notification " + (nm.isGranted ? "Granted" : "Not Granted"))
+            HStack{
+                if(nm.isGranted){
+                    Button{
+                        nm.scheduleLocalNotification(title: "Hello", body: "宝利， 你好！")
+                    } label: {
+                        Text("Schedule")
+                    }.foregroundColor(.purple)
+                }
+                Button{
+                    nm.openSettings()
+                } label: {
+                    Text("Settings")
+                }
+            }
+            
         }
         .onInjection{
             sandbox()
@@ -55,7 +52,7 @@ struct NotificationManagerDemo: View {
             nm.refreshSettingsPublisher.send()
         }
     }
-
+    
     func sandbox(){
         Task{
             try? await nm.requestAuthorization()

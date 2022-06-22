@@ -14,55 +14,63 @@ import UIKit
 
 struct Sandbox:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @ObservedObject private var nm = NotificationManager.shared
+    @StateObject var props = TweenProps()
+    @State var count = 0;
     var body: some View{
-        Group{
-            if #available(iOS 16.0, *) {
-                HStack{
-                    Image(.youtube)
-                        .foregroundColor(.red)
-                    Text("YouTube")
+        VStack{
+            Image.icon(.swift_fa, size: 100)
+                .foregroundColor(.orange)
+            SimpleMarkdownViewer(content: "### I want to say thank you for your hard work.\n May the `force` be with you.", css: "h3, * { text-align: center; line-height: 25px;} ")
+                .id(injectObserver.injectionNumber)
+        }
+            .padding(50)
+            .tweenProps(props)
+            .onTapGesture {
+                if count % 2 == 0 {
+                    tween($props,
+                          from: [
+                            \.x: -300,
+                             \.rotationY: 89,
+                          ],
+                          to: [
+                            \.x: 0,
+                             \.rotationY: 0,
+                             \.alpha: 1
+                          ],
+                          type: .back);
+                }else{
+                    tween($props,
+                          to: [
+                            \.x: 300,
+                             \.rotationY: -89,
+                             \.alpha: 0.002
+                          ]
+                          );
+                    
                 }
-                .frame(maxHeight: .infinity)
-
-                Text("Notification " + (nm.isGranted ? "Granted" : "Not Granted"))
-                HStack{
-                    if(nm.isGranted){
-                        Button{
-                            nm.scheduleLocalNotification(title: "Hello", body: "Baoli Sama")
-                        } label: {
-                            Text("Schedule")
-                        }.foregroundColor(.purple)
-                    }
-                    Button{
-                        nm.openSettings()
-                    } label: {
-                        Text("Settings")
-                    }
-                }
-            } else {
-                Text("Not Implemented")
+                count += 1
+                
             }
-        }
-        .onInjection{
-            sandbox()
-        }
-        .onAppear{
-            sandbox()
-        }
-        .onChange(of: nm.isGranted, perform: { newValue in
-            clg("settings is granted:  \(newValue)")
-        })
-        .onReceive(scenePhase) { _ in
-            clg("phase changed")
-            nm.refreshSettingsPublisher.send()
-        }
+            .onInjection{
+                sandbox()
+            }
+            .onAppear{
+                sandbox()
+            }
     }
 
     func sandbox(){
-        Task{
-            try? await nm.requestAuthorization()
-        }
+        tween($props, from: [
+            \.y : 400,
+             \.alpha: 0
+        ]);
+    }
+    
+    func value<T>(for keyPath: ReferenceWritableKeyPath<TweenProps, T>)-> T {
+        return props[keyPath:keyPath]
     }
 }
+
+
+
 

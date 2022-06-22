@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15, *)
 public struct Shimmer:ViewModifier{
     public init(){}
     @State var animation = false
