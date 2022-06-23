@@ -1,33 +1,33 @@
-//
-//  Sandbox.swift
-//  ShifuExample
-//
-//  Created by Baoli Zhai on 2022/3/13.
-//  Copyright © 2022 CocoaPods. All rights reserved.
-//
-
+```swift
 import SwiftUI
 import Shifu
-import JavaScriptCore
-import Combine
-import UIKit
 
-struct Sandbox:View{
+struct AnimationDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     @StateObject var props = TweenProps()
     @State var count = 0;
     var body: some View{
-        VStack{
-            Image.icon(.swift_fa, size: 100)
-                .foregroundColor(.orange)
-            SimpleMarkdownViewer(content: "### May the `Force` be with you.\n" + #"""
+        ZStack{
+            VStack{
+                Image.icon(.swift_fa, size: 100)
+                    .foregroundColor(.orange)
+                SimpleMarkdownViewer(content: "### May the `Force` be with you.\n" + #"""
                                  **May the Force be with you** was a phrase used to wish an individual or group good luck or good will, one that expressed the speaker's wish that the Force work in the favor of the addressee. The phrase was often used as individuals parted ways or in the face of an impending challenge.
                                  """#, css: "h3, * { text-align: center; line-height: 25px;} ")
-            .id(injectObserver.injectionNumber)
-            .frame(height: 200)
+                .id(injectObserver.injectionNumber)
+                .frame(height: 200)
+            }
+            .padding(50)
+            .tweenProps(props)
+            
+            if(count % 2 == 1){
+                ScrollView{
+                    SimpleMarkdownViewer(content: "@source/AnimationDemo.md".url?.content ?? "## Hello", css: "body, pre { margin: 0; border: none; box-shadow: none; } ")
+                }
+                .transition(.opacity)
+            }
         }
-        .padding(50)
-        .tweenProps(props)
+        .navigationBarTitleDisplayMode(.inline)
         .onTapGesture {
             if count % 2 == 1 {
                 tween($props,
@@ -72,5 +72,4 @@ struct Sandbox:View{
 }
 
 
-
-
+```

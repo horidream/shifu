@@ -101,7 +101,7 @@ public struct PowerTable: UIViewControllerRepresentable{
         }
         
         public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return UITableView.automaticDimension
+            return  headerIdentifier(section: section)?.estimatedHeight ?? UITableView.automaticDimension
         }
         
         public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -113,7 +113,7 @@ public struct PowerTable: UIViewControllerRepresentable{
         }
         
         public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-            return UITableView.automaticDimension
+            return footerIdentifier(section: section)?.estimatedHeight ?? UITableView.automaticDimension
         }
         
         public func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {

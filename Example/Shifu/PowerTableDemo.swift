@@ -111,8 +111,9 @@ class MyLabel: UIView, Updatable{
     init(){
         super.init(frame: .zero)
         self.addSubview(label)
-        label.quickMargin(0, 0, 0, 0)
-            .addBorder(position: [.top, .bottom], color: .orange)
+        label.quickMargin(5, 0, 5, 0)
+        self.addBorder(position: [.top], color: .white, lineWidth: 1)
+            .addBorder(position: [.bottom], color: .black, lineWidth: 2)
     }
     
     required init?(coder: NSCoder) {
@@ -120,7 +121,7 @@ class MyLabel: UIView, Updatable{
     }
     
     public func update(_ data: Any?) {
-        self.backgroundColor = .gray
+        self.backgroundColor = .lightGray
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.firstLineHeadIndent = 12
         paragraphStyle.headIndent = 12
@@ -128,7 +129,7 @@ class MyLabel: UIView, Updatable{
         let attributedString = NSAttributedString(string: data as? String ?? "" , attributes: [
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
             .foregroundColor: UIColor.white,
-            .font: UIFont.systemFont(ofSize: 28)
+            .font: UIFont.systemFont(ofSize: 22)
         ])
         label.numberOfLines = 0
         label.attributedText = attributedString
@@ -137,7 +138,7 @@ class MyLabel: UIView, Updatable{
 
 class MyLabel2: UILabel, Updatable{
     public func update(_ data: Any?) {
-        self.backgroundColor = .lightGray
+        self.backgroundColor = .lightGray.withAlphaComponent(0.88)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.firstLineHeadIndent = 12
         paragraphStyle.headIndent = 12
@@ -161,8 +162,8 @@ class DiffableDataFactory{
     
     static func headerAndFooter(_ title: String, footer: String)->AnyDiffableData {
         AnyDiffableData(
-            (AnyDiffableData(title, viewClass: MyLabel.self, estimatedHeight: 100),
-             AnyDiffableData(footer, viewClass: MyLabel2.self, estimatedHeight: 100)), userDefinedHash: 1
+            (AnyDiffableData(title, viewClass: MyLabel.self, estimatedHeight: nil),
+             AnyDiffableData(footer, viewClass: MyLabel2.self, estimatedHeight: 25)), userDefinedHash: 1
         )
     }
     

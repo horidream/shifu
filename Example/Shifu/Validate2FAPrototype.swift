@@ -90,30 +90,42 @@ class Merchant2FAViewController:UIViewController{
     var validated = CurrentValueSubject<Bool, Never>(false)
     override func viewDidLoad() {
         let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 38)
         view.addSubview(label)
+        
         label.quickAlign()
         let btn = UIButton(configuration: .plain())
         btn.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-        btn.configuration?.title = "Change Validation Status"
+        btn.configuration?.title = "Mock Validation"
         btn.configuration?.baseForegroundColor = .white
         btn.layer.borderColor = UIColor.white.cgColor
         btn.layer.borderWidth = 1
         btn.layer.cornerRadius = 5
         btn.addTarget(self, action: #selector(onChangeValidated), for: .touchUpInside)
         view.addSubview(btn)
-        btn.quickAlign(5, 0, 40)
+        btn.quickAlign(5, 0, 38 + 5)
         validated.onReceive { validated in
-            label.text = "Validated: \(validated)"
+            label.text = self.message(for: validated)
+        }
+    }
+    
+    func message(for validated: Bool)->String{
+        if validated {
+            return "VALIDATED"
+        } else {
+            return "VALIDATING..."
         }
     }
     
     @objc func onChangeValidated(){
-        validated.value = !validated.value
+        validated.value = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.backgroundColor = .gray
+        view.backgroundColor = .gray.withAlphaComponent(0.96)
+        view.layer.cornerRadius = 20
         view.quickMargin(8,8,8,8)
     }
     override func viewWillDisappear(_ animated: Bool) {

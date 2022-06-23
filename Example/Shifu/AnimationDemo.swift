@@ -11,55 +11,57 @@ import Shifu
 
 struct AnimationDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var locale:Locale = .zh_CN
-    @State var progress: CGFloat = 0
-    @State var displayMessage:String = ""
-    @State var currentColor:Color = .white
-    @State var prevColor:Color = .white
-    @State var isSilent: Bool = false
-    let paddingValue:CGFloat = 50
-    let timer = Timer.publish(every: 60 , on: RunLoop.main, in: .common)
-        .autoconnect()
-        .prepend(Date())
+    @StateObject var props = TweenProps()
+    @State var count = 0;
     var body: some View{
         ZStack{
             VStack{
-                Text(displayMessage)
-                    .bold()
-                    .foregroundColor(.white)
-                    .padding(12, 16)
-                    .background(
-                        Capsule()
-                            .fill(Color.blue)
-                    )
+                Image.icon(.swift_fa, size: 100)
+                    .foregroundColor(.orange)
+                SimpleMarkdownViewer(content: "### May the `Force` be with you.\n" + #"""
+                                 **May the Force be with you** was a phrase used to wish an individual or group good luck or good will, one that expressed the speaker's wish that the Force work in the favor of the addressee. The phrase was often used as individuals parted ways or in the face of an impending challenge.
+                                 """#, css: "h3, * { text-align: center; line-height: 25px;} ")
+                .id(injectObserver.injectionNumber)
+                .frame(height: 200)
+            }
+            .padding(50)
+            .tweenProps(props)
+            
+            if(count % 2 == 1){
+                ScrollView{
+                    SimpleMarkdownViewer(content: "@source/AnimationDemo.md".url?.content ?? "## Hello", css: "body, pre { margin: 0; border: none; box-shadow: none; } ")
+                }
+                .transition(.opacity)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .onTapGesture {
+            if count % 2 == 1 {
+                tween($props,
+                      from: [
+                        \.x: -300,
+                         \.rotationY: 89,
+                      ],
+                      to: [
+                        \.x: 0,
+                         \.rotationY: 0,
+                         \.alpha: 1
+                      ],
+                      type: .back);
+            }else{
+                tween($props,
+                      to: [
+                        \.x: 300,
+                         \.rotationY: -89,
+                         \.alpha: 0.002
+                      ]
+                );
                 
             }
-            
-            Circle()
-                .stroke(Color.blue.opacity(0.73), style: StrokeStyle(lineWidth: 70, lineCap: .round, lineJoin: .round))
-                .padding(paddingValue)
-            Circle()
-                .stroke(prevColor, style: StrokeStyle(lineWidth: 40, lineCap: .round, lineJoin: .round))
-                .padding(paddingValue)
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(currentColor, style: StrokeStyle(lineWidth: 40, lineCap: .round, lineJoin: .round))
-                .rotationEffect(Angle(degrees: -84))
-                .padding(paddingValue)
+            count += 1
             
         }
-        .onChange(of: isSilent, perform: { newValue in
-            if newValue {
-                Announcer.shared.stop()
-            }else{
-                Announcer.say(displayMessage)
-            }
-        })
-        .onReceive(timer, perform: render(date:))
-        .onTapGesture {
-            isSilent.toggle()
-        }
-        .onInjection {
+        .onInjection{
             sandbox()
         }
         .onAppear{
@@ -67,18 +69,12 @@ struct AnimationDemo: View {
         }
     }
     
-    func render(date: Date){
-        let msg = date.toString(formatter: .formatter(with:"yyyyMMMMddhhmm", timeZone: .gmt + 9, locale: locale)) ?? ""
-        ta($progress).from(0, to: 1, duration: 60)
-        prevColor = currentColor
-        ta($currentColor).to(.random, duration: 5)
-        displayMessage = msg
-        if(!isSilent){
-            Announcer.say(msg, wait: false,  locale: locale)
-        }
-    }
-    
     func sandbox(){
+        tween($props, from: [
+            \.scale: 4,
+             \.rotationY : -255,
+             \.alpha: 0
+        ], duration: 0.5);
     }
 }
 

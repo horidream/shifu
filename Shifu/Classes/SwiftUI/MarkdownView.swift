@@ -52,7 +52,7 @@ public struct SimpleMarkdownViewer: View{
     
     public var body: some View{
         MarkdownView(viewModel: viewModel,  content: .constant(stringContent))
-            .autoResize()
+            .autoResize(animated)
             .if(animated){
                 $0.animation(.none, value: viewModel.contentHeight)
                     .scaleEffect(viewModel.contentHeight == 0 ? 0.973 : 1, anchor: .top)
@@ -94,7 +94,7 @@ public struct MarkdownView: View{
             }
     }
     
-    public func autoResize()-> some View{
+    public func autoResize(_ animated: Bool = true)-> some View{
         if(viewModel.allowScroll){
             viewModel.allowScroll = false
         }
@@ -102,10 +102,10 @@ public struct MarkdownView: View{
             .frame(height: viewModel.contentHeight)
             .on("contentHeight", target: viewModel.delegate){
             if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
-                withAnimation {
+                withAnimation(.easeIn(duration: animated ? 0.35 : 0)) {
                     self.viewModel.contentHeight = height
-                    
                 }
+                
             }
 
         }

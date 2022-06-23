@@ -148,7 +148,6 @@ struct TweenModifier:ViewModifier{
     func body(content: Content) -> some View {
         
         return content
-            .foregroundColor(Color(UInt(props.color)))
             .offset(x: props.x.cgFloat, y: props.y.cgFloat)
             .scaleEffect(props.scale)
             .scaleEffect(x: props.scaleX, y: props.scaleY)
@@ -157,42 +156,9 @@ struct TweenModifier:ViewModifier{
             .rotation3DEffect(Angle(degrees: props.rotationX), axis: (1, 0, 0))
             .rotation3DEffect(Angle(degrees: props.rotationY), axis: (0, 1, 0))
             .rotation3DEffect(Angle(degrees: props.rotationZ), axis: (0, 0, 1))
+            .foregroundColor(Color(UInt(props.color)))
     }
 }
-
-//public func tween(_ target:ObservedObject<TweenProps>.Wrapper, to dic:[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue]){
-//    var arr = [(Binding<Double>, Double)]()
-//    withAnimation {
-//        for item in dic{
-//            guard let prop = target[keyPath: item.key] as? Binding<Double> else { continue }
-//            if let value = item.value as? Double{
-//                prop.wrappedValue = value
-//            } else if let value = item.value as? String{
-//                prop.wrappedValue = prop.wrappedValue + value.double
-//            }
-//        }
-//    }
-//}
-//
-//public func tween(_ target:ObservedObject<TweenProps>.Wrapper, from dic:[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue]){
-//    var arr = [(Binding<Double>, Double)]()
-//    withAnimation {
-//        withAnimation(.linear(duration: 0)){
-//            for item in dic{
-//                guard let prop = target[keyPath: item.key] as? Binding<Double> else { continue }
-//                arr.append((prop, prop.wrappedValue))
-//                if let value = item.value as? Double{
-//                    prop.wrappedValue = value
-//                } else if let value = item.value as? String{
-//                    prop.wrappedValue = prop.wrappedValue + value.double
-//                }
-//            }
-//        }
-//        for item in arr{
-//            item.0.wrappedValue = item.1
-//        }
-//    }
-//}
 
 public func tween(_ target:ObservedObject<TweenProps>.Wrapper,
                   from :[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue] = [:],
