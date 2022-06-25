@@ -14,14 +14,6 @@ public extension CGPoint{
         self.init(x:x, y:y)
     }
     
-    func rectTo(_ point:CGPoint)->CGRect{
-        return CGRect(origin: self, size: CGSize(width: point.x - self.x, height: point.y - self.y))
-    }
-    
-    func rect(_ width: CGFloat, _ height: CGFloat)->CGRect{
-        return CGRect(origin: self, size: CGSize(width: width, height: height))
-    }
-    
     static func + (left: CGPoint, right: CGPoint) -> CGPoint {
         return CGPoint(x: left.x + right.x, y: left.y + right.y)
     }
@@ -36,6 +28,28 @@ public extension CGPoint{
     
     static func -= (left: inout CGPoint, right: CGPoint) {
         left = left - right
+    }
+    
+    static func random(in rect: CGRect, exclude: CGRect = .zero)->CGPoint{
+        let center = exclude.center
+        let offsetX = exclude.width / 2
+        let offsetY = exclude.height / 2
+        let x = CGFloat.random(in: rect.minX...rect.maxX)
+        let y = CGFloat.random(in: rect.minY...rect.maxY)
+        return CGPoint(x: x < center.x ? x - offsetX : x + offsetY , y: y < center.y ? y - offsetY : y + offsetY)
+    }
+    
+    func rectTo(_ point:CGPoint)->CGRect{
+        return CGRect(origin: self, size: CGSize(width: point.x - self.x, height: point.y - self.y))
+    }
+    
+    func rect(_ width: CGFloat, _ height: CGFloat)->CGRect{
+        return CGRect(origin: self, size: CGSize(width: width, height: height))
+    }
+    
+    func distance(to: CGPoint = .zero) -> CGFloat{
+        let p = self - to
+        return sqrt(p.x * p.x + p.y * p.y)
     }
 }
 

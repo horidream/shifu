@@ -31,6 +31,7 @@
 		B757972E6B16479D3511D066 /* Pods_ShifuExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6CAA8E7FC3862D7C704DDA /* Pods_ShifuExampleTests.framework */; };
 		C7177D11284A11F500372629 /* IconsDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7177D10284A11F500372629 /* IconsDemo.swift */; };
 		C72CB725282961BD000FBF12 /* ShimmerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CB724282961BD000FBF12 /* ShimmerDemo.swift */; };
+		C76AA64128673FCF002A1090 /* OnEnterFrameDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */; };
 		C7804F9828190A92006AC449 /* Validate2FAPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */; };
 		C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */; };
 		C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7965CD728426DB3002C825A /* PowerTableDemo.swift */; };
@@ -82,6 +83,7 @@
 		B3B324223DF4BCD83B564ABE /* Pods-ShifuExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		C7177D10284A11F500372629 /* IconsDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsDemo.swift; sourceTree = "<group>"; };
 		C72CB724282961BD000FBF12 /* ShimmerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDemo.swift; sourceTree = "<group>"; };
+		C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnEnterFrameDemo.swift; sourceTree = "<group>"; };
 		C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate2FAPrototype.swift; sourceTree = "<group>"; };
 		C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerDemo.swift; sourceTree = "<group>"; };
 		C7965CD728426DB3002C825A /* PowerTableDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerTableDemo.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				C7965CD728426DB3002C825A /* PowerTableDemo.swift */,
 				C7177D10284A11F500372629 /* IconsDemo.swift */,
 				C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */,
+				C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */,
 			);
 			name = demos;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 			files = (
 				3C3C46DE27B92E6F00BCB074 /* ColorThemeManagerDemo.swift in Sources */,
 				C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */,
+				C76AA64128673FCF002A1090 /* OnEnterFrameDemo.swift in Sources */,
 				99244B5D261C9FDA0027A1D7 /* HomeView.swift in Sources */,
 				3C2F1CE327F1E3DA0027F24F /* NavigationStyleDemo.swift in Sources */,
 				3C3C46EA27BB9F2C00BCB074 /* ShifuWebViewDemo.swift in Sources */,
