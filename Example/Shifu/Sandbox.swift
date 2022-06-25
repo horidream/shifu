@@ -13,47 +13,55 @@ import Combine
 import UIKit
 
 struct Sandbox:View{
+    let g:CGFloat = 0.98;
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @StateObject var props = TweenProps()
-    @State var count = 0;
+    @State var isEnterFrameActive = true
+    @State var p:CGFloat = -300
+    @State var v:CGFloat = 0;
+    @State var r:Double = .zero
+    var colors = (0..<10).map{_ in Color.random }
     var body: some View{
-        VStack{
-            Image.icon(.swift_fa, size: 100)
-                .foregroundColor(.orange)
-            SimpleMarkdownViewer(content: "### May the `Force` be with you.\n" + #"""
-                                 **May the Force be with you** was a phrase used to wish an individual or group good luck or good will, one that expressed the speaker's wish that the Force work in the favor of the addressee. The phrase was often used as individuals parted ways or in the face of an impending challenge.
-                                 """#, css: "h3, * { text-align: center; line-height: 25px;} ")
-            .id(injectObserver.injectionNumber)
-            .frame(height: 200)
-        }
-        .padding(50)
-        .tweenProps(props)
-        .onTapGesture {
-            if count % 2 == 1 {
-                tween($props,
-                      from: [
-                        \.x: -300,
-                         \.rotationY: 89,
-                      ],
-                      to: [
-                        \.x: 0,
-                         \.rotationY: 0,
-                         \.alpha: 1
-                      ],
-                      type: .back);
-            }else{
-                tween($props,
-                      to: [
-                        \.x: 300,
-                         \.rotationY: -89,
-                         \.alpha: 0.002
-                      ]
-                );
-                
+        
+        ZStack{
+            ForEach(0..<10){i in
+                Image.icon(.moon_fa)
+                    .frame(height: 35)
+                    .rotationEffect(.degrees(r))
+                    .offset(x: ((5 - i) * 40 - 20) .cgFloat, y: p)
+                    .foregroundColor(colors[i])
             }
-            count += 1
+            Rectangle()
+                .fill(.black)
+                .frame(width: UIScreen.main.bounds.width, height:  300)
+                .offset(y: 500)
+        }
+        .onEnterFrame(isActive: isEnterFrameActive) { f in
+            v = v + g
+            p = p + v
+            r += 3
+            if p > 300 {
+                p = 300
+                v *= -0.9
+                if abs(v) < 0.5{
+                    v = 0
+                    isEnterFrameActive = false
+                    clg("stop the animation")
+                }
+            }
             
         }
+        
+        .onTapGesture {
+            if(!isEnterFrameActive){
+                v = 0 - CGFloat.random(in: 0...100) / 100 * 50
+                r = 0
+                isEnterFrameActive.toggle()
+            }else{
+                v += v / abs(v) * CGFloat.random(in: 0...100) / 100 * 20
+            }
+        }
+        .padding(50)
+        
         .onInjection{
             sandbox()
         }
@@ -63,14 +71,6 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        tween($props, from: [
-            \.scale: 4,
-             \.rotationY : -255,
-             \.alpha: 0
-        ], duration: 0.5);
     }
 }
-
-
-
 
