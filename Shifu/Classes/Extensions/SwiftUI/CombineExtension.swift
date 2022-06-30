@@ -9,14 +9,14 @@ import Combine
 import UIKit
 import SwiftUI
 
-fileprivate func getRetainKey(key:String, line:Int)->String{
+fileprivate func getRetainKey(key:AnyHashable, line:Int)->AnyHashable{
     return "\(key)-\(line)"
 }
 
 @available(iOS 13.0, *)
 public extension AnyCancellable{
-    static var bag:[String:AnyCancellable] = [:]
-    @discardableResult func retain(_ key: @autoclosure ()-> String = #file + "\(#line)" ) -> Self {
+    static var bag:[AnyHashable:AnyCancellable] = [:]
+    @discardableResult func retain(_ key: @autoclosure ()-> AnyHashable = #file + "\(#line)" ) -> Self {
         AnyCancellable.bag[key()] = self
         return self
     }
@@ -29,7 +29,7 @@ public extension AnyCancellable{
         }
     }
     
-    var key:String? {
+    var key:AnyHashable? {
         for item in AnyCancellable.bag{
             if(item.value == self){
                 return item.key
@@ -38,19 +38,19 @@ public extension AnyCancellable{
         return nil
     }
     
-    static func release(key:String){
+    static func release(key:AnyHashable){
         bag[key]?.cancel()
         AnyCancellable.bag.removeValue(forKey: key)
     }
     
-    static func releaseAll(test:((String)->Bool) = { _ in true }){
+    static func releaseAll(test:((AnyHashable)->Bool) = { _ in true }){
         
         bag.keys.filter(test).forEach { (key) in
             release(key: key)
         }
     }
-    static func releaseAll(pattern:String){
-        bag.keys.filter({ $0.range(of: pattern, options: .regularExpression) != nil }).forEach { (key) in
+    static func releaseAll(pattern: String){
+        bag.keys.compactMap{ $0 as? String }.filter({ $0.range(of: pattern, options: .regularExpression) != nil }).forEach { (key) in
             release(key: key)
         }
     }
@@ -58,14 +58,14 @@ public extension AnyCancellable{
 
 
 public extension Publisher{
-    func onReceive(_ block:@escaping (Output)->Void, key: @autoclosure ()-> String = #file + "\(#line)"){
+    func onReceive(_ block:@escaping (Output)->Void, key: @autoclosure ()-> AnyHashable = #file + "\(#line)"){
         self.sink { error in } receiveValue: { value in
             block(value)
         }
         .retain(key())
     }
     
-    func onReceiveCancellable(_ block:@escaping (Output, ()->Void)->Void, key: @autoclosure ()-> String = #file + "\(#line)"){
+    func onReceiveCancellable(_ block:@escaping (Output, ()->Void)->Void, key: @autoclosure ()-> AnyHashable = #file + "\(#line)"){
         let myKey = key()
         self.sink { error in } receiveValue: { value in
             block(value, {
@@ -77,7 +77,7 @@ public extension Publisher{
 }
 
 @available(iOS 13.0, *)
-public func debounce<T>(_ id:String, closure:@escaping (T)->Void)->((T)->Void){
+public func debounce<T>(_ id:AnyHashable, closure:@escaping (T)->Void)->((T)->Void){
     
     let publisher = PassthroughSubject<T, Never>()
     publisher.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
@@ -89,7 +89,7 @@ public func debounce<T>(_ id:String, closure:@escaping (T)->Void)->((T)->Void){
 }
 
 @available(iOS 13.0, *)
-public func debounce(_ id:String, closure:@escaping ()->Void)->(()->Void){
+public func debounce(_ id:AnyHashable, closure:@escaping ()->Void)->(()->Void){
     
     let publisher = PassthroughSubject<Void, Never>()
     publisher.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
@@ -107,5 +107,54 @@ public protocol CVSTransform {
 public extension CVSTransform {
     var cvs:CurrentValueSubject<Self, Never>{
         return CurrentValueSubject(self)
+    }
+}
+
+
+public extension NSKeyValueObservation{
+    static var bag:[AnyHashable:NSKeyValueObservation] = [:]
+    @discardableResult func retain(_ key: @autoclosure ()-> AnyHashable = #file + "\(#line)" ) -> Self {
+        NSKeyValueObservation.bag[key()] = self
+        return self
+    }
+
+
+
+    func release(){
+        if let key = key{
+            NSKeyValueObservation.release(key: key)
+        }
+    }
+
+    var key:AnyHashable? {
+        for item in NSKeyValueObservation.bag{
+            if(item.value == self){
+                return item.key
+            }
+        }
+        return nil
+    }
+
+    static func release(key:AnyHashable){
+        NSKeyValueObservation.bag.removeValue(forKey: key)
+    }
+
+    static func releaseAll(test:((AnyHashable)->Bool) = { _ in true }){
+        bag.keys.filter(test).forEach { (key) in
+            release(key: key)
+        }
+    }
+    
+    static func releaseAll(pattern: String){
+        bag.keys.compactMap{ $0 as? String }.filter({ $0.range(of: pattern, options: .regularExpression) != nil }).forEach { (key) in
+            release(key: key)
+        }
+    }
+}
+
+
+extension NSKeyValueObservedChange{
+    public func release(key: AnyHashable){
+        NSKeyValueObservation.release(key: key)
     }
 }

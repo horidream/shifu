@@ -13,3 +13,7 @@ let clg = Shifu.clg(prefix: "Hori -")
 
 extension String: CVSTransform{}
 
+class Theme{
+    @ThemedColor(light: .red, dark: .white)
+    public static var iconColor
+}

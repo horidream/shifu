@@ -161,8 +161,8 @@ struct TweenModifier:ViewModifier{
 }
 
 public func tween(_ target:ObservedObject<TweenProps>.Wrapper,
-                  from :[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue] = [:],
-                  to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenValue] = [:],
+                  from :[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue] = [:],
+                  to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue] = [:],
                   duration: Double? = nil,
                   delay: Double = 0,
                   type: TweenAnimationType = .default){
@@ -193,16 +193,16 @@ public func tween(_ target:ObservedObject<TweenProps>.Wrapper,
     }
 }
 
-public protocol TweenValue: Equatable{
+public protocol TweenableValue: Equatable{
     var double: Double { get }
 }
 
-extension Double: TweenValue {
+extension Double: TweenableValue {
     public var double: Double {
         return self
     }
 }
-extension String: TweenValue {
+extension String: TweenableValue {
     public var double: Double {
         return Double(self) ?? 0
     }

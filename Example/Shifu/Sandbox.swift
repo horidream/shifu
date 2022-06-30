@@ -15,6 +15,7 @@ import UIKit
 
 
 struct Sandbox:View{
+   
     @ObservedObject private var injectObserver = Self.injectionObserver
     @State var shouldAutoPlay = false
     @State var image = Icons.Name.swift_fa{
@@ -25,21 +26,29 @@ struct Sandbox:View{
             }
         }
     }
-    @State var iconColor:Color = .red
+    @State var iconColor:Color = Theme.iconColor.swiftUIColor
     @StateObject var props = TweenProps()
+    @State var observation: NSKeyValueObservation?
     
     var body: some View {
         VStack(alignment: .leading) {
+            ThemePicker()
+                .padding(0, 12)
             StickyIcon(image: $image, color: $iconColor , maxRadius: 35)
                 .tweenProps(props)
+                .onTapGesture {
+                    image = .random
+                    //            iconColor = .random
+                }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button{
                     shouldAutoPlay.toggle()
                     if shouldAutoPlay {
                         
-                        Timer.publish(every: 1.5, on: .current, in: .common)
+                        Timer.publish(every: 1.2, on: .current, in: .common)
                             .autoconnect()
                             .sink { _ in
                                 image = .random
@@ -63,15 +72,11 @@ struct Sandbox:View{
                                 .stroke(lineWidth: 3)
                         }
                 }
-
+                
             }
-        }
-        .onTapGesture {
-            image = .random
-//            iconColor = .random
+            
         }
         .padding()
-        .font(.caption2)
         .onInjection{
             sandbox()
         }
@@ -81,158 +86,14 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        let hexValue = String(format: "%2X", Test.myColor.hexValue ?? 0)
-        clg(hexValue.substr(-6))
-    }
-}
-
-
-struct StickyIcon: View{
-    @State  private var threshold: Double = 0.5
-    @State  private var previousThreshold: Double = 0.5
-    @State  private var targetThreshold: Double = 0.5
-    
-    @State private var thresholdTween: TweenValue?
-    @State private var radiusTween: TweenValue?
-
-    @State  private var radius: Double = 0
-    @State  private var targetRadius: Double = 0
-    
-    @Binding private var image:Icons.Name
-    @Binding private var color:Color
-    @State private var currentColor:Color
-
-    @State private var targetImage = Icons.Name.swift_fa
-    @State private var maxRadius: Double = 40
-    private var drawableImage: Image {
-        if(targetImage.isFontAwesome){
-            return Image(uiImage: Icons.image(targetImage, size: 300))
-        }else{
-            return Image(targetImage)
-        }
-        
-    }
-    
-    init(image: Binding<Icons.Name>, color: Binding<Color> = .constant(.black), maxRadius: Double = 40) {
-        _image = image
-        _color = color
-        _currentColor = State(wrappedValue: color.wrappedValue)
-        _maxRadius = State(wrappedValue: maxRadius)
-    }
-    
-    var body: some View {
-            currentColor.mask {
-                Canvas { ctx, size in
-                    ctx.addFilter(.alphaThreshold(min: threshold))
-                    ctx.addFilter(.blur(radius: radius))
-                    let w = size.width * 0.8
-                    let originalSize = Icons.image(targetImage).size
-                    let h = w * originalSize.height / originalSize.width
-                    let offsetX = (size.width - w) / 2
-                    let offsetY = (size.height - h) / 2
-                    let rect = CGRect(offsetX, offsetY, w, h)
-                    ctx.draw(drawableImage, in: rect)
-                }
-            }
-        .onChange(of: image, perform: { newValue in
-            let timestamp = Date().timeIntervalSince1970
-            thresholdTween = TweenValue(startTime: timestamp, endTime: timestamp + 0.4, start: threshold, end: 0.4, easing: { pow($0 , 3) })
-            targetRadius = maxRadius
-            previousThreshold = threshold
-            targetThreshold = 0.4
-            delay(0.3){
-                let timestamp = Date().timeIntervalSince1970
-                thresholdTween = TweenValue(startTime: timestamp, endTime: timestamp + 0.4, start: threshold, end: 0.1, easing: { 1 - pow(1 - $0, 3 ) })
-                targetImage = image
-                targetRadius = 0
-                previousThreshold = threshold
-                targetThreshold = 0.1
-            }
-        })
-        .onChange(of: color, perform: { newValue in
-            ta($currentColor).to(newValue, duration: 0.6)
-        })
-        .onEnterFrame(isActive: targetRadius != radius || targetThreshold != threshold){ f in
-            if targetRadius != radius {
-                radius += (targetRadius - radius) * 0.15
-            }
-            
-            if targetThreshold != threshold{
-                if let thresholdTween {
-                    let timestamp = Date().timeIntervalSince1970
-                    threshold = thresholdTween.valueForTime(timestamp)
-                }
-//                threshold += (targetThreshold - threshold) * 0.15
-            }
-            if( (targetRadius - radius) / (targetRadius - previousThreshold) < 0.01){
-                radius = targetRadius
-                threshold = targetThreshold
-            }
+        observation = Shifu.keyWindow?.observe(\.overrideUserInterfaceStyle){_,v in
+            clg("what?")
         }
     }
 }
 
-struct TweenValue{
-    var startTime: TimeInterval
-    var duration:TimeInterval {
-        endTime - startTime
-    }
-    var endTime: TimeInterval
-    var start:Double
-    var end: Double
-    var offset:Double {
-        end - start
-    }
-    var easing: (Double)->Double
-    func progress(_ t:TimeInterval)->Double {
-        max(0, min(1, (t - start) / (end - start)))
-    }
-    func valueForTime(_ t:TimeInterval)->Double{
-        start + offset * easing(progress(t))
-    }
-    
-    init(startTime: TimeInterval, endTime: TimeInterval, start: Double, end: Double, easing: @escaping (Double) -> Double) {
-        self.startTime = startTime
-        self.endTime = endTime
-        self.start = start
-        self.end = end
-        self.easing = easing
-    }
-}
 
-@propertyWrapper
-public struct ThemedColor
-{
-    let light: UIColor
-    let dark: UIColor
 
-    public init(light: UIColor, dark: UIColor)
-    {
-        self.light = light
-        self.dark = dark
-    }
 
-    public var wrappedValue: UIColor
-    {
-        return UIColor {
-            traitCollection -> UIColor in
-            switch traitCollection.userInterfaceStyle
-            {
-            case .dark:
-                return dark
 
-            case .light,
-                 .unspecified:
-                return light
 
-            @unknown default:
-                return light
-            }
-        }
-    }
-}
-
-class Test{
-    @ThemedColor(light: .red, dark: .blue)
-    public static var myColor
-}
