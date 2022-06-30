@@ -16,9 +16,8 @@ fileprivate func getRetainKey(key:String, line:Int)->String{
 @available(iOS 13.0, *)
 public extension AnyCancellable{
     static var bag:[String:AnyCancellable] = [:]
-    @discardableResult func retain(_ key:String = #file, line:Int = #line ) -> Self {
-        let key = getRetainKey(key: key, line: line)
-        AnyCancellable.bag[key] = self
+    @discardableResult func retain(_ key: @autoclosure ()-> String = #file + "\(#line)" ) -> Self {
+        AnyCancellable.bag[key()] = self
         return self
     }
     
@@ -59,21 +58,21 @@ public extension AnyCancellable{
 
 
 public extension Publisher{
-    func onReceive(_ block:@escaping (Output)->Void, key:String = #file, line:Int = #line){
+    func onReceive(_ block:@escaping (Output)->Void, key: @autoclosure ()-> String = #file + "\(#line)"){
         self.sink { error in } receiveValue: { value in
             block(value)
         }
-        .retain(key, line: line)
+        .retain(key())
     }
     
-    func onReceiveCancellable(_ block:@escaping (Output, ()->Void)->Void, key:String = #file, line:Int = #line){
-        
+    func onReceiveCancellable(_ block:@escaping (Output, ()->Void)->Void, key: @autoclosure ()-> String = #file + "\(#line)"){
+        let myKey = key()
         self.sink { error in } receiveValue: { value in
             block(value, {
-                AnyCancellable.release(key: getRetainKey(key: key, line: line))
+                AnyCancellable.release(key: myKey)
             })
         }
-        .retain(key, line: line)
+        .retain(myKey)
     }
 }
 

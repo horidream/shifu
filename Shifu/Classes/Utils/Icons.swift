@@ -2,6 +2,9 @@ import Foundation
 
 public extension Icons{
     enum Name:String, CaseIterable {
+        public static var random: Icons.Name{
+            return .allCases.randomElement()!
+        }
         public var isFontAwesome:Bool{
             rawValue.substr(-3, 3)  == "_fa"
         }

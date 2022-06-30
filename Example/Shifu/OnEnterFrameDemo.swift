@@ -21,54 +21,82 @@ struct OnEnterFrameDemo:View{
     let g:CGFloat = 0.98;
     @ObservedObject private var injectObserver = Self.injectionObserver
     @State var isEnterFrameActive = true
+    @State var shouldShowCode  = true
+    @StateObject var props = TweenProps()
     @StateObject var balls = Balls()
+    @Namespace var animation
     var body: some View{
-        
-        ZStack{
-            ForEach(balls.balls, id: \.self){ b in
-                ZStack{
-                    Circle()
-                        .frame(height: 200)
-                        .foregroundColor(b.color)
-                    Circle()
-                        .frame(width: 50, height: 30)
-                        .scaleEffect(x: 2)
-                        .rotationEffect(.degrees(-42))
-                        .foregroundColor(.white)
-                        .offset(x:-50, y:-50)
-                    Circle()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
-                        .offset(x:-75, y:-10)
+        Group{
+            if !shouldShowCode {
+                ScrollView{
+                    SimpleMarkdownViewer(content: "@source/OnEnterFrameDemo.md".url?.content ?? "", animated: false,  css: "* { max-width: 300vw }")
+                        .id(injectObserver.injectionNumber)
                 }
-                .scaleEffect(b.size / 200)
-                .offset(x: b.position.x, y: b.position.y)
-                
+            } else{
+                ZStack{
+                    ForEach(balls.balls, id: \.self){ b in
+                        ZStack{
+                            Circle()
+                                .frame(height: 200)
+                                .foregroundColor(b.color)
+                            Circle()
+                                .frame(width: 50, height: 30)
+                                .scaleEffect(x: 2)
+                                .rotationEffect(.degrees(-42))
+                                .foregroundColor(.white)
+                                .offset(x:-50, y:-50)
+                            Circle()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.white)
+                                .offset(x:-75, y:-10)
+                        }
+                        .scaleEffect(b.size / 200)
+                        .offset(x: b.position.x, y: b.position.y)
+                        
+                    }
+                    Rectangle()
+                        .fill(.black)
+                        .frame(width: UIScreen.main.bounds.width, height:  300)
+                        .offset(y: 544)
+                }
+                .onTapGesture {
+                    balls.balls.filter{ $0.isStill }.forEach { b in
+                        b.v = .random(in: .zero.insetBy(dx: -10, dy: -30))
+                    }
+                }
+                .onEnterFrame(isActive: isEnterFrameActive) { f in
+                    balls.balls.forEach { b in
+                        b.update()
+                    }
+                    balls.updatedCount += 1
+                }
+                .padding(50)
             }
-            Rectangle()
-                .fill(.black)
-                .frame(width: UIScreen.main.bounds.width, height:  300)
-                .offset(y: 544)
         }
-        .onTapGesture {
-            balls.balls.filter{ $0.isStill }.forEach { b in
-                b.v = .random(in: .zero.insetBy(dx: -30, dy: -30))
-            }
-        }
-        .onEnterFrame(isActive: isEnterFrameActive) { f in
-            balls.balls.forEach { b in
-                b.update()
-            }
-            balls.updatedCount += 1
-        }
-        
-        .padding(50)
-        
+        .tweenProps(props)
+        .navigationBarTitleDisplayMode(.inline)
         .onInjection{
             sandbox()
         }
         .onAppear{
             sandbox()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button{
+                    isEnterFrameActive = !shouldShowCode
+                    tween($props, from:[\.y : 0, \.alpha: 1], to: [\.y : 500, \.alpha: 0 ])
+                    delay(0.2){
+                        shouldShowCode.toggle()
+                    }
+                    delay(0.35){
+                        tween($props, from:[\.y : 500, \.alpha: 0], to: [\.y : 0, \.alpha: 1 ])
+                    }
+                } label: {
+                    Image.icon( shouldShowCode ? .code : .photoFilm, size: 24)
+                }
+
+            }
         }
     }
     
@@ -77,7 +105,7 @@ struct OnEnterFrameDemo:View{
 }
 
 class Balls: ObservableObject{
-    @Published var balls = (0..<100).map{_ in Ball(size: .random(in: 40...70), position: CGPoint.random(in: CGRect(-UIScreen.main.bounds.width/2, -UIScreen.main.bounds.height/2, UIScreen.main.bounds.width, 500 ) ), v: CGPoint.random(in: CGRect(-20, -2, 40, 4) ), bounds: bounds) }
+    @Published var balls = (0..<100).map{_ in Ball(size: .random(in: 40...70), position: CGPoint.random(in: CGRect(-UIScreen.main.bounds.width/2, -UIScreen.main.bounds.height/2, UIScreen.main.bounds.width, 500 ) ), v: CGPoint.random(in: CGRect(-2, -2, 4, 4) ), bounds: bounds) }
     @Published var updatedCount = 0
 }
 
@@ -87,7 +115,10 @@ class Ball: ObservableObject, Hashable, Identifiable{
     }
     
     let id = UUID()
-    let g: CGFloat = 0.4
+    lazy var g: CGFloat =  {
+//        (70 - size) / 100 + 0.15
+        0.4
+    }()
     let damp: CGFloat = 0.9
     let size: CGFloat
     @Published var position:CGPoint
@@ -126,7 +157,7 @@ class Ball: ObservableObject, Hashable, Identifiable{
             v = CGPoint(v.x * damp, -v.y * damp)
         }
         rotation += v.x
-        if(v.distance() < 5 && (position.y + size/2 + 50 >= bounds.maxY)){
+        if(position.y + size/2 + 50 >= bounds.maxY) {
             isStill = true
         }else{
             isStill = false

@@ -69,7 +69,7 @@ public final class DisplayLink: Publisher {
 }
 
 
-private var internalCount = 0
+
 extension DisplayLink {
     
     // Represents a frame that is about to be drawn
@@ -161,7 +161,7 @@ extension DisplayLink {
         
         /// The target for the CADisplayLink (because CADisplayLink retains its target).
         final class DisplayLinkTarget {
-            
+            private var internalCount = 0
             /// The callback to call for each frame.
             var callback: ((DisplayLink.Frame) -> Void)? = nil
             
