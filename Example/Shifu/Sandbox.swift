@@ -34,12 +34,23 @@ struct Sandbox:View{
         VStack(alignment: .leading) {
             ThemePicker()
                 .padding(0, 12)
+            
             StickyIcon(image: $image, color: $iconColor , maxRadius: 35)
                 .tweenProps(props)
                 .onTapGesture {
                     image = .random
                     //            iconColor = .random
                 }
+            SimpleMarkdownViewer(content: """
+```swift
+class Theme{
+    @ThemedColor(light: .red, dark: .random)
+    public static var iconColor
+}
+```
+""", animated: false,  css: "pre { margin: 10px } ")
+            .frame(height: 100)
+            
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -86,9 +97,7 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        observation = Shifu.keyWindow?.observe(\.overrideUserInterfaceStyle){_,v in
-            clg("what?")
-        }
+
     }
 }
 

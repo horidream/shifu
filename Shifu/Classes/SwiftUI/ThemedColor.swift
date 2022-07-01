@@ -11,10 +11,10 @@ import SwiftUI
 @propertyWrapper
 public struct ThemedColor
 {
-    let light: UIColor
-    let dark: UIColor
+    let light: ()->UIColor
+    let dark: ()->UIColor
 
-    public init(light: UIColor, dark: UIColor)
+    public init(light: @autoclosure @escaping ()->UIColor, dark: @autoclosure @escaping ()->UIColor)
     {
         self.light = light
         self.dark = dark
@@ -28,14 +28,14 @@ public struct ThemedColor
             switch style
             {
             case .dark:
-                return dark
+                return dark()
 
             case .light,
                  .unspecified:
-                return light
+                return light()
 
             @unknown default:
-                return light
+                return light()
             }
         }
     }

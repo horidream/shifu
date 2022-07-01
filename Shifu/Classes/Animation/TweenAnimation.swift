@@ -127,7 +127,12 @@ public class TweenProps: ObservableObject{
     @Published public var rotationX:Double = .zero
     @Published public var rotationY:Double = .zero
     @Published public var rotationZ:Double = .zero
-    @Published public var scale:Double = 1
+    @Published public var scale:Double = 1 {
+        didSet {
+            scaleX = scale
+            scaleY = scale
+        }
+    }
     @Published public var scaleX:Double = 1
     @Published public var scaleY:Double = 1
     @Published public var alpha:Double = 1
@@ -149,7 +154,6 @@ struct TweenModifier:ViewModifier{
         
         return content
             .offset(x: props.x.cgFloat, y: props.y.cgFloat)
-            .scaleEffect(props.scale)
             .scaleEffect(x: props.scaleX, y: props.scaleY)
             .rotationEffect(Angle(degrees: props.rotation))
             .opacity(props.alpha)
