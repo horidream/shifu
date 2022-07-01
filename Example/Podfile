@@ -9,6 +9,7 @@ target $projectName do
   use_frameworks!
   inhibit_all_warnings!
   pod 'Shifu', :path => '../'
+  pod 'ShifuLottie', :path => '../'
 end
 
 target 'ShifuExampleTests' do

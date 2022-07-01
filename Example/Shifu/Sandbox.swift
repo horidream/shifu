@@ -11,7 +11,7 @@ import Shifu
 import JavaScriptCore
 import Combine
 import UIKit
-
+import ShifuLottie
 
 
 struct Sandbox:View{
@@ -97,7 +97,7 @@ class Theme{
     }
     
     func sandbox(){
-
+        clg(ShifuLottie.version)
     }
 }
 

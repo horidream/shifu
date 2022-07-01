@@ -130,7 +130,6 @@
 			children = (
 				3C3C46E127B9406300BCB074 /* source */,
 				C7965CD928426E3C002C825A /* demos */,
-				3C1A646027DE30EE0093A98B /* Sandbox.swift */,
 			);
 			name = features;
 			sourceTree = "<group>";
@@ -181,6 +180,7 @@
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				99244B5C261C9FDA0027A1D7 /* HomeView.swift */,
 				3C3C46CE27B2C40C00BCB074 /* HomeViewModel.swift */,
+				3C1A646027DE30EE0093A98B /* Sandbox.swift */,
 				3C3C46DC27B92E5400BCB074 /* features */,
 			);
 			name = "Example for Shifu";
@@ -352,12 +352,16 @@
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Shifu/Shifu.framework",
+				"${BUILT_PRODUCTS_DIR}/ShifuLottie/ShifuLottie.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Shifu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ShifuLottie.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
