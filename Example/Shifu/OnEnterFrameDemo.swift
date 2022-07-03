@@ -29,7 +29,7 @@ struct OnEnterFrameDemo:View{
         Group{
             if !shouldShowCode {
                 ScrollView{
-                    SimpleMarkdownViewer(content: "@source/OnEnterFrameDemo.md".url?.content ?? "", animated: false,  css: "* { max-width: 300vw }")
+                    SimpleMarkdownViewer(content: "@source/OnEnterFrameDemo.md".url?.content ?? "", animated: false,  css: "pre { border: none; }")
                         .id(injectObserver.injectionNumber)
                 }
             } else{

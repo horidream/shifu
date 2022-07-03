@@ -127,6 +127,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return OnEnterFrameDemo().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "StickyIconDemo") { model in
+                model.icon = .icons
+                model.color = .red
+                return StickyIconDemo().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue

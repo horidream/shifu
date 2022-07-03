@@ -16,4 +16,8 @@ extension String: CVSTransform{}
 class Theme{
     @ThemedColor(light: .red, dark: .white)
     public static var iconColor
+    @ThemedColor(light: .gray, dark: .white)
+    public static var titlePrimary
+    @ThemedColor(light: .darkGray, dark: .lightGray)
+    public static var titleSecondary
 }

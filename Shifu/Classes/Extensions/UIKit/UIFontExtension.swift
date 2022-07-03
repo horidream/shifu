@@ -60,9 +60,10 @@ public class Icons{
         if name.isFontAwesome {
             return FontAwesome.image(name.value, size: size, color: color)
         } else {
-            var config = UIImage.SymbolConfiguration(pointSize: size)
-            config.applying(UIImage.SymbolConfiguration(paletteColors: [color, .clear]))
-            return UIImage(systemName: name.value, withConfiguration: config)!
+            let config = UIImage.SymbolConfiguration(font: .systemFont(ofSize: size))
+            return UIImage(systemName: name.value, withConfiguration: config)?.withTintColor(color) ?? UIImage()
+            
+            
         }
     }
 }

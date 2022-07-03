@@ -82,13 +82,12 @@ public extension View {
         }
     }
     
-    func snapshot(width: CGFloat = UIScreen.main.bounds.size.width, height: CGFloat = UIScreen.main.bounds.size.height) -> UIImage {
-        let controller = UIHostingController(rootView: self)
+    func snapshot(_ rect: CGRect? = nil, backgroundColor: UIColor? = nil) -> UIImage {
+        let controller = UIHostingController(rootView: self.ignoresSafeArea(.all))
         let view = controller.view
-        
-        let targetSize = CGSize(width, height)
-        view?.bounds = CGRect(origin: .zero, size: targetSize)
-        view?.backgroundColor = .clear
+        let targetSize = rect?.size ?? controller.view.intrinsicContentSize
+        view?.bounds = CGRect(origin: rect?.origin ?? .zero, size: targetSize)
+        view?.backgroundColor = backgroundColor ?? .clear
         
         let renderer = UIGraphicsImageRenderer(size: targetSize)
         

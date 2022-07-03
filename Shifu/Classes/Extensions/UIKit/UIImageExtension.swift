@@ -110,6 +110,18 @@ public extension UIImage{
     func writeToAlbum(){
         UIImageWriteToSavedPhotosAlbum(self, nil, nil, nil)
     }
+    
+    @available(iOS 15.0, *)
+    func attributedString(_ attributes: [NSAttributedString.Key : Any]? = nil)-> AttributedString{
+        let attachment = NSTextAttachment()
+        attachment.image = self
+        let string = NSMutableAttributedString(attachment: attachment)
+        if let attributes {
+            string.addAttributes(attributes, range: NSMakeRange(0, string.string.count))
+        }
+        
+        return string.nt
+    }
 }
 
 public extension UIImage{

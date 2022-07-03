@@ -39,7 +39,7 @@ public class Shifu{
   
   public static let name = "Shifu"
   public static let bundle = Bundle(for: EmptyClass.self)
-  public static var maxStitchedImageSize:CGFloat = 1000
+  public static var maxStitchedImageSize:CGFloat = 1024
   public struct ui{
     public static func blurView(frame:CGRect, style:UIBlurEffect.Style = .light) -> UIVisualEffectView{
       let blur = UIBlurEffect(style: style)
