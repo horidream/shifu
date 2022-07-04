@@ -33,6 +33,7 @@
 		C72CB725282961BD000FBF12 /* ShimmerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CB724282961BD000FBF12 /* ShimmerDemo.swift */; };
 		C76AA64128673FCF002A1090 /* OnEnterFrameDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */; };
 		C76AA648286F43D0002A1090 /* StickyIconDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76AA647286F43D0002A1090 /* StickyIconDemo.swift */; };
+		C76AA64E28732B9F002A1090 /* AttributedStringDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76AA64D28732B9F002A1090 /* AttributedStringDemo.swift */; };
 		C7804F9828190A92006AC449 /* Validate2FAPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */; };
 		C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */; };
 		C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7965CD728426DB3002C825A /* PowerTableDemo.swift */; };
@@ -87,6 +88,7 @@
 		C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnEnterFrameDemo.swift; sourceTree = "<group>"; };
 		C76AA646286ED14A002A1090 /* ShifuLottie.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = ShifuLottie.podspec; path = ../ShifuLottie.podspec; sourceTree = "<group>"; };
 		C76AA647286F43D0002A1090 /* StickyIconDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyIconDemo.swift; sourceTree = "<group>"; };
+		C76AA64D28732B9F002A1090 /* AttributedStringDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringDemo.swift; sourceTree = "<group>"; };
 		C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate2FAPrototype.swift; sourceTree = "<group>"; };
 		C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerDemo.swift; sourceTree = "<group>"; };
 		C7965CD728426DB3002C825A /* PowerTableDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerTableDemo.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		C7965CD928426E3C002C825A /* demos */ = {
 			isa = PBXGroup;
 			children = (
+				C76AA64D28732B9F002A1090 /* AttributedStringDemo.swift */,
 				3C3C46D427B6A44E00BCB074 /* WebViewDemo.swift */,
 				3C3C46DD27B92E6F00BCB074 /* ColorThemeManagerDemo.swift */,
 				3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */,
@@ -495,6 +498,7 @@
 				99244B5D261C9FDA0027A1D7 /* HomeView.swift in Sources */,
 				3C2F1CE327F1E3DA0027F24F /* NavigationStyleDemo.swift in Sources */,
 				3C3C46EA27BB9F2C00BCB074 /* ShifuWebViewDemo.swift in Sources */,
+				C76AA64E28732B9F002A1090 /* AttributedStringDemo.swift in Sources */,
 				C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */,
 				3C2F1CE127F155BC0027F24F /* AnimationDemo.swift in Sources */,
 				C76AA648286F43D0002A1090 /* StickyIconDemo.swift in Sources */,

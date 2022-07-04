@@ -158,3 +158,37 @@ extension NSKeyValueObservedChange{
         NSKeyValueObservation.release(key: key)
     }
 }
+
+public class ObservableArray<T:ObservableObject>: ObservableObject {
+
+    @Published var array:[ObservedObject<T>] = [] {
+        didSet{
+            cancellables = []
+            array.forEach({
+                let c = $0.wrappedValue.objectWillChange.sink(receiveValue: { _ in self.objectWillChange.send() })
+                self.cancellables.append(c)
+            })
+            
+        }
+    }
+    var cancellables = [AnyCancellable]()
+
+    public init(_ array: T...) {
+        self.array = array.map{ ObservedObject(wrappedValue: $0) }
+    }
+    
+    public init(_ array: [T]) {
+        self.array = array.map{ ObservedObject(wrappedValue: $0) }
+        
+    }
+    
+
+    public func wrapper(at index:Int)->ObservedObject<T>.Wrapper?{
+        return array.get(index)?.projectedValue
+    }
+    
+    public func value(at index:Int)->T?{
+        return array.get(index)?.wrappedValue
+    }
+
+}

@@ -133,6 +133,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return StickyIconDemo().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "AttributedStringDemo") { model in
+                model.icon = .fonticonsFi
+                model.color = Color(0x994844)
+                return AttributedStringDemo().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue

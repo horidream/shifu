@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 14.0, *)
 public struct ThemePicker: View {
-    @StateObject var colorManager = ColorSchemeMananger()
+    @StateObject var colorManager = ColorSchemeMananger.shared
     public init () {}
     public var body: some View {
         Picker("", selection: $colorManager.colorScheme){

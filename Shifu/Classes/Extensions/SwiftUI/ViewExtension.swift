@@ -96,6 +96,12 @@ public extension View {
         }
     }
     
+    func onTapTarget(_ callback: @escaping (Self)->Void)->some View{
+        return self.onTapGesture {
+            callback(self)
+        }
+    }
+    
     var _rootViewController: UIViewController{
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let root = screen.windows.first?.rootViewController else {
@@ -120,13 +126,17 @@ extension Image: HasEmptyView {
 
 
 public extension View where Self: HasEmptyView{
-    func when(_ condition: Bool) -> Self {
+    public func when(_ condition: Bool) -> Self {
         if condition {
             return self
         } else {
             return Self.emptyView
         }
     }
+    
+
+        
+
 }
 
 public protocol HasEmptyView {

@@ -147,8 +147,8 @@ public class TweenProps: ObservableObject{
 }
 
 public extension View{
-    func tweenProps(_ props: TweenProps)->some View{
-        return self.modifier(TweenModifier(props: props))
+    func tweenProps(_ props: TweenProps?)->some View{
+        return self.modifier(TweenModifier(props: props ?? TweenProps()))
     }
 }
 
@@ -158,8 +158,8 @@ struct TweenModifier:ViewModifier{
     func body(content: Content) -> some View {
         
         return content
-            .offset(x: props.x.cgFloat, y: props.y.cgFloat)
             .scaleEffect(x: props.scaleX, y: props.scaleY)
+            .offset(x: props.x.cgFloat, y: props.y.cgFloat)
             .rotationEffect(Angle(degrees: props.rotation))
             .opacity(props.alpha)
             .blur(radius: props.blur, opaque: false)
@@ -170,12 +170,13 @@ struct TweenModifier:ViewModifier{
     }
 }
 
-public func tween(_ target:ObservedObject<TweenProps>.Wrapper,
+public func tween(_ target:ObservedObject<TweenProps>.Wrapper?,
                   from :[PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue] = [:],
                   to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue] = [:],
                   duration: Double? = nil,
                   delay: Double = 0,
                   type: TweenAnimationType = .default){
+    guard let target else { return }
     var arr = [(Binding<Double>, Double)]()
     withAnimation(getAnimation(type, duration: duration).delay(delay)) {
         withAnimation(.linear(duration: 0)){
