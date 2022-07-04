@@ -38,6 +38,10 @@ public class TweenAnimation<T:Equatable>{
 
 public enum TweenAnimationType{
     case `default`, linear, easeIn, easeOut, easeInOut, spring, back, custom(Animation)
+    
+    public var raw:Animation {
+        return getAnimation(self)
+    }
 }
 
 
@@ -139,6 +143,7 @@ public class TweenProps: ObservableObject{
     @Published public var x:Double = 0
     @Published public var y:Double = 0
     @Published public var color: Double = 0
+    @Published public var blur: Double = 0
 }
 
 public extension View{
@@ -157,6 +162,7 @@ struct TweenModifier:ViewModifier{
             .scaleEffect(x: props.scaleX, y: props.scaleY)
             .rotationEffect(Angle(degrees: props.rotation))
             .opacity(props.alpha)
+            .blur(radius: props.blur, opaque: false)
             .rotation3DEffect(Angle(degrees: props.rotationX), axis: (1, 0, 0))
             .rotation3DEffect(Angle(degrees: props.rotationY), axis: (0, 1, 0))
             .rotation3DEffect(Angle(degrees: props.rotationZ), axis: (0, 0, 1))

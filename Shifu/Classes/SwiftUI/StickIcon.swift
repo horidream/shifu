@@ -78,11 +78,10 @@ public struct StickyIcon: View{
             }
             
             if targetThreshold != threshold{
-                if let thresholdTween {
+                if let thresholdTween = thresholdTween {
                     let timestamp = Date().timeIntervalSince1970
                     threshold = thresholdTween.valueForTime(timestamp)
                 }
-//                threshold += (targetThreshold - threshold) * 0.15
             }
             if( (targetRadius - radius) / (targetRadius - previousThreshold) < 0.01){
                 radius = targetRadius

@@ -37,7 +37,7 @@ extension AttributedString{
     }
     
     mutating public func replace(_ string: String, with other: AttributedString?){
-        guard let other else { return }
+        guard let other = other else { return }
         while let range = range(of: string){
             self.replaceSubrange(range, with: other)
         }

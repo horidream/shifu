@@ -116,7 +116,7 @@ public extension UIImage{
         let attachment = NSTextAttachment()
         attachment.image = self
         let string = NSMutableAttributedString(attachment: attachment)
-        if let attributes {
+        if let attributes = attributes {
             string.addAttributes(attributes, range: NSMakeRange(0, string.string.count))
         }
         
