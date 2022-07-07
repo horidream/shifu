@@ -4,12 +4,6 @@ import requests
 import re
 import os
 
-path = "https://raw.githubusercontent.com/noahsark769/sfsymbols.com/master/src/data/symbols.json"
-content = requests.get(path).content.decode()
-sfarr = []
-faarr = []
-items = []
-
 def upper_repl(match):
     return match.group(1).upper()
 
@@ -17,13 +11,23 @@ def upper_repl(match):
 def digit(match):
     return "_" + match.group(1)
 
+sfarr = []
+faarr = []
+items = []
 
-for k in json.loads(content):
-    iconName = (re.sub("\.(\w)", upper_repl, k))
-    iconName = (re.sub("\.(\d)", r"\1", iconName))
-    iconName = (re.sub("^(\d)", digit, iconName))
-    sfarr.append(iconName)
-    items.append((iconName, k, "_sf"))
+with open("./all_raw_names.txt") as f:
+    for line in f:
+        line = line.strip()
+        if line == "":
+            continue
+        iconName = (re.sub("\.(\w)", upper_repl, line))
+        iconName = (re.sub("\.(\d)", r"\1", iconName))
+        iconName = (re.sub("^(\d)", digit, iconName))
+        sfarr.append(iconName)
+        items.append((iconName, line, "_sf"))
+
+
+
 
 
 path = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/metadata/icons.json"
@@ -47,6 +51,9 @@ with open(os.path.expanduser("~/Repo/Shifu/Shifu/Classes/Utils/Icons.swift"), "w
 
 public extension Icons{
     enum Name:String, CaseIterable {
+        public static var random: Icons.Name{
+            return .allCases.randomElement()!
+        }
         var isFontAwesome:Bool{
             rawValue.substr(-3, 3)  == "_fa"
         }

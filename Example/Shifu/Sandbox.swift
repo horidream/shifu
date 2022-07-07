@@ -23,19 +23,25 @@ struct Sandbox:View{
     
     var body: some View {
         VStack{
-            Text("hello")
+            Image(.arrowDownMessageFill)
+                .foregroundStyle(.blue)
+                .font(.system(size: 100).bold())
+                .shadow(radius: 1, x: 3, y: 3)
         }
-            .navigationBarTitleDisplayMode(.inline)
-            .onInjection{
-                sandbox()
-            }
-            .onAppear{
-                sandbox()
-            }
+        .navigationBarTitleDisplayMode(.inline)
+        .onInjection{
+            sandbox()
+        }
+        .onAppear{
+            sandbox()
+        }
     }
     
     func sandbox(){
+        let a = UserDefaults.standard.string(forKey: "userPreferredLanguage")  ??  "zh_CN"
+        clg(a)
     }
+    
     
 }
 
