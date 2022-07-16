@@ -165,4 +165,27 @@ public extension View{
         }
         return safeArea
     }
+    
+    @ViewBuilder
+    func onChangePosition(_ onChange: @escaping (CGPoint)->())->some View{
+        self.overlay{
+            GeometryReader{ proxy in
+                let origin = proxy.frame(in: .global).origin
+                Color.clear
+                    .preference(key: OffsetKey.self, value: origin)
+                    .onPreferenceChange(OffsetKey.self) { value in
+                        onChange(value)
+                    }
+            }
+        }
+    }
 }
+
+
+struct OffsetKey: PreferenceKey{
+    static var defaultValue : CGPoint = .zero
+    static func reduce(value: inout CGPoint, nextValue: ()->CGPoint){
+        value = nextValue()
+    }
+}
+

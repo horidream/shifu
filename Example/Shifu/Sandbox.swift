@@ -18,7 +18,8 @@ import ShifuLottie
 
 
 struct Sandbox:View{
-    
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.locale) var locale: Locale
     @ObservedObject private var injectObserver = Self.injectionObserver
     
     var body: some View {
@@ -38,8 +39,7 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        let a = UserDefaults.standard.string(forKey: "userPreferredLanguage")  ??  "zh_CN"
-        clg(a)
+        clg("👍".applyingTransform(StringTransform("Hex/Unicode"), reverse: false)!) // U+1F44D
     }
     
     

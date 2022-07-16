@@ -8,7 +8,7 @@ public extension Icons{
         var isFontAwesome:Bool{
             rawValue.substr(-3, 3)  == "_fa"
         }
-        var value: String{
+        public var value: String{
             rawValue.substring(0, -3)
         }
         case `squareAndArrowUp` = "square.and.arrow.up_sf"

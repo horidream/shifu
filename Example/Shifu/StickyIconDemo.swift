@@ -36,6 +36,7 @@ struct StickyIconDemo: View {
                     image = .random
                     //            iconColor = .random
                 }
+            Text(image.value.count == 1 ? image.value.applyingTransform(StringTransform("Hex/Unicode"), reverse: false)! : image.value)
             SimpleMarkdownViewer(content: """
 ```swift
 class Theme{

@@ -139,6 +139,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return AttributedStringDemo().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "NavigationOverlayDemo") { model in
+                model.icon = .link_fa
+                model.color = Color(.red)
+                return NavigationAnimationDemo().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue
@@ -146,7 +152,10 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 
             }
         ].reversed()
-        featureList.get(0)?.isActive = true
+        featureList.get(1)?.isActive = true
     }
     
 }
+
+
+
