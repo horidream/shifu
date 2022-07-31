@@ -43,12 +43,44 @@ extension AttributedString{
         }
     }
     
-    mutating public func apply(_ containers: AttributeContainer..., mergePolicy: AttributeMergePolicy = .keepNew){
+    @discardableResult mutating public func apply(_ containers: AttributeContainer..., mergePolicy: AttributeMergePolicy = .keepNew)->Self{
         containers.forEach { c in
             self.mergeAttributes(c, mergePolicy: mergePolicy)
         }
+        return self
     }
-
+    
+    public func with(_ containers: AttributeContainer..., mergePolicy: AttributeMergePolicy = .keepNew)->Self{
+        var this = self
+        containers.forEach { c in
+            this.mergeAttributes(c, mergePolicy: mergePolicy)
+        }
+        return this
+    }
+    
+    public func fontAwesome(_ size: CGFloat = 40)->Self{
+        var this = self
+        if let name = FontAwesome.fontName(for: self.ns.string){
+            this.mergeAttributes(AttributeContainer([.font : UIFont(name: name, size: size)]))
+        }else {
+            this.mergeAttributes(AttributeContainer([.font : UIFont.systemFont(ofSize: size)]))
+        }
+        return this
+    }
+    
+    
+    public func image() -> UIImage{
+        let _ns = self.ns
+        let size = _ns.size()
+        let strokeWidth = abs(_ns.attributes(at: 0, effectiveRange: nil)[.strokeWidth] as? CGFloat ?? 0)
+        UIGraphicsBeginImageContextWithOptions(size.extends(strokeWidth, strokeWidth), false, 0)
+        let rect = CGRect(origin: .init(strokeWidth/2, strokeWidth/2), size: size)
+        
+        _ns.draw(in: rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image ?? UIImage()
+    }
 }
 
 extension AttributeContainer{
@@ -59,4 +91,5 @@ extension AttributeContainer{
     public static func outline(_ color: UIColor = .white, width: CGFloat = -1)->Self{
         return .init([.strokeColor: color, .strokeWidth: width])
     }
+    
 }

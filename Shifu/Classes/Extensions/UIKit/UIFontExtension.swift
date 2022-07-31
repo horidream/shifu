@@ -68,8 +68,17 @@ public class Icons{
         } else {
             let config = UIImage.SymbolConfiguration(font: .systemFont(ofSize: size))
             return UIImage(systemName: name.value, withConfiguration: config)?.withTintColor(color) ?? UIImage()
-            
-            
+        }
+    }
+    
+    public static func outlineImage(_ name: Icons.Name, size: CGFloat = 40, color: UIColor = .black, width: CGFloat = 1, fill: UIColor = .clear)->UIImage{
+        let noFill = fill.hexValue32 == UIColor.clear.hexValue32
+        let w =  noFill ?  width : -abs(width)
+        if name.isFontAwesome {
+            return name.value.attributedString().fontAwesome(size).with(.color(fill), .outline(color, width: w * UIScreen.main.scale)).image()
+        } else {
+            let c:UIColor = noFill ? .white : fill
+            return Self.image(name, size: size, color: c).attributedString().image().stroked(color, width: width)
         }
     }
 }

@@ -36,3 +36,8 @@ public extension Image{
     }
 }
 
+public extension UIImage {
+    var sui:Image{
+        return Image(uiImage: self)
+    }
+}

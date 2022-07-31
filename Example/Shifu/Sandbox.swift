@@ -22,25 +22,18 @@ struct Sandbox:View{
     @Environment(\.locale) var locale: Locale
     @ObservedObject private var injectObserver = Self.injectionObserver
     
-    @State var text = """
-Hello
-""".attributedString(font: .systemFont(ofSize: 99), color: .red)
+    @State var text = "\u{f6d3}".attributedString()
     @PersistToFile("a.txt") var n:String
-
+    let layout = [GridItem(.adaptive(minimum: 60))]
     var body: some View {
-        VStack{
-            Image(.arrowUpMessageFill)
-                .foregroundStyle(.blue)
-                .font(.system(size: 100).bold())
-                .shadow(radius: 1, x: 3, y: 3)
-            
-           UIText(text)
-                .onTapGesture {
-                    n = "\((Int(n) ?? 0) + 1)"
-                    text.apply(.color(.random), .outline())
+        ScrollView{
+            LazyVGrid(columns: layout) {
+                ForEach(Icons.Name.allCases.filter{ $0.isFontAwesome }.shuffled()[...99], id: \.self) { name in
+                    Icons.outlineImage(name, color: name.isFontAwesome ? .red : .blue, width: 1).sui
                 }
-            Text("\(n)")
-                .id(n)
+                
+            }
+            .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
         .onInjection{
@@ -52,22 +45,12 @@ Hello
     }
     
     func sandbox(){
-
+        
     }
     
     
 }
 
-public extension AnyCancellable{
-    static func key(_ key:String = #file, line: Int = #line )->String{
-        return key+String(line)
-    }
-    
-    @discardableResult func retain2(_ key: @autoclosure ()->AnyHashable = AnyCancellable.key()) -> Self {
-        AnyCancellable.bag[key()] = self
-        return self
-    }
-}
 
 
 @propertyWrapper

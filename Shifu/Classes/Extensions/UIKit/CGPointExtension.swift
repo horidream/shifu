@@ -51,6 +51,17 @@ public extension CGPoint{
         let p = self - to
         return sqrt(p.x * p.x + p.y * p.y)
     }
+    
+    func rotated(around origin: CGPoint, byDegrees: CGFloat) -> CGPoint {
+        let dx = x - origin.x
+        let dy = y - origin.y
+        let radius = sqrt(dx * dx + dy * dy)
+        let azimuth = atan2(dy, dx) // in radians
+        let newAzimuth = azimuth + byDegrees * .pi / 180.0 // to radians
+        let x = origin.x + radius * cos(newAzimuth)
+        let y = origin.y + radius * sin(newAzimuth)
+        return CGPoint(x: x, y: y)
+    }
 }
 
 public extension CGRect{

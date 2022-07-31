@@ -1,16 +1,18 @@
 import Foundation
 
 public extension Icons{
+    
     enum Name:String, CaseIterable {
         public static var random: Icons.Name{
             return .allCases.randomElement()!
         }
-        var isFontAwesome:Bool{
+        public var isFontAwesome:Bool{
             rawValue.substr(-3, 3)  == "_fa"
         }
         public var value: String{
             rawValue.substring(0, -3)
         }
+        
         case `squareAndArrowUp` = "square.and.arrow.up_sf"
         case `squareAndArrowUpFill` = "square.and.arrow.up.fill_sf"
         case `squareAndArrowUpCircle` = "square.and.arrow.up.circle_sf"

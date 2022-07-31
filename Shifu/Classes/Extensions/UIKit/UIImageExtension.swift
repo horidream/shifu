@@ -29,9 +29,9 @@ public extension UIImage{
         get{
             let alpha = self.cgImage?.alphaInfo;
             return (alpha == .first ||
-                alpha == .last ||
-                alpha == .premultipliedLast ||
-                alpha == .premultipliedFirst);
+                    alpha == .last ||
+                    alpha == .premultipliedLast ||
+                    alpha == .premultipliedFirst);
         }
         
     }
@@ -78,6 +78,77 @@ public extension UIImage{
         return resizedImage(scaleX: scale, scaleY: scale, smoothing:smoothing, forceAlphaChanel: forceAlphaChanel)
     }
     
+    func colorized(with color: UIColor = .white) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
+        guard let context = UIGraphicsGetCurrentContext(), let cgImage = cgImage else { return self }
+        
+        
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        color.setFill()
+        context.translateBy(x: 0, y: size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.clip(to: rect, mask: cgImage)
+        context.fill(rect)
+        
+        guard let colored = UIGraphicsGetImageFromCurrentImageContext() else { return self }
+        
+        return colored
+    }
+    
+    func stroked(_ color: UIColor = .white, width: CGFloat = 1, quality: CGFloat = 4) -> UIImage {
+        
+        guard let cgImage = cgImage else { return self }
+        
+        // Colorize the stroke image to reflect border color
+        let strokeImage = colorized(with: color)
+        
+        guard let strokeCGImage = strokeImage.cgImage else { return self }
+        
+        /// Rendering quality of the stroke
+        let step = 360 / min(max(quality, 1), 10)
+        let thickness = abs(width)
+        let oldRect = CGRect(x: thickness, y: thickness, width: size.width, height: size.height).integral
+        let newSize = CGSize(width: size.width + 2 * thickness, height: size.height + 2 * thickness)
+        let translationVector = CGPoint(x: thickness, y: 0)
+        
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
+        
+        guard let context = UIGraphicsGetCurrentContext() else { return self }
+        
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        context.translateBy(x: 0, y: newSize.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.interpolationQuality = .high
+        for angle: CGFloat in stride(from: 0, to: 360, by: step) {
+            let vector = translationVector.rotated(around: .zero, byDegrees: angle)
+            let transform = CGAffineTransform(translationX: vector.x, y: vector.y)
+            
+            context.concatenate(transform)
+            
+            context.draw(strokeCGImage, in: oldRect)
+            
+            let resetTransform = CGAffineTransform(translationX: -vector.x, y: -vector.y)
+            context.concatenate(resetTransform)
+        }
+        if(width > 0){
+            context.setBlendMode(.xor)
+        }
+        context.draw(cgImage, in: oldRect)
+        
+        guard let stroked = UIGraphicsGetImageFromCurrentImageContext() else { return self }
+        
+        return stroked
+    }
+    
     func invertAlpha() -> UIImage? {
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
         let (width, height) = (Int(self.size.width), Int(self.size.height))
@@ -86,7 +157,7 @@ public extension UIImage{
         let byteOffsetToAlpha = 3 // [r][g][b][a]
         if let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow,
                                    space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo.rawValue),
-            let cgImage = self.cgImage {
+           let cgImage = self.cgImage {
             context.setFillColor(UIColor.clear.cgColor)
             context.fill(CGRect(origin: CGPoint.zero, size: self.size))
             context.draw(cgImage, in: CGRect(origin: CGPoint.zero, size: self.size))
@@ -180,7 +251,7 @@ public extension Array where Element: UIImage {
         }
         
         let renderer = UIGraphicsImageRenderer(size: totalSize)
-
+        
         var currentPivot = CGPoint.zero
         return renderer.image { (context) in
             for (index, image) in self.enumerated() {
@@ -198,3 +269,32 @@ public extension Array where Element: UIImage {
 }
 
 
+extension CGImage {
+    var alphaInverted: CGImage {
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let (width, height) = (Int(self.width), Int(self.height))
+        let size = CGSize(width: width, height: height)
+        let bytesPerPixel = 4
+        let bytesPerRow = bytesPerPixel * width
+        let byteOffsetToAlpha = 3 // [r][g][b][a]
+        let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow,
+                                   space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo.rawValue)!
+        context.setFillColor(UIColor.clear.cgColor)
+        context.fill(CGRect(origin: CGPoint.zero, size: size))
+        context.draw(self, in: CGRect(origin: CGPoint.zero, size: size))
+        if let memory: UnsafeMutableRawPointer = context.data {
+            for y in 0..<height {
+                let pointer = memory.advanced(by: bytesPerRow * y)
+                let buffer = pointer.bindMemory(to: UInt8.self, capacity: bytesPerRow)
+                for x in 0..<width {
+                    let rowOffset = x * bytesPerPixel + byteOffsetToAlpha
+                    buffer[rowOffset] = 0xff - buffer[rowOffset]
+                }
+            }
+            if let cgImage =  context.makeImage() {
+                return cgImage
+            }
+        }
+        return UIImage().cgImage!
+    }
+}

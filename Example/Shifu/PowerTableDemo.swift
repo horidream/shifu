@@ -19,11 +19,10 @@ struct PowerTableDemo:View{
         var snapshot = NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>()
         snapshot.appendSections(["A", "B"])
         var items = (1...2).map{AnyDiffableData("Super Man \($0)")}
-        items.insert(DiffableDataFactory.margin(10), at: 0)
-        items.append(DiffableDataFactory.margin(10))
+        items.insert(DiffableDataFactory.margin(10, color: .red), at: 0)
         snapshot.appendItems(items, toSection: "A")
         snapshot.appendItems(["We won’t define default parameters at the Baz nor BazMock but we will use a protocol extension which will be the only place that the default values will be defined. That way both implementations of the same protocol have the same default values."], toSection: "B")
-        snapshot.update("A", items:(10...12).map{AnyDiffableData("Super Man \($0)")})
+        snapshot.update("A", items:(10...12).map{AnyDiffableData("Super Man \($0)")} + [DiffableDataFactory.margin(10, color: .green)])
         snapshot.appendSections([AnyDiffableData("c", estimatedHeight: 0), "D"])
         return snapshot
     }()
