@@ -139,7 +139,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return AttributedStringDemo().eraseToAnyView()
                 
             },
-            FeatureViewModel(name: "NavigationOverlayDemo") { model in
+            FeatureViewModel(name: "NavigationAnimationDemo") { model in
                 model.icon = .link_fa
                 model.color = Color(.red)
                 return NavigationAnimationDemo().eraseToAnyView()
@@ -152,7 +152,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 
             }
         ].reversed()
-        featureList.get(1)?.isActive = true
+        featureList.get(0)?.isActive = true
     }
     
 }

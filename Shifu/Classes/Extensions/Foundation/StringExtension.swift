@@ -284,4 +284,14 @@ public extension StringProtocol {
     var ascii: [UInt32] {
         return compactMap { $0.ascii }
     }
+    
+    public func attributedString(font: UIFont, color: UIColor) ->AttributedString{
+        return attributedString([.font: font, .foregroundColor: color])
+    }
+    
+    public func attributedString(_ attributes: [NSAttributedString.Key : Any]? = nil)->AttributedString{
+        let str = NSMutableAttributedString()
+        var s:NSAttributedString = NSAttributedString(string: String(self), attributes: attributes)
+        return AttributedString(s)
+    }
 }

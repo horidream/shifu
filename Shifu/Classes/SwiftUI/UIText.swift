@@ -43,5 +43,4 @@ public struct UIText: View {
         _UIText(text: $text)
             .fixedSize()
     }
-    
 }

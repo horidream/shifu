@@ -32,7 +32,7 @@ struct AttributedStringDemo:View{
             UIText(text)
                 .onTapTarget { _ in
                     tween(props.wrapper(at: 2), from: [
-                        \.alpha: 0.3
+                        \.scale: 0.3
                     ], to: [
                         \.scale: 1
                     ], type: .back)
@@ -45,11 +45,9 @@ struct AttributedStringDemo:View{
                     tween($prop, from: [
                         \.rotationY: 429,
                          \.scale: 0.2,
-                         //                         \.alpha: 0.3,
                          \.blur: 10
                          
                     ], to: [
-                        //                        \.rotationY: "180",
                         \.x : 0
                     ], duration: 1,  type: .back)
                 }
@@ -109,7 +107,6 @@ struct AttributedStringDemo:View{
                     \.x : 0
                 ], duration: 1 , delay: 0.5,  type: .back)
             }
-            
         }
         .tweenProps(props.value(at: 2))
         

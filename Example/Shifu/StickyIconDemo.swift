@@ -15,10 +15,10 @@ struct StickyIconDemo: View {
     @State var shouldAutoPlay = false
     @State var image = Icons.Name.swift_fa{
         didSet{
-            tween($props, to: [\.scale: 0.73])
-            delay(0.3){
-                tween($props, to: [\.scale: 1], type: .back)
-            }
+//            tween($props, to: [\.scale: 0.73])
+//            delay(0.3){
+//                tween($props, to: [\.scale: 1], type: .back)
+//            }
         }
     }
     @State var iconColor:Color = Theme.iconColor.swiftUIColor

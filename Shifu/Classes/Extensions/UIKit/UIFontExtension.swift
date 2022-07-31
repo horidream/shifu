@@ -53,6 +53,12 @@ public class FontAwesome{
         }
         return UIImage()
     }
+    
+    public static func fontName(for code:String)->String?{
+        return ["FontAwesome6Free-Regular", "FontAwesome6Free-Solid", "FontAwesome6Brands-Regular"].first { name in
+            code.canBeRenderedBy(name)
+        }
+    }
 }
 
 public class Icons{

@@ -42,4 +42,21 @@ extension AttributedString{
             self.replaceSubrange(range, with: other)
         }
     }
+    
+    mutating public func apply(_ containers: AttributeContainer..., mergePolicy: AttributeMergePolicy = .keepNew){
+        containers.forEach { c in
+            self.mergeAttributes(c, mergePolicy: mergePolicy)
+        }
+    }
+
+}
+
+extension AttributeContainer{
+    public static func color(_ color: UIColor)->Self{
+        return .init([.foregroundColor: color])
+    }
+    
+    public static func outline(_ color: UIColor = .white, width: CGFloat = -1)->Self{
+        return .init([.strokeColor: color, .strokeWidth: width])
+    }
 }

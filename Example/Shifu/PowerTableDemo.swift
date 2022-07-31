@@ -18,7 +18,10 @@ struct PowerTableDemo:View{
     @State var snapshot:NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>  = {
         var snapshot = NSDiffableDataSourceSnapshot<AnyDiffableData, AnyDiffableData>()
         snapshot.appendSections(["A", "B"])
-        snapshot.appendItems((1...2).map{AnyDiffableData("Super Man \($0)")}, toSection: "A")
+        var items = (1...2).map{AnyDiffableData("Super Man \($0)")}
+        items.insert(DiffableDataFactory.margin(10), at: 0)
+        items.append(DiffableDataFactory.margin(10))
+        snapshot.appendItems(items, toSection: "A")
         snapshot.appendItems(["We won’t define default parameters at the Baz nor BazMock but we will use a protocol extension which will be the only place that the default values will be defined. That way both implementations of the same protocol have the same default values."], toSection: "B")
         snapshot.update("A", items:(10...12).map{AnyDiffableData("Super Man \($0)")})
         snapshot.appendSections([AnyDiffableData("c", estimatedHeight: 0), "D"])
@@ -155,6 +158,23 @@ class MyLabel2: UILabel, Updatable{
     }
 }
 
+class MarginView: UITableViewCell, Updatable{
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .clear
+        separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func update(_ data: Any?) {
+        if let data = data as? UIColor {
+            self.backgroundColor = data
+        }
+    }
+}
+
 class DiffableDataFactory{
     static func header(_ title: String)->AnyDiffableData {
         AnyDiffableData(title, viewClass: MyLabel.self)
@@ -170,6 +190,12 @@ class DiffableDataFactory{
     static func loadMoreCell(_ publisher: Any? = nil)->AnyDiffableData {
         AnyDiffableData(
             publisher, viewClass: LoadMoreCell.self, userDefinedHash: loadMoreCellID
+        )
+    }
+            
+    static func margin(_ height: CGFloat, color: UIColor = .clear)->AnyDiffableData{
+        AnyDiffableData(
+            color, viewClass: MarginView.self, estimatedHeight: height, userDefinedHash: UUID()
         )
     }
 }

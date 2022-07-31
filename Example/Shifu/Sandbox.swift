@@ -22,12 +22,25 @@ struct Sandbox:View{
     @Environment(\.locale) var locale: Locale
     @ObservedObject private var injectObserver = Self.injectionObserver
     
+    @State var text = """
+Hello
+""".attributedString(font: .systemFont(ofSize: 99), color: .red)
+    @PersistToFile("a.txt") var n:String
+
     var body: some View {
         VStack{
-            Image(.arrowDownMessageFill)
+            Image(.arrowUpMessageFill)
                 .foregroundStyle(.blue)
                 .font(.system(size: 100).bold())
                 .shadow(radius: 1, x: 3, y: 3)
+            
+           UIText(text)
+                .onTapGesture {
+                    n = "\((Int(n) ?? 0) + 1)"
+                    text.apply(.color(.random), .outline())
+                }
+            Text("\(n)")
+                .id(n)
         }
         .navigationBarTitleDisplayMode(.inline)
         .onInjection{
@@ -39,9 +52,34 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        clg("👍".applyingTransform(StringTransform("Hex/Unicode"), reverse: false)!) // U+1F44D
+
     }
     
     
 }
 
+public extension AnyCancellable{
+    static func key(_ key:String = #file, line: Int = #line )->String{
+        return key+String(line)
+    }
+    
+    @discardableResult func retain2(_ key: @autoclosure ()->AnyHashable = AnyCancellable.key()) -> Self {
+        AnyCancellable.bag[key()] = self
+        return self
+    }
+}
+
+
+@propertyWrapper
+struct log<T>{
+    var wrappedValue: T{
+        didSet{
+            clg(wrappedValue)
+        }
+    }
+    
+}
+
+class Test{
+    @log var name = "Baoli"
+}

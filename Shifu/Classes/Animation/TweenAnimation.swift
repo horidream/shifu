@@ -176,7 +176,7 @@ public func tween(_ target:ObservedObject<TweenProps>.Wrapper?,
                   duration: Double? = nil,
                   delay: Double = 0,
                   type: TweenAnimationType = .default){
-    guard let target else { return }
+    guard let target = target else { return }
     var arr = [(Binding<Double>, Double)]()
     withAnimation(getAnimation(type, duration: duration).delay(delay)) {
         withAnimation(.linear(duration: 0)){

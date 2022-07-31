@@ -9,15 +9,19 @@ import Combine
 import UIKit
 import SwiftUI
 
-fileprivate func getRetainKey(key:AnyHashable, line:Int)->AnyHashable{
-    return "\(key)-\(line)"
+fileprivate func getRetainKey(key:String, line:Int)->AnyHashable{
+    if key.hasSuffix(".swift"){
+        return "\(key)-\(line)"
+    }else{
+        return key
+    }
 }
 
 @available(iOS 13.0, *)
 public extension AnyCancellable{
     static var bag:[AnyHashable:AnyCancellable] = [:]
-    @discardableResult func retain(_ key: @autoclosure ()-> AnyHashable = #file + "\(#line)" ) -> Self {
-        AnyCancellable.bag[key()] = self
+    @discardableResult func retain(_ key: String = #file, line: Int = #line) -> Self {
+        AnyCancellable.bag[getRetainKey(key: key, line: line)] = self
         return self
     }
     
@@ -58,14 +62,14 @@ public extension AnyCancellable{
 
 
 public extension Publisher{
-    func onReceive(_ block:@escaping (Output)->Void, key: @autoclosure ()-> AnyHashable = #file + "\(#line)"){
+    func onReceive(_ block:@escaping (Output)->Void, key: @autoclosure ()-> String = #file + "\(#line)"){
         self.sink { error in } receiveValue: { value in
             block(value)
         }
         .retain(key())
     }
     
-    func onReceiveCancellable(_ block:@escaping (Output, ()->Void)->Void, key: @autoclosure ()-> AnyHashable = #file + "\(#line)"){
+    func onReceiveCancellable(_ block:@escaping (Output, ()->Void)->Void, key: @autoclosure ()-> String = #file + "\(#line)"){
         let myKey = key()
         self.sink { error in } receiveValue: { value in
             block(value, {
@@ -76,28 +80,28 @@ public extension Publisher{
     }
 }
 
-@available(iOS 13.0, *)
-public func debounce<T>(_ id:AnyHashable, closure:@escaping (T)->Void)->((T)->Void){
-    
-    let publisher = PassthroughSubject<T, Never>()
-    publisher.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-       .sink{
-           i in
-           closure(i)
-       }.retain(id)
-    return publisher.send
-}
-
-@available(iOS 13.0, *)
-public func debounce(_ id:AnyHashable, closure:@escaping ()->Void)->(()->Void){
-    
-    let publisher = PassthroughSubject<Void, Never>()
-    publisher.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-       .sink{ _ in
-           closure()
-       }.retain(id)
-    return publisher.send
-}
+//@available(iOS 13.0, *)
+//public func debounce<T>(_ id:AnyHashable, closure:@escaping (T)->Void)->((T)->Void){
+//    
+//    let publisher = PassthroughSubject<T, Never>()
+//    publisher.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+//       .sink{
+//           i in
+//           closure(i)
+//       }.retain(id)
+//    return publisher.send
+//}
+//
+//@available(iOS 13.0, *)
+//public func debounce(_ id:AnyHashable, closure:@escaping ()->Void)->(()->Void){
+//    
+//    let publisher = PassthroughSubject<Void, Never>()
+//    publisher.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+//       .sink{ _ in
+//           closure()
+//       }.retain(id)
+//    return publisher.send
+//}
 
 
 public protocol CVSTransform {
