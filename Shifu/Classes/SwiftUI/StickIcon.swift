@@ -24,6 +24,7 @@ public struct StickyIcon: View{
 
     @State private var targetImage = Icons.Name.swift_fa
     @State private var maxRadius: Double = 40
+    private let delayTimeToShowAnimationIn:TimeInterval
     private var drawableImage: Image {
         if(targetImage.isFontAwesome){
             return Image(uiImage: Icons.image(targetImage, size: 300))
@@ -33,11 +34,12 @@ public struct StickyIcon: View{
         
     }
     
-    public init(image: Binding<Icons.Name>, color: Binding<Color> = .constant(.black), maxRadius: Double = 40) {
+    public init(image: Binding<Icons.Name>, color: Binding<Color> = .constant(.black), maxRadius: Double = 40, delay: TimeInterval = 0.3) {
         _image = image
         _color = color
         _currentColor = State(wrappedValue: color.wrappedValue)
         _maxRadius = State(wrappedValue: maxRadius)
+        delayTimeToShowAnimationIn = delay
     }
     
     public var body: some View {
@@ -60,7 +62,7 @@ public struct StickyIcon: View{
             targetRadius = maxRadius
             previousThreshold = threshold
             targetThreshold = 0.4
-            delay(0.3){
+            delay(delayTimeToShowAnimationIn){
                 let timestamp = Date().timeIntervalSince1970
                 thresholdTween = TweenValue(startTime: timestamp, endTime: timestamp + 0.4, start: threshold, end: 0.1, easing: { 1 - pow(1 - $0, 3 ) })
                 targetImage = image

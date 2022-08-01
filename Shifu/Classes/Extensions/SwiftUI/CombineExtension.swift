@@ -9,8 +9,8 @@ import Combine
 import UIKit
 import SwiftUI
 
-fileprivate func getRetainKey(key:String, line:Int)->AnyHashable{
-    if key.hasSuffix(".swift"){
+fileprivate func getRetainKey(key:AnyHashable, line:Int)->AnyHashable{
+    if let key = key as? String, key.hasSuffix(".swift"){
         return "\(key)-\(line)"
     }else{
         return key
@@ -20,7 +20,7 @@ fileprivate func getRetainKey(key:String, line:Int)->AnyHashable{
 @available(iOS 13.0, *)
 public extension AnyCancellable{
     static var bag:[AnyHashable:AnyCancellable] = [:]
-    @discardableResult func retain(_ key: String = #file, line: Int = #line) -> Self {
+    @discardableResult func retain(_ key: AnyHashable = #file, line: Int = #line) -> Self {
         AnyCancellable.bag[getRetainKey(key: key, line: line)] = self
         return self
     }
@@ -165,10 +165,10 @@ extension NSKeyValueObservedChange{
 
 public class ObservableArray<T:ObservableObject>: ObservableObject {
 
-    @Published var array:[ObservedObject<T>] = [] {
+    @Published private(set) public var list:[ObservedObject<T>] = [] {
         didSet{
             cancellables = []
-            array.forEach({
+            list.forEach({
                 let c = $0.wrappedValue.objectWillChange.sink(receiveValue: { _ in self.objectWillChange.send() })
                 self.cancellables.append(c)
             })
@@ -178,21 +178,21 @@ public class ObservableArray<T:ObservableObject>: ObservableObject {
     var cancellables = [AnyCancellable]()
 
     public init(_ array: T...) {
-        self.array = array.map{ ObservedObject(wrappedValue: $0) }
+        self.list = array.map{ ObservedObject(wrappedValue: $0) }
     }
     
     public init(_ array: [T]) {
-        self.array = array.map{ ObservedObject(wrappedValue: $0) }
+        self.list = array.map{ ObservedObject(wrappedValue: $0) }
         
     }
     
 
     public func wrapper(at index:Int)->ObservedObject<T>.Wrapper?{
-        return array.get(index)?.projectedValue
+        return list.get(index)?.projectedValue
     }
     
     public func value(at index:Int)->T?{
-        return array.get(index)?.wrappedValue
+        return list.get(index)?.wrappedValue
     }
 
 }

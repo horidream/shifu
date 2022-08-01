@@ -43,18 +43,16 @@ public extension UIFont {
 
 public class FontAwesome{
     static func image(_ code:String, size:CGFloat, color:UIColor)-> UIImage{
-        UIFont.useFontAwesome()
-        if code.canBeRenderedBy("FontAwesome6Free-Regular"){
-            return code.image("FontAwesome6Free-Regular", fontSize: size, fontColor: color) ?? UIImage()
-        }else if code.canBeRenderedBy("FontAwesome6Free-Solid"){
-            return code.image("FontAwesome6Free-Solid", fontSize: size, fontColor: color) ?? UIImage()
-        }else if code.canBeRenderedBy("FontAwesome6Brands-Regular"){
-            return code.image("FontAwesome6Brands-Regular", fontSize: size, fontColor: color) ?? UIImage()
+        
+        if let fontName = fontName(for: code){
+            return code.image(fontName, fontSize: size, fontColor: color) ?? UIImage()
+            
         }
         return UIImage()
     }
     
     public static func fontName(for code:String)->String?{
+        UIFont.useFontAwesome()
         return ["FontAwesome6Free-Regular", "FontAwesome6Free-Solid", "FontAwesome6Brands-Regular"].first { name in
             code.canBeRenderedBy(name)
         }

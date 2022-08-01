@@ -9,7 +9,7 @@
 import Foundation
 import Shifu
 
-let clg = Shifu.clg(prefix: "Hori -")
+let clg = Shifu.clg(prefix: "> -")
 
 extension String: CVSTransform{}
 

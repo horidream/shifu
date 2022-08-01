@@ -5,17 +5,8 @@
 //  Created by Baoli Zhai on 2020/4/8.
 //
 
+let clg = Shifu.clg(prefix: "🥋 -")
 
-var clg:((Any...)->Void) {
-    get{
-        return Shifu.CurrentCLG.clg ?? {
-            print($0.reduce(""){
-                partialResult, item in
-                return partialResult.isEmpty ? "\(item)" : "\(partialResult) \(item)"
-            })
-        }
-    }
-}
 class EqutableWrapper: Equatable, Identifiable{
   static func == (lhs: EqutableWrapper, rhs: EqutableWrapper) -> Bool {
     return lhs.id == rhs.id

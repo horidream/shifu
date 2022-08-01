@@ -15,17 +15,18 @@ struct AnimationDemo: View {
     @State var count = 0;
     var body: some View{
         ZStack{
-            VStack{
-                Image.icon(.swift_fa, size: 100)
-                    .foregroundColor(.orange)
-                SimpleMarkdownViewer(content: "### May the `Force` be with you.\n" + #"""
+            props.bind{
+                VStack{
+                    Image.icon(.swift_fa, size: 100)
+                        .foregroundColor(.orange)
+                    SimpleMarkdownViewer(content: "### May the `Force` be with you.\n" + #"""
                                  **May the Force be with you** was a phrase used to wish an individual or group good luck or good will, one that expressed the speaker's wish that the Force work in the favor of the addressee. The phrase was often used as individuals parted ways or in the face of an impending challenge.
                                  """#, css: "h3, * { text-align: center; line-height: 25px;} ")
-                .id(injectObserver.injectionNumber)
-                .frame(height: 200)
+                    .id(injectObserver.injectionNumber)
+                    .frame(height: 200)
+                }
+                .padding(50)
             }
-            .padding(50)
-            .tweenProps(props)
             
             if(count % 2 == 1){
                 ScrollView{

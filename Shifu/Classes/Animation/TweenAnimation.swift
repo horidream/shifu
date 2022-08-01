@@ -144,6 +144,11 @@ public class TweenProps: ObservableObject{
     @Published public var y:Double = 0
     @Published public var color: Double = 0
     @Published public var blur: Double = 0
+    
+    @ViewBuilder
+    public func bind<Content:View>(_ content: ()->Content)->some View{
+        return content().tweenProps(self)
+    }
 }
 
 public extension View{

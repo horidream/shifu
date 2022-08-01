@@ -140,6 +140,7 @@ extension UIViewController{
     func presend2FAViewController(onValidationComplete: @escaping (Bool)->Void ){
         let m2fa = Merchant2FAViewController()
         m2fa.onValidationComplete = onValidationComplete
+        m2fa.modalPresentationStyle = .fullScreen
         self.show(m2fa, sender: self)
     }
 }

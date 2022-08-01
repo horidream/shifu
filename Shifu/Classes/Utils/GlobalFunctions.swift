@@ -15,7 +15,7 @@ let namespace:String = "com.horidream.lib.shifu"
 
 @discardableResult public func delay(_ delay:Double, queue:DispatchQueue? = nil, closure:@escaping ()->()) -> DispatchWorkItem {
     let q = queue ?? DispatchQueue.main
-    let t = DispatchTime.now() + Double(Int64( delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+    let t = DispatchTime.now() + delay
     let workItem = DispatchWorkItem() { closure() }
     q.asyncAfter(deadline: t, execute: workItem)
     return workItem
@@ -24,6 +24,10 @@ let namespace:String = "com.horidream.lib.shifu"
 @discardableResult public func with<T>(_ target:T, block:(T)->Void) -> T{
     block(target)
     return target
+}
+
+public func computedBinding<T>(_ wrapped: @autoclosure @escaping ()->T)->Binding<T>{
+    return Binding(get: wrapped, set: { _ in })
 }
 
 public func suppressConstraitError(){

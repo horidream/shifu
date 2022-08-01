@@ -27,6 +27,10 @@ struct Sandbox:View{
     let layout = [GridItem(.adaptive(minimum: 60))]
     var body: some View {
         ScrollView{
+            "Font Awesome".attributedString([.font: UIFont(name: "Arial Bold", size: 99)!]).with(.color(.purple.withAlphaComponent(0.3)),.outline(.purple, width: -3)).image().sui
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding([.top, .horizontal])
             LazyVGrid(columns: layout) {
                 ForEach(Icons.Name.allCases.filter{ $0.isFontAwesome }.shuffled()[...99], id: \.self) { name in
                     Icons.outlineImage(name, color: name.isFontAwesome ? .red : .blue, width: 1).sui
@@ -45,7 +49,9 @@ struct Sandbox:View{
     }
     
     func sandbox(){
-        
+        delay(1){
+            clg("hello")
+        }
     }
     
     
