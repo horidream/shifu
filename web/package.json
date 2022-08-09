@@ -16,19 +16,19 @@
     "not ie <= 8"
   ],
   "devDependencies": {
-    "@babel/core": "^7.18.2",
-    "@babel/preset-env": "^7.18.2",
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
     "babel-loader": "^8.2.5",
     "babel-preset-env": "^1.7.0",
     "copy-webpack-plugin": "^11.0.0",
-    "webpack": "^5.72.1",
+    "webpack": "^5.74.0",
     "webpack-bundle-analyzer": "^4.5.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
-    "highlight.js": "^11.5.1",
-    "katex": "^0.15.6",
-    "marked": "^4.0.16"
+    "highlight.js": "^11.6.0",
+    "katex": "^0.16.0",
+    "marked": "^4.0.18"
   }
 }
