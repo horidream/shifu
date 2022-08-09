@@ -32,15 +32,12 @@ public extension URL{
         let metadataList = playerItem.asset.metadata
         if let artwork = (metadataList.filter { (item) -> Bool in
             return item.commonKey == AVMetadataKey.commonKeyArtwork
-            }.first), let data = artwork.dataValue{
+        }.first), let data = artwork.dataValue{
             if let image =  UIImage(data: data){
-                if #available(iOS 10.0, *) {
-                    return MPMediaItemArtwork(boundsSize: CGSize(width:100, height:100), requestHandler: { (size) -> UIImage in
-                        image.resizedImage(width: size.width, height: size.height)!
-                    })
-                } else {
-                    return nil
-                }
+                return MPMediaItemArtwork(boundsSize: CGSize(width:image.size.width, height:image.size.height), requestHandler: { (size) -> UIImage in
+                    image.resizedImage(width: size.width, height: size.height)!
+                })
+
             }
         }
         return nil
@@ -48,5 +45,11 @@ public extension URL{
     
     var content:String? {
         return try? String(contentsOf: self)
+    }
+}
+
+public extension MPMediaItemArtwork {
+    var originalImage:UIImage? {
+        return image(at: self.bounds.size)
     }
 }

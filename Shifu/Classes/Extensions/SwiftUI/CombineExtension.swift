@@ -17,48 +17,37 @@ fileprivate func getRetainKey(key:AnyHashable, line:Int)->AnyHashable{
     }
 }
 
-@available(iOS 13.0, *)
-public extension AnyCancellable{
-    static var bag:[AnyHashable:AnyCancellable] = [:]
+public protocol Retainable{
+    associatedtype RetainReference:Equatable
+    static var bag:[AnyHashable: RetainReference] { get set }
+    func retain(_ key: AnyHashable, line: Int) -> Self
+    static func release(key:AnyHashable)
+}
+
+public extension Retainable{
     @discardableResult func retain(_ key: AnyHashable = #file, line: Int = #line) -> Self {
-        AnyCancellable.bag[getRetainKey(key: key, line: line)] = self
+        let key = getRetainKey(key: key, line: line)
+        if let this = self as? RetainReference{
+            Self.bag[key] = this
+        }
         return self
     }
     
-    
-    
-    func release(){
-        if let key = key{
-            AnyCancellable.release(key: key)
-        }
-    }
-    
-    var key:AnyHashable? {
-        for item in AnyCancellable.bag{
-            if(item.value == self){
-                return item.key
-            }
-        }
-        return nil
-    }
-    
     static func release(key:AnyHashable){
-        bag[key]?.cancel()
-        AnyCancellable.bag.removeValue(forKey: key)
+        Self.bag.removeValue(forKey: key)
     }
     
-    static func releaseAll(test:((AnyHashable)->Bool) = { _ in true }){
-        
-        bag.keys.filter(test).forEach { (key) in
-            release(key: key)
-        }
-    }
-    static func releaseAll(pattern: String){
-        bag.keys.compactMap{ $0 as? String }.filter({ $0.range(of: pattern, options: .regularExpression) != nil }).forEach { (key) in
-            release(key: key)
-        }
-    }
 }
+
+@available(iOS 13.0, *)
+extension AnyCancellable: Retainable{
+    public static var bag:[AnyHashable:AnyCancellable] = [:]
+}
+
+extension NSKeyValueObservation: Retainable{
+    public static var bag:[AnyHashable: NSKeyValueObservation] = [:]
+}
+
 
 
 public extension Publisher{
@@ -80,88 +69,24 @@ public extension Publisher{
     }
 }
 
-//@available(iOS 13.0, *)
-//public func debounce<T>(_ id:AnyHashable, closure:@escaping (T)->Void)->((T)->Void){
-//    
-//    let publisher = PassthroughSubject<T, Never>()
-//    publisher.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-//       .sink{
-//           i in
-//           closure(i)
-//       }.retain(id)
-//    return publisher.send
-//}
-//
-//@available(iOS 13.0, *)
-//public func debounce(_ id:AnyHashable, closure:@escaping ()->Void)->(()->Void){
-//    
-//    let publisher = PassthroughSubject<Void, Never>()
-//    publisher.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-//       .sink{ _ in
-//           closure()
-//       }.retain(id)
-//    return publisher.send
-//}
 
 
-public protocol CVSTransform {
+public protocol SubjectTransformable {
     var cvs:CurrentValueSubject<Self, Never>{ get }
+    var ps:PassthroughSubject<Self, Never>{ get }
 }
 
-public extension CVSTransform {
+public extension SubjectTransformable {
     var cvs:CurrentValueSubject<Self, Never>{
         return CurrentValueSubject(self)
     }
-}
-
-
-public extension NSKeyValueObservation{
-    static var bag:[AnyHashable:NSKeyValueObservation] = [:]
-    @discardableResult func retain(_ key: @autoclosure ()-> AnyHashable = #file + "\(#line)" ) -> Self {
-        NSKeyValueObservation.bag[key()] = self
-        return self
-    }
-
-
-
-    func release(){
-        if let key = key{
-            NSKeyValueObservation.release(key: key)
-        }
-    }
-
-    var key:AnyHashable? {
-        for item in NSKeyValueObservation.bag{
-            if(item.value == self){
-                return item.key
-            }
-        }
-        return nil
-    }
-
-    static func release(key:AnyHashable){
-        NSKeyValueObservation.bag.removeValue(forKey: key)
-    }
-
-    static func releaseAll(test:((AnyHashable)->Bool) = { _ in true }){
-        bag.keys.filter(test).forEach { (key) in
-            release(key: key)
-        }
-    }
-    
-    static func releaseAll(pattern: String){
-        bag.keys.compactMap{ $0 as? String }.filter({ $0.range(of: pattern, options: .regularExpression) != nil }).forEach { (key) in
-            release(key: key)
-        }
+    var ps:PassthroughSubject<Self, Never>{
+        return PassthroughSubject()
     }
 }
 
-
-extension NSKeyValueObservedChange{
-    public func release(key: AnyHashable){
-        NSKeyValueObservation.release(key: key)
-    }
-}
+extension String: SubjectTransformable{}
+extension Int: SubjectTransformable{}
 
 public class ObservableArray<T:ObservableObject>: ObservableObject {
 
@@ -195,4 +120,58 @@ public class ObservableArray<T:ObservableObject>: ObservableObject {
         return list.get(index)?.wrappedValue
     }
 
+}
+
+
+public protocol CombineCompatible { }
+extension UIControl: CombineCompatible { }
+extension CombineCompatible where Self: UIControl {
+    public func publisher(for events: UIControl.Event) -> UIControlPublisher<UIControl> {
+        return UIControlPublisher(control: self, events: events)
+    }
+}
+
+public struct UIControlPublisher<Control: UIControl>: Publisher {
+
+    public typealias Output = Control
+    public typealias Failure = Never
+
+    let control: Control
+    let controlEvents: UIControl.Event
+
+    init(control: Control, events: UIControl.Event) {
+        self.control = control
+        self.controlEvents = events
+    }
+    
+    public func receive<S>(subscriber: S) where S : Subscriber, S.Failure == UIControlPublisher.Failure, S.Input == UIControlPublisher.Output {
+        let subscription = UIControlSubscription(subscriber: subscriber, control: control, event: controlEvents)
+        subscriber.receive(subscription: subscription)
+    }
+}
+
+final class UIControlSubscription<SubscriberType: Subscriber,
+                                  Control: UIControl>: Subscription
+                                  where SubscriberType.Input == Control {
+    private var subscriber: SubscriberType?
+    private let control: Control
+
+    init(subscriber: SubscriberType, control: Control, event: UIControl.Event) {
+        self.subscriber = subscriber
+        self.control = control
+        control.addTarget(self, action: #selector(eventHandler), for: event)
+    }
+
+    func request(_ demand: Subscribers.Demand) {
+        // We do nothing here as we only want to send events when they occur.
+        // See, for more info: https://developer.apple.com/documentation/combine/subscribers/demand
+    }
+
+    func cancel() {
+        subscriber = nil
+    }
+
+    @objc private func eventHandler() {
+        _ = subscriber?.receive(control)
+    }
 }

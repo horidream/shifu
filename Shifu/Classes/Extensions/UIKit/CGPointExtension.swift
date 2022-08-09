@@ -75,6 +75,9 @@ public extension CGRect{
 }
 
 public extension CGSize{
+    static func + (left: CGSize, right: CGSize) -> CGSize {
+        return CGSize(left.width + right.width, left.height + right.height)
+    }
     
     init(_ size: CGFloat){
         self.init(width: size, height: size)

@@ -31,11 +31,8 @@ extension NSAttributedString{
         return AttributedString(self)
     }
 }
+
 extension AttributedString{
-    public var ns:NSAttributedString {
-        return NSAttributedString(self)
-    }
-    
     mutating public func replace(_ string: String, with other: AttributedString?){
         guard let other = other else { return }
         while let range = range(of: string){

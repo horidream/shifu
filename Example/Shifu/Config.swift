@@ -9,9 +9,9 @@
 import Foundation
 import Shifu
 
-let clg = Shifu.clg(prefix: "> -")
+let clg = Shifu.clg(prefix: ">")
 
-extension String: CVSTransform{}
+
 
 class Theme{
     @ThemedColor(light: .red, dark: .white)

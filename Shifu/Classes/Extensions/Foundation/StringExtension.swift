@@ -13,6 +13,13 @@ private let predicateForUpperCase = NSPredicate.init(format: "SELF MATCHES %@", 
 
 public extension String{
     
+    func test(pattern:String, options:NSRegularExpression.Options = [])->Bool{
+        if let reg = try? NSRegularExpression(pattern: pattern, options: options){
+            return reg.firstMatch(in: self, options: [], range: NSRange(0..<self.count)) != nil
+        }
+        return false
+    }
+    
     func replace(pattern:String, with template:String, options:NSRegularExpression.Options = [])->String{
         if let reg = try? NSRegularExpression(pattern: pattern, options: options){
             return reg.stringByReplacingMatches(in:self, options:[], range:NSRange(0..<self.count), withTemplate: template)
@@ -154,8 +161,8 @@ public extension String{
     var url:URL?{
         
         if self.starts(with: "@"){
-            if self.starts(with: "@documents"){
-                return URL(fileURLWithPath: self.replacingOccurrences(of:"@documents", with: FileManager.path.document))
+            if self.test(pattern: "^@(doc|document|documents)(?=/)"){
+                return URL(fileURLWithPath: self.replace(pattern: "^@(doc|document|documents)(?=/)", with: FileManager.path.document))
             }else{
                 var path = self
                 path.removeFirst()
@@ -186,18 +193,7 @@ public extension String.SubSequence{
     }
 }
 
-public protocol NSCastable{
-    associatedtype NS
-    var ns:NS{ get }
-}
-public extension NSCastable{
-    var ns:NS{
-        return self as! NS
-    }
-}
 
-extension String:NSCastable{ public typealias NS = NSString }
-extension URL:NSCastable{ public typealias NS = NSURL }
 
 public extension String{
     var normalized:String{

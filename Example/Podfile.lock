@@ -12,6 +12,7 @@ PODS:
     - ReachabilitySwift
   - ShifuLottie (0.7.7):
     - lottie-ios
+    - Shifu
 
 DEPENDENCIES:
   - Cuckoo
@@ -37,8 +38,8 @@ SPEC CHECKSUMS:
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Shifu: 8db5d6ef3e8724680e7bb19fcc1d6ce7faff53bc
-  ShifuLottie: 8d4f8eb00e077d189e37ba8d7c3c1a193a0019ae
+  ShifuLottie: 749f382353fa6db30311ac2c69ebda576c89668a
 
-PODFILE CHECKSUM: 5b507250ee443d48ba4fc9d3c5e20c7d9d17c282
+PODFILE CHECKSUM: 86d21ee8c21c05ce61da43866bfeede881a15d1d
 
 COCOAPODS: 1.11.3

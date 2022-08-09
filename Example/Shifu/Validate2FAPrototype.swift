@@ -107,6 +107,11 @@ class Merchant2FAViewController:UIViewController{
         btn.quickAlign(5, 0, 38 + 5)
         validated.onReceive { validated in
             label.text = self.message(for: validated)
+            if validated {
+                delay(0.4){
+                    self.dismiss(animated: false)
+                }
+            }
         }
     }
     
@@ -141,7 +146,7 @@ extension UIViewController{
         let m2fa = Merchant2FAViewController()
         m2fa.onValidationComplete = onValidationComplete
         m2fa.modalPresentationStyle = .fullScreen
-        self.show(m2fa, sender: self)
+        self.present(m2fa, animated: false)
     }
 }
 

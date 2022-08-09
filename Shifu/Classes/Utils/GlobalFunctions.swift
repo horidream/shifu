@@ -41,6 +41,13 @@ public func performance(title:String, operation:()->()) {
     clg("Time elapsed for \(title): \(timeElapsed) s.")
 }
 
+public func withoutCAAnimation(_ block:()->Void){
+    CATransaction.begin()
+    CATransaction.setValue(true, forKey: kCATransactionDisableActions)
+    block()
+    CATransaction.commit()
+}
+
 public let fm: FileManager = FileManager.default
 public let pb: UIPasteboard = UIPasteboard.general
 public let ud = UserDefaults.standard

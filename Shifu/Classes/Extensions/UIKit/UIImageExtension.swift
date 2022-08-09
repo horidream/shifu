@@ -36,15 +36,16 @@ public extension UIImage{
         
     }
     
-    func resizedImage(scaleX:CGFloat, scaleY:CGFloat, smoothing:Bool = false, forceAlphaChanel: Bool = false) -> UIImage?{
+    func resizedImage(scaleX:CGFloat, scaleY:CGFloat, smoothing:Bool = false) -> UIImage?{
         let w = self.size.width * scaleX
         let h = self.size.height * scaleY
-        return resizedImage(width: w, height: h, smoothing: smoothing, forceAlphaChanel: forceAlphaChanel )
+        return resizedImage(width: w, height: h, smoothing: smoothing)
     }
     
-    func resizedImage(width:CGFloat, height:CGFloat, smoothing:Bool = false, forceAlphaChanel: Bool = false) -> UIImage?{
+    func resizedImage(width:CGFloat, height:CGFloat, smoothing:Bool = false) -> UIImage?{
         
         let size = CGSize(width: width, height: height)
+        guard size != self.size else { return self }
         UIGraphicsBeginImageContextWithOptions(size, hasAlphaChannel, 0)
         if(!smoothing){
             let context = UIGraphicsGetCurrentContext()
@@ -74,8 +75,8 @@ public extension UIImage{
     }
     
     
-    func resizedImage(scale: CGFloat, smoothing:Bool = false, forceAlphaChanel: Bool = false) -> UIImage?{
-        return resizedImage(scaleX: scale, scaleY: scale, smoothing:smoothing, forceAlphaChanel: forceAlphaChanel)
+    func resizedImage(scale: CGFloat, smoothing:Bool = false) -> UIImage?{
+        return resizedImage(scaleX: scale, scaleY: scale, smoothing:smoothing)
     }
     
     func colorized(with color: UIColor = .white) -> UIImage {

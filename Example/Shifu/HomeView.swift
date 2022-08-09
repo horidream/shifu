@@ -10,12 +10,6 @@ import SwiftUI
 import Combine
 import Shifu
 
-struct Person:Codable{
-    let name:String
-    private enum CodingKeys : String, CodingKey {
-        case name = "title"
-    }
-}
 extension Notification.Name{
     static var hello = "hello".toNotificationName()
 }
