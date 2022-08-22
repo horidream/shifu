@@ -11,7 +11,11 @@ import Shifu
 
 let clg = Shifu.clg(prefix: ">")
 
-
+class Test{
+    func say()->String{
+        "hello"
+    }
+}
 
 class Theme{
     @ThemedColor(light: .red, dark: .white)

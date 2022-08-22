@@ -1,18 +1,22 @@
-import cm from "grogu"
+import cm from "grogu";
 const marked = require("marked");
 import hljs from "highlight.js";
 import katex from "katex";
+import "./Polyfill"
 
-hljs.registerLanguage("objective-c", require("highlight.js/lib/languages/objectivec"));
+hljs.registerLanguage(
+  "objective-c",
+  require("highlight.js/lib/languages/objectivec")
+);
 
-let renderer = new marked.Renderer()
+let renderer = new marked.Renderer();
 marked.setOptions({
   renderer,
   highlight: function (code, language) {
     if (!hljs.getLanguage(language)) {
       return hljs.highlightAuto(code).value;
     }
-    
+
     return hljs.highlight(code, { language }).value;
   },
   pedantic: false,
@@ -26,24 +30,18 @@ marked.setOptions({
 });
 
 function mathsExpression(expr) {
-  // if (expr.match(/^\$\$[\s\S]*\$\$$/)) {
-  //   expr = expr.substr(2, expr.length - 4);
-  //   return katex.renderToString(expr, { displayMode: true });
-  // } else if (expr.match(/^\$[\s\S]*\$$/)) {
-  //   expr = htmldecode(expr); // temp solution
-  //   expr = expr.substr(1, expr.length - 2);
-  //   return katex.renderToString(expr, { displayMode: false });
-  // }
-
   if (expr.match(/^\$\$[\s\S]*\$\$$/)) {
     expr = expr.substr(2, expr.length - 4);
     return katex.renderToString(expr, {
       displayMode: true,
       throwOnError: false,
     });
-  }else if(expr.match(/^\$[\s\S]*\$$/)){
+  } else if (expr.match(/^\$[\s\S]*\$$/)) {
     expr = expr.substr(1, expr.length - 2);
-    return katex.renderToString(expr, { displayMode: false, throwOnError: false });
+    return katex.renderToString(expr, {
+      displayMode: false,
+      throwOnError: false,
+    });
   }
 }
 
@@ -68,24 +66,23 @@ renderer.codespan = function (text) {
 };
 
 renderer.checkbox = function (value) {
-  return value ? `<input checked="" type="checkbox">` : `<input type="checkbox">`;
-}
+  return value
+    ? `<input checked="" type="checkbox">`
+    : `<input type="checkbox">`;
+};
 
 window.marked = marked.marked;
 window.hljs = hljs;
 
-window.postToNative = window.postToNative || function (data) { console.log(data); };
-window.eb = window.eb || new EventTarget();
 
-cm.declareModel("com.horidream.lib.shifu", async function(el, options){
+
+cm.declareModel("com.horidream.lib.shifu", async function (el, options) {
   let store = {
-    state: {
-    }
-  }
+    state: {},
+  };
   let model = await cm.genModel(store, options, el);
   postToNative({
     type: "mounted",
   });
   return model;
 });
-

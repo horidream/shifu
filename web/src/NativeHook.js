@@ -6,7 +6,6 @@ function postToNative(data) {
   window.webkit.messageHandlers.native.postMessage(data);
 }
 
-const eb = new EventTarget();
 function onNative(type, data) {
   eb.dispatchEvent(new CustomEvent(type, { detail: data }));
 }
@@ -21,6 +20,8 @@ const resizeObserver = new ResizeObserver((entries) => {
 });
 
 
+window.eb = window.eb || new EventTarget();
 window.console.log = captureLog;
 window.console.warn = captureLog;
 window.console.error = captureLog;
+window.onerror = captureLog;

@@ -1,15 +1,18 @@
-// MARK: - Mocks generated from file: Shifu/Test.swift at 2022-04-13 16:20:57 +0000
+// MARK: - Mocks generated from file: Shifu/Config.swift at 2022-08-09 09:19:25 +0000
 
 //
-//  Test.swift
-//  ShifuExampleTests
+//  Config.swift
+//  ShifuExample
 //
-//  Created by Baoli Zhai on 2022/4/13.
+//  Created by Baoli Zhai on 2022/2/1.
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
 import Cuckoo
 @testable import ShifuExample
+
+import Foundation
+import Shifu
 
 
  class MockTest: Test, Cuckoo.ClassMock {
@@ -100,6 +103,67 @@ import Cuckoo
      override func say() -> String  {
         return DefaultValueRegistry.defaultValue(for: (String).self)
     }
+    
+}
+
+
+
+ class MockTheme: Theme, Cuckoo.ClassMock {
+    
+     typealias MocksType = Theme
+    
+     typealias Stubbing = __StubbingProxy_Theme
+     typealias Verification = __VerificationProxy_Theme
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: true)
+
+    
+    private var __defaultImplStub: Theme?
+
+     func enableDefaultImplementation(_ stub: Theme) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+
+	 struct __StubbingProxy_Theme: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	     init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	}
+
+	 struct __VerificationProxy_Theme: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	}
+}
+
+ class ThemeStub: Theme {
+    
+
+    
+
     
 }
 

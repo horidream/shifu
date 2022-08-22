@@ -13,95 +13,68 @@ import Combine
 import UIKit
 import ShifuLottie
 import Lottie
+import Foundation
 
 
-
-func addAnimation(_ layer: CALayer){
-    let animation = CABasicAnimation(keyPath: "transform.rotation.z")
-    animation.fromValue = 0
-    animation.toValue = Double.pi * 2
-    animation.duration = 1
-    animation.repeatCount = .infinity
-    animation.isRemovedOnCompletion = true
-    layer.removeAllAnimations()
-    layer.add(animation, forKey: "rotation")
-    
+extension Int{
+    var scale:String{
+        self > 66 ? "big" : self < 33 ? "small" : "medium"
+    }
 }
 
 struct Sandbox:View{
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.locale) var locale: Locale
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @PersistToFile("a.txt") var n:String
-    @State var currentValue:CGFloat = 0
-    @State var lottieAnimation = AnimationView(name: "lottie_example")
-    @State var v = with(UIView()){ v in
-        v.layer.backgroundColor = .blue
-        addAnimation(v.layer)
-        v.layer.speed = 0
-    }
-    @State var offset: CGSize = .zero
-    @State var lastOffset: CGSize = .zero
-    let layout = [GridItem(.adaptive(minimum: 60))]
-    
     
     var body: some View {
-        ScrollView{
+        ZStack {
+            Text("hello")
             
-            ContainerUIView(v)
-                .frame(width: 50, height: 50)
-                .offset(offset)
-                .gesture(DragGesture()
-                    .onChanged{ value in
-                        offset = lastOffset + CGSize(value.translation.width, value.translation.height)
-                    }
-                    .onEnded{ value in
-                        lastOffset = offset
-                    }
-                )
-            Text("\(currentValue)")
-            Slider(value: $currentValue, in: 0...1).padding()
+            .padding()
         }
-        .onChange(of: currentValue, perform: { newValue in
-            if (currentValue == 1){
-                v.layer.speed = 1
-            } else {
-                if( v.layer.speed == 1) {
-                    v.layer.speed = 0
-                    v.layer.beginTime = 0
-                }
-            }
-            v.layer.timeOffset = currentValue
-        })
+        .frame(height: 200)
+        .cornerRadius(10)
         .navigationBarTitleDisplayMode(.inline)
-        .onInjection{
+        .onAppear{
             sandbox()
         }
-        .onAppear{
-            lottieAnimation.play(fromProgress: 0.8, toProgress: 0)
+        .onInjection{
             sandbox()
         }
     }
     
     func sandbox(){
-        
-        clg((1..<10).ns)
-        clg((1...10).ns)
+       
     }
     
 }
 
 
 
-
-class MyView: UITableView,UIScrollViewDelegate{
-    var offset:CGFloat = 0
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        offset = scrollView.contentOffset.y + scrollView.contentInset.top
-    }
-    @objc func onRefresh(_ refresh: UIControl){
-        clg("changed")
+class File{
+    var filename:String
+    var data:String
+    init(filename: String, data: String) {
+        self.filename = filename
+        self.data = data
     }
 }
 
+class VersionedFile: File{
+    var version:Double = 0
+    convenience init(filename: String, data: String, version: Double = 1) {
+        self.init(filename: filename, data: data)
+        self.version = version
+    }
+}
 
+class BookFile: VersionedFile {
+    private var author: String?
+}
+
+class MyFile: BookFile{
+    func say(){
+        clg("self")
+    }
+}

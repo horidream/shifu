@@ -1,12 +1,5 @@
 import { toMarkdown } from "grogu/utils";
 
-window.postToNative =
-  window.postToNative ||
-  function (data) {
-    console.log(data);
-  };
-window.eb = window.eb || new EventTarget();
-
 function readHTML() {
   return navigator.clipboard.read().then((data) => {
     let items = data.filter((item) => item.types.includes("text/html"));

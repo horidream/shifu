@@ -118,7 +118,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
 
 
 
-final public class ShifuWebViewController: UIViewController, WKScriptMessageHandler{
+final public class ShifuWebViewController: UIViewController, WKScriptMessageHandler, WKNavigationDelegate{
     var lastLoadedHTML:String?
     init(id: SimpleObject = SimpleObject()){
         super.init(nibName: nil, bundle: nil)
@@ -130,7 +130,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "logHandler" {
-            clg("logHandler", message.body)
+            clg("[log]", message.body)
         }else{
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
 //                clg(type, dic)
@@ -148,6 +148,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
         webView.isOpaque = false
         webView.scrollView.showsVerticalScrollIndicator = false
         webView.scrollView.showsHorizontalScrollIndicator = false
+        webView.navigationDelegate = self
         if let source = Shifu.bundle.url(forResource: "web/NativeHook", withExtension: "js")?.content, let postSource = Shifu.bundle.url(forResource: "web/PostNativeHook", withExtension: "js")?.content{
             let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
             let postScript = WKUserScript(source: postSource, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
@@ -170,7 +171,10 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
 //        webView.callAsyncJavaScript(script, arguments: ["id": 1], in: nil, in: .page)
     }
     
-    
+    // MARK: DELEGATE
+    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        clg("ShifuWebViewController: \(error)")
+    }
     
 }
 

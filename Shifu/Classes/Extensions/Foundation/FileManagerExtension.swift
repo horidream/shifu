@@ -100,4 +100,14 @@ public extension FileManager {
     func url(_ fileName: String, in directory: URL = url.document) -> URL{
         return directory.appendingPathComponent(fileName)
     }
+    
+    func urls(in url: URL?)->[URL]  {
+        if let url , let enumerator = FileManager.default.enumerator(atPath:url.path){
+            return enumerator.allObjects.map{ url.appendingPathComponent($0 as! String)}
+        }else{
+            return []
+        }
+    }
 }
+
+
