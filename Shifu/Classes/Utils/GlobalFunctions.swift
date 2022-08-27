@@ -21,6 +21,24 @@ let namespace:String = "com.horidream.lib.shifu"
     return workItem
 }
 
+public func runOnce(file:String = #file, line:Int = #line, block:()->Void){
+    let id = "\(file)-\(line)"
+    class Status {
+        static var dic = [String: Bool]()
+        static func canRun(_ id:String)->Bool{
+            return dic[id] ?? true
+        }
+        static func didRun(_ id:String){
+            dic[id] = false
+        }
+    }
+    
+    if(Status.canRun(id)){
+        block()
+        Status.didRun(id)
+    }
+}
+
 @discardableResult public func with<T>(_ target:T, block:(T)->Void) -> T{
     block(target)
     return target

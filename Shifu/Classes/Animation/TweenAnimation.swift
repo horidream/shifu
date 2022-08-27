@@ -49,30 +49,39 @@ public enum TweenAnimationType{
 public class ta<T:Equatable> {
     @Binding var target:T
     var currentAnimation: TweenAnimation<T>?
-
+    var timeline: Double = 0
     public init(_ target: Binding<T>){
         _target = target
     }
     
-    @discardableResult public func delay(_ delay: Double)->ta<T>{
-        currentAnimation?.play(delay: delay)
+    @discardableResult public func delay(_ delay: Double, resetPlayhead:Bool = false)->ta<T>{
+        if resetPlayhead {
+            timeline = delay
+        } else {
+            timeline += delay
+        }
         return self
     }
     
     @discardableResult public func to(_ value: T, duration: Double? = nil, type: TweenAnimationType = .default)->ta<T>{
-        currentAnimation =  TweenAnimation($target, to: value, animation: getAnimation(type, duration: duration)).play()
+        currentAnimation =  TweenAnimation($target, to: value, animation: getAnimation(type, duration: duration)).play(delay: timeline)
+        timeline += (duration ?? defaultDuration)
         return self
     }
     
     @discardableResult public func from(_ value: T, duration: Double? = nil, type: TweenAnimationType = .default)->ta<T>{
-        currentAnimation = TweenAnimation($target, from: value, animation: getAnimation(type, duration: duration)).play()
+        currentAnimation = TweenAnimation($target, from: value, animation: getAnimation(type, duration: duration)).play(delay: timeline)
+        timeline += (duration ?? defaultDuration)
         return self
     }
     
     @discardableResult public func from(_ value: T, to:T,  duration: Double? = nil, type: TweenAnimationType = .default)->ta<T>{
-        currentAnimation = TweenAnimation($target, from: value, to: to, animation: getAnimation(type, duration: duration)).play()
+        currentAnimation = TweenAnimation($target, from: value, to: to, animation: getAnimation(type, duration: duration)).play(delay: timeline)
+        timeline += (duration ?? defaultDuration)
         return self
     }
+    
+    
 }
 
 let defaultDuration:Double = 0.35

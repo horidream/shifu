@@ -21,6 +21,35 @@ public protocol AppModelBase: AnyObject {
 }
 
 
+
+
+
+private struct Keys {
+    static var extKey = "extKey"
+}
+
+public extension AppModelBase {
+    var ext: [String: Any] {
+        set {
+            objc_setAssociatedObject(self, &Keys.extKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        }
+        get {
+            return objc_getAssociatedObject(self, &Keys.extKey) as? [String: Any] ?? [:]
+        }
+    }
+    
+    func getProperty<T>(_ key:String, fallback:@autoclosure ()->T)->T{
+        if ext[key] != nil, let instance = ext[key] as? T {
+            return instance
+        }else{
+            let instance =  fallback()
+            ext[key] = instance
+            return instance
+        }
+    }
+}
+
+
 @available(iOS 13.0, *)
 public extension AppModelBase where Self: ObservableObject, Self.ObjectWillChangePublisher == ObservableObjectPublisher{
 
@@ -50,18 +79,6 @@ public extension AppModelBase where Self: ObservableObject, Self.ObjectWillChang
         }
     }
     
-    
-    
-    func getProperty<T>(_ key:String, fallback:@autoclosure ()->T)->T{
-        if ext[key] != nil, let instance = ext[key] as? T {
-            return instance
-        }else{
-            let instance =  fallback()
-            ext[key] = instance
-            return instance
-        }
-    }
-
     func setProperty<T>(_ key:String, value:T) where T:Equatable{
         if ext[key] as? T !=  value {
             objectWillChange.send()
@@ -74,5 +91,3 @@ public extension AppModelBase where Self: ObservableObject, Self.ObjectWillChang
         ext[key] = value
     }
 }
-
-

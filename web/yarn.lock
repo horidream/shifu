@@ -2574,6 +2574,11 @@ find-cache-dir@^3.3.1:
     make-dir "^3.0.2"
     pkg-dir "^4.1.0"
 
+find-exec@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/find-exec/-/find-exec-1.0.2.tgz#dd90e77ef50ab380bdb2f6cc508a386606f3d3bd"
+  integrity sha512-/cs763F5i7Nm/aG+hjBv2nJB/Bl2w0tnuZd5bbfcV+WYapn8T4ez3B87H6MgvsmdheDkitj/rHi557wvE+XylQ==
+
 find-up@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-4.1.0.tgz#97afe7d6cdc0bc5928584b7c8d7b16e8a9aa5d19"
@@ -3351,6 +3356,13 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
+play-sound@^1.1.2:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/play-sound/-/play-sound-1.1.5.tgz#5b44aa0ed59e2ec2f80710210ed783c79b6fb854"
+  integrity sha512-gbdF1iLNyL5r9Ne9YwARGMkrvfR4EL9G1ZLtFPLkI2tQt0kkHw5CHM5E6Gl/lDuuk/Uj/O5Q29Bi08jMK4egbA==
+  dependencies:
+    find-exec "1.0.2"
+
 private@^0.1.6:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
@@ -3778,6 +3790,13 @@ sockjs@^0.3.24:
     faye-websocket "^0.11.3"
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
+
+sounds-webpack-plugin@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/sounds-webpack-plugin/-/sounds-webpack-plugin-0.0.2.tgz#13f226c34e154b8d9b8c1f7711d4c103d97f86e7"
+  integrity sha512-fBWRF8U1zQkfFRqwhFo9IyXMGES38vYB8zd62RdeAA14fk0t0pJfB+JNHFeG+BDgtpFDh9kE2V9VPc1AT2F6lA==
+  dependencies:
+    play-sound "^1.1.2"
 
 source-map-support@~0.5.20:
   version "0.5.21"

@@ -37,7 +37,6 @@ class FeatureViewModel<Content>: ObservableObject, Hashable, Identifiable{
 
 
 class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachability{
-    var ext: [String : Any] = [:]
     typealias Root = HomeView
     
     @Published var featureList:[FeatureViewModel<AnyView>] = []
@@ -152,7 +151,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 
             }
         ].reversed()
-//        featureList.get(0)?.isActive = true
+        featureList.get(0)?.isActive = true
     }
     
 }

@@ -1,4 +1,5 @@
 import { toMarkdown } from "grogu/utils";
+import "./Polyfill";
 
 function readHTML() {
   return navigator.clipboard.read().then((data) => {

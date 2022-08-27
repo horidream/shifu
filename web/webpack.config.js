@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const SoundsPlugin = require("sounds-webpack-plugin");
 
 console.log(process.env.NODE_ENV);
 module.exports = (env = {}, { mode = "production" }) => {
@@ -27,21 +28,15 @@ module.exports = (env = {}, { mode = "production" }) => {
             from: srcPath,
             to: outputPath,
             globOptions: {
-              ignore: [
-                "**/main.js",
-                "**/.DS_Store",
-                "index.js",
-                "**/empty.js",
-                "**/to_markdown.js",
-              ],
+              ignore: ["**/*.js", "**/.DS_Store", "node_modules/**"],
             },
           },
           {
             from: publicPath,
-            to: outputPath
-          }
+            to: outputPath,
+          },
         ],
-      })
+      }),
     );
   }
 
@@ -63,6 +58,24 @@ module.exports = (env = {}, { mode = "production" }) => {
       },
       plugins,
     };
+  } else {
+    plugins.push(
+      new SoundsPlugin({
+        sounds: {
+          success: path.join(__dirname, "tools/success.mp3"),
+        },
+        notifications: {
+          // invalid is a webpack hook
+          // you can check all hooks at https://github.com/webpack/webpack/blob/master/lib/Compiler.js#L32
+          // 'customSound' is the key provided in sounds
+          invalid: "customSound",
+          // you can provide a function to customize it further
+          done() {
+            this.play("success");
+          },
+        },
+      })
+    );
   }
   return {
     entry: {

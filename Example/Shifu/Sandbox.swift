@@ -12,69 +12,75 @@ import JavaScriptCore
 import Combine
 import UIKit
 import ShifuLottie
-import Lottie
-import Foundation
 
 
-extension Int{
-    var scale:String{
-        self > 66 ? "big" : self < 33 ? "small" : "medium"
-    }
-}
+
 
 struct Sandbox:View{
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.locale) var locale: Locale
     @ObservedObject private var injectObserver = Self.injectionObserver
     
+    @State var text = "Hello"
+    @PersistToFile("a.txt") var n:String
+    let layout = [GridItem(.adaptive(minimum: 60))]
     var body: some View {
-        ZStack {
-            Text("hello")
-            
-            .padding()
+        VStack{
+            Text(text)
+//            UIViewContainer(MyImagePicker().view)
+//                .frame(height: 100)
         }
-        .frame(height: 200)
-        .cornerRadius(10)
+        
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear{
+        .onInjection{
             sandbox()
         }
-        .onInjection{
+        .onAppear{
             sandbox()
         }
     }
     
     func sandbox(){
-       
+        Task{
+            await MainActor.run {
+                clg("set text to Task")
+                text = "Task"
+            }
+            try await Task.sleep(seconds: 2)
+            await MainActor.run {
+                clg("set text to Main")
+                text = "Main"
+            }
+        }
     }
+    
     
 }
 
-
-
-class File{
-    var filename:String
-    var data:String
-    init(filename: String, data: String) {
-        self.filename = filename
-        self.data = data
+class MyImagePicker: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        clg(info)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .white
+        title = "I am a very long title string that could be trimed by the system"
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+    @objc func close(){
+        clg("close")
+        delay(10){
+            
+        }
     }
 }
 
-class VersionedFile: File{
-    var version:Double = 0
-    convenience init(filename: String, data: String, version: Double = 1) {
-        self.init(filename: filename, data: data)
-        self.version = version
-    }
-}
 
-class BookFile: VersionedFile {
-    private var author: String?
-}
 
-class MyFile: BookFile{
-    func say(){
-        clg("self")
-    }
-}

@@ -6,15 +6,18 @@
 //
 
 import GCDWebServer
-
+import Combine
 
 
 public protocol AppModelWeb{
-    
+    var serverURL:URL? { get set }
 }
 
+private struct Keys {
+    static var serverURLKey = "serverURLKey"
+}
 @available(iOS 13.0, *)
-public extension AppModelWeb where Self: AppModelBase{
+public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, Self.ObjectWillChangePublisher == ObservableObjectPublisher{
     private var server:GCDWebServer {
         get{
             getProperty("webServer", fallback: GCDWebServer())
@@ -22,7 +25,17 @@ public extension AppModelWeb where Self: AppModelBase{
     }
     
     var serverURL:URL? {
-        return delegate.serverURL
+        get {
+            objc_getAssociatedObject(self, &Keys.serverURLKey) as? URL
+        }
+        set {
+            if let newValue = newValue {
+                // Computed properties get stored as associated objects
+                objectWillChange.send()
+                objc_setAssociatedObject(self, &Keys.serverURLKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+            }
+        }
+        
     }
     
     private var delegate:WebServerDelegate {
@@ -31,11 +44,14 @@ public extension AppModelWeb where Self: AppModelBase{
         }
     }
     
-    func initServer(_ path: String = "/web", port: Int = 9338, isLocal:Bool = true) {
-        let folderPath = Bundle.main.resourcePath?.appending(path)
+    func initServer(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath, port: Int = 9338, isLocal:Bool = true) {
+        if(server.isRunning){
+            server.stop()
+        }
         GCDWebServer.setLogLevel(4)
-        server.delegate = delegate
-        server.addGETHandler(forBasePath: "/", directoryPath: folderPath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
+        self.server.delegate = delegate
+        delegate.model = self
+        self.server.addGETHandler(forBasePath: "/", directoryPath: path ?? Bundle.main.resourcePath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
         startServer(port: port, isLocal: isLocal)
     }
     
@@ -65,11 +81,10 @@ public extension AppModelWeb where Self: AppModelBase{
 }
 
 @available(iOS 13.0, *)
-class WebServerDelegate:NSObject, GCDWebUploaderDelegate, ObservableObject {
-    var serverURL:URL?
+class WebServerDelegate:NSObject, GCDWebUploaderDelegate {
+    var model: AppModelWeb?
     func webServerDidStart(_ server: GCDWebServer) {
-        objectWillChange.send()
-        serverURL = server.serverURL
+        model?.serverURL = server.serverURL
     }
     func webServerDidCompleteBonjourRegistration(_ server: GCDWebServer) {
 

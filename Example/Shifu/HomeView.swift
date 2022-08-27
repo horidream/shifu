@@ -63,23 +63,7 @@ struct HomeView: View {
     }
 }
 
-func runOnce(file:String = #file, line:Int = #line, block:()->Void){
-    let id = "\(file)-\(line)"
-    class Status {
-        static var dic = [String: Bool]()
-        static func canRun(_ id:String)->Bool{
-            return dic[id] ?? true
-        }
-        static func didRun(_ id:String){
-            dic[id] = false
-        }
-    }
-    
-    if(Status.canRun(id)){
-        block()
-        Status.didRun(id)
-    }
-}
+
 
 extension UIDevice {
     static let deviceDidShakeNotification = Notification.Name(rawValue: "deviceDidShakeNotification")
