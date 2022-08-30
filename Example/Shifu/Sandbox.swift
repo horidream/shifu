@@ -12,7 +12,8 @@ import JavaScriptCore
 import Combine
 import UIKit
 import ShifuLottie
-
+import MobileCoreServices
+import UniformTypeIdentifiers
 
 
 
@@ -27,8 +28,7 @@ struct Sandbox:View{
     var body: some View {
         VStack{
             Text(text)
-//            UIViewContainer(MyImagePicker().view)
-//                .frame(height: 100)
+
         }
         
         .navigationBarTitleDisplayMode(.inline)
@@ -37,50 +37,18 @@ struct Sandbox:View{
         }
         .onAppear{
             sandbox()
+            
         }
     }
     
     func sandbox(){
-        Task{
-            await MainActor.run {
-                clg("set text to Task")
-                text = "Task"
-            }
-            try await Task.sleep(seconds: 2)
-            await MainActor.run {
-                clg("set text to Main")
-                text = "Main"
-            }
-        }
+        clg("hello world")
     }
     
     
 }
 
-class MyImagePicker: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        clg(info)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .white
-        title = "I am a very long title string that could be trimed by the system"
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
-    @objc func close(){
-        clg("close")
-        delay(10){
-            
-        }
-    }
-}
+
 
 
 

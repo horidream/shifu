@@ -83,9 +83,15 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
 @available(iOS 13.0, *)
 class WebServerDelegate:NSObject, GCDWebUploaderDelegate {
     var model: AppModelWeb?
+    let didStopPublisher = PassthroughSubject<Void, Never>()
     func webServerDidStart(_ server: GCDWebServer) {
         model?.serverURL = server.serverURL
     }
+    
+    func webServerDidStop(_ server: GCDWebServer) {
+        didStopPublisher.send()
+    }
+    
     func webServerDidCompleteBonjourRegistration(_ server: GCDWebServer) {
 
     }

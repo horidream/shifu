@@ -161,9 +161,14 @@ public extension String{
     var url:URL?{
         
         if self.starts(with: "@"){
-            if self.test(pattern: "^@(doc|document|documents)(?=/)"){
-                return URL(fileURLWithPath: self.replace(pattern: "^@(doc|document|documents)(?=/)", with: FileManager.path.document))
-            }else{
+            if self.test(pattern: "^@(doc|document|documents)(?=(/|$))"){
+                return URL(fileURLWithPath: self.replace(pattern: "^@(doc|document|documents)(?=(/|$))", with: FileManager.path.document))
+            } else if self.test(pattern: "^@(temp)(?=(/|$))"){
+                return URL(fileURLWithPath: self.replace(pattern: "^@(temp)(?=(/|$))", with: FileManager.path.temp))
+            } else if self.test(pattern: "^@(cache)(?=(/|$))"){
+                return URL(fileURLWithPath: self.replace(pattern: "^@(cache)(?=(/|$))", with: FileManager.path.cache))
+            }
+            else{
                 var path = self
                 path.removeFirst()
                 return Bundle.main.url(forResource: path, withExtension: nil)

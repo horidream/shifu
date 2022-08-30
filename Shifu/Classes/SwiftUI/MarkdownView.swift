@@ -53,12 +53,12 @@ public struct SimpleMarkdownViewer: View{
     public var body: some View{
         MarkdownView(viewModel: viewModel,  content: .constant(stringContent))
             .autoResize(animated)
-            .if(animated){
-                $0.animation(.none, value: viewModel.contentHeight)
-                    .scaleEffect(viewModel.contentHeight == 0 ? 0.973 : 1, anchor: .top)
-                    .opacity(viewModel.contentHeight == 0 ? 0 : 1)
-                    .animation(.default, value: viewModel.contentHeight)
-            }
+//            .if(animated){
+//                $0.animation(.none, value: viewModel.contentHeight)
+//                    .scaleEffect(viewModel.contentHeight == 0 ? 0.973 : 1, anchor: .top)
+//                    .opacity(viewModel.contentHeight == 0 ? 0 : 1)
+//                    .animation(.default, value: viewModel.contentHeight)
+//            }
     }
 
 }
@@ -101,14 +101,20 @@ public struct MarkdownView: View{
         return self
             .frame(height: viewModel.contentHeight)
             .on("contentHeight", target: viewModel.delegate){
-            if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
-                withAnimation(.easeIn(duration: animated ? 0.35 : 0)) {
-                    self.viewModel.contentHeight = height
+                if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
+                    withAnimation(.easeIn) {
+                        self.viewModel.contentHeight = height
+                        
+                    }
+                    
                 }
-                
             }
-
-        }
+            .if(animated){
+                $0.animation(.none, value: viewModel.contentHeight)
+                    .scaleEffect(viewModel.contentHeight == 0 ? 0.973 : 1, anchor: .top)
+                    .opacity(viewModel.contentHeight == 0 ? 0 : 1)
+                    .animation(.default, value: viewModel.contentHeight)
+            }
     }
     
     public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil)-> MarkdownView{
