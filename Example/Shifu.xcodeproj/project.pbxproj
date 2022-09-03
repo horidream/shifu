@@ -39,6 +39,7 @@
 		C7804F9828190A92006AC449 /* Validate2FAPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */; };
 		C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */; };
 		C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7965CD728426DB3002C825A /* PowerTableDemo.swift */; };
+		C7A2770B28BF32F200983681 /* chair.scn in Resources */ = {isa = PBXBuildFile; fileRef = C7A2770A28BF32F200983681 /* chair.scn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate2FAPrototype.swift; sourceTree = "<group>"; };
 		C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerDemo.swift; sourceTree = "<group>"; };
 		C7965CD728426DB3002C825A /* PowerTableDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerTableDemo.swift; sourceTree = "<group>"; };
+		C7A2770A28BF32F200983681 /* chair.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = chair.scn; sourceTree = "<group>"; };
 		C89C6B3E4560ADB5E346F7F9 /* Pods-ShifuExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3F66D9DD1D994C430599B30 /* Pods_Shifu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABA4CEFA6CB57BAD5570379 /* Pods_ShifuExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShifuExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				3C3C46CA27A8625400BCB074 /* Config.swift */,
+				C7A2770A28BF32F200983681 /* chair.scn */,
 				C7069476289E6F810045BFBF /* lottie_example.json */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				3C3C46D827B9156700BCB074 /* launch.png */,
@@ -345,6 +348,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7A2770B28BF32F200983681 /* chair.scn in Resources */,
 				3C3C46E227B9406300BCB074 /* source in Resources */,
 				3C3C46D927B9156800BCB074 /* launch.png in Resources */,
 				99BA8070244BF2B0006E839F /* InfoPlist.strings in Resources */,

@@ -20,7 +20,27 @@ public extension UITableViewDiffableDataSource{
     @MainActor func sectionIdentifier(for index: Int) -> SectionIdentifierType?{
         return snapshot().sectionIdentifiers.get(index)
     }
-    
+}
+
+public class TableViewDiffableDataSource: UITableViewDiffableDataSource<AnyDiffableData, AnyDiffableData> {
+    var sectionTitleTransformer: ((Any?)->String?)?
+    var sectionTitles:[String]?{
+        snapshot().sectionIdentifiers.compactMap{
+            guard $0.estimatedHeight != 0 else { return nil }
+            return sectionTitleTransformer?($0.payload)
+        }
+    }
+    override public func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return sectionTitles
+    }
+
+    override public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles?[section]
+    }
+
+    override public func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return sectionTitles?.firstIndex(of: title) ?? 0
+    }
 }
 
 public struct PowerTable: UIViewControllerRepresentable{
@@ -39,6 +59,9 @@ public struct PowerTable: UIViewControllerRepresentable{
         return delegate
     }
     open class Coordinator: NSObject, DefaultTableSettings, UITableViewDelegate{
+        public var sectionTitleTransformer: ((Any?)->String?)? = { payload in
+            (payload as? String ?? (payload as? (AnyDiffableData, AnyDiffableData))?.0.payload as? String)?.substr(0, 1)
+        }
         public var style: UITableView.Style?
         public var tableHeaderView: UIView?
         public var defaultHeaderViewClass: UIView.Type?
@@ -66,7 +89,7 @@ public struct PowerTable: UIViewControllerRepresentable{
                 return defaultFooterViewClass
             }
         }
-        public var dataSource: UITableViewDiffableDataSource<AnyDiffableData, AnyDiffableData>!
+        public var dataSource: TableViewDiffableDataSource!
         func view(for data: AnyDiffableData?, position: ViewPosition) -> UIView?{
             guard data?.estimatedHeight != 0 else {  return nil }
             var rst: UIView?
@@ -132,7 +155,8 @@ public struct PowerTable: UIViewControllerRepresentable{
                 tableView.sectionHeaderTopPadding = 0
             }
             tableView.tableHeaderView = context.coordinator.tableHeaderView
-            context.coordinator.dataSource = UITableViewDiffableDataSource(tableView: tableViewController.tableView, cellProvider: self.cellProvider ?? { tableView, indexPath, itemIdentifier in
+            
+            context.coordinator.dataSource = TableViewDiffableDataSource(tableView: tableViewController.tableView, cellProvider: self.cellProvider ?? { tableView, indexPath, itemIdentifier in
                 if let viewClass = (itemIdentifier.viewClass as? UITableViewCell.Type) ?? (context.coordinator.defaultCellViewClass as? UITableViewCell.Type), let reuseIdentifier = itemIdentifier.reuseIdentifier{
                     tableView.register(viewClass, forCellReuseIdentifier: reuseIdentifier)
                     let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)
@@ -141,6 +165,7 @@ public struct PowerTable: UIViewControllerRepresentable{
                 }
                 return nil
             })
+            context.coordinator.dataSource.sectionTitleTransformer = context.coordinator.sectionTitleTransformer
             tableView.delegate = context.coordinator
         }
         return tableViewController
