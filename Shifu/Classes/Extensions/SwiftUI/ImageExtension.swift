@@ -14,6 +14,10 @@ public extension Image{
         self = Image(uiImage: uiImage)
     }
     
+    init(named name: String){
+        self = Image(uiImage: UIImage(named: name) ?? UIImage())
+    }
+    
     init(_ name: Icons.Name, size: CGFloat = 40){
         if name.isFontAwesome {
             self = Image(uiImage: Icons.image(name, size: size)).renderingMode(.template)
