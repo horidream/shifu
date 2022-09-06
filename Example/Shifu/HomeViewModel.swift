@@ -48,7 +48,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
     
     func refresh(){
         featureList = [
-            FeatureViewModel(name: "MarkdownView") { model in
+            FeatureViewModel(name: "WebView") { model in
                 model.icon = .markdown
                 model.color = .blue
                 return WebViewDemo().eraseToAnyView()
@@ -144,6 +144,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return NavigationAnimationDemo().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "SceneAndPerson") { model in
+                model.icon = .snapchatSquare
+                model.color = .green
+                return SceneAndPerson().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue
@@ -151,7 +157,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 
             }
         ].reversed()
-        featureList.get(7)?.isActive = true
+        featureList.get(0)?.isActive = true
     }
     
 }

@@ -7,6 +7,8 @@
 //
 import UIKit
 import AVFoundation
+import Vision
+import CoreImage
 
 public extension UIImage{
     
@@ -102,6 +104,7 @@ public extension UIImage{
         return colored
     }
     
+    /// width: minus value will render original image inside
     func stroked(_ color: UIColor = .white, width: CGFloat = 1, quality: CGFloat = 4) -> UIImage {
         
         guard let cgImage = cgImage else { return self }
@@ -148,6 +151,42 @@ public extension UIImage{
         guard let stroked = UIGraphicsGetImageFromCurrentImageContext() else { return self }
         
         return stroked
+    }
+    
+    func personSnapshot(quality: VNGeneratePersonSegmentationRequest.QualityLevel = .balanced, background: UIImage? = nil)->UIImage? {
+        let request = VNGeneratePersonSegmentationRequest()
+        request.qualityLevel = quality
+        request.outputPixelFormat = kCVPixelFormatType_OneComponent8
+        guard let original = CIImage(image: self) else { return nil }
+        let task = VNImageRequestHandler(ciImage: original)
+        try? task.perform([request])
+        
+        if let result = request.results?.first{
+            let buffer = result.pixelBuffer
+            let mask = CIImage(cvImageBuffer: buffer)
+            let maskX = original.extent.width / mask.extent.width
+            let maskY = original.extent.height / mask.extent.height
+            let resizedMask = mask.transformed(by: CGAffineTransform(scaleX: maskX, y: maskY))
+            let filter = CIFilter(name: "CIBlendWithMask", parameters: [
+                kCIInputImageKey: original,
+                kCIInputMaskImageKey: resizedMask])
+            if let background, let bg = CIImage(image: background){
+                
+                let scaleX = original.extent.width / bg.extent.width
+                let scaleY = original.extent.height / bg.extent.height
+                let scale = max(scaleX, scaleY)
+                let resizedBg = bg.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
+                filter?.setValue(resizedBg, forKey: kCIInputBackgroundImageKey)
+            }
+            if let maskedImage = filter?.outputImage{
+                let context = CIContext()
+                guard let image = context.createCGImage(maskedImage, from: maskedImage.extent) else { return nil }
+                
+                return UIImage(cgImage: image)
+            }
+            
+        }
+        return nil
     }
     
     func invertAlpha() -> UIImage? {

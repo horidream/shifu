@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		10E3E517252BEEBF58501297 /* Pods_ShifuExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABA4CEFA6CB57BAD5570379 /* Pods_ShifuExample.framework */; };
 		3C1A645927D64ADD0093A98B /* ModelDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1A645827D64ADD0093A98B /* ModelDemo.swift */; };
-		3C1A646127DE30EE0093A98B /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1A646027DE30EE0093A98B /* Sandbox.swift */; };
+		3C1A646127DE30EE0093A98B /* SceneAndPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1A646027DE30EE0093A98B /* SceneAndPerson.swift */; };
 		3C2F1CE127F155BC0027F24F /* AnimationDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2F1CE027F155BC0027F24F /* AnimationDemo.swift */; };
 		3C2F1CE327F1E3DA0027F24F /* NavigationStyleDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2F1CE227F1E3DA0027F24F /* NavigationStyleDemo.swift */; };
 		3C3C46CB27A8625400BCB074 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3C46CA27A8625400BCB074 /* Config.swift */; };
@@ -40,6 +40,7 @@
 		C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */; };
 		C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7965CD728426DB3002C825A /* PowerTableDemo.swift */; };
 		C7A2770B28BF32F200983681 /* chair.scn in Resources */ = {isa = PBXBuildFile; fileRef = C7A2770A28BF32F200983681 /* chair.scn */; };
+		C7A2770D28C7281E00983681 /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2770C28C7281E00983681 /* Sandbox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +59,7 @@
 		1E35649DEF88C49F8A5D1CC6 /* Pods-Shifu_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shifu_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2B6DB5CF4B3C2D719C036C8F /* Pods-ShifuExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExample/Pods-ShifuExample.debug.xcconfig"; sourceTree = "<group>"; };
 		3C1A645827D64ADD0093A98B /* ModelDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDemo.swift; sourceTree = "<group>"; };
-		3C1A646027DE30EE0093A98B /* Sandbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
+		3C1A646027DE30EE0093A98B /* SceneAndPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneAndPerson.swift; sourceTree = "<group>"; };
 		3C2F1CE027F155BC0027F24F /* AnimationDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationDemo.swift; sourceTree = "<group>"; };
 		3C2F1CE227F1E3DA0027F24F /* NavigationStyleDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStyleDemo.swift; sourceTree = "<group>"; };
 		3C3C46CA27A8625400BCB074 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerDemo.swift; sourceTree = "<group>"; };
 		C7965CD728426DB3002C825A /* PowerTableDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerTableDemo.swift; sourceTree = "<group>"; };
 		C7A2770A28BF32F200983681 /* chair.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = chair.scn; sourceTree = "<group>"; };
+		C7A2770C28C7281E00983681 /* Sandbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
 		C89C6B3E4560ADB5E346F7F9 /* Pods-ShifuExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3F66D9DD1D994C430599B30 /* Pods_Shifu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABA4CEFA6CB57BAD5570379 /* Pods_ShifuExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShifuExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,7 +193,7 @@
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				99244B5C261C9FDA0027A1D7 /* HomeView.swift */,
 				3C3C46CE27B2C40C00BCB074 /* HomeViewModel.swift */,
-				3C1A646027DE30EE0093A98B /* Sandbox.swift */,
+				C7A2770C28C7281E00983681 /* Sandbox.swift */,
 				3C3C46DC27B92E5400BCB074 /* features */,
 			);
 			name = "Example for Shifu";
@@ -228,23 +230,24 @@
 		C7965CD928426E3C002C825A /* demos */ = {
 			isa = PBXGroup;
 			children = (
-				C76AA64D28732B9F002A1090 /* AttributedStringDemo.swift */,
-				3C3C46D427B6A44E00BCB074 /* WebViewDemo.swift */,
-				3C3C46DD27B92E6F00BCB074 /* ColorThemeManagerDemo.swift */,
-				3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */,
-				3C9C98BB27C48D9700D4B8B9 /* SoundWaveImageDemo.swift */,
-				3CA9D78527C90CD700A32044 /* ToMarkdownDemo.swift */,
-				3C1A645827D64ADD0093A98B /* ModelDemo.swift */,
-				3C2F1CE227F1E3DA0027F24F /* NavigationStyleDemo.swift */,
-				C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */,
-				C72CB724282961BD000FBF12 /* ShimmerDemo.swift */,
-				3C2F1CE027F155BC0027F24F /* AnimationDemo.swift */,
-				C7965CD728426DB3002C825A /* PowerTableDemo.swift */,
-				C7177D10284A11F500372629 /* IconsDemo.swift */,
-				C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */,
-				C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */,
-				C76AA647286F43D0002A1090 /* StickyIconDemo.swift */,
+				3C1A646027DE30EE0093A98B /* SceneAndPerson.swift */,
 				C768B8812883161500F0A18B /* NavigationAnimationDemo.swift */,
+				C76AA64D28732B9F002A1090 /* AttributedStringDemo.swift */,
+				C76AA647286F43D0002A1090 /* StickyIconDemo.swift */,
+				C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */,
+				C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */,
+				C7177D10284A11F500372629 /* IconsDemo.swift */,
+				C7965CD728426DB3002C825A /* PowerTableDemo.swift */,
+				C72CB724282961BD000FBF12 /* ShimmerDemo.swift */,
+				C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */,
+				3C2F1CE227F1E3DA0027F24F /* NavigationStyleDemo.swift */,
+				3C2F1CE027F155BC0027F24F /* AnimationDemo.swift */,
+				3C1A645827D64ADD0093A98B /* ModelDemo.swift */,
+				3CA9D78527C90CD700A32044 /* ToMarkdownDemo.swift */,
+				3C9C98BB27C48D9700D4B8B9 /* SoundWaveImageDemo.swift */,
+				3C3C46E927BB9F2C00BCB074 /* ShifuWebViewDemo.swift */,
+				3C3C46DD27B92E6F00BCB074 /* ColorThemeManagerDemo.swift */,
+				3C3C46D427B6A44E00BCB074 /* WebViewDemo.swift */,
 			);
 			name = demos;
 			sourceTree = "<group>";
@@ -514,8 +517,9 @@
 				C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */,
 				3C2F1CE127F155BC0027F24F /* AnimationDemo.swift in Sources */,
 				C76AA648286F43D0002A1090 /* StickyIconDemo.swift in Sources */,
+				C7A2770D28C7281E00983681 /* Sandbox.swift in Sources */,
 				C72CB725282961BD000FBF12 /* ShimmerDemo.swift in Sources */,
-				3C1A646127DE30EE0093A98B /* Sandbox.swift in Sources */,
+				3C1A646127DE30EE0093A98B /* SceneAndPerson.swift in Sources */,
 				3C3C46D527B6A44E00BCB074 /* WebViewDemo.swift in Sources */,
 				C7177D11284A11F500372629 /* IconsDemo.swift in Sources */,
 				C768B8822883161500F0A18B /* NavigationAnimationDemo.swift in Sources */,
