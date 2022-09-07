@@ -150,6 +150,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return SceneAndPerson().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "ChangeAppIconDemo") { model in
+                model.icon = .appGiftFill
+                model.color = .purple
+                return ChangeAppIconDemo().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue

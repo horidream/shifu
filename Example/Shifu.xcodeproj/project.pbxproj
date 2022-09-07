@@ -41,6 +41,7 @@
 		C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7965CD728426DB3002C825A /* PowerTableDemo.swift */; };
 		C7A2770B28BF32F200983681 /* chair.scn in Resources */ = {isa = PBXBuildFile; fileRef = C7A2770A28BF32F200983681 /* chair.scn */; };
 		C7A2770D28C7281E00983681 /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2770C28C7281E00983681 /* Sandbox.swift */; };
+		C7A2770F28C8C1FF00983681 /* ChangeAppIconDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		C7965CD728426DB3002C825A /* PowerTableDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerTableDemo.swift; sourceTree = "<group>"; };
 		C7A2770A28BF32F200983681 /* chair.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = chair.scn; sourceTree = "<group>"; };
 		C7A2770C28C7281E00983681 /* Sandbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
+		C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAppIconDemo.swift; sourceTree = "<group>"; };
 		C89C6B3E4560ADB5E346F7F9 /* Pods-ShifuExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3F66D9DD1D994C430599B30 /* Pods_Shifu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABA4CEFA6CB57BAD5570379 /* Pods_ShifuExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShifuExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,6 +232,7 @@
 		C7965CD928426E3C002C825A /* demos */ = {
 			isa = PBXGroup;
 			children = (
+				C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */,
 				3C1A646027DE30EE0093A98B /* SceneAndPerson.swift */,
 				C768B8812883161500F0A18B /* NavigationAnimationDemo.swift */,
 				C76AA64D28732B9F002A1090 /* AttributedStringDemo.swift */,
@@ -522,6 +525,7 @@
 				3C1A646127DE30EE0093A98B /* SceneAndPerson.swift in Sources */,
 				3C3C46D527B6A44E00BCB074 /* WebViewDemo.swift in Sources */,
 				C7177D11284A11F500372629 /* IconsDemo.swift in Sources */,
+				C7A2770F28C8C1FF00983681 /* ChangeAppIconDemo.swift in Sources */,
 				C768B8822883161500F0A18B /* NavigationAnimationDemo.swift in Sources */,
 				3CA9D78627C90CD700A32044 /* ToMarkdownDemo.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,

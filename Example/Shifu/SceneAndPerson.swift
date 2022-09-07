@@ -37,7 +37,7 @@ struct SceneAndPerson:View{
                 .foregroundColor(.gray)
             ZStack(alignment: .bottomLeading){
                 SCNSceneContainer(scene)
-                    .background(.secondary)
+                    .background(.purple)
                     
                 Text("\(currentSelected)")
                     .fontWeight(.black)
@@ -70,7 +70,7 @@ struct SceneAndPerson:View{
             .shadow(radius: 3)
             ScrollView(.horizontal){
                 LazyHStack(spacing: 10){
-                    let sizes = 1...100
+                    let sizes = 1...10
                     ForEach(sizes, id: \.self){ size in
                         Text("\(size)")
                             .padding(10)

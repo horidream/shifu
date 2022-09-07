@@ -7,32 +7,15 @@
 //
 
 import SwiftUI
+import Shifu
 
 struct Sandbox: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var iconName:String?  = UIApplication.shared.alternateIconName {
-        didSet{
-            UIApplication.shared.setAlternateIconName(iconName)
-        }
-    }
+
     var body: some View {
         VStack{
-            Text("Current App Icon: \(iconName ?? "Default")")
-            Image(named: iconName ?? "AppIcon")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 200)
-                .mask {
-                    RoundedRectangle(cornerRadius: 20)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(.gray, lineWidth: 2)
-                }
-        }
-        .onTapGesture {
-            iconName = iconName == nil ? "Chunli" : nil
-            
+            Text("Hello")
+                
         }
         .onInjection{
             sandbox()
@@ -43,8 +26,8 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-        clg(Bundle.main.infoDictionary?["CFBundleIcons"])
     }
 }
 
 
+ 
