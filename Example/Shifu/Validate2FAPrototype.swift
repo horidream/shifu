@@ -20,7 +20,7 @@ struct Validate2FAPrototype:View{
     @EnvironmentObject var vm: HomeViewModel
     var body: some View{
         VStack(){
-            SimpleMarkdownViewer(content: content)
+            SimpleMarkdownViewer(content: content, animated: true)
                 .id(content)
                 .padding()
             

@@ -236,3 +236,17 @@ public extension WKWebView{
     }
     
 }
+
+public extension UIViewController{
+    func add(_ viewController:UIViewController){
+        view.addSubview(viewController.view)
+        addChild(viewController)
+        viewController.didMove(toParent: self)
+    }
+
+    func remove(){
+        self.willMove(toParent: nil)
+        self.view.removeFromSuperview()
+        self.removeFromParent()
+    }
+}

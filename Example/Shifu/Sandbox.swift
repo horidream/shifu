@@ -8,6 +8,8 @@
 
 import SwiftUI
 import Shifu
+import UniformTypeIdentifiers
+import CoreServices
 
 struct Sandbox: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
@@ -26,6 +28,9 @@ struct Sandbox: View {
     }
     
     func sandbox(){
+        clg(UTType.excel)
+        clg(UTType.docx)
+//        _rootViewController.navigationController?.navigationItem.setHidesBackButton(true, animated: true)
     }
 }
 

@@ -50,6 +50,5 @@ struct ChangeAppIconDemo: View {
     }
     
     func sandbox(){
-        clg(Bundle.main.infoDictionary?["CFBundleIcons"])
     }
 }
