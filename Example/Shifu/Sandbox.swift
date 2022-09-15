@@ -28,8 +28,8 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-        clg(UTType.excel)
-        clg(UTType.docx)
+        clg(kUTTypeImage)
+        clg(UTType.image)
 //        _rootViewController.navigationController?.navigationItem.setHidesBackButton(true, animated: true)
     }
 }

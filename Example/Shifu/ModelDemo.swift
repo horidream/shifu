@@ -53,13 +53,15 @@ struct ModelDemo: View {
             sandbox()
         }
         .onAppear{
+            vm.startServer()
             sandbox()
+        }
+        .onDisappear{
+            vm.stopServer()
         }
     }
     
     func sandbox(){
-        vm.initServer(isLocal: false)
-        
     }
 }
 

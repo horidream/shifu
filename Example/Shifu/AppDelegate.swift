@@ -72,6 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
             window.rootViewController = UIHostingController(rootView: vm.view{
                 HomeView()
             })
+            vm.initServer()
             self.window = window
             window.makeKeyAndVisible()
         }

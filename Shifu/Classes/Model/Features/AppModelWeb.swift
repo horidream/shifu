@@ -18,7 +18,7 @@ private struct Keys {
 }
 @available(iOS 13.0, *)
 public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, Self.ObjectWillChangePublisher == ObservableObjectPublisher{
-    private var server:GCDWebServer {
+    public var server:GCDWebServer {
         get{
             getProperty("webServer", fallback: GCDWebServer())
         }
@@ -44,24 +44,28 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
         }
     }
     
-    func initServer(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath, port: Int = 9338, isLocal:Bool = true) {
-        if(server.isRunning){
-            server.stop()
-        }
+    func initServer(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath) {
         GCDWebServer.setLogLevel(4)
         self.server.delegate = delegate
         delegate.model = self
         self.server.addGETHandler(forBasePath: "/", directoryPath: path ?? Bundle.main.resourcePath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
-        startServer(port: port, isLocal: isLocal)
     }
     
     var currentLanguage:String{
         return  Locale.current.languageCode ?? "en"
     }
     
-    func startServer(port:Int, isLocal: Bool){
+    func startServer(port:Int = 9338, isLocal: Bool = false){
         do{
-            try server.start(options:  ["BindToLocalhost": isLocal, "Port": port])
+            if(server.isRunning){
+                server.stop()
+            }
+            try server.start(options:  [
+                "BindToLocalhost": isLocal,
+                "Port": port,
+                GCDWebServerOption_AutomaticallySuspendInBackground: false
+            ])
+            
         }catch{
             print("server start error: \(error)")
         }
