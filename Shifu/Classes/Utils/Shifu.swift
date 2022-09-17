@@ -79,7 +79,7 @@ public class Shifu{
         return str.normalized
     }
     
-    
+    @available(iOSApplicationExtension, unavailable)
     public static var keyWindow: UIWindow?{
         guard let scene = UIApplication.shared.connectedScenes.first,
               let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,

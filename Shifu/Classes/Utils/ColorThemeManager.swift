@@ -14,6 +14,7 @@ import UIKit
 public class ColorSchemeMananger: ObservableObject{
     public static let shared = ColorSchemeMananger()
     public typealias ColorScheme = UIUserInterfaceStyle
+    @available(iOSApplicationExtension, unavailable)
     @AppStorage("colorScheme") public var colorScheme: UIUserInterfaceStyle = .unspecified{
         didSet{
             applyColorScheme()
@@ -22,6 +23,7 @@ public class ColorSchemeMananger: ObservableObject{
     
     public init(){}
     
+    @available(iOSApplicationExtension, unavailable)
     public func applyColorScheme(){
         Shifu.keyWindow?.overrideUserInterfaceStyle = colorScheme
     }

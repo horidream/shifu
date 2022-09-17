@@ -7,9 +7,9 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'ShifuLottie'
+  s.name             = 'ShifuWebServer'
   s.version          = '0.7.9'
-  s.summary          = 'Shifu works with Lottie to create animations'
+  s.summary          = 'Shifu works with GCDWebServer'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -31,7 +31,7 @@ This is a common library that we are going to use in other projects
   s.ios.deployment_target = '14.0'
   s.osx.deployment_target = '11.0'
   
-  s.source_files = 'Lottie/**/*'
+  s.source_files = 'WebServer/**/*'
   #  s.resources = ['Shifu/web', 'Shifu/assets']
   #  s.resource_bundles = {
   #    'Shifu' => ['Shifu/web']
@@ -40,5 +40,5 @@ This is a common library that we are going to use in other projects
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Shifu'
-  s.dependency 'lottie-ios'
+  s.dependency 'GCDWebServer/WebUploader'
 end

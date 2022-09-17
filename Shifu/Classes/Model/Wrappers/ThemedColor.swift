@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+@available(iOSApplicationExtension, unavailable)
 @propertyWrapper
 public struct ThemedColor
 {

@@ -5,6 +5,7 @@
 //  Created by Baoli Zhai on 2021/4/7.
 //
 
+import Shifu
 import GCDWebServer
 import Combine
 
@@ -24,7 +25,7 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
         }
     }
     
-    var serverURL:URL? {
+    public var serverURL:URL? {
         get {
             objc_getAssociatedObject(self, &Keys.serverURLKey) as? URL
         }
@@ -44,18 +45,18 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
         }
     }
     
-    func initServer(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath) {
+    public func initServer(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath) {
         GCDWebServer.setLogLevel(4)
         self.server.delegate = delegate
         delegate.model = self
         self.server.addGETHandler(forBasePath: "/", directoryPath: path ?? Bundle.main.resourcePath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
     }
     
-    var currentLanguage:String{
+    public var currentLanguage:String{
         return  Locale.current.languageCode ?? "en"
     }
     
-    func startServer(port:Int = 9338, isLocal: Bool = false){
+    public func startServer(port:Int = 9338, isLocal: Bool = false){
         do{
             if(server.isRunning){
                 server.stop()
@@ -71,11 +72,11 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
         }
     }
     
-    func stopServer(){
+    public func stopServer(){
         server.stop()
     }
     
-    func url(pathName string:String)->URL?{
+    public func url(pathName string:String)->URL?{
         // url will be like "#/welcome"
         var comp = URLComponents(string: serverURL?.absoluteString.appending(string) ?? string)
         let queryItems = [URLQueryItem(name: "lancode", value: currentLanguage)];
@@ -84,7 +85,7 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
     }
 }
 
-@available(iOS 13.0, *)
+@available(iOS 14.0, *)
 class WebServerDelegate:NSObject, GCDWebUploaderDelegate {
     var model: AppModelWeb?
     let didStopPublisher = PassthroughSubject<Void, Never>()

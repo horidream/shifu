@@ -31,6 +31,7 @@ public class NotificationManager: NSObject, ObservableObject, UNUserNotification
         isGranted = settings.authorizationStatus == .authorized
     }
     
+    @available(iOSApplicationExtension, unavailable)
     @MainActor
     public func openSettings(){
         if let url = UIApplication.openSettingsURLString.url{

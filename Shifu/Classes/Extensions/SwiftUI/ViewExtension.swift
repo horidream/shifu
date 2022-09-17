@@ -102,6 +102,7 @@ public extension View {
         }
     }
     
+    @available(iOSApplicationExtension, unavailable)
     var _rootViewController: UIViewController{
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let root = screen.windows.first?.rootViewController else {
@@ -156,6 +157,7 @@ public extension Color{
 
 // MARK: - computed properties
 public extension View{
+    @available(iOSApplicationExtension, unavailable)
     var safeArea:UIEdgeInsets{
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else{
             return .init()

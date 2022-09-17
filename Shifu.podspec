@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Shifu'
-  s.version          = '0.7.8'
+  s.version          = '0.7.9'
   s.summary          = 'Shifu.'
 
 # This description is used to generate tags and improve search results.
@@ -41,5 +41,4 @@ This is a common library that we are going to use in other projects
   # s.frameworks = 'UIKit', 'MapKit'
 #  s.dependency 'FMDB'
   s.dependency 'ReachabilitySwift'
-  s.dependency 'GCDWebServer/WebUploader'
 end

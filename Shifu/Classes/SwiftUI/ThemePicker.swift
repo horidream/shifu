@@ -8,6 +8,7 @@
 import SwiftUI
 
 @available(iOS 14.0, *)
+@available(iOSApplicationExtension, unavailable)
 public struct ThemePicker: View {
     @StateObject var colorManager = ColorSchemeMananger.shared
     public init () {}

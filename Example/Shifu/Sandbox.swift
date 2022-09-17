@@ -28,11 +28,12 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-        clg(kUTTypeImage)
-        clg(UTType.image)
-//        _rootViewController.navigationController?.navigationItem.setHidesBackButton(true, animated: true)
+
     }
 }
 
 
- 
+struct  Person: Codable{
+    var name = "Baoli"
+    var age = 48
+}

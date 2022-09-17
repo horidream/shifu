@@ -21,11 +21,17 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3733</string>
+	<string>3741</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>To take screen shot of the page</string>
+	<key>NSSiriUsageDescription</key>
+	<string>I want to use siri to control</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>Demo</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UILaunchStoryboardName</key>

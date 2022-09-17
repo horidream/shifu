@@ -8,16 +8,24 @@
 import Foundation
 
 public extension UserDefaults {
-    func set<T: Codable>(object: T, forKey: String) throws {
-        let jsonData = try JSONEncoder().encode(object)
-        set(jsonData, forKey: forKey)
+    func clearAll(){
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
+    }
+    
+    func set<T: Codable>(object: T, forKey: String) {
+        if let jsonData = try? JSONEncoder().encode(object)
+        {
+            set(jsonData, forKey: forKey)
+        }
     }
 
 
-    func get<T: Codable>(_ objectType: T.Type, forKey: String) throws -> T? {
+    func get<T: Codable>(_ objectType: T.Type, forKey: String) -> T? {
         guard let result = value(forKey: forKey) as? Data else {
             return nil
         }
-        return try JSONDecoder().decode(objectType, from: result)
+        return try? JSONDecoder().decode(objectType, from: result)
     }
 }

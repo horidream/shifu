@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Shifu
+import ShifuWebServer
 
 struct ModelDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver

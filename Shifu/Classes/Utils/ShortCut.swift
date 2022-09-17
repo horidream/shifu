@@ -12,16 +12,20 @@ import Combine
 
 
 public class ShortCut{
+    @available(iOSApplicationExtension, unavailable)
     public static func endEditing(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         NotificationCenter.default.post(name: Notification.Name("shifuEndNotification"), object: nil)
     }
+    
+    @available(iOSApplicationExtension, unavailable)
     public static var keyWindow: UIWindow?{
         return UIApplication.shared.windows.first(where: {
             $0.isKeyWindow
         })
     }
     
+    @available(iOSApplicationExtension, unavailable)
     public static func topViewController(_ base: UIViewController? = keyWindow?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return topViewController(nav.visibleViewController)
@@ -37,23 +41,21 @@ public class ShortCut{
         return base
     }
     
+    @available(iOSApplicationExtension, unavailable)
     public static func showAlert(title:String, details:String){
         let alert = UIAlertController(title: title, message: details, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         Shifu.keyWindow?.rootViewController?.present(alert, animated: true)
     }
     
+    @available(iOSApplicationExtension, unavailable)
     public static func showAlert(title:String, details:String, confirmBtn:String, confirmCallback:((UIAlertAction) -> Void)? = nil){
         let alert = UIAlertController(title: title, message: details, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "cancel button label in alert"), style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: confirmBtn, style: .default, handler: confirmCallback))
         Shifu.keyWindow?.rootViewController?.present(alert, animated: true)
     }
-    public static func clearUserDefaults(){
-        if let bundleID = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: bundleID)
-        }
-    }
+ 
     
     @available(iOS 9.0, *)
     public static func animateIn(layer:CALayer){

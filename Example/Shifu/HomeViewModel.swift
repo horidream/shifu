@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Shifu
+import ShifuWebServer
 
 class FeatureViewModel<Content>: ObservableObject, Hashable, Identifiable{
     static func == (lhs: FeatureViewModel<Content>, rhs: FeatureViewModel<Content>) -> Bool {
