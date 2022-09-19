@@ -88,6 +88,10 @@ public class Shifu{
         }
         return window
     }
-    
+ 
+    public class Theme{
+        @ThemedColor(light: .white, dark: .black)
+        public static var backgroundColor
+    }
 }
 

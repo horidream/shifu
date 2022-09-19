@@ -103,6 +103,12 @@ public extension UIColor {
     var swiftUIColor:Color{
         return Color(uiColor: self)
     }
+    
+    var sui:Color{
+        return Color(uiColor: self)
+    }
+
+    
 }
 
 
