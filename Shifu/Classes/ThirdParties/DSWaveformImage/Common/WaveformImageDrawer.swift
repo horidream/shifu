@@ -4,7 +4,7 @@ import UIKit
 import CoreGraphics
 
 /// Renders a UIImage of the waveform data calculated by the analyzer.
-public class WaveformImageDrawer {
+public class WaveformImageDrawer: ObservableObject {
     public enum GenerationError: Error { case generic }
 
     public init() {}
@@ -15,9 +15,11 @@ public class WaveformImageDrawer {
     /// Makes sure we always look at the same samples while animating
     private var lastOffset: Int = 0
 
+    /// Keep track of how many samples we are adding each draw cycle
+    private var lastSampleCount: Int = 0
+
 #if compiler(>=5.5) && canImport(_Concurrency)
     /// Async analyzes the provided audio and renders a UIImage of the waveform data calculated by the analyzer.
-    @available(iOS 13, *)
     public func waveformImage(fromAudioAt audioAssetURL: URL,
                               with configuration: Waveform.Configuration,
                               qos: DispatchQoS.QoSClass = .userInitiated) async throws -> UIImage {
@@ -70,23 +72,38 @@ extension WaveformImageDrawer {
     ///
     /// Samples need to be normalized within interval `(0...1)`.
     /// Ensure context size & scale match with the configuration's size & scale.
-    func draw(waveform samples: [Float], newSampleCount: Int, on context: CGContext, with configuration: Waveform.Configuration) {
+    func draw(waveform samples: [Float], on context: CGContext, with configuration: Waveform.Configuration) {
         guard samples.count > 0 || shouldDrawSilencePadding else {
             return
         }
 
         let samplesNeeded = Int(configuration.size.width * configuration.scale)
 
-        if case .striped = configuration.style, samples.count >= samplesNeeded {
-            lastOffset = (lastOffset + newSampleCount) % stripeBucket(configuration)
+        let newSampleCount: Int = lastSampleCount > samples.count
+            ? samples.count // this implies that we have reset drawing an are starting over
+            : samples.count - lastSampleCount
+
+        lastSampleCount = samples.count
+        
+        // Reset the cumulative lastOffset when new drawing begins
+        if samples.count == newSampleCount {
+            lastOffset = 0
         }
 
-        // move the window, so that its always at the end (moves the graph after it reached the right side)
+        if case .striped = configuration.style {
+            if shouldDrawSilencePadding {
+                lastOffset = (lastOffset + newSampleCount) % stripeBucket(configuration)
+            } else if samples.count >= samplesNeeded {
+                lastOffset = (lastOffset + min(newSampleCount, samples.count - samplesNeeded)) % stripeBucket(configuration)
+            }
+        }
+
+        // move the window, so that its always at the end (appears to move from right to left)
         let startSample = max(0, samples.count - samplesNeeded)
         let clippedSamples = Array(samples[startSample..<samples.count])
         let dampenedSamples = configuration.shouldDampen ? dampen(clippedSamples, with: configuration) : clippedSamples
-        let paddedSamples = shouldDrawSilencePadding ? dampenedSamples + Array(repeating: 1, count: samplesNeeded - clippedSamples.count) : dampenedSamples
-
+        let paddedSamples = shouldDrawSilencePadding ? Array(repeating: 1, count: samplesNeeded - clippedSamples.count) + dampenedSamples : dampenedSamples
+        
         draw(on: context, from: paddedSamples, with: configuration)
     }
 }
@@ -141,7 +158,9 @@ private extension WaveformImageDrawer {
                 continue
             }
 
-            let xPos = CGFloat(x - lastOffset) / configuration.scale
+            let samplesNeeded = Int(configuration.size.width * configuration.scale)
+            let xOffset = CGFloat(samplesNeeded - samples.count) / configuration.scale // When there's extra space, draw waveform on the right
+            let xPos = (CGFloat(x - lastOffset) / configuration.scale) + xOffset
             let invertedDbSample = 1 - CGFloat(sample) // sample is in dB, linearly normalized to [0, 1] (1 -> -50 dB)
             let drawingAmplitude = max(minimumGraphAmplitude, invertedDbSample * drawMappingFactor)
             let drawingAmplitudeUp = positionAdjustedGraphCenter - drawingAmplitude
@@ -175,7 +194,7 @@ private extension WaveformImageDrawer {
         case let .gradient(colors):
             context.replacePathWithStrokedPath()
             context.clip()
-            let colors = NSArray(array: colors.map(\.cgColor)) as CFArray
+            let colors = NSArray(array: colors.map { (color: UIColor) -> CGColor in color.cgColor }) as CFArray
             let colorSpace = CGColorSpaceCreateDeviceRGB()
             let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: nil)!
             context.drawLinearGradient(gradient,
