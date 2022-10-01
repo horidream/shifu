@@ -65,8 +65,12 @@ public extension NSObject{
 
 
 public extension Encodable{
-    func stringify()->String?{
-        if let data = try? JSONEncoder().encode(self){
+    func stringify(withSortedKey: Bool = false)->String?{
+        let encoder = JSONEncoder()
+        if withSortedKey {
+            encoder.outputFormatting = .sortedKeys
+        }
+        if let data = try? encoder.encode(self){
             return data.utf8String
         }
         return nil

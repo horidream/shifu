@@ -53,8 +53,12 @@ struct Sandbox: View {
     }
     
     func sandbox(){
+//        NSMapTable<NSObject, NSObject>(keyOptions: .weakMemory, valueOptions: .strongMemory)
+        
     }
 }
+
+
 
 
 

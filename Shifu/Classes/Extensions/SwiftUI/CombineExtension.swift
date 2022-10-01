@@ -19,21 +19,29 @@ fileprivate func getRetainKey(key:AnyHashable, line:Int)->AnyHashable{
 
 public protocol Retainable{
     associatedtype RetainReference:Equatable
-    static var bag:[AnyHashable: RetainReference] { get set }
-    func retain(_ key: AnyHashable, line: Int) -> Self
+    static var bag:[AnyHashable: [RetainReference]] { get set }
+    func retain(_ key: AnyHashable, line: Int, overwrite:Bool) -> Self
     static func release(key:AnyHashable)
 }
 
 public extension Retainable{
-    @discardableResult func retain(_ key: AnyHashable = #file, line: Int = #line) -> Self {
+    @discardableResult func retain(_ key: AnyHashable = #file, line: Int = #line, overwrite:Bool = false) -> Self {
         let key = getRetainKey(key: key, line: line)
         if let this = self as? RetainReference{
-            Self.bag[key] = this
+            if overwrite {
+                Self.bag[key] = [this]
+            } else {
+                if Self.bag[key] == nil {
+                    Self.bag[key] = []
+                }
+                Self.bag[key]?.append(this)
+            }
         }
         return self
     }
     
     static func release(key:AnyHashable){
+//        Self.bag[key]?.removeAll()
         Self.bag.removeValue(forKey: key)
     }
     
@@ -41,11 +49,11 @@ public extension Retainable{
 
 @available(iOS 13.0, *)
 extension AnyCancellable: Retainable{
-    public static var bag:[AnyHashable:AnyCancellable] = [:]
+    public static var bag:[AnyHashable:[AnyCancellable]] = [:]
 }
 
 extension NSKeyValueObservation: Retainable{
-    public static var bag:[AnyHashable: NSKeyValueObservation] = [:]
+    public static var bag:[AnyHashable: [NSKeyValueObservation]] = [:]
 }
 
 
