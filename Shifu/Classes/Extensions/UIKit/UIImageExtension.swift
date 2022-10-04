@@ -250,6 +250,22 @@ public extension UIImage{
     }
 }
 
+public extension UIImage{
+    func toMetadata(identifier: AVMetadataIdentifier = .commonIdentifierArtwork, quality:CGFloat = 1.0)->AVMetadataItem{
+        let item = AVMutableMetadataItem()
+        if (quality > 1.0){
+            item.value = self.pngData() as (NSCopying & NSObjectProtocol)?
+            item.dataType = kCMMetadataBaseDataType_PNG as String
+        }else {
+            item.value = self.jpegData(compressionQuality: quality ) as (NSCopying & NSObjectProtocol)?
+            item.dataType = kCMMetadataBaseDataType_JPEG as String
+        }
+        item.identifier = identifier
+        item.extendedLanguageTag = "und"
+        return item
+    }
+}
+
 public extension UISlider {
     var currentThumbImageView: UIImageView? {
         guard let image = self.currentThumbImage else { return nil }

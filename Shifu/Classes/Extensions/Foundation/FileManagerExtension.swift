@@ -13,7 +13,7 @@ public extension FileManager {
             return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         }
         public static var temp:URL{
-            return URL(fileURLWithPath: NSTemporaryDirectory())
+            return FileManager.default.temporaryDirectory
         }
         public static var cache:URL{
             return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
@@ -29,7 +29,11 @@ public extension FileManager {
             return paths.first!
         }
         public static var temp:String{
-            return NSTemporaryDirectory()
+            let p = NSTemporaryDirectory()
+            if p.substr(-1) == "/" {
+                return p.substring(0, -1)
+            }
+            return p
         }
     }
     

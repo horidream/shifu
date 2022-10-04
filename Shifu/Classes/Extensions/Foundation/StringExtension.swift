@@ -7,6 +7,7 @@
 //
 import UIKit
 import CoreServices
+import AVFoundation
 
 
 private let predicateForUpperCase = NSPredicate.init(format: "SELF MATCHES %@", "^[A-Z]$")
@@ -163,8 +164,8 @@ public extension String{
         if self.starts(with: "@"){
             if self.test(pattern: "^@(doc|document|documents)(?=(/|$))"){
                 return URL(fileURLWithPath: self.replace(pattern: "^@(doc|document|documents)(?=(/|$))", with: FileManager.path.document))
-            } else if self.test(pattern: "^@(temp)(?=(/|$))"){
-                return URL(fileURLWithPath: self.replace(pattern: "^@(temp)(?=(/|$))", with: FileManager.path.temp))
+            } else if self.test(pattern: "^@(temp|tmp)(?=(/|$))"){
+                return URL(fileURLWithPath: self.replace(pattern: "^@(temp|tmp)(?=(/|$))", with: FileManager.path.temp))
             } else if self.test(pattern: "^@(cache)(?=(/|$))"){
                 return URL(fileURLWithPath: self.replace(pattern: "^@(cache)(?=(/|$))", with: FileManager.path.cache))
             }
@@ -268,6 +269,14 @@ public extension String{
         df.timeZone = timezone
         df.dateFormat = format ?? autoFormat
         return df.date(from: self)
+    }
+    
+    func toMetadata(identifier: AVMetadataIdentifier = .iTunesMetadataLyrics)->AVMetadataItem{
+        let item = AVMutableMetadataItem()
+        item.value = self as (NSCopying & NSObjectProtocol)?
+        item.dataType = kCMMetadataBaseDataType_UTF8 as String
+        item.identifier = .iTunesMetadataLyrics
+        return item
     }
 }
 

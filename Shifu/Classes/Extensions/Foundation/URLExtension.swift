@@ -26,6 +26,27 @@ public extension URL{
         return (isDirectory ? comps.get(-1) : comps.get(-2))!
     }
     
+    var nextAvailableURL:URL{
+        guard self.isFileURL && fm.fileExists(atPath: self.path) else { return self }
+        let folder = self.deletingLastPathComponent()
+        
+        let fn = self.filename
+        var basename = fn
+        var count = 1
+        let ex = self.pathExtension
+        let patternFound = fn.findall(pattern:  "^(.*\\D)(\\d+)?$")[0]
+        if let (_, b, c) = patternFound.spread3(){
+            basename = b
+            count = Int(c) ?? 1000
+        }
+        var neoFile = folder.appendingPathComponent("\(basename)\(count).\(ex)")
+        while(fm.fileExists(atPath: neoFile.path)){
+            count += 1
+            neoFile = folder.appendingPathComponent("\(basename)\(count).\(ex)")
+        }
+        return neoFile
+    }
+    
     var artwork:MPMediaItemArtwork?{
         let playerItem = AVPlayerItem(url: self) //this will be your audio source
         
