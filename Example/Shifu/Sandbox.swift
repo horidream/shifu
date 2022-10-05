@@ -17,14 +17,16 @@ struct Sandbox: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ThemedColor(light: .black, dark: .white) var foregroundColor
     @ThemedColor(light: .white, dark: .black) var backgroundColor
-    @State var item = PreviewItem("\(Shifu.bundle.bundleIdentifier!)@web/icon.png".url)
+    @State var item:PreviewItem? = PreviewItem("\(Shifu.bundle.bundleIdentifier!)@web/icon.png".url)
     var body: some View {
         ZStack{
             Preview(item: $item)
             if #available(iOS 16, *){
                 PasteButton(supportedContentTypes: allowedDataTypes){_ in
-
-                    item = PreviewItem(pb.previewURL(for: allowedDataTypes))
+                    let neo = PreviewItem(pb.previewURL(for: allowedDataTypes))
+                    clg(item?.previewItemURL == neo.previewItemURL)
+                    guard item != neo else { return }
+                    item = neo
                 }
             }
 
@@ -52,7 +54,7 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-        item = pb.previewItem(for: allowedDataTypes)
+        
     }
 }
 

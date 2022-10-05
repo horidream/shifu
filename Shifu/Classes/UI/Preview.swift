@@ -12,6 +12,12 @@ import Shifu
 import QuickLook
 
 public class PreviewItem: NSObject, QLPreviewItem, Codable{
+    override public func isEqual(_ object: Any?) -> Bool {
+        if let other = object as? PreviewItem {
+            return previewItemURL == other.previewItemURL
+        }
+        return false
+    }
     public let previewItemURL: URL?
     public let typeIdentifier: String?
     public var previewItemTitle:String? {
@@ -29,8 +35,8 @@ public class PreviewItem: NSObject, QLPreviewItem, Codable{
 }
 
 public struct Preview: UIViewControllerRepresentable {
-    @Binding var item: PreviewItem
-    public init(item: Binding<PreviewItem>) {
+    @Binding var item: PreviewItem?
+    public init(item: Binding<PreviewItem?>) {
         _item = item
     }
     public func makeUIViewController(context: Context) -> UINavigationController {
@@ -40,8 +46,10 @@ public struct Preview: UIViewControllerRepresentable {
     public func updateUIViewController(_ navi: UINavigationController, context: Context) {
         guard item != context.coordinator.item else { return }
         context.coordinator.item = item
-        if let identifier = item.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text){
-            let textVC = TextEditor(text: item.previewItemURL?.content ?? "")
+        if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text),
+           let text = item?.previewItemURL?.content, text.count < 1000
+        {
+            let textVC = TextEditor(text: text)
             textVC.delegate = context.coordinator
             navi.viewControllers = [textVC]
         } else {
@@ -69,10 +77,10 @@ public struct Preview: UIViewControllerRepresentable {
         
         public func previewController(_ controller: QLPreviewController, editingModeFor previewItem: QLPreviewItem) -> QLPreviewItemEditingMode {
             return .createCopy
-            return .createCopy
         }
         
         public func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+            clg(item?.previewItemURL)
             return item ?? PreviewItem()
         }
         
@@ -128,7 +136,7 @@ class TextEditor: UIViewController{
         textView.font = UIFont.systemFont(ofSize: 18)
         textView.isScrollEnabled = true
         textView.isUserInteractionEnabled = true
-        textView.quickMargin(0)
+        textView.quickMargin(8)
     }
     
     deinit{

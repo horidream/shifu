@@ -40,8 +40,13 @@ public extension UIPasteboard {
         return url
     }
     
-    func previewItem(for types: [UTType]) -> PreviewItem{
-        return PreviewItem(previewURL(for: types))
+    func previewItem(for types: [UTType]) -> PreviewItem?{
+        let url = previewURL(for: types)
+        if types.count > 0 {
+            return PreviewItem(url)
+        } else {
+            return nil
+        }
     }
 }
 
