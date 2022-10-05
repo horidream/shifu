@@ -67,6 +67,11 @@ public extension URL{
     var content:String? {
         return try? String(contentsOf: self)
     }
+    
+    var typeIdentifier: String?{
+        let resouceValues = try? self.resourceValues(forKeys: [.typeIdentifierKey])
+        return resouceValues?.typeIdentifier
+    }
 }
 
 public extension MPMediaItemArtwork {

@@ -10,12 +10,18 @@ import JavaScriptCore
 
 public class JSON{
     public static func stringify(_ obj:Any?) -> String?{
+        if let obj = obj as? Encodable{
+            if let data = try? JSONEncoder().encode(obj){
+                return String(data: data, encoding: .utf8)
+            }
+        }
         if JSONSerialization.isValidJSONObject(obj),
             let obj = obj,
             let data = try? JSONSerialization.data(withJSONObject: obj, options: []){
             return (String(bytes: data, encoding: .utf8))
         }
         return nil
+        
     }
     
     public static func parse(_ data:Data?) -> AnyObject?{
