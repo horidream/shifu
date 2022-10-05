@@ -7,6 +7,7 @@
 
 import Foundation
 import CryptoKit
+import UniformTypeIdentifiers
 
 @available(iOS 13.0, *)
 extension Data{
@@ -28,5 +29,17 @@ extension Data{
             return T.from(jsonString)
         }
         return nil
+    }
+}
+
+public extension Data{
+    func previewURL(for type:UTType)->URL{
+        let fn = "preview-\(self.hashValue)"
+        let ext = type.preferredFilenameExtension
+        let url = "@temp/\(fn).\(ext ?? "txt")".url!
+        if !fm.fileExists(atPath: url.path){
+            try? self.write(to: url)
+        }
+        return url
     }
 }

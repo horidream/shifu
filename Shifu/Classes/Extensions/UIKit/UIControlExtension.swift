@@ -36,12 +36,14 @@ public extension UIBarButtonItem {
     public convenience init(title: String?, style: UIBarButtonItem.Style = .plain, closure: @escaping (UIBarButtonItem) -> ()) {
         self.init(title: title, style: style, target: nil, action: nil)
         targetClosure = closure
+        target = self
         action = #selector(UIBarButtonItem.closureAction)
     }
     
     public convenience init(image: UIImage?, style: UIBarButtonItem.Style = .plain, closure: @escaping (UIBarButtonItem) -> ()) {
         self.init(image: image, style: style, target: nil, action: nil)
         targetClosure = closure
+        target = self
         action = #selector(UIBarButtonItem.closureAction)
     }
     

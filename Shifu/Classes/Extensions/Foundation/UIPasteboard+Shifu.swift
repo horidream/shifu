@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UniformTypeIdentifiers
 
 public extension UIPasteboard{
     var html:String? {
@@ -23,3 +24,24 @@ public extension UIPasteboard{
         return nil
     }
 }
+
+public extension UIPasteboard {
+    func previewURL(for types: [UTType]) -> URL? {
+        let typesInPasteboard = self.types
+        var url: URL? = nil
+        for type in types{
+            let identifier = type.identifier
+            if typesInPasteboard.contains(identifier), let data = self.data(forPasteboardType: identifier){
+                url = data.previewURL(for: type)
+                break
+            }
+        }
+        
+        return url
+    }
+    
+    func previewItem(for types: [UTType]) -> PreviewItem{
+        return PreviewItem(previewURL(for: types))
+    }
+}
+
