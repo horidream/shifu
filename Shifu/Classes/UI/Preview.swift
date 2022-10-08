@@ -31,10 +31,10 @@ public class PreviewItem: NSObject, QLPreviewItem, Codable{
     }
     private var _data:Data?
     private let _previewItemTitle: String?
-    public init(_ previewItemURL: URL? = nil, typeIdentifier: String? = nil, previewItemTitle: String? = "Preview") {
+    public init(_ previewItemURL: URL? = nil, typeIdentifier: String? = nil, previewItemTitle: String? = nil) {
         self.previewItemURL = previewItemURL
         self.typeIdentifier = typeIdentifier ?? previewItemURL?.typeIdentifier
-        self._previewItemTitle = previewItemTitle
+        self._previewItemTitle = previewItemTitle ?? localized("Preview")
     }
     enum CodingKeys: String, CodingKey {
         case previewItemURL, typeIdentifier, _previewItemTitle = "previewItemTitle"
@@ -119,7 +119,7 @@ public struct Preview: UIViewControllerRepresentable {
         }
         
         public func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-            return item.value ?? PreviewItem(previewItemTitle: "No Content")
+            return item.value ?? PreviewItem(previewItemTitle: localized("No Content"))
         }
         
         public func previewController(_ controller: QLPreviewController, didSaveEditedCopyOf previewItem: QLPreviewItem, at modifiedContentsURL: URL) {

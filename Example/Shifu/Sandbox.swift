@@ -30,13 +30,6 @@ struct Sandbox: View {
             Preview(item: $item, config: with(Preview.Config()){
                 $0.shouldAutoUpdatePasteboard = false
             })
-            Image.icon(.testtube2)
-                .onTapGesture {
-                    clg(pb.changeCount)
-                    a.send("c")
-                    b.send("c")
-                    a.send("d")
-                }
         }
         .toolbar(content: {
             ToolbarItem {
@@ -46,12 +39,14 @@ struct Sandbox: View {
                 }, onPaste: { items in
                     item = pb.previewItem(for: allowedDataTypes)
                 })
+                
             }
             ToolbarItem {
                 if #available(iOS 16, *){
                     PasteButton(supportedContentTypes: [.data]) { _ in
                         item = pb.previewItem(for: allowedDataTypes)
                     }
+                    
                 }
             }
             

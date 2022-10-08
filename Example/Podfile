@@ -13,12 +13,6 @@ target $projectName do
   pod 'ShifuWebServer', :path => '../'
 end
 
-target 'ShifuIntentsDemo' do
-  use_frameworks!
-  inhibit_all_warnings!
-  pod 'Shifu', :path => '../'
-end
-
 target 'ShifuExampleTests' do
   use_frameworks!
   inhibit_all_warnings!
