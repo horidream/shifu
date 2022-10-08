@@ -25,6 +25,10 @@ public protocol Retainable{
 }
 
 public extension Retainable{
+    @discardableResult func retainSingleton(_ key: AnyHashable = #file, line: Int = #line) -> Self {
+        retain(key, line: line, overwrite: true)
+    }
+    
     @discardableResult func retain(_ key: AnyHashable = #file, line: Int = #line, overwrite:Bool = false) -> Self {
         let key = getRetainKey(key: key, line: line)
         if let this = self as? RetainReference{

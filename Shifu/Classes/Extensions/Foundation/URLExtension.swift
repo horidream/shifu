@@ -68,6 +68,10 @@ public extension URL{
         return try? String(contentsOf: self)
     }
     
+    var data:Data? {
+        return try? Data(contentsOf: self)
+    }
+    
     var typeIdentifier: String?{
         let resouceValues = try? self.resourceValues(forKeys: [.typeIdentifierKey])
         return resouceValues?.typeIdentifier

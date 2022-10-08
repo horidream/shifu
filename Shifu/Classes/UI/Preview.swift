@@ -23,6 +23,13 @@ public class PreviewItem: NSObject, QLPreviewItem, Codable{
     public var previewItemTitle:String? {
         return _previewItemTitle
     }
+    public var data: Data? {
+        get{
+            _data = _data ?? previewItemURL?.data
+            return _data
+        }
+    }
+    private var _data:Data?
     private let _previewItemTitle: String?
     public init(_ previewItemURL: URL? = nil, typeIdentifier: String? = nil, previewItemTitle: String? = "Preview") {
         self.previewItemURL = previewItemURL
@@ -30,24 +37,35 @@ public class PreviewItem: NSObject, QLPreviewItem, Codable{
         self._previewItemTitle = previewItemTitle
     }
     enum CodingKeys: String, CodingKey {
-        case previewItemURL, typeIdentifier, _previewItemTitle
+        case previewItemURL, typeIdentifier, _previewItemTitle = "previewItemTitle"
     }
 }
 
 public struct Preview: UIViewControllerRepresentable {
+    public class Config {
+        public var shouldAutoUpdatePasteboard:Bool = true
+        public init() { }
+    }
     @Binding var item: PreviewItem?
-    public init(item: Binding<PreviewItem?>) {
+    var config: Config
+    public init(item: Binding<PreviewItem?>, config: Config = Config()) {
         _item = item
+        self.config = config
     }
     public func makeUIViewController(context: Context) -> UINavigationController {
+        context.coordinator.item.removeDuplicates()
+            .sink { item in
+                self.item = item
+            }
+            .retain(overwrite: true)
         return UINavigationController()
     }
     
     public func updateUIViewController(_ navi: UINavigationController, context: Context) {
-        guard item != context.coordinator.item else { return }
-        context.coordinator.item = item
+        guard item != context.coordinator.item.value else { return }
+        context.coordinator.item.value = item
         if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text),
-           let text = item?.previewItemURL?.content, text.count < 1000
+           let text = item?.previewItemURL?.content
         {
             let textVC = TextEditor(text: text)
             textVC.delegate = context.coordinator
@@ -58,11 +76,23 @@ public struct Preview: UIViewControllerRepresentable {
             previewVC.dataSource = context.coordinator
             navi.viewControllers = [previewVC]
         }
+        if item?.data != nil {
+            navi.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.trash_fa, size: 20), closure: { btn in
+                item = nil
+                if config.shouldAutoUpdatePasteboard {
+                    pb.items = []
+                }
+            })
+        } else {
+            navi.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.plus_fa, size: 20), closure: { btn in
+                item = PreviewItem("".data(using: .utf8)?.previewURL(for: .plainText))
+            })
+        }
 
     }
     
     public func makeCoordinator() -> Coordinator {
-        return Coordinator()
+        return Coordinator(config: config)
     }
     
     public class Coordinator: NSObject,
@@ -70,7 +100,16 @@ public struct Preview: UIViewControllerRepresentable {
                               QLPreviewControllerDelegate,
                               UITextViewDelegate,
                               UIPopoverPresentationControllerDelegate {
-        var item: PreviewItem?
+        
+        var item: CurrentValueSubject<PreviewItem?, Never>
+        var editingItem:PreviewItem?
+        var config: Config
+        
+        init(item: PreviewItem? = nil, config: Config) {
+            self.item = CurrentValueSubject<PreviewItem?, Never>(item)
+            self.config = config
+        }
+        
         public func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
             1
         }
@@ -80,32 +119,41 @@ public struct Preview: UIViewControllerRepresentable {
         }
         
         public func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-            clg(item?.previewItemURL)
-            return item ?? PreviewItem()
+            return item.value ?? PreviewItem(previewItemTitle: "No Content")
         }
         
         public func previewController(_ controller: QLPreviewController, didSaveEditedCopyOf previewItem: QLPreviewItem, at modifiedContentsURL: URL) {
-            if let data = try? Data(contentsOf: modifiedContentsURL), let type = item?.typeIdentifier ?? modifiedContentsURL.typeIdentifier
+            if let data = try? Data(contentsOf: modifiedContentsURL), let type = item.value?.typeIdentifier ?? modifiedContentsURL.typeIdentifier
             {
-                item = PreviewItem(modifiedContentsURL)
-                UIPasteboard.general.setData(data,  forPasteboardType: type)
+                item.value = PreviewItem(modifiedContentsURL)
+                if config.shouldAutoUpdatePasteboard {
+                    pb.setData(data,  forPasteboardType: type)
+                }
             }
         }
-        
+//        public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+//            textView.is
+//        }
         public func textViewDidBeginEditing(_ textView: UITextView) {
-            textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 25), closure: { btn in
+            (textView.associatedViewController as? TextEditor)?.setPlaceHolderVisible(false)
+            textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
                 textView.endEditing(true)
             })
+            editingItem = item.value
         }
         
         public func textViewDidEndEditing(_ textView: UITextView) {
-
+            // if the editing item has been changed , we should not update the preview item. 
+            guard item.value == editingItem else { return }
             if let data = textView.text.data(using: .utf8) {
                 let type = UTType.plainText
-                item = PreviewItem(data.previewURL(for: type))
-                UIPasteboard.general.setData(data,  forPasteboardType: type.identifier)
+                item.value = PreviewItem(data.previewURL(for: type))
+                if config.shouldAutoUpdatePasteboard {
+                    pb.setData(data,  forPasteboardType: type.identifier)
+                }
             }
             textView.associatedViewController?.navigationItem.rightBarButtonItem = nil
+            (textView.associatedViewController as? TextEditor)?.setPlaceHolderVisible(textView.text.trimmingCharacters(in: .whitespaces).count == 0)
         }
     }
 }
@@ -119,6 +167,7 @@ extension UITextView {
 class TextEditor: UIViewController{
     var text: String
     let textView = UITextView(frame: .zero)
+    let placeHolder = UILabel(frame: .zero)
     var delegate: UITextViewDelegate? {
         get {
             return textView.delegate
@@ -128,15 +177,31 @@ class TextEditor: UIViewController{
         }
     }
     
+    var isTextTooLong:Bool {
+        text.count > 2048
+    }
     override func loadView() {
         super.loadView()
-        textView.text = text
+        textView.text = text.substr(0, 2048)
         textView.layer.setValue(self, forKey: "associatedViewController")
         view.addSubview(textView)
         textView.font = UIFont.systemFont(ofSize: 18)
         textView.isScrollEnabled = true
         textView.isUserInteractionEnabled = true
+        textView.isEditable = !isTextTooLong
         textView.quickMargin(8)
+        
+        placeHolder.text = "Touch to start editing"
+        view.addSubview(placeHolder)
+        placeHolder.font = UIFont.systemFont(ofSize: 18)
+        placeHolder.textColor = .lightGray
+        placeHolder.alpha = text.trimmingCharacters(in: .whitespaces).count == 0 ? 1 : 0
+        placeHolder.quickAlign(1, 8, 12)
+        
+    }
+    
+    func setPlaceHolderVisible(_ visible: Bool){
+        placeHolder.alpha = visible ? 1 : 0
     }
     
     deinit{

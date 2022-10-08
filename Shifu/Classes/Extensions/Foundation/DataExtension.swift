@@ -42,4 +42,9 @@ public extension Data{
         }
         return url
     }
+    
+    func previewItem(for type:UTType)->PreviewItem{
+        return PreviewItem(previewURL(for: type))
+    }
+    
 }

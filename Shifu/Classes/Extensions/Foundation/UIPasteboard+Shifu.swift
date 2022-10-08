@@ -26,6 +26,14 @@ public extension UIPasteboard{
 }
 
 public extension UIPasteboard {
+    func setPreviewItem(_ item: PreviewItem?){
+        if let data = item?.data, let type = item?.typeIdentifier {
+            setData(data, forPasteboardType: type)
+        } else {
+            items = []
+        }
+    }
+    
     func previewURL(for types: [UTType]) -> URL? {
         let typesInPasteboard = self.types
         var url: URL? = nil

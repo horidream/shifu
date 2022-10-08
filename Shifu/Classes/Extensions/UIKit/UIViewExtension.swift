@@ -49,10 +49,10 @@ public extension UIView{
         if let parent = reference ?? self.superview{
             self.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                top == nil ? nil : self.topAnchor.constraint(equalTo: parent.topAnchor, constant: top!),
-                right == nil ? nil : self.rightAnchor.constraint(equalTo: parent.rightAnchor, constant: -right!),
-                bottom == nil ? nil : self.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -bottom!),
-                left == nil ? nil : self.leftAnchor.constraint(equalTo: parent.leftAnchor, constant: left!),
+                top == nil ? nil : self.topAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.topAnchor, constant: top!),
+                right == nil ? nil : self.rightAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.rightAnchor, constant: -right!),
+                bottom == nil ? nil : self.bottomAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.bottomAnchor, constant: -bottom!),
+                left == nil ? nil : self.leftAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.leftAnchor, constant: left!),
             ].compactMap{
                 $0?.priority = .defaultHigh
                 return $0
@@ -78,82 +78,82 @@ public extension UIView{
             switch type {
             case 1:
                 NSLayoutConstraint.activate([
-                    self.leftAnchor.constraint(equalTo: parent.leftAnchor, constant: offsetX),
-                    self.topAnchor.constraint(equalTo: parent.topAnchor, constant: offsetY)
+                    self.leftAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.leftAnchor, constant: offsetX),
+                    self.topAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.topAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 2:
                 NSLayoutConstraint.activate([
-                    self.centerXAnchor.constraint(equalTo: parent.centerXAnchor, constant: offsetX),
-                    self.topAnchor.constraint(equalTo: parent.topAnchor, constant: offsetY)
+                    self.centerXAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.centerXAnchor, constant: offsetX),
+                    self.topAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.topAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 3:
                 NSLayoutConstraint.activate([
-                    self.rightAnchor.constraint(equalTo: parent.rightAnchor, constant: offsetX),
-                    self.topAnchor.constraint(equalTo: parent.topAnchor, constant: offsetY)
+                    self.rightAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.rightAnchor, constant: offsetX),
+                    self.topAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.topAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 4:
                 NSLayoutConstraint.activate([
-                    self.leftAnchor.constraint(equalTo: parent.leftAnchor, constant: offsetX),
-                    self.centerYAnchor.constraint(equalTo: parent.centerYAnchor, constant: offsetY)
+                    self.leftAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.leftAnchor, constant: offsetX),
+                    self.centerYAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.centerYAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 5:
                 NSLayoutConstraint.activate([
-                    self.centerXAnchor.constraint(equalTo: parent.centerXAnchor, constant: offsetX),
-                    self.centerYAnchor.constraint(equalTo: parent.centerYAnchor, constant: offsetY)
+                    self.centerXAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.centerXAnchor, constant: offsetX),
+                    self.centerYAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.centerYAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 6:
                 NSLayoutConstraint.activate([
-                    self.rightAnchor.constraint(equalTo: parent.rightAnchor, constant: offsetX),
-                    self.centerYAnchor.constraint(equalTo: parent.centerYAnchor, constant: offsetY)
+                    self.rightAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.rightAnchor, constant: offsetX),
+                    self.centerYAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.centerYAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 7:
                 NSLayoutConstraint.activate([
-                    self.leftAnchor.constraint(equalTo: parent.leftAnchor, constant: offsetX),
-                    self.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: offsetY)
+                    self.leftAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.leftAnchor, constant: offsetX),
+                    self.bottomAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.bottomAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 8:
                 NSLayoutConstraint.activate([
-                    self.centerXAnchor.constraint(equalTo: parent.centerXAnchor, constant: offsetX),
-                    self.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: offsetY)
+                    self.centerXAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.centerXAnchor, constant: offsetX),
+                    self.bottomAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.bottomAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 9:
                 NSLayoutConstraint.activate([
-                    self.rightAnchor.constraint(equalTo: parent.rightAnchor, constant: offsetX),
-                    self.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: offsetY)
+                    self.rightAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.rightAnchor, constant: offsetX),
+                    self.bottomAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.bottomAnchor, constant: offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
                 })
             case 0:
                 NSLayoutConstraint.activate([
-                    self.leftAnchor.constraint(equalTo: parent.leftAnchor, constant: offsetX),
-                    self.rightAnchor.constraint(equalTo: parent.rightAnchor, constant: -offsetX),
-                    self.topAnchor.constraint(equalTo: parent.topAnchor, constant: offsetY),
-                    self.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -offsetY)
+                    self.leftAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.leftAnchor, constant: offsetX),
+                    self.rightAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.rightAnchor, constant: -offsetX),
+                    self.topAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.topAnchor, constant: offsetY),
+                    self.bottomAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.bottomAnchor, constant: -offsetY)
                 ].map{
                     $0.priority = .defaultLow
                     return $0
