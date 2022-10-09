@@ -11,11 +11,13 @@ import Combine
 import UniformTypeIdentifiers
 
 public struct ShifuPasteButton<T: View>: View {
+    @Binding var shouldCompress:Bool
     let onPaste:([NSItemProvider])->Void
     let builder: ()-> T
-    public init(@ViewBuilder view builder: @escaping ()-> T, onPaste: @escaping ([NSItemProvider])->Void ){
+    public init(@ViewBuilder view builder: @escaping ()-> T, onPaste: @escaping ([NSItemProvider])->Void, shouldCompress: Binding<Bool> = .constant(false) ){
         self.onPaste = onPaste
         self.builder = builder
+        self._shouldCompress = shouldCompress
     }
     public var body: some View{
         if #available(iOS 16, *){
@@ -37,7 +39,9 @@ public struct ShifuPasteButton<T: View>: View {
     func HackedPasteButton()-> some View {
         return
             PasteButton(supportedContentTypes: [.data]) { items in
-                pb.items = pb.items
+                if shouldCompress {
+                    pb.items = pb.items
+                }
                 onPaste(items)
             }
             .labelStyle(.iconOnly)

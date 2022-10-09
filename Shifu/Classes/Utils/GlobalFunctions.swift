@@ -66,8 +66,8 @@ public func withoutCAAnimation(_ block:()->Void){
     CATransaction.commit()
 }
 
-func localized(_ key: String)->String{
-    return NSLocalizedString(key, bundle: Shifu.bundle, comment: key)
+func localized(_ key: String, comment: String? = nil)->String{
+    return NSLocalizedString(key, bundle: Shifu.bundle, comment: comment ?? key)
 }
 
 public let fm: FileManager = FileManager.default

@@ -34,7 +34,8 @@ public class PreviewItem: NSObject, QLPreviewItem, Codable{
     public init(_ previewItemURL: URL? = nil, typeIdentifier: String? = nil, previewItemTitle: String? = nil) {
         self.previewItemURL = previewItemURL
         self.typeIdentifier = typeIdentifier ?? previewItemURL?.typeIdentifier
-        self._previewItemTitle = previewItemTitle ?? localized("Preview")
+        self._previewItemTitle = previewItemTitle ??
+        (previewItemURL == nil ? localized("No Content") : localized("Preview"))
     }
     enum CodingKeys: String, CodingKey {
         case previewItemURL, typeIdentifier, _previewItemTitle = "previewItemTitle"
@@ -67,7 +68,11 @@ public struct Preview: UIViewControllerRepresentable {
         if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text),
            let text = item?.previewItemURL?.content
         {
+            if let preview = navi.viewControllers.first as? QLPreviewController {
+                preview.reloadData()
+            }
             let textVC = TextEditor(text: text)
+            textVC.title = localized("New Text")
             textVC.delegate = context.coordinator
             navi.viewControllers = [textVC]
         } else {
@@ -87,6 +92,10 @@ public struct Preview: UIViewControllerRepresentable {
             navi.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.plus_fa, size: 20), closure: { btn in
                 item = PreviewItem("".data(using: .utf8)?.previewURL(for: .plainText))
             })
+        }
+        
+        if let layer = navi.topViewController?.view.layer{
+            Tween.from(layer , 0.3, ["scale": 0.92, "alpha": 0], to:["scale": 1, "alpha": 1])
         }
 
     }
@@ -111,7 +120,7 @@ public struct Preview: UIViewControllerRepresentable {
         }
         
         public func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-            1
+            item.value?.previewItemURL != nil ? 1 : 0
         }
         
         public func previewController(_ controller: QLPreviewController, editingModeFor previewItem: QLPreviewItem) -> QLPreviewItemEditingMode {
@@ -123,10 +132,12 @@ public struct Preview: UIViewControllerRepresentable {
         }
         
         public func previewController(_ controller: QLPreviewController, didSaveEditedCopyOf previewItem: QLPreviewItem, at modifiedContentsURL: URL) {
+            guard item.value != nil else { return }
             if let data = try? Data(contentsOf: modifiedContentsURL), let type = item.value?.typeIdentifier ?? modifiedContentsURL.typeIdentifier
             {
                 item.value = PreviewItem(modifiedContentsURL)
                 if config.shouldAutoUpdatePasteboard {
+                    clg(data.count)
                     pb.setData(data,  forPasteboardType: type)
                 }
             }
@@ -191,7 +202,7 @@ class TextEditor: UIViewController{
         textView.isEditable = !isTextTooLong
         textView.quickMargin(8)
         
-        placeHolder.text = "Touch to start editing"
+        placeHolder.text = localized("Touch to start editing")
         view.addSubview(placeHolder)
         placeHolder.font = UIFont.systemFont(ofSize: 18)
         placeHolder.textColor = .lightGray
@@ -211,7 +222,7 @@ class TextEditor: UIViewController{
     init(text: String) {
         self.text = text
         super.init(nibName: nil, bundle: nil)
-        self.title = "Preview"
+        self.title = localized("Preview")
     }
     
     required init?(coder: NSCoder) {

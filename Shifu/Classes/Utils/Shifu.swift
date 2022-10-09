@@ -30,7 +30,9 @@ private class EmptyClass{
 }
 public class Shifu{
     
-    public static let name = "Shifu"
+    public static var name:String{
+        localized("Shifu")
+    }
     public static let bundle = Bundle(for: EmptyClass.self)
     public static var maxStitchedImageSize:CGFloat = 1024
     

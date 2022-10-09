@@ -46,7 +46,7 @@ struct HomeView: View {
                 
             }
             .listStyle(.plain)
-            .navigationBarTitle(Text("Shifu"))
+            .navigationBarTitle(Text(Shifu.name))
             .onInjection {
 //                vm.refresh()
             }
@@ -99,10 +99,3 @@ extension View {
 }
 
 
-struct MyPreviewProvider_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeViewModel().view {
-            HomeView()
-        }
-    }
-}

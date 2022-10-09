@@ -17,18 +17,13 @@ struct Sandbox: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ThemedColor(light: .black, dark: .white) var foregroundColor
     @ThemedColor(light: .white, dark: .black) var backgroundColor
-    @State var a = "a".ps
-    @State var b = "b".ps
+    @State var shouldCompress: Bool = false
     @State var item:PreviewItem? = PreviewItem("\(Shifu.bundle.bundleIdentifier!)@web/icon.png".url)
 
     var body: some View {
-        let _ = a.merge(with: b)
-            .sink { l in
-                clg(l)
-            }.retainSingleton()
         return ZStack{
             Preview(item: $item, config: with(Preview.Config()){
-                $0.shouldAutoUpdatePasteboard = false
+                $0.shouldAutoUpdatePasteboard = true
             })
         }
         .toolbar(content: {
@@ -38,23 +33,17 @@ struct Sandbox: View {
                         .foregroundColor(.blue)
                 }, onPaste: { items in
                     item = pb.previewItem(for: allowedDataTypes)
-                })
+                }, shouldCompress: $shouldCompress)
                 
             }
-            ToolbarItem {
-                if #available(iOS 16, *){
-                    PasteButton(supportedContentTypes: [.data]) { _ in
-                        item = pb.previewItem(for: allowedDataTypes)
-                    }
-                    
-                }
+            ToolbarItem(placement: .bottomBar) {
+                Toggle("Should Compress Content", isOn: $shouldCompress)
+                    .toggleStyle(.switch)
             }
-            
-
         })
-        .onChange(of: item, perform: { newValue in
-            pb.setPreviewItem(item)
-        })
+//        .onChange(of: item, perform: { newValue in
+//            pb.setPreviewItem(item)
+//        })
         .onInjection{
             sandbox()
         }
@@ -70,7 +59,7 @@ struct Sandbox: View {
     }
 }
 
-let allowedDataTypes: [UTType] = [.utf8PlainText, .plainText, .tiff, .image, .png, .jpeg, .gif, .bmp, .ico, .pdf, .doc, .excel, .docx, .xlsx]
+let allowedDataTypes: [UTType] = [.utf8PlainText, .plainText, .image,.tiff,  .png, .jpeg, .gif, .bmp, .ico, .pdf, .doc, .excel, .docx, .xlsx]
 
 
 
