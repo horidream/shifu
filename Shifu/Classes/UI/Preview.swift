@@ -72,7 +72,7 @@ public struct Preview: UIViewControllerRepresentable {
                 preview.reloadData()
             }
             let textVC = TextEditor(text: text)
-            textVC.title = localized("New Text")
+            textVC.title = item?.previewItemTitle
             textVC.delegate = context.coordinator
             navi.viewControllers = [textVC]
         } else {
@@ -90,7 +90,7 @@ public struct Preview: UIViewControllerRepresentable {
             })
         } else {
             navi.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.plus_fa, size: 20), closure: { btn in
-                item = PreviewItem("".data(using: .utf8)?.previewURL(for: .plainText))
+                item = PreviewItem("".data(using: .utf8)?.previewURL(for: .plainText), previewItemTitle: localized("New Text"))
             })
         }
         
@@ -163,6 +163,7 @@ public struct Preview: UIViewControllerRepresentable {
                     pb.setData(data,  forPasteboardType: type.identifier)
                 }
             }
+            textView.associatedViewController?.navigationItem.title = localized("Preview")
             textView.associatedViewController?.navigationItem.rightBarButtonItem = nil
             (textView.associatedViewController as? TextEditor)?.setPlaceHolderVisible(textView.text.trimmingCharacters(in: .whitespaces).count == 0)
         }

@@ -10,30 +10,42 @@ import SwiftUI
 
 public class TweenAnimation<T:Equatable>{
     @Binding var value:T
-    let startValue:T
+    let startValue:T?
     let endValue:T
     let animation:Animation
     @discardableResult public init(_ value: Binding<T>, from: T? = nil, to: T? = nil, animation: Animation = .default ){
         _value = value
-        startValue = from ?? value.wrappedValue
+        startValue = from
         endValue = to ?? value.wrappedValue
         self.animation = animation
     }
     
     @discardableResult public func play(delay: Double = 0)->TweenAnimation{
-        guard startValue != endValue else { return self }
-        withAnimation(animation.delay(delay)) {
-            if (value != startValue) {
-                withAnimation(.linear(duration: 0)){
-                    value = startValue
-                }
+        var targetEndValue = endValue
+        if startValue == endValue {
+            if var temp =  targetEndValue as? (any VectorArithmetic){
+                temp.scale(by: 1 + 0.000000001)
+                targetEndValue = temp as! T
+                clg("try to ...")
+            } else {
+                warn("animation has the same to value as the from value , try a different to value with least minimum difference to overwrite the current animation ")
+                return self
             }
-            value = endValue
         }
+        withAnimation(animation.delay(delay)) {
+                if let startValue {
+                    withAnimation(.linear(duration: 0)){
+                        value = startValue
+                    }
+                }
+                value = targetEndValue
+            }
         return self
     }
     
 }
+
+
 
 
 public enum TweenAnimationType{

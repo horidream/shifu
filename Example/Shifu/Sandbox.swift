@@ -19,12 +19,13 @@ struct Sandbox: View {
     @ThemedColor(light: .white, dark: .black) var backgroundColor
     @State var shouldCompress: Bool = false
     @State var item:PreviewItem? = PreviewItem("\(Shifu.bundle.bundleIdentifier!)@web/icon.png".url)
-
+    @State var alpha: CGFloat = 1
     var body: some View {
         return ZStack{
             Preview(item: $item, config: with(Preview.Config()){
                 $0.shouldAutoUpdatePasteboard = true
             })
+            .opacity(alpha)
         }
         .toolbar(content: {
             ToolbarItem {
@@ -39,6 +40,12 @@ struct Sandbox: View {
             ToolbarItem(placement: .bottomBar) {
                 Toggle("Should Compress Content", isOn: $shouldCompress)
                     .toggleStyle(.switch)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Image.icon(.comment)
+                    .onTapGesture {
+                        ta($alpha).to(0.001).delay(2).to( 1, duration: 1)
+                    }
             }
         })
 //        .onChange(of: item, perform: { newValue in

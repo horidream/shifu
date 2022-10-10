@@ -8,6 +8,7 @@
 import Foundation
 
 let clg = Shifu.clg(prefix: "🥋 -")
+let warn = Shifu.clg(prefix: "⚠️ -")
 
 class EqutableWrapper: Equatable, Identifiable{
     static func == (lhs: EqutableWrapper, rhs: EqutableWrapper) -> Bool {
