@@ -62,12 +62,21 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-        
+//        nc.publisher(for: .hello)
+//            .prefix(2)
+//            .sink { no in
+//                clg(no.userInfo?.get(0,fallback: 3))
+//            }
+//            .retain()
+//        clg(AnyCancellable.bag)
+//        sc.emit(.hello, 1, 3)
+//        sc.emit(.hello, 2)
+//        sc.emit(.hello, 3)
+//        clg(AnyCancellable.bag)
     }
 }
 
 let allowedDataTypes: [UTType] = [.utf8PlainText, .plainText, .image,.tiff,  .png, .jpeg, .gif, .bmp, .ico, .pdf, .doc, .excel, .docx, .xlsx]
-
 
 
 

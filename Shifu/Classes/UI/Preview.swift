@@ -48,13 +48,14 @@ public struct Preview: UIViewControllerRepresentable {
         public init() { }
     }
     @Binding var item: PreviewItem?
+    @State var pinned:Bool = false
     var config: Config
     public init(item: Binding<PreviewItem?>, config: Config = Config()) {
         _item = item
         self.config = config
     }
     public func makeUIViewController(context: Context) -> UINavigationController {
-        context.coordinator.item.removeDuplicates()
+        context.coordinator.item
             .sink { item in
                 self.item = item
             }
@@ -63,41 +64,44 @@ public struct Preview: UIViewControllerRepresentable {
     }
     
     public func updateUIViewController(_ navi: UINavigationController, context: Context) {
-        guard item != context.coordinator.item.value else { return }
-        context.coordinator.item.value = item
-        if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text),
-           let text = item?.previewItemURL?.content
-        {
-            if let preview = navi.viewControllers.first as? QLPreviewController {
-                preview.reloadData()
+        if item != context.coordinator.item.value, !pinned {
+            context.coordinator.item.value = item
+            if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text),
+               let text = item?.previewItemURL?.content
+            {
+                if let preview = navi.viewControllers.first as? QLPreviewController {
+                    preview.reloadData()
+                }
+                let textVC = TextEditor(text: text)
+                textVC.title = item?.previewItemTitle
+                textVC.delegate = context.coordinator
+                navi.viewControllers = [textVC]
+            } else {
+                let previewVC = QLPreviewController()
+                previewVC.delegate = context.coordinator
+                previewVC.dataSource = context.coordinator
+                navi.viewControllers = [previewVC]
             }
-            let textVC = TextEditor(text: text)
-            textVC.title = item?.previewItemTitle
-            textVC.delegate = context.coordinator
-            navi.viewControllers = [textVC]
-        } else {
-            let previewVC = QLPreviewController()
-            previewVC.delegate = context.coordinator
-            previewVC.dataSource = context.coordinator
-            navi.viewControllers = [previewVC]
+            
+            if let layer = navi.topViewController?.view.layer{
+                Tween.from(layer , 0.3, ["scale": 0.92, "alpha": 0], to:["scale": 1, "alpha": 1])
+            }
         }
+
         if item?.data != nil {
-            navi.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.trash_fa, size: 20), closure: { btn in
+            navi.viewControllers.first?.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: Icons.image(.trash_fa, size: 20), closure: { btn in
                 item = nil
                 if config.shouldAutoUpdatePasteboard {
                     pb.items = []
                 }
-            })
+            }), UIBarButtonItem(image: Icons.image(pinned ? .pinFill : .pin, size: 16), closure: { btn in
+                pinned.toggle()
+            })]
         } else {
             navi.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.plus_fa, size: 20), closure: { btn in
                 item = PreviewItem("".data(using: .utf8)?.previewURL(for: .plainText), previewItemTitle: localized("New Text"))
             })
         }
-        
-        if let layer = navi.topViewController?.view.layer{
-            Tween.from(layer , 0.3, ["scale": 0.92, "alpha": 0], to:["scale": 1, "alpha": 1])
-        }
-
     }
     
     public func makeCoordinator() -> Coordinator {
@@ -136,8 +140,8 @@ public struct Preview: UIViewControllerRepresentable {
             if let data = try? Data(contentsOf: modifiedContentsURL), let type = item.value?.typeIdentifier ?? modifiedContentsURL.typeIdentifier
             {
                 item.value = PreviewItem(modifiedContentsURL)
+                controller.reloadData()
                 if config.shouldAutoUpdatePasteboard {
-                    clg(data.count)
                     pb.setData(data,  forPasteboardType: type)
                 }
             }

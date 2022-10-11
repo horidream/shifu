@@ -128,3 +128,9 @@ public extension JSValue{
         }
     }
 }
+
+public extension Dictionary where Key == AnyHashable, Value == Any{
+    func get(_ key: AnyHashable, fallback: Any? = nil)-> Any?{
+        return self[key] ?? fallback
+    }
+}

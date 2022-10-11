@@ -76,5 +76,6 @@ public let ud = UserDefaults.standard
 public typealias url = FileManager.url
 public typealias path = FileManager.path
 public typealias sc = ShortCut
+public let nc = NotificationCenter.default
 
 

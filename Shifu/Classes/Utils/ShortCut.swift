@@ -155,6 +155,11 @@ public extension ShortCut{
         NotificationCenter.default.post(name: notification, object: nil, userInfo: userInfo)
     }
     
+    class func emit(_ notification: Notification.Name, _ payload: Any ...){
+        let userInfo = Dictionary(zip( 0 ..< payload.count, payload), uniquingKeysWith: { (first, _) in first })
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: userInfo)
+    }
+
     class func emit(_ notification: String, userInfo: [AnyHashable: Any]? = nil){
         NotificationCenter.default.post(name: notification.toNotificationName(), object: nil, userInfo: userInfo)
     }
@@ -194,7 +199,16 @@ public extension ShortCut{
         notificationMap[notification]?.append(handler)
         return unwatch
     }
-    
+    @discardableResult class func once(_ notification:Notification.Name, _ block:@escaping (Notification)->Void){
+        let id = UUID()
+        NotificationCenter.default.publisher(for: notification)
+            .sink{
+                block($0)
+                AnyCancellable.release(key: id)
+            }
+            .retain(id)
+    }
+
     @discardableResult class func on(_ notifications:[Notification.Name], _ block:@escaping (Notification)->Void)->(()->Void){
         let arr = notifications.map { notification in
             return self.on(notifications, block)
