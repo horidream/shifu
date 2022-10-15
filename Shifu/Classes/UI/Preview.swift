@@ -113,7 +113,7 @@ public struct Preview: UIViewControllerRepresentable {
             if let preview = navi.topViewController as? QLPreviewController {
                 preview.reloadData()
             }
-            let textVC = TextEditor(text: text)
+            let textVC = TextEditorVC(text: text)
             textVC.title = context.coordinator.item.value?.previewItemTitle
             textVC.delegate = context.coordinator
             navi.viewControllers = [textVC]
@@ -169,6 +169,7 @@ public struct Preview: UIViewControllerRepresentable {
         var config: Config
         weak var currentVC: UIViewController?
         
+        
         init(item: PreviewItem? = nil, config: Config) {
             self.item = CurrentValueSubject<PreviewItem?, Never>(item)
             self.config = config
@@ -200,7 +201,7 @@ public struct Preview: UIViewControllerRepresentable {
         }
         
         public func textViewDidBeginEditing(_ textView: UITextView) {
-            (textView.associatedViewController as? TextEditor)?.setPlaceHolderVisible(false)
+            (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(false)
             textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
                 textView.endEditing(true)
             })
@@ -219,18 +220,18 @@ public struct Preview: UIViewControllerRepresentable {
             }
             textView.associatedViewController?.navigationItem.title = localized("Preview")
             textView.associatedViewController?.navigationItem.rightBarButtonItem = nil
-            (textView.associatedViewController as? TextEditor)?.setPlaceHolderVisible(textView.text.trimmingCharacters(in: .whitespaces).count == 0)
+            (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(textView.text.trimmingCharacters(in: .whitespaces).count == 0)
         }
     }
 }
 
-extension UITextView {
+public extension UITextView {
     var associatedViewController: UIViewController? {
         return self.layer.value(forKey: "associatedViewController") as? UIViewController
     }
 }
 
-class TextEditor: UIViewController{
+class TextEditorVC: UIViewController{
     var text: String
     let textView = UITextView(frame: .zero)
     let placeHolder = UILabel(frame: .zero)
@@ -282,5 +283,142 @@ class TextEditor: UIViewController{
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+public struct PreviewQL: UIViewControllerRepresentable {
+    @Binding var item:PreviewItem?
+    @Binding var pinned: Bool
+    
+    public init(item: Binding<PreviewItem?>, pinned: Binding<Bool>) {
+        _item = item
+        _pinned = pinned
+    }
+    
+    public func makeUIViewController(context: Context) -> UINavigationController {
+        let navi =  UINavigationController(rootViewController: with(QLPreviewController()){
+            $0.dataSource = context.coordinator
+            $0.delegate = context.coordinator
+        })
+        navi.delegate = context.coordinator
+        return navi
+    }
+    
+    public func updateUIViewController(_ vc: UINavigationController, context: Context) {
+        guard !pinned else { return }
+        context.coordinator.item.value = item
+        (vc.topViewController as? QLPreviewController)?.reloadData()
+    }
+    
+    public func makeCoordinator() -> Coordinator {
+        return Coordinator(item: item)
+    }
+    public class Coordinator: NSObject,
+                              QLPreviewControllerDataSource,
+                              QLPreviewControllerDelegate, UINavigationControllerDelegate{
+        var item: CurrentValueSubject<PreviewItem?, Never>
+        
+        init(item: PreviewItem?) {
+            self.item = CurrentValueSubject<PreviewItem?, Never>(item)
+        }
+        
+        public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+                navigationController.setNavigationBarHidden(true, animated: true)
+        }
+        public func previewController(_ controller: QLPreviewController, editingModeFor previewItem: QLPreviewItem) -> QLPreviewItemEditingMode {
+            return .createCopy
+        }
+        
+        public func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+            return 1
+        }
+        
+        public func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+            return item.value ?? PreviewItem(previewItemTitle: localized("No Content"))
+        }
+        
+        public func previewController(_ controller: QLPreviewController, didSaveEditedCopyOf previewItem: QLPreviewItem, at modifiedContentsURL: URL) {
+            guard item.value != nil else { return }
+            if let data = try? Data(contentsOf: modifiedContentsURL), let type = item.value?.typeIdentifier ?? modifiedContentsURL.typeIdentifier,
+               let uttype = UTType(type)
+            {
+                item.value = data.previewItem(for: uttype)
+//                controller.reloadData()
+//                if config.shouldAutoUpdatePasteboard {
+                    pb.setData(data,  forPasteboardType: type)
+//                }
+            }
+        }
+        
+        
+    }
+}
+
+public struct PreviewText: UIViewControllerRepresentable {
+    
+    @Binding var item:PreviewItem?
+    @Binding var pinned: Bool
+    @Binding var isEditing: Bool
+    
+    public init(item: Binding<PreviewItem?>, pinned: Binding<Bool>, isEditing:Binding<Bool>) {
+        _item = item
+        _pinned = pinned
+        _isEditing = isEditing
+    }
+    public func makeUIViewController(context: Context) -> UINavigationController {
+        let navi = UINavigationController(rootViewController: with(TextEditorVC(text: item?.previewItemURL?.content ?? "")){
+            $0.delegate = context.coordinator
+        })
+        navi.delegate = context.coordinator
+        return navi
+    }
+    
+    public func updateUIViewController(_ vc: UINavigationController, context: Context) {
+        guard !pinned else { return }
+        (vc.topViewController as? TextEditorVC)?.text = item?.previewItemURL?.content ?? ""
+    }
+    
+    public func makeCoordinator() -> Coordinator {
+        return Coordinator(item: item)
+    }
+    
+    public class Coordinator: NSObject,
+                              UITextViewDelegate, UINavigationControllerDelegate{
+        var item: CurrentValueSubject<PreviewItem?, Never>
+        var editingItem: PreviewItem?
+        init(item: PreviewItem?) {
+            self.item = CurrentValueSubject<PreviewItem?, Never>(item)
+        }
+        
+        public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+            navigationController.setNavigationBarHidden(true, animated: false)
+        }
+        
+        public func textViewDidBeginEditing(_ textView: UITextView) {
+            (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(false)
+            textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
+                textView.endEditing(true)
+            })
+            editingItem = item.value
+        }
+        
+
+        
+        public func textViewDidEndEditing(_ textView: UITextView) {
+            // if the editing item has been changed , we should not update the preview item.
+            guard item.value == editingItem else { return }
+            if let data = textView.text.data(using: .utf8) {
+                let type = UTType.plainText
+                item.value = PreviewItem(data.previewURL(for: type))
+//                if config.shouldAutoUpdatePasteboard {
+                    pb.setData(data,  forPasteboardType: type.identifier)
+//                }
+            }
+            textView.associatedViewController?.navigationItem.title = localized("Preview")
+            textView.associatedViewController?.navigationItem.rightBarButtonItem = nil
+            (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(textView.text.trimmingCharacters(in: .whitespaces).count == 0)
+        }
+        
     }
 }

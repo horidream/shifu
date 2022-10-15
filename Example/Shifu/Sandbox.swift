@@ -19,39 +19,62 @@ struct Sandbox: View {
     @ThemedColor(light: .white, dark: .black) var backgroundColor
     @State var shouldCompress: Bool = false
     @State var item:PreviewItem? = PreviewItem("\(Shifu.bundle.bundleIdentifier!)@web/icon.png".url)
-    @State var pinned = true
+    @State var pinned = false
     @State var alpha: CGFloat = 1
-    var body: some View {
-        return ZStack{
-            Preview(item: $item, pinned: $pinned, config: with(Preview.Config()){
-                $0.shouldAutoUpdatePasteboard = true
-            })
-            .opacity(alpha)
+    
+    var shouldEditText: Bool {
+        if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text){
+            return true
+        } else {
+            return false
         }
+        
+    }
+    var body: some View {
+        let hasNoContent = item == nil
+        return ZStack{
+            if shouldEditText{
+                PreviewText(item: $item, pinned: $pinned)
+            } else {
+                PreviewQL(item: $item, pinned: $pinned)
+            }
+//            Preview(item: $item, pinned: $pinned)
+        }
+//        .navigationBarHidden(true)
+        .ignoresSafeArea()
+        .opacity(alpha)
         .toolbar(content: {
+            ToolbarItem(placement: .navigationBarLeading) {
+                
+                Button{
+                    item =  hasNoContent ? "".data(using: .utf8)?.previewItem(for: .plainText) : nil
+                } label: {
+                    Image.icon( hasNoContent ? .plus_fa : .trashFill, size: 18)
+                }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                if item != nil {
+                    Button{
+                        delay(0.01){
+                            pinned.toggle()
+                        }
+                    } label: {
+                        Image.icon(pinned ? .lockFill : .lock_sf, size: 20)
+                    }
+                }
+                
+            }
             ToolbarItem {
                 ShifuPasteButton (view: {
                     Image.icon(.plus_fa, size: 24)
                         .foregroundColor(.blue)
                 }, onPaste: { items in
+                    guard !pinned else { return }
                     item = pb.previewItem(for: allowedDataTypes)
                 }, shouldCompress: $shouldCompress)
                 
             }
-            ToolbarItem(placement: .bottomBar) {
-                Toggle("Should Compress Content", isOn: $shouldCompress)
-                    .toggleStyle(.switch)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Image.icon(.comment)
-                    .onTapGesture {
-                        ta($alpha).to(0.001).delay(2).to( 1, duration: 1)
-                    }
-            }
         })
-//        .onChange(of: item, perform: { newValue in
-//            pb.setPreviewItem(item)
-//        })
         .onInjection{
             sandbox()
         }
@@ -59,18 +82,16 @@ struct Sandbox: View {
             sandbox()
         }
         .navigationBarTitleDisplayMode(.inline)
-        .ignoresSafeArea()
+        
+        
     }
     
     func sandbox(){
-        let a = "".data(using: .utf8)?.previewURL(for: .plainText)
-        let b = "".data(using: .utf8)?.previewURL(for: .plainText)
-        clg(a == b)
+
     }
 }
 
 let allowedDataTypes: [UTType] = [.utf8PlainText, .plainText, .image,.tiff,  .png, .jpeg, .gif, .bmp, .ico, .pdf, .doc, .excel, .docx, .xlsx]
-
 
 
 

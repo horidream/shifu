@@ -10,6 +10,7 @@ import Foundation
 import Shifu
 
 let clg = Shifu.clg(prefix: ">")
+let localized = Shifu.localizer()
 
 class Test{
     func say()->String{
