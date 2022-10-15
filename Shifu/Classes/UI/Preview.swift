@@ -12,16 +12,32 @@ import Shifu
 import QuickLook
 
 public class PreviewItem: NSObject, QLPreviewItem, Codable{
+    
     override public func isEqual(_ object: Any?) -> Bool {
+        if super.isEqual(object) {
+            return true
+        }
         if let other = object as? PreviewItem {
             return previewItemURL == other.previewItemURL
         }
         return false
     }
+    
+    
+    
     public let previewItemURL: URL?
     public let typeIdentifier: String?
+    public var isLocked: Bool = false
     public var previewItemTitle:String? {
-        return _previewItemTitle
+        get {
+            if let _previewItemTitle {
+                return _previewItemTitle + (isLocked ? localized("(locked)"): "")
+            }
+            return nil
+        }
+        set {
+            _previewItemTitle = newValue
+        }
     }
     public var data: Data? {
         get{
@@ -30,7 +46,7 @@ public class PreviewItem: NSObject, QLPreviewItem, Codable{
         }
     }
     private var _data:Data?
-    private let _previewItemTitle: String?
+    private var _previewItemTitle: String?
     public init(_ previewItemURL: URL? = nil, typeIdentifier: String? = nil, previewItemTitle: String? = nil) {
         self.previewItemURL = previewItemURL
         self.typeIdentifier = typeIdentifier ?? previewItemURL?.typeIdentifier
@@ -45,62 +61,96 @@ public class PreviewItem: NSObject, QLPreviewItem, Codable{
 public struct Preview: UIViewControllerRepresentable {
     public class Config {
         public var shouldAutoUpdatePasteboard:Bool = true
+        public var onCreateNew:((UINavigationController)->Void)?
         public init() { }
     }
     @Binding var item: PreviewItem?
-    @State var pinned:Bool = false
+    @State var innernalPinned: Bool
+    @Binding var pinned:Bool
+    let isControlledInteranally: Bool
+    //    @State var refresher: PassthroughSubject<Void, Never>
+    var calculatedPinned: Bool {
+        get {
+            isControlledInteranally ? innernalPinned : pinned
+        }
+    }
+    func setCalculatedPinned(_ value: Bool, context: Context) {
+        if isControlledInteranally {
+            innernalPinned = value
+        } else {
+            pinned = value
+        }
+        item?.isLocked = value
+        context.coordinator.currentVC?.title =  context.coordinator.item.value?.previewItemTitle
+    }
     var config: Config
-    public init(item: Binding<PreviewItem?>, config: Config = Config()) {
+    public init(item: Binding<PreviewItem?>, pinned: Binding<Bool>? = nil, config: Config = Config()) {
         _item = item
+        _pinned = pinned ?? .constant(false)
+        _innernalPinned = State(initialValue: false)
+        //        _refresher = State(initialValue: PassthroughSubject<Void, Never>())
+        isControlledInteranally = pinned == nil
         self.config = config
+        
     }
     public func makeUIViewController(context: Context) -> UINavigationController {
-        context.coordinator.item
+        context.coordinator.item.removeDuplicates()
             .sink { item in
-                self.item = item
+//                self.item = item
             }
             .retain(overwrite: true)
-        return UINavigationController()
+        let navi = UINavigationController()
+        return navi
     }
     
     public func updateUIViewController(_ navi: UINavigationController, context: Context) {
-        if item != context.coordinator.item.value, !pinned {
+        if !calculatedPinned{
             context.coordinator.item.value = item
-            if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text),
-               let text = item?.previewItemURL?.content
-            {
-                if let preview = navi.viewControllers.first as? QLPreviewController {
-                    preview.reloadData()
-                }
-                let textVC = TextEditor(text: text)
-                textVC.title = item?.previewItemTitle
-                textVC.delegate = context.coordinator
-                navi.viewControllers = [textVC]
-            } else {
-                let previewVC = QLPreviewController()
-                previewVC.delegate = context.coordinator
-                previewVC.dataSource = context.coordinator
-                navi.viewControllers = [previewVC]
+        }
+        if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text),
+           let text = item?.previewItemURL?.content
+        {
+            if let preview = navi.topViewController as? QLPreviewController {
+                preview.reloadData()
             }
-            
+            let textVC = TextEditor(text: text)
+            textVC.title = context.coordinator.item.value?.previewItemTitle
+            textVC.delegate = context.coordinator
+            navi.viewControllers = [textVC]
+            context.coordinator.currentVC = textVC
+        } else {
+            let previewVC = QLPreviewController()
+            previewVC.delegate = context.coordinator
+            previewVC.dataSource = context.coordinator
+            navi.viewControllers = [previewVC]
+            context.coordinator.currentVC = previewVC
             if let layer = navi.topViewController?.view.layer{
-                Tween.from(layer , 0.3, ["scale": 0.92, "alpha": 0], to:["scale": 1, "alpha": 1])
+                Tween.from(layer , 0.3, ["scale": 0.95, "alpha": 0], to:["scale": 1, "alpha": 1])
             }
         }
-
+        
         if item?.data != nil {
-            navi.viewControllers.first?.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: Icons.image(.trash_fa, size: 20), closure: { btn in
+            let shouldPinned = calculatedPinned
+            context.coordinator.currentVC?.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: Icons.image(.trash_fa, size: 20), closure: { btn in
+                setCalculatedPinned(false, context: context)
                 item = nil
                 if config.shouldAutoUpdatePasteboard {
                     pb.items = []
                 }
-            }), UIBarButtonItem(image: Icons.image(pinned ? .pinFill : .pin, size: 16), closure: { btn in
-                pinned.toggle()
+            }), UIBarButtonItem(image: Icons.image( calculatedPinned ? .pinFill : .pin, size: 16), closure: { btn in
+                setCalculatedPinned(!calculatedPinned, context: context)
             })]
+            
         } else {
-            navi.viewControllers.first?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.plus_fa, size: 20), closure: { btn in
-                item = PreviewItem("".data(using: .utf8)?.previewURL(for: .plainText), previewItemTitle: localized("New Text"))
-            })
+            if let top = navi.topViewController {
+                top.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.plus_fa, size: 20), closure: { btn in
+                    if let callback = self.config.onCreateNew {
+                        callback(navi)
+                    }else {
+                        item = PreviewItem("".data(using: .utf8)?.previewURL(for: .plainText), previewItemTitle: localized("New Text"))
+                    }
+                })
+            }
         }
     }
     
@@ -117,6 +167,7 @@ public struct Preview: UIViewControllerRepresentable {
         var item: CurrentValueSubject<PreviewItem?, Never>
         var editingItem:PreviewItem?
         var config: Config
+        weak var currentVC: UIViewController?
         
         init(item: PreviewItem? = nil, config: Config) {
             self.item = CurrentValueSubject<PreviewItem?, Never>(item)
@@ -137,18 +188,17 @@ public struct Preview: UIViewControllerRepresentable {
         
         public func previewController(_ controller: QLPreviewController, didSaveEditedCopyOf previewItem: QLPreviewItem, at modifiedContentsURL: URL) {
             guard item.value != nil else { return }
-            if let data = try? Data(contentsOf: modifiedContentsURL), let type = item.value?.typeIdentifier ?? modifiedContentsURL.typeIdentifier
+            if let data = try? Data(contentsOf: modifiedContentsURL), let type = item.value?.typeIdentifier ?? modifiedContentsURL.typeIdentifier,
+               let uttype = UTType(type)
             {
-                item.value = PreviewItem(modifiedContentsURL)
+                item.value = data.previewItem(for: uttype)
                 controller.reloadData()
                 if config.shouldAutoUpdatePasteboard {
                     pb.setData(data,  forPasteboardType: type)
                 }
             }
         }
-//        public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-//            textView.is
-//        }
+        
         public func textViewDidBeginEditing(_ textView: UITextView) {
             (textView.associatedViewController as? TextEditor)?.setPlaceHolderVisible(false)
             textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
@@ -158,7 +208,7 @@ public struct Preview: UIViewControllerRepresentable {
         }
         
         public func textViewDidEndEditing(_ textView: UITextView) {
-            // if the editing item has been changed , we should not update the preview item. 
+            // if the editing item has been changed , we should not update the preview item.
             guard item.value == editingItem else { return }
             if let data = textView.text.data(using: .utf8) {
                 let type = UTType.plainText

@@ -78,6 +78,13 @@ public class Shifu{
         }
     }
     
+    public static func localizer(bundle: Bundle? = nil)->(String)->String{
+        func __localized(_ key: String)->String{
+            return NSLocalizedString(key, bundle: bundle ?? .main, comment: "comment: \(key)")
+        }
+        return __localized
+    }
+    
     public static func escape(_ str:String)->String{
         return str.normalized
     }

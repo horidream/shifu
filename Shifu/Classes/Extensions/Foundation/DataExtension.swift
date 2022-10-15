@@ -43,8 +43,8 @@ public extension Data{
         return url
     }
     
-    func previewItem(for type:UTType)->PreviewItem{
-        return PreviewItem(previewURL(for: type))
+    func previewItem(for type:UTType, title: String? = nil)->PreviewItem{
+        return PreviewItem(previewURL(for: type), previewItemTitle: title)
     }
     
 }

@@ -19,10 +19,11 @@ struct Sandbox: View {
     @ThemedColor(light: .white, dark: .black) var backgroundColor
     @State var shouldCompress: Bool = false
     @State var item:PreviewItem? = PreviewItem("\(Shifu.bundle.bundleIdentifier!)@web/icon.png".url)
+    @State var pinned = true
     @State var alpha: CGFloat = 1
     var body: some View {
         return ZStack{
-            Preview(item: $item, config: with(Preview.Config()){
+            Preview(item: $item, pinned: $pinned, config: with(Preview.Config()){
                 $0.shouldAutoUpdatePasteboard = true
             })
             .opacity(alpha)
@@ -62,17 +63,9 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-//        nc.publisher(for: .hello)
-//            .prefix(2)
-//            .sink { no in
-//                clg(no.userInfo?.get(0,fallback: 3))
-//            }
-//            .retain()
-//        clg(AnyCancellable.bag)
-//        sc.emit(.hello, 1, 3)
-//        sc.emit(.hello, 2)
-//        sc.emit(.hello, 3)
-//        clg(AnyCancellable.bag)
+        let a = "".data(using: .utf8)?.previewURL(for: .plainText)
+        let b = "".data(using: .utf8)?.previewURL(for: .plainText)
+        clg(a == b)
     }
 }
 
