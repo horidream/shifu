@@ -96,7 +96,9 @@ public struct Preview: UIViewControllerRepresentable {
     public func makeUIViewController(context: Context) -> UINavigationController {
         context.coordinator.item.removeDuplicates()
             .sink { item in
-//                self.item = item
+                if self.item != item {
+                    self.item = item
+                }
             }
             .retain(overwrite: true)
         let navi = UINavigationController()
@@ -104,20 +106,21 @@ public struct Preview: UIViewControllerRepresentable {
     }
     
     public func updateUIViewController(_ navi: UINavigationController, context: Context) {
-        if !calculatedPinned{
-            context.coordinator.item.value = item
-        }
         if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text),
            let text = item?.previewItemURL?.content
         {
             if let preview = navi.topViewController as? QLPreviewController {
                 preview.reloadData()
             }
-            let textVC = TextEditorVC(text: text)
-            textVC.title = context.coordinator.item.value?.previewItemTitle
-            textVC.delegate = context.coordinator
-            navi.viewControllers = [textVC]
-            context.coordinator.currentVC = textVC
+            if context.coordinator.item.value != item {
+                let textVC = TextEditorVC(text: text)
+                textVC.title = context.coordinator.item.value?.previewItemTitle
+                textVC.delegate = context.coordinator
+                navi.viewControllers = [textVC]
+                context.coordinator.currentVC = textVC
+            } else {
+                navi.topViewController?.title = context.coordinator.item.value?.previewItemTitle
+            }
         } else {
             let previewVC = QLPreviewController()
             previewVC.delegate = context.coordinator
@@ -151,6 +154,9 @@ public struct Preview: UIViewControllerRepresentable {
                     }
                 })
             }
+        }
+        if !calculatedPinned{
+            context.coordinator.item.value = item
         }
     }
     
@@ -203,6 +209,9 @@ public struct Preview: UIViewControllerRepresentable {
         public func textViewDidBeginEditing(_ textView: UITextView) {
             (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(false)
             textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
+                if let layer = textView.superview?.layer{
+                    Tween.from(layer , 0.3, ["scale": 0.97, "alpha": 0], to:["scale": 1, "alpha": 1])
+                }
                 textView.endEditing(true)
             })
             editingItem = item.value
@@ -224,6 +233,7 @@ public struct Preview: UIViewControllerRepresentable {
         }
     }
 }
+
 
 public extension UITextView {
     var associatedViewController: UIViewController? {
