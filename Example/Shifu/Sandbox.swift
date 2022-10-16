@@ -15,6 +15,7 @@ import Combine
 struct Sandbox: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @Environment(\.dismiss) var dismiss
     @ThemedColor(light: .black, dark: .white) var foregroundColor
     @ThemedColor(light: .white, dark: .black) var backgroundColor
     @State var shouldCompress: Bool = false
@@ -23,68 +24,60 @@ struct Sandbox: View {
     @State var alpha: CGFloat = 1
     @StateObject var reachableChecking = SiteRechableChecking(sites: ["www.google.com", "www.facebook.com"])
     
-    var shouldEditText: Bool {
-        if let identifier = item?.typeIdentifier, let type = UTType(identifier), type.conforms(to: .text){
-            return true
-        } else {
-            return false
-        }
-        
-    }
     var body: some View {
         return ZStack{
-//            if shouldEditText{
-//                PreviewText(item: $item, pinned: $pinned)
-//            } else {
-//                PreviewQL(item: $item, pinned: $pinned)
-//            }
+            //                Preview(item: $item, pinned: $pinned)
             if reachableChecking.isAvailable {
-                Preview(item: $item, pinned: $pinned)
+                if item?.isText ?? false{
+                    PreviewText(item: $item)
+                } else {
+                    PreviewQL(item: $item)
+                }
                 
             } else {
                 Text("Site is not available")
             }
         }
-        .onTapGesture {
-            reachableChecking.check()
-        }
-//        .navigationBarHidden(true)
+        //        .navigationBarHidden(true)
         .ignoresSafeArea()
         .opacity(alpha)
-//        .toolbar(content: {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//
-//                Button{
-//                    item =  hasNoContent ? "".data(using: .utf8)?.previewItem(for: .plainText) : nil
-//                } label: {
-//                    Image.icon( hasNoContent ? .plus_fa : .trashFill, size: 18)
-//                }
-//            }
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                if item != nil {
-//                    Button{
-//                        delay(0.01){
-//                            pinned.toggle()
-//                        }
-//                    } label: {
-//                        Image.icon(pinned ? .lockFill : .lock_sf, size: 20)
-//                    }
-//                }
-//
-//            }
-//            ToolbarItem {
-//                ShifuPasteButton (view: {
-//                    Image.icon(.plus_fa, size: 24)
-//                        .foregroundColor(.blue)
-//                }, onPaste: { items in
-//                    guard !pinned else { return }
-//                    item = pb.previewItem(for: allowedDataTypes)
-//                }, shouldCompress: $shouldCompress)
-//
-//            }
-//        })
-        .onChange(of: reachableChecking.isAvailable, perform: { newValue in
-            clg("feature available: ", newValue)
+        .toolbar(content: {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                
+                
+                
+                
+                    Button{
+                        pinned.toggle()
+                        self.item?.isLocked = pinned
+                    } label: {
+                        Image.icon(pinned ? .lockFill : .lock_sf, size: 20)
+                    }
+                    .disabled(item == nil)
+                Button{
+                    if item == nil {
+                        item = with("".data(using: .utf8)?.previewItem(for: .plainText)){
+                            $0?.isLocked = pinned
+                        }
+                    } else {
+                        item = nil
+                    }
+                    
+                } label: {
+                    item == nil  ? Image.icon(  .plusSquareFill , size: 20)
+                        .frame(width: 22)
+                    : Image.icon(  .trashFill , size: 18).frame(width: 22)
+                }
+                
+                ShifuPasteButton (view: {
+                    Image.icon(.plus_fa, size: 24)
+                        .foregroundColor(.blue)
+                }, onPaste: { items in
+                    guard !pinned else { return }
+                    item = pb.previewItem(for: allowedDataTypes)
+                }, shouldCompress: $shouldCompress)
+                
+            }
         })
         .onInjection{
             sandbox()
@@ -92,6 +85,7 @@ struct Sandbox: View {
         .onAppear{
             sandbox()
         }
+        //        .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         
         
