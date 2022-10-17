@@ -11,71 +11,24 @@ import Combine
 import Shifu
 import QuickLook
 
-public class PreviewItem: NSObject, ObservableObject, QLPreviewItem, Codable{
-    public static let empty: PreviewItem = PreviewItem(nil)
+public struct PreviewShifu: View{
+    @Binding var item: PreviewItem?
+    @Binding var pinned:Bool
+    let config: Preview.Config
     
-    override public func isEqual(_ object: Any?) -> Bool {
-        if super.isEqual(object) {
-            return true
+    public init(item: Binding<PreviewItem?>, pinned: Binding<Bool>, config: Preview.Config = .init()) {
+        _item = item
+        _pinned = pinned
+        self.config = config
+    }
+    
+    public var body: some View{
+        
+        if item?.isText ?? false{
+            PreviewText(item: $item, config: config)
+        } else {
+            PreviewQL(item: $item, config: config)
         }
-        if let other = object as? PreviewItem {
-            return previewItemURL == other.previewItemURL
-        }
-        return false
-    }
-    
-    
-    
-    public let previewItemURL: URL?
-    public let typeIdentifier: String?
-    public var isLocked: Bool = false {
-        didSet{
-            if isLocked != oldValue {
-                objectWillChange.send()
-            }
-        }
-    }
-    public var isEmpty:Bool {
-        previewItemURL == nil
-    }
-    public var previewItemTitle:String? {
-        get {
-            if let _previewItemTitle {
-                return _previewItemTitle + (isLocked ? localized("(locked)"): "")
-            }
-            return nil
-        }
-        set {
-            _previewItemTitle = newValue
-        }
-    }
-    public var data: Data? {
-        get{
-            _data = _data ?? previewItemURL?.data
-            return _data
-        }
-    }
-    
-    public var type:UTType {
-        UTType(self.typeIdentifier ?? "") ?? .data
-    }
-    
-    public var isText:Bool {
-        type.conforms(to: .text) ?? false
-    }
-    
-    private var _data:Data?
-    private var _previewItemTitle: String?
-    public init(_ previewItemURL: URL? = nil, typeIdentifier: String? = nil, previewItemTitle: String? = nil) {
-        self.previewItemURL = previewItemURL
-        self.typeIdentifier = typeIdentifier ?? previewItemURL?.typeIdentifier
-        self._previewItemTitle = previewItemTitle ??
-        (previewItemURL == nil ? localized("No Content") : localized("Preview"))
-    }
-    
-    
-    enum CodingKeys: String, CodingKey {
-        case previewItemURL, typeIdentifier, _previewItemTitle = "previewItemTitle"
     }
 }
 
@@ -260,3 +213,70 @@ public struct Preview: UIViewControllerRepresentable {
 
 
 
+public class PreviewItem: NSObject, ObservableObject, QLPreviewItem, Codable{
+    static let empty: PreviewItem = PreviewItem(nil)
+    
+    override public func isEqual(_ object: Any?) -> Bool {
+        if super.isEqual(object) {
+            return true
+        }
+        if let other = object as? PreviewItem {
+            return previewItemURL == other.previewItemURL
+        }
+        return false
+    }
+    
+    
+    
+    public let previewItemURL: URL?
+    public let typeIdentifier: String?
+    public var isLocked: Bool = false {
+        didSet{
+            if isLocked != oldValue {
+                objectWillChange.send()
+            }
+        }
+    }
+    public var isEmpty:Bool {
+        previewItemURL == nil
+    }
+    public var previewItemTitle:String? {
+        get {
+            if let _previewItemTitle {
+                return _previewItemTitle + (isLocked ? localized("(locked)"): "")
+            }
+            return nil
+        }
+        set {
+            _previewItemTitle = newValue
+        }
+    }
+    public var data: Data? {
+        get{
+            _data = _data ?? previewItemURL?.data
+            return _data
+        }
+    }
+    
+    public var type:UTType {
+        UTType(self.typeIdentifier ?? "") ?? .data
+    }
+    
+    public var isText:Bool {
+        type.conforms(to: .text) ?? false
+    }
+    
+    private var _data:Data?
+    private var _previewItemTitle: String?
+    public init(_ previewItemURL: URL? = nil, typeIdentifier: String? = nil, previewItemTitle: String? = nil) {
+        self.previewItemURL = previewItemURL
+        self.typeIdentifier = typeIdentifier ?? previewItemURL?.typeIdentifier
+        self._previewItemTitle = previewItemTitle ??
+        (previewItemURL == nil ? localized("No Content") : localized("Preview"))
+    }
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case previewItemURL, typeIdentifier, _previewItemTitle = "previewItemTitle"
+    }
+}

@@ -23,76 +23,28 @@ struct Sandbox: View {
     @State var pinned = false
     @State var alpha: CGFloat = 1
     @StateObject var reachableChecking = SiteRechableChecking(sites: ["www.google.com", "www.facebook.com"])
-    
+    var noItem:Bool {
+        item == nil
+    }
     var body: some View {
-        return ZStack{
-            //                Preview(item: $item, pinned: $pinned)
-            if reachableChecking.isAvailable {
-                if item?.isText ?? false{
-                    PreviewText(item: $item)
-                } else {
-                    PreviewQL(item: $item)
-                }
-                
-            } else {
-                Text("Site is not available")
-            }
+        SiteReachableView(sites: ["www.google.com", "www.facebook.com"]) {
+            Text("good")
+        } fallbackViewBuilder: {
+            Text("bad")
         }
-        //        .navigationBarHidden(true)
-        .ignoresSafeArea()
-        .opacity(alpha)
-        .toolbar(content: {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                
-                
-                
-                
-                    Button{
-                        pinned.toggle()
-                        self.item?.isLocked = pinned
-                    } label: {
-                        Image.icon(pinned ? .lockFill : .lock_sf, size: 20)
-                    }
-                    .disabled(item == nil)
-                Button{
-                    if item == nil {
-                        item = with("".data(using: .utf8)?.previewItem(for: .plainText)){
-                            $0?.isLocked = pinned
-                        }
-                    } else {
-                        item = nil
-                    }
-                    
-                } label: {
-                    item == nil  ? Image.icon(  .plusSquareFill , size: 20)
-                        .frame(width: 22)
-                    : Image.icon(  .trashFill , size: 18).frame(width: 22)
-                }
-                
-                ShifuPasteButton (view: {
-                    Image.icon(.plus_fa, size: 24)
-                        .foregroundColor(.blue)
-                }, onPaste: { items in
-                    guard !pinned else { return }
-                    item = pb.previewItem(for: allowedDataTypes)
-                }, shouldCompress: $shouldCompress)
-                
-            }
-        })
         .onInjection{
             sandbox()
         }
         .onAppear{
             sandbox()
         }
-        //        .navigationBarBackButtonHidden()
-        .navigationBarTitleDisplayMode(.inline)
         
         
     }
     
     func sandbox(){
-        
+        let s = "https://thisanimedoesnotexist.ai/results/psi-1.0/seed\(String(format: "%05d", (1...99999).randomElement()!)).png"
+        clg(s)
     }
 }
 

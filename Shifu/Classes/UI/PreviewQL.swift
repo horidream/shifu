@@ -28,18 +28,19 @@ public struct PreviewQL: UIViewControllerRepresentable {
         })
         navi.delegate = context.coordinator
         context.coordinator.item.sink { item in
-            self.item = item
+            if self.item != item {
+                self.item = item
+            }
         }.retainSingleton()
         return navi
     }
     
     public func updateUIViewController(_ navi: UINavigationController, context: Context) {
-        guard context.coordinator.item.value != item else {
-            navi.topViewController?.title = item?.previewItemTitle
-            return
-        }
+        guard context.coordinator.item.value != item else {  return }
         context.coordinator.item.value = item
-        (navi.topViewController as? QLPreviewController)?.reloadData()
+        delay(0){
+            (navi.topViewController as? QLPreviewController)?.reloadData()
+        }
     }
     
     public func makeCoordinator() -> Coordinator {

@@ -30,7 +30,7 @@ func checkWebsiteReachable(_ site: String, completion: @escaping (Bool) -> Void 
             #if DEBUG
             print("statusCode: \(httpResponse.statusCode)")
             #endif
-            completion(true)
+            completion(httpResponse.statusCode >= 200 && httpResponse.statusCode < 400)
         }
     }
     task.resume()
@@ -38,7 +38,7 @@ func checkWebsiteReachable(_ site: String, completion: @escaping (Bool) -> Void 
 }
 
 public class SiteRechableChecking: ObservableObject {
-    public private(set) var isAvailable: Bool = false {
+    public private(set) var isAvailable: Bool  {
         didSet {
             self.isChecking = false
             if isAvailable != oldValue {
@@ -63,8 +63,9 @@ public class SiteRechableChecking: ObservableObject {
     private var isChecking = false
     let sites: [String]
     private var tasks: [URLSessionDataTask?] = []
-    public init(sites: [String]) {
+    public init(sites: [String], initValue: Bool = true) {
         self.sites = sites
+        isAvailable = initValue
         sitesReachable = sites.map{_ in nil }
         check()
     }

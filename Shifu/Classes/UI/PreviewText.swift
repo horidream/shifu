@@ -14,7 +14,6 @@ import UniformTypeIdentifiers
 public struct PreviewText: UIViewControllerRepresentable {
     
     @Binding var item:PreviewItem?
-    @State var isEditing: Bool = false
     let config: Preview.Config
     public init(item: Binding<PreviewItem?>, config: Preview.Config = .init()) {
         _item = item
