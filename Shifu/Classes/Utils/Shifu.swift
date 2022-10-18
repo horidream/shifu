@@ -98,7 +98,21 @@ public class Shifu{
         }
         return window
     }
- 
+    
+    @available(iOSApplicationExtension, unavailable)
+    public static var windows: [UIWindow]{
+        let windows = UIApplication.shared.connectedScenes.compactMap { scene in
+            if let scene = scene as? UIWindowScene{
+                return scene.windows
+            }
+            return nil
+        }.reduce([UIWindow]()) { partialResult, next in
+            partialResult + next
+        }
+        return windows
+    }
+
+    
     public class Theme{
         @ThemedColor(light: .white, dark: .black)
         public static var backgroundColor

@@ -25,6 +25,9 @@ public class ColorSchemeMananger: ObservableObject{
     
     @available(iOSApplicationExtension, unavailable)
     public func applyColorScheme(){
-        Shifu.keyWindow?.overrideUserInterfaceStyle = colorScheme
+
+        UIApplication.shared.windows.forEach { window in
+            window.overrideUserInterfaceStyle = colorScheme
+        }
     }
 }

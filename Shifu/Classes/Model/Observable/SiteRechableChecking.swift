@@ -6,14 +6,27 @@
 //
 
 import Foundation
+import Combine
 
+var checkingMap = [URL: PassthroughSubject<Bool, Never>]()
 func checkWebsiteReachable(_ site: String, completion: @escaping (Bool) -> Void )->URLSessionDataTask? {
     let site = site.starts(with: "http") ? site : "https://"+site
     guard let url = URL(string: site ) else {
         completion(false)
         return nil
     }
-
+    let isChecking = checkingMap[url] != nil
+    let signal = checkingMap[url] ?? PassthroughSubject<Bool, Never>()
+    checkingMap[url] = signal
+    signal.first()
+        .sink { value in
+            completion(value)
+            checkingMap[url] = nil
+            AnyCancellable.release(key: url)
+        }
+        .retain(url)
+    
+    guard !isChecking else { return nil }
     var request = URLRequest(url: url)
     request.timeoutInterval = 5.0
 
@@ -23,14 +36,14 @@ func checkWebsiteReachable(_ site: String, completion: @escaping (Bool) -> Void 
             print("\(error.localizedDescription)")
             #endif
             if (error as NSError).code != NSURLErrorCancelled{
-                completion(false)
+                signal.send(false)
             }
         }
         if let httpResponse = response as? HTTPURLResponse {
             #if DEBUG
             print("statusCode: \(httpResponse.statusCode)")
             #endif
-            completion(httpResponse.statusCode >= 200 && httpResponse.statusCode < 400)
+            signal.send(httpResponse.statusCode >= 200 && httpResponse.statusCode < 400)
         }
     }
     task.resume()
@@ -62,7 +75,6 @@ public class SiteRechableChecking: ObservableObject {
     }
     private var isChecking = false
     let sites: [String]
-    private var tasks: [URLSessionDataTask?] = []
     public init(sites: [String], initValue: Bool = true) {
         self.sites = sites
         isAvailable = initValue
@@ -72,16 +84,13 @@ public class SiteRechableChecking: ObservableObject {
     
     public func check(){
         sitesReachable = sites.map{_ in nil }
-        tasks.forEach { task in
-            task?.cancel()
-        }
         isChecking = true
         for (index, site) in sites.enumerated(){
-            tasks.append(checkWebsiteReachable(site) { [weak self] success in
+            checkWebsiteReachable(site) { [weak self] success in
                 if self?.isChecking == true {
                     self?.sitesReachable[index] = success
                 }
-            })
+            }
         }
     }
 }

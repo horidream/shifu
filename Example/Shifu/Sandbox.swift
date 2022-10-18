@@ -14,7 +14,7 @@ import Combine
 
 struct Sandbox: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+//    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.dismiss) var dismiss
     @ThemedColor(light: .black, dark: .white) var foregroundColor
     @ThemedColor(light: .white, dark: .black) var backgroundColor
@@ -27,6 +27,10 @@ struct Sandbox: View {
         item == nil
     }
     var body: some View {
+        ThemePicker()
+            .onTapGesture {
+                reachableChecking.check()
+            }
         SiteReachableView(sites: ["www.google.com", "www.facebook.com"]) {
             Text("good")
         } fallbackViewBuilder: {
@@ -43,8 +47,7 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-        let s = "https://thisanimedoesnotexist.ai/results/psi-1.0/seed\(String(format: "%05d", (1...99999).randomElement()!)).png"
-        clg(s)
+        
     }
 }
 
