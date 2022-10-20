@@ -47,7 +47,8 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-        
+        let value = Bundle.main.object(forInfoDictionaryKey: "ok")
+        print(value) // Optional(disable)
     }
 }
 

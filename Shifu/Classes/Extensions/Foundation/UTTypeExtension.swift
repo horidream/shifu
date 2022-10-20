@@ -14,4 +14,5 @@ public extension UTType{
     static let docx: UTType = .init("org.openxmlformats.wordprocessingml.document")!
     static let excel: UTType = .init("com.microsoft.excel.xls")!
     static let xlsx: UTType = .init("org.openxmlformats.spreadsheetml.sheet")!
+    static let jpeg_2000: UTType = .init("public.jpeg-2000")!
 }

@@ -46,6 +46,7 @@ public struct PreviewText: UIViewControllerRepresentable {
         var item: CurrentValueSubject<PreviewItem?, Never>
         var editingItem: PreviewItem?
         var config: Preview.Config
+        var cancelling: Bool = false
         init(item: PreviewItem?, config: Preview.Config) {
             self.item = CurrentValueSubject<PreviewItem?, Never>(item)
             self.config = config
@@ -57,7 +58,12 @@ public struct PreviewText: UIViewControllerRepresentable {
         
         public func textViewDidBeginEditing(_ textView: UITextView) {
             (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(false)
+            cancelling = false
             textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
+                textView.endEditing(true)
+            })
+            textView.associatedViewController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.xmark_fa, size: 20), closure: { btn in
+                self.cancelling = true
                 textView.endEditing(true)
             })
             editingItem = item.value
@@ -68,6 +74,10 @@ public struct PreviewText: UIViewControllerRepresentable {
         public func textViewDidEndEditing(_ textView: UITextView) {
             // if the editing item has been changed , we should not update the preview item.
             guard item.value == editingItem else { return }
+            guard !cancelling else {
+                textView.text = editingItem?.data?.utf8String ?? ""
+                return
+            }
             if let data = textView.text.data(using: .utf8) {
                 let type = UTType.plainText
                 item.value = PreviewItem(data.previewURL(for: type))
@@ -77,6 +87,7 @@ public struct PreviewText: UIViewControllerRepresentable {
             }
             textView.associatedViewController?.navigationItem.title = localized("Preview")
             textView.associatedViewController?.navigationItem.rightBarButtonItem = nil
+            textView.associatedViewController?.navigationItem.leftBarButtonItem = nil
             (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(textView.text.trimmingCharacters(in: .whitespaces).count == 0)
         }
         
@@ -91,7 +102,11 @@ public extension UITextView {
 }
 
 class TextEditorVC: UIViewController{
-    var text: String
+    var text: String {
+        didSet{
+            textView.text = text.substr(0, 2048)
+        }
+    }
     let textView = UITextView(frame: .zero)
     let placeHolder = UILabel(frame: .zero)
     var delegate: UITextViewDelegate? {

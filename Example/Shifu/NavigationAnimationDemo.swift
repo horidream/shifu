@@ -122,7 +122,7 @@ struct NavigationAnimationDemo: View {
                                 ForEach(sampleTabs){ tab in
                                     Text(tab.name)
                                         .fontWeight(.semibold)
-                                        .if2(type != .underbar){
+                                        .if(type != .underbar){
                                             $0.padding(.vertical, 6)
                                         }
                                         .foregroundColor(.black)

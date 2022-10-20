@@ -30,18 +30,6 @@ public extension View {
         }
     }
     
-    func `if`<Content: View>(_ conditional: Bool, content: (Self) -> Content, else otherContent: ((Self)-> Content)? = nil) -> some View {
-        if conditional {
-            return AnyView(content(self))
-        } else {
-            if let otherContent = otherContent{
-                return AnyView(otherContent(self))
-            }else{
-                return AnyView(self)
-            }
-        }
-    }
-    
     func when(_ condition: Bool) -> some View {
         if condition {
             return AnyView(self)
@@ -53,15 +41,20 @@ public extension View {
     
     
     @ViewBuilder
-    func `if2`<Content: View>(_ conditional: Bool, content: (Self) -> Content, else otherContent: ((Self)-> Content)? = nil) -> some View {
+    func `if`<Content: View, OtherContent: View>(_ conditional: Bool, content: (Self) -> Content, else otherContent: (Self)-> OtherContent) -> some View {
         if conditional {
             content(self)
         } else {
-            if let otherContent = otherContent{
-                otherContent(self)
-            }else{
-                self
-            }
+            otherContent(self)
+        }
+    }
+    
+    @ViewBuilder
+    func `if`<Content: View>(_ conditional: Bool, content: (Self) -> Content) -> some View {
+        if conditional {
+            content(self)
+        } else {
+            self
         }
     }
     
