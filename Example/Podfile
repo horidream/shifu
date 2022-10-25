@@ -1,44 +1,39 @@
-source 'https://cdn.cocoapods.org/'
-$projectName = 'ShifuExample'
-$version = '15.0'
+source "https://cdn.cocoapods.org/"
+$projectName = "ShifuExample"
+$version = "15.0"
 platform :ios, $version
-
-
 
 target $projectName do
   use_frameworks!
   inhibit_all_warnings!
-  pod 'Shifu', :path => '../'
-  pod 'ShifuLottie', :path => '../'
-  pod 'ShifuWebServer', :path => '../'
+  pod "Shifu", :path => "../"
+  pod "ShifuLottie", :path => "../"
+  pod "ShifuWebServer", :path => "../"
 end
 
-target 'ShifuExampleTests' do
+target "ShifuExampleTests" do
   use_frameworks!
   inhibit_all_warnings!
-  pod 'Shifu', :path => '../'
+  pod "Shifu", :path => "../"
   pod "Cuckoo"
 end
 
-
-
 post_install do |installer|
   framework = installer.pods_project.frameworks_group["iOS"]["MobileCoreServices.framework"]
-    framework.referrers.each do |ref|
-        if ref.isa == "PBXBuildFile"
-            ref.remove_from_project
-        end
+  framework.referrers.each do |ref|
+    if ref.isa == "PBXBuildFile"
+      ref.remove_from_project
     end
+  end
   framework.remove_from_project
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings.delete 'ARCHS'
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = $version
+      config.build_settings.delete "ARCHS"
+      config.build_settings["IPHONEOS_DEPLOYMENT_TARGET"] = $version
       if target.name.include? $projectName or target.name.include? "Shifu" and config.name == "Debug"
         xcconfig_path = config.base_configuration_reference.real_path
-        File.open(xcconfig_path, "a") {|file| file.puts "OTHER_LDFLAGS[sdk=iphonesimulator*] = $(inherited) -Xlinker -interposable"}
+        File.open(xcconfig_path, "a") { |file| file.puts "OTHER_LDFLAGS[sdk=iphonesimulator*] = $(inherited) -Xlinker -interposable -undefined dynamic_lookup" }
       end
     end
   end
 end
-

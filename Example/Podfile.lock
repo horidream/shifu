@@ -7,12 +7,12 @@ PODS:
     - GCDWebServer/Core
   - lottie-ios (3.3.0)
   - ReachabilitySwift (5.0.0)
-  - Shifu (0.7.9):
+  - Shifu (0.7.10):
     - ReachabilitySwift
-  - ShifuLottie (0.7.9):
+  - ShifuLottie (0.7.10):
     - lottie-ios
     - Shifu
-  - ShifuWebServer (0.7.9):
+  - ShifuWebServer (0.7.10):
     - GCDWebServer/WebUploader
     - Shifu
 
@@ -42,10 +42,10 @@ SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  Shifu: a8ccbde383b39d26f2f85efc54ca4d9962bc0bb5
-  ShifuLottie: 66cbc985e6743fa11e67a0670986ecd56f7ceec6
-  ShifuWebServer: 28ebfa168c921d7b1a2efefa5717ea2c503d1185
+  Shifu: 88f73c7ce1573e1f12e253824e265cac03a0f854
+  ShifuLottie: 9c2fbc1adac7cb3fe0897fef6b6dc25952577457
+  ShifuWebServer: 8f558e8ce9369bd2e747a888a53b18646671b52a
 
-PODFILE CHECKSUM: c314a34b50d85e10eced197ae1fee1a173464afe
+PODFILE CHECKSUM: 8b8e8ae7cc3bc3f0138bb3a618643586d5e018c7
 
 COCOAPODS: 1.11.3

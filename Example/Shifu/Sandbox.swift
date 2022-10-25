@@ -11,50 +11,82 @@ import Shifu
 import UniformTypeIdentifiers
 import CoreServices
 import Combine
+import PencilKit
 
 struct Sandbox: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
-//    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @Environment(\.dismiss) var dismiss
-    @ThemedColor(light: .black, dark: .white) var foregroundColor
-    @ThemedColor(light: .white, dark: .black) var backgroundColor
-    @State var shouldCompress: Bool = false
-    @State var item:PreviewItem? = PreviewItem("\(Shifu.bundle.bundleIdentifier!)@web/icon.png".url)
-    @State var pinned = false
-    @State var alpha: CGFloat = 1
-    @StateObject var reachableChecking = SiteRechableChecking(sites: ["www.google.com", "www.facebook.com"])
-    var noItem:Bool {
-        item == nil
-    }
+    @Persist("hello") var hello = "hello"
+//    var persons: [Person]?{
+//        get{
+//            hello.parse(to: [Person].self)
+//        }
+//        nonmutating set{
+//            hello = newValue?.stringify() ?? ""
+//        }
+//    }
+    @State var image = UIImage(data: "@tmp/preview-1383918801199245928.png".url?.data ?? Data())!
     var body: some View {
-        ThemePicker()
-            .onTapGesture {
-                reachableChecking.check()
+        Image(uiImage: image)
+            .background(.red)
+            .onAppear{
+                sandbox()
             }
-        SiteReachableView(sites: ["www.google.com", "www.facebook.com"]) {
-            Text("good")
-        } fallbackViewBuilder: {
-            Text("bad")
+            .onInjection{
+                sandbox()
+            }
+    }
+    
+    
+    
+    func sandbox(){
+        Task{
+            let img = image.trimmed()
+            DispatchQueue.main.async {
+                withAnimation {
+                    self.image = img
+                    
+                }
+            }
+            
         }
-        .onInjection{
-            sandbox()
-        }
-        .onAppear{
-            sandbox()
-        }
+//        persons = []
+//        persons?.append(Person(name: "Baoli", age: 40))
+       hello = "abc"
+        
+        clg(pb.string, mypb().string, mypb().abc([.data])?.previewItemURL)
+    }
+}
+
+
+
+
+
+
+
+
+class mypb{
+    @Proxy(pb, \.string)
+    var string: String?
+    
+    
+    let abc = pb.previewItem(for: )
+}
+
+
+@propertyWrapper
+public struct Proxy<EnclosingSelf, Value> {
+    private let keyPath: ReferenceWritableKeyPath<EnclosingSelf, Value>
+    private let target:EnclosingSelf
+    public init(_ target:EnclosingSelf, _ keyPath: ReferenceWritableKeyPath<EnclosingSelf, Value>) {
+        self.target = target
+        self.keyPath = keyPath
         
         
     }
     
-    func sandbox(){
-        let value = Bundle.main.object(forInfoDictionaryKey: "ok")
-        print(value) // Optional(disable)
+    public var wrappedValue: Value {
+        get { target[keyPath: keyPath] }
+        set { target[keyPath: keyPath] = newValue }
     }
+    
 }
-
-let allowedDataTypes: [UTType] = [.utf8PlainText, .plainText, .image,.tiff,  .png, .jpeg, .gif, .bmp, .ico, .pdf, .doc, .excel, .docx, .xlsx]
-
-
-
-
-

@@ -199,9 +199,9 @@ public extension ShortCut{
         notificationMap[notification]?.append(handler)
         return unwatch
     }
-    @discardableResult class func once(_ notification:Notification.Name, _ block:@escaping (Notification)->Void){
+    @discardableResult class func once(_ notification:Notification.Name,object: AnyObject? = nil,  _ block:@escaping (Notification)->Void){
         let id = UUID()
-        NotificationCenter.default.publisher(for: notification)
+        NotificationCenter.default.publisher(for: notification, object: object)
             .sink{
                 block($0)
                 AnyCancellable.release(key: id)

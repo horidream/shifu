@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 let clg = Shifu.clg(prefix: "🥋 -")
 let warn = Shifu.clg(prefix: "⚠️ -")
@@ -30,7 +31,6 @@ private class EmptyClass{
     
 }
 public class Shifu{
-    
     public static var name:String{
         localized("Shifu")
     }

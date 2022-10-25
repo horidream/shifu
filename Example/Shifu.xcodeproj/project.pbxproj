@@ -32,6 +32,8 @@
 		C7069477289E6F810045BFBF /* lottie_example.json in Resources */ = {isa = PBXBuildFile; fileRef = C7069476289E6F810045BFBF /* lottie_example.json */; };
 		C7177D11284A11F500372629 /* IconsDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7177D10284A11F500372629 /* IconsDemo.swift */; };
 		C72CB725282961BD000FBF12 /* ShimmerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CB724282961BD000FBF12 /* ShimmerDemo.swift */; };
+		C75700BC290585ED00C69233 /* PreviewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75700BB290585ED00C69233 /* PreviewDemo.swift */; };
+		C75700C02906CB4400C69233 /* DrawingViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75700BF2906CB4400C69233 /* DrawingViewDemo.swift */; };
 		C768B8822883161500F0A18B /* NavigationAnimationDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768B8812883161500F0A18B /* NavigationAnimationDemo.swift */; };
 		C76AA64128673FCF002A1090 /* OnEnterFrameDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */; };
 		C76AA648286F43D0002A1090 /* StickyIconDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76AA647286F43D0002A1090 /* StickyIconDemo.swift */; };
@@ -106,6 +108,8 @@
 		C7069476289E6F810045BFBF /* lottie_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_example.json; sourceTree = "<group>"; };
 		C7177D10284A11F500372629 /* IconsDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsDemo.swift; sourceTree = "<group>"; };
 		C72CB724282961BD000FBF12 /* ShimmerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDemo.swift; sourceTree = "<group>"; };
+		C75700BB290585ED00C69233 /* PreviewDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDemo.swift; sourceTree = "<group>"; };
+		C75700BF2906CB4400C69233 /* DrawingViewDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewDemo.swift; sourceTree = "<group>"; };
 		C768B8812883161500F0A18B /* NavigationAnimationDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationAnimationDemo.swift; sourceTree = "<group>"; };
 		C76AA64028673FCF002A1090 /* OnEnterFrameDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnEnterFrameDemo.swift; sourceTree = "<group>"; };
 		C76AA646286ED14A002A1090 /* ShifuLottie.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = ShifuLottie.podspec; path = ../ShifuLottie.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -257,6 +261,8 @@
 		C7965CD928426E3C002C825A /* demos */ = {
 			isa = PBXGroup;
 			children = (
+				C75700BF2906CB4400C69233 /* DrawingViewDemo.swift */,
+				C75700BB290585ED00C69233 /* PreviewDemo.swift */,
 				C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */,
 				3C1A646027DE30EE0093A98B /* SceneAndPerson.swift */,
 				C768B8812883161500F0A18B /* NavigationAnimationDemo.swift */,
@@ -538,7 +544,9 @@
 			files = (
 				3C3C46DE27B92E6F00BCB074 /* ColorThemeManagerDemo.swift in Sources */,
 				C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */,
+				C75700BC290585ED00C69233 /* PreviewDemo.swift in Sources */,
 				C76AA64128673FCF002A1090 /* OnEnterFrameDemo.swift in Sources */,
+				C75700C02906CB4400C69233 /* DrawingViewDemo.swift in Sources */,
 				99244B5D261C9FDA0027A1D7 /* HomeView.swift in Sources */,
 				3C2F1CE327F1E3DA0027F24F /* NavigationStyleDemo.swift in Sources */,
 				3C3C46EA27BB9F2C00BCB074 /* ShifuWebViewDemo.swift in Sources */,

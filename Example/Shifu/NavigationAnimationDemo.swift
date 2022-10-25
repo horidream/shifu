@@ -18,6 +18,7 @@ struct NavigationAnimationDemo: View {
     @State var currentTab = sampleTabs.first!
     @State var shouldIgnoreOffset = false
     @State var timeoutItem: DispatchWorkItem?
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         GeometryReader{ proxy in
             let screenSize = proxy.size
@@ -28,6 +29,7 @@ struct NavigationAnimationDemo: View {
                         ZStack{
                             tab.color
                                 .ignoresSafeArea()
+//                                .offset(y: 20)
                                 .onChangePosition { p in
                                     if currentTab == tab && !shouldIgnoreOffset {
                                         let newOffset = p.x - screenSize.width * indexOf(tab: tab).cgFloat
@@ -46,13 +48,17 @@ struct NavigationAnimationDemo: View {
                     }
                     
                 }
-                .ignoresSafeArea()
+                .offset(y: 20)
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 DynamicTabHeader(size: screenSize)
             }
-            .frame(width: screenSize.width, height: screenSize.height)
+            .frame(maxHeight: .infinity)
+//            .frame(width: screenSize.width, height: screenSize.height)
         }
+        .ignoresSafeArea(.all, edges: .bottom)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
+
         .onInjection{
             sandbox()
         }
@@ -65,6 +71,15 @@ struct NavigationAnimationDemo: View {
     func DynamicTabHeader(size: CGSize)-> some View{
         VStack(alignment: .leading, spacing: 22) {
             HStack{
+                Button{
+                    dismiss()
+                } label: {
+                    Image.icon(.chevronBackward)
+                        .foregroundColor(.white)
+                        .frame(height: 22)
+                }
+                .padding(.trailing, 5)
+                
                 Text("My Beautiful Navigation")
                     .font(.title.bold())
                     .foregroundColor(.white)

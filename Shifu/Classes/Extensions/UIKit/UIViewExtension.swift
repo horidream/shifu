@@ -217,7 +217,7 @@ public enum SnapshotType{
 }
 
 public extension WKWebView{
-    func snapshot(config: WKSnapshotConfiguration? = nil, target: SnapshotTarget = .clipboard(.jpg)){
+    func snapshot(config: WKSnapshotConfiguration? = nil, target: SnapshotTarget = .clipboard(.jpg), callback: ((Any?)->Void)? = nil){
         self.takeSnapshot(with: config) { (image, error) in
             if let image = image{
                 switch target{
@@ -225,12 +225,15 @@ public extension WKWebView{
                     image.writeToAlbum()
                 case .clipboard(let type):
                     if type == .jpg{
-                        UIPasteboard.general.setData(image.pngData() ?? Data(), forPasteboardType: kUTTypeJPEG as String)
+                        UIPasteboard.general.setData(image.jpegData(compressionQuality: 0.5) ?? Data(), forPasteboardType: kUTTypeJPEG as String)
                     }else{
-                        UIPasteboard.general.setData(image.jpegData(compressionQuality: 0.5) ?? Data(), forPasteboardType: kUTTypePNG as String)
+                        UIPasteboard.general.setData(image.pngData() ?? Data(), forPasteboardType: kUTTypePNG as String)
                     }
                 default:()
                 }
+                callback?(image)
+            } else {
+                callback?(nil)
             }
         }
     }

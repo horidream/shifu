@@ -42,17 +42,31 @@ public class ShifuWebViewModel:ObservableObject{
     
     public var configuration: String?
     public var baseURL: URL?
-    public func exec(_ action: ShifuWebViewAction){
+    public func exec(_ action: ShifuWebViewAction, callback: ((Any?)->Void)? = nil){
         switch action{
         case .snapshot(let config, let target):
-            delegate?.webView.snapshot(config: config, target: target)
+            if let webView = self.delegate?.webView {
+               webView.snapshot(config: config, target: target, callback: callback)
+            } else {
+                sc.on(.MOUNTED) { notify in
+                    clg("mounted", notify.object)
+                    self.delegate?.webView.snapshot(config: config, target: target, callback: callback)
+                }
+            }
         default: ()
         
         }
     }
     
     public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil){
-        self.delegate?.webView.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+        if let webview = self.delegate?.webView {
+            webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+        } else {
+            sc.once(.MOUNTED) { _ in
+                self.delegate?.webView.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+
+            }
+        }
     }
 }
 
@@ -129,15 +143,15 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     }
     
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "logHandler" {
+        switch message.name {
+        case "logHander":
             clg("[log]", message.body)
-        }else{
+        default:
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
-//                clg(type, dic)
+                //                clg(type, dic)
                 NotificationCenter.default.post(name: type.toNotificationName(), object: self, userInfo: dic)
             }
         }
-        
     }
     
     var url: URL?

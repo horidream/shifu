@@ -88,7 +88,7 @@ public extension Decodable{
         if let data = string.data(using: .utf8){
             return try? JSONDecoder().decode(Self.self, from: data)
         }
-        return nil
+        return string as? Self
     }
 }
 

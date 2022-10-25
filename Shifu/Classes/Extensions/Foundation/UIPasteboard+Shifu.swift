@@ -38,9 +38,8 @@ public extension UIPasteboard {
         let typesInPasteboard = self.types
         var url: URL? = nil
         for type in types{
-            let identifier = type.identifier
-            if typesInPasteboard.contains(identifier), let data = self.data(forPasteboardType: identifier){
-                url = data.previewURL(for: type)
+            if let t = typesInPasteboard.first{ UTType($0)?.conforms(to: type) ?? false } , let ut = UTType(t),  let data = self.data(forPasteboardType: t){
+                url = data.previewURL(for: ut)
                 break
             }
         }

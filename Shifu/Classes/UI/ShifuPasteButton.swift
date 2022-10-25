@@ -14,9 +14,11 @@ public struct ShifuPasteButton<T: View>: View {
     @Binding var shouldCompress:Bool
     let onPaste:([NSItemProvider])->Void
     let builder: ()-> T
-    public init(@ViewBuilder view builder: @escaping ()-> T, onPaste: @escaping ([NSItemProvider])->Void, shouldCompress: Binding<Bool> = .constant(false) ){
+    let supportedContentType:[UTType]
+    public init(supportedContentType: [UTType] = [.data], @ViewBuilder view builder: @escaping ()-> T, onPaste: @escaping ([NSItemProvider])->Void, shouldCompress: Binding<Bool> = .constant(false) ){
         self.onPaste = onPaste
         self.builder = builder
+        self.supportedContentType = supportedContentType
         self._shouldCompress = shouldCompress
     }
     public var body: some View{
@@ -38,7 +40,7 @@ public struct ShifuPasteButton<T: View>: View {
     @available(iOS 16, *)
     func HackedPasteButton()-> some View {
         return
-            PasteButton(supportedContentTypes: [.data]) { items in
+            PasteButton(supportedContentTypes: supportedContentType) { items in
                 if shouldCompress {
                     pb.items = pb.items
                 }

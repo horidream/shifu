@@ -157,6 +157,18 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return ChangeAppIconDemo().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "PreviewDemo") { model in
+                model.icon = .docViewfinder
+                model.color = .blue
+                return PreviewDemo().eraseToAnyView()
+                
+            },
+            FeatureViewModel(name: "DrawingViewDemo") { model in
+                model.icon = .handDraw
+                model.color = .indigo
+                return DrawingViewDemo().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue

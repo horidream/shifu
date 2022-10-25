@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ShifuLottie'
-  s.version          = '0.7.10'
+  s.version          = '0.7.11'
   s.summary          = 'Shifu works with Lottie to create animations'
 
 # This description is used to generate tags and improve search results.

@@ -73,6 +73,8 @@ public struct PreviewText: UIViewControllerRepresentable {
         
         public func textViewDidEndEditing(_ textView: UITextView) {
             // if the editing item has been changed , we should not update the preview item.
+            textView.associatedViewController?.navigationItem.rightBarButtonItem = nil
+            textView.associatedViewController?.navigationItem.leftBarButtonItem = nil
             guard item.value == editingItem else { return }
             guard !cancelling else {
                 textView.text = editingItem?.data?.utf8String ?? ""

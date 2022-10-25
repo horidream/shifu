@@ -1,37 +1,4 @@
 //
-//  Config.swift
-//  ShifuExample
-//
-//  Created by Baoli Zhai on 2022/2/1.
-//  Copyright © 2022 CocoaPods. All rights reserved.
-//
-
-import Foundation
-import Shifu
-
-let clg = Shifu.clg(prefix: ">")
-let localized = Shifu.localizer()
-
-class Test{
-    func say()->String{
-        "hello"
-    }
-}
-
-struct Person: Codable{
-    let name:String
-    let age:Int
-}
-
-class Theme{
-    @ThemedColor(light: .red, dark: .white)
-    public static var iconColor
-    @ThemedColor(light: .gray, dark: .white)
-    public static var titlePrimary
-    @ThemedColor(light: .darkGray, dark: .lightGray)
-    public static var titleSecondary
-}
-//
 //  PersistToFile2.swift
 //  Shifu
 //
@@ -39,8 +6,6 @@ class Theme{
 //
 
 import SwiftUI
-
-
 
 @propertyWrapper public class Persist<T:Codable>{
     private var _value:T
@@ -70,9 +35,29 @@ import SwiftUI
             set: { self.wrappedValue = $0 }
         )
     }
+    
     public init(wrappedValue: T, _ path: String){
         url = (path.starts(with: "@") ? path.url : "@documents/\(path)".url)
         let str = url?.content ?? ""
         _value = str.parse(to: T.self) ?? wrappedValue
     }
+}
+
+
+@propertyWrapper
+public struct Proxy<EnclosingSelf, Value> {
+    private let keyPath: ReferenceWritableKeyPath<EnclosingSelf, Value>
+    private let target:EnclosingSelf
+    public init(_ target:EnclosingSelf, _ keyPath: ReferenceWritableKeyPath<EnclosingSelf, Value>) {
+        self.target = target
+        self.keyPath = keyPath
+        
+        
+    }
+    
+    public var wrappedValue: Value {
+        get { target[keyPath: keyPath] }
+        set { target[keyPath: keyPath] = newValue }
+    }
+    
 }

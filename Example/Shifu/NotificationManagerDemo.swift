@@ -11,6 +11,7 @@ import Shifu
 
 struct NotificationManagerDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
+    @Environment(\.scenePhase) private var scenePhase: ScenePhase
     @ObservedObject private var nm = NotificationManager.shared
     var body: some View{
         Group{
@@ -44,12 +45,13 @@ struct NotificationManagerDemo: View {
         .onAppear{
             sandbox()
         }
-        .onChange(of: nm.isGranted, perform: { newValue in
+        .onChange(of: nm.isGranted) { newValue in
             clg("settings is granted:  \(newValue)")
-        })
-        .onReceive(scenePhase) { _ in
-            clg("phase changed")
-            nm.refreshSettingsPublisher.send()
+        }
+        .onChange(of: scenePhase) { newValue in
+            if scenePhase == .active {
+                nm.refreshSettingsPublisher.send()
+            }
         }
     }
     
