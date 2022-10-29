@@ -34,5 +34,4 @@ function convertToMarkdown() {
     });
 }
 
-
 window.toMarkdown = toMarkdown;

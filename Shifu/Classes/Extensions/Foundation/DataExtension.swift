@@ -34,17 +34,20 @@ extension Data{
 
 public extension Data{
     func previewURL(for type:UTType)->URL{
-        let fn = "preview-\(self.hashValue)"
+        // maybe md5 could be a better choice
+        let fn = "preview-\(self.md5)"
         let ext = type.preferredFilenameExtension
         let url = "@temp/\(fn).\(ext ?? "txt")".url!
-        if !fm.fileExists(atPath: url.path){
-            try? self.write(to: url)
+        Task{
+            if !fm.fileExists(atPath: url.path){
+                try? self.write(to: url)
+            }
         }
         return url
     }
     
     func previewItem(for type:UTType, title: String? = nil)->PreviewItem{
-        return PreviewItem(previewURL(for: type), previewItemTitle: title)
+        return PreviewItem(previewURL(for: type), typeIdentifier: type.identifier, previewItemTitle: title)
     }
     
 }

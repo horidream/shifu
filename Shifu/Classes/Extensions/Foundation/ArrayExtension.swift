@@ -49,5 +49,25 @@ extension Array {
             return nil
         }
     }
+    
 
+}
+
+
+extension Array where Element: Hashable {
+    public func removingDuplicates(keepFirst: Bool = true) -> [Element] {
+//        return self.reduce([Element]()) { partialResult, i in
+//            if !partialResult.contains(i) {
+//                return partialResult + [i]
+//            } else {
+//                return partialResult
+//            }
+//        }
+        var seen = Set<Element>()
+        return self.filter{ seen.insert($0).inserted }
+    }
+
+    mutating public func removeDuplicates(keepFirst: Bool = true) {
+        self = self.removingDuplicates(keepFirst: keepFirst)
+    }
 }

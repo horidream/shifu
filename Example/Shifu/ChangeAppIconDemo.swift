@@ -13,7 +13,9 @@ struct ChangeAppIconDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     @State var iconName:String?  = UIApplication.shared.alternateIconName {
         didSet{
-            UIApplication.shared.setAlternateIconName(iconName)
+            UIApplication.shared.setAlternateIconName(iconName){
+                clg($0)
+            }
         }
     }
     var body: some View {

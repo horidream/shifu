@@ -23,7 +23,6 @@ public struct PreviewShifu: View{
     }
     
     public var body: some View{
-        
         if item?.isText ?? false{
             PreviewText(item: $item, config: config)
         } else {
@@ -216,16 +215,18 @@ public struct Preview: UIViewControllerRepresentable {
 public class PreviewItem: NSObject, ObservableObject, QLPreviewItem, Codable{
     static let empty: PreviewItem = PreviewItem(nil)
     
-    override public func isEqual(_ object: Any?) -> Bool {
-        if super.isEqual(object) {
-            return true
-        }
-        if let other = object as? PreviewItem {
-            return previewItemURL == other.previewItemURL
-        }
-        return false
+    static func == (lhs: PreviewItem, rhs: PreviewItem) -> Bool {
+        return lhs.isEqual(rhs)
     }
     
+    override public func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? PreviewItem else { return false }
+        return hash == object.hash
+    }
+    
+    override public var hash: Int {
+        return previewItemURL.hashValue ?? super.hash
+    }
     
     
     public let previewItemURL: URL?
@@ -253,7 +254,11 @@ public class PreviewItem: NSObject, ObservableObject, QLPreviewItem, Codable{
     }
     public var data: Data? {
         get{
-            _data = _data ?? previewItemURL?.data
+            var fallbackPath: String?
+            if let previewItemURL {
+                fallbackPath = "@temp/\(previewItemURL.filename).\(previewItemURL.pathExtension)"
+            }
+            _data = _data ?? previewItemURL?.data ?? fallbackPath?.url?.data
             return _data
         }
     }
@@ -263,7 +268,7 @@ public class PreviewItem: NSObject, ObservableObject, QLPreviewItem, Codable{
     }
     
     public var isText:Bool {
-        type.conforms(to: .text) ?? false
+        type.conforms(to: .plainText) ?? false
     }
     
     private var _data:Data?

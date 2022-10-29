@@ -8,8 +8,18 @@
 import Foundation
 import SwiftUI
 
-let clg = Shifu.clg(prefix: "🥋 -")
-let warn = Shifu.clg(prefix: "⚠️ -")
+private let _clg = Shifu.clg(prefix: "🥋 -")
+func clg(file: String = #file, line: Int = #line,  _ args: Any...){
+    if let fn = file.url?.filename{
+        _clg(args + ["(\(fn):\(line))"])
+    }
+}
+private let _warn = Shifu.clg(prefix: "⚠️ -")
+func warn(file: String = #file, line: Int = #line,  _ args: Any...){
+    if let fn = file.url?.filename{
+        _warn(args + ["(\(fn):\(line))"])
+    }
+}
 
 class EqutableWrapper: Equatable, Identifiable{
     static func == (lhs: EqutableWrapper, rhs: EqutableWrapper) -> Bool {
@@ -60,14 +70,14 @@ public class Shifu{
     
     struct CurrentCLG{
         static var prefix: String?
-        static var clg: ((Any...)->Void)?
+        static var clg: (([Any])->Void)?
     }
     
-    public static func clg(prefix:String) -> ((Any...)->Void){
+    public static func clg(prefix:String) -> (([Any])->Void){
         if let currentPrefix = CurrentCLG.prefix, prefix == currentPrefix , let clg = CurrentCLG.clg{
             return clg
         }else{
-            func _clg(_ args:Any...){
+            func _clg(_ args:[Any]){
                 print(args.reduce(prefix, { partialResult, item in
                     return "\(partialResult) \(item)".replacingOccurrences(of: "\n", with: "\n\(prefix) ")
                 }))

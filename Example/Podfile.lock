@@ -1,20 +1,22 @@
 PODS:
-  - Cuckoo (1.7.1):
-    - Cuckoo/Swift (= 1.7.1)
-  - Cuckoo/Swift (1.7.1)
+  - Cuckoo (1.9.1):
+    - Cuckoo/Swift (= 1.9.1)
+  - Cuckoo/Swift (1.9.1)
   - GCDWebServer/Core (3.5.4)
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
-  - lottie-ios (3.3.0)
+  - lottie-ios (3.5.0)
   - ReachabilitySwift (5.0.0)
-  - Shifu (0.7.10):
+  - Shifu (0.7.11):
     - ReachabilitySwift
-  - ShifuLottie (0.7.10):
+  - ShifuLottie (0.7.11):
     - lottie-ios
     - Shifu
-  - ShifuWebServer (0.7.10):
+  - ShifuWebServer (0.7.11):
     - GCDWebServer/WebUploader
     - Shifu
+    - SwiftSoup
+  - SwiftSoup (2.4.3)
 
 DEPENDENCIES:
   - Cuckoo
@@ -28,6 +30,7 @@ SPEC REPOS:
     - GCDWebServer
     - lottie-ios
     - ReachabilitySwift
+    - SwiftSoup
 
 EXTERNAL SOURCES:
   Shifu:
@@ -38,14 +41,15 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Cuckoo: 9e258d68137c411df47c6390f72901d5276b4f03
+  Cuckoo: 1b6793fe60fac29af50b0a5915bc309a4a1ac673
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
+  lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  Shifu: 88f73c7ce1573e1f12e253824e265cac03a0f854
-  ShifuLottie: 9c2fbc1adac7cb3fe0897fef6b6dc25952577457
-  ShifuWebServer: 8f558e8ce9369bd2e747a888a53b18646671b52a
+  Shifu: fb4082035ea66750a107b322ce825876a5d13072
+  ShifuLottie: 33dee54cc074869dd1b2e8b562ae88488a5f0011
+  ShifuWebServer: 11ad77ed746ca60af147c8c50dd80a92e62df595
+  SwiftSoup: 3384f2e618cfc1b3cbc7852c16692fe8de13fb8f
 
-PODFILE CHECKSUM: 8b8e8ae7cc3bc3f0138bb3a618643586d5e018c7
+PODFILE CHECKSUM: 1a06a46a2b509ee9287cc6cecab8f30e7e6ff17f
 
 COCOAPODS: 1.11.3

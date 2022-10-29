@@ -78,7 +78,6 @@ public struct PreviewQL: UIViewControllerRepresentable {
                let uttype = UTType(type)
             {
                 item.value = data.previewItem(for: uttype)
-                controller.reloadData()
                 if config.shouldAutoUpdatePasteboard {
                     pb.setData(data,  forPasteboardType: type)
                 }

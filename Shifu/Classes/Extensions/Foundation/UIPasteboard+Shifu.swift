@@ -27,33 +27,31 @@ public extension UIPasteboard{
 
 public extension UIPasteboard {
     func setPreviewItem(_ item: PreviewItem?){
-        if let data = item?.data, let type = item?.typeIdentifier {
-            setData(data, forPasteboardType: type)
+        if let data = item?.data {
+            setData(data, forPasteboardType: item?.typeIdentifier ?? UTType.data.identifier)
         } else {
             items = []
         }
     }
     
-    func previewURL(for types: [UTType]) -> URL? {
+    func previewURL(for types: [UTType]) -> (URL?, UTType)? {
         let typesInPasteboard = self.types
         var url: URL? = nil
         for type in types{
             if let t = typesInPasteboard.first{ UTType($0)?.conforms(to: type) ?? false } , let ut = UTType(t),  let data = self.data(forPasteboardType: t){
                 url = data.previewURL(for: ut)
-                break
+                return (url, ut)
             }
         }
         
-        return url
+        return nil
     }
     
     func previewItem(for types: [UTType]) -> PreviewItem?{
-        let url = previewURL(for: types)
-        if types.count > 0 {
-            return PreviewItem(url)
-        } else {
-            return nil
+        if let (url, type) = previewURL(for: types){
+            return PreviewItem(url, typeIdentifier: type.identifier)
         }
+        return nil
     }
 }
 

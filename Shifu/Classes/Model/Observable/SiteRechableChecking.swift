@@ -32,7 +32,7 @@ func checkWebsiteReachable(_ site: String, completion: @escaping (Bool) -> Void 
 
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {
-            #if DEBUG
+            #if Shifu
             print("\(error.localizedDescription)")
             #endif
             if (error as NSError).code != NSURLErrorCancelled{
@@ -40,7 +40,7 @@ func checkWebsiteReachable(_ site: String, completion: @escaping (Bool) -> Void 
             }
         }
         if let httpResponse = response as? HTTPURLResponse {
-            #if DEBUG
+            #if Shifu
             print("statusCode: \(httpResponse.statusCode)")
             #endif
             signal.send(httpResponse.statusCode >= 200 && httpResponse.statusCode < 400)
