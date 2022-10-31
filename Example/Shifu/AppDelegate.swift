@@ -94,9 +94,7 @@ import Combine
 @main
 struct ShifuExampleApp: App {
 //    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    init() {
-        clg("main")
-    }
+    init() { }
     var body: some Scene {
         WindowGroup {
             let vm = HomeViewModel()

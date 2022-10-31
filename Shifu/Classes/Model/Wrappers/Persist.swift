@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@propertyWrapper public class Persist<T:Codable>{
+@propertyWrapper public class Persist<T:Codable>: DynamicProperty{
     private var _value:T
     private var url:URL?
 

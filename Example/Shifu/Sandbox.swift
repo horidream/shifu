@@ -18,118 +18,51 @@ import SwiftSoup
 struct Sandbox: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @Persist("hello") var hello = "OK"
+    @State var isLegacySplitView = false
     @State var arr = ["1","2","3"]
-    @State var selected:String?
     var body: some View {
-        ViewWrapper16(forceLegacy:false){
-            if #available(iOS 16, *) {
-                NavigationSplitView{
-                    List($arr, id: \.self, selection: $selected) { $i in
-                        Text(i)
+            ShifuSplitView(data: $arr) { i in
+                Text(i)
+            } detail: { selected in
+                
+                switch selected {
+                case "1":
+                    ZStack{
+                        Toggle("Force Legacy", isOn: $isLegacySplitView)
+                        ShifuPasteButton(view: {
+                            Image(.paste, size: 34)
+                        }, onPaste: { items in
+                            clg(items)
+                        }, config: { config in
+                            config.forceLegacy = isLegacySplitView
+                        })
                     }
-                } detail: {
-                    Text("You selecrted \(selected ?? "nothing" )")
+                    .padding()
+                default: Text("You selecrted \(selected ?? "nothing" )")
                 }
+            } config: { config in
+                config.navigationTitle = Text("Hello")
+                config.navigationBarTitleDisplayMode = .automatic
+                config.navigationBarHidden = (nil, true)
             }
-        } legacyView: {
-            Text("OK")
-            
-        }
-        .onAppear{
+            .navigationBarHidden(true)
+        .onInjection{
             sandbox()
         }
-        .onInjection{
+        .onAppear{
             sandbox()
         }
         
 
     }
-    
-    
-    
     func sandbox(){
-        clg("<a>hello</a>".textExtractedFromHTML)
-        let html = "<a>hello\n</a> "
-        clg(html.trimmingCharacters(in: .whitespaces).test(pattern: "^<.*>$"))
-        //        let doc = try? SwiftSoup.parse(html)
-        clg(Bundle.main.url(forResource: "Chunli2/icon", withExtension: "png"))
-        clg("@lottie_example.json".url)
-    }
-    
-}
-
-
-
-struct SplitView<Master: View, Detail: View>: View {
-    var master: Master
-    var detail: Detail
-    
-    init(@ViewBuilder master: () -> Master, @ViewBuilder detail: () -> Detail) {
-        self.master = master()
-        self.detail = detail()
-    }
-    
-    var body: some View {
-        let viewControllers = [UIHostingController(rootView: master), UIHostingController(rootView: detail)]
-        return SplitViewController(viewControllers: viewControllers)
-    }
-}
-
-struct SplitViewController: UIViewControllerRepresentable {
-    var viewControllers: [UIViewController]
-    @Environment(\.splitViewPreferredDisplayMode) var preferredDisplayMode: UISplitViewController.DisplayMode
-    
-    func makeUIViewController(context: Context) -> UISplitViewController {
-        return UISplitViewController()
-    }
-    
-    func updateUIViewController(_ splitController: UISplitViewController, context: Context) {
-        splitController.preferredDisplayMode = preferredDisplayMode
-        splitController.viewControllers = viewControllers
-    }
-}
-
-struct PreferredDisplayModeKey : EnvironmentKey {
-    static var defaultValue: UISplitViewController.DisplayMode = .automatic
-}
-
-extension EnvironmentValues {
-    var splitViewPreferredDisplayMode: UISplitViewController.DisplayMode {
-        get { self[PreferredDisplayModeKey.self] }
-        set { self[PreferredDisplayModeKey.self] = newValue }
-    }
-}
-
-extension View {
-    /// Sets the preferred display mode for SplitView within the environment of self.
-    func splitViewPreferredDisplayMode(_ mode: UISplitViewController.DisplayMode) -> some View {
-        self.environment(\.splitViewPreferredDisplayMode, mode)
-    }
-}
-
-
-struct ViewWrapper16<ModernView: View, LegacyView: View>:View {
-    var forceLegacy:Bool = false
-    var modernView: ModernView
-    var legacyView: LegacyView
-    
-    init(forceLegacy: Bool = false, @ViewBuilder moderView: ()-> ModernView, @ViewBuilder  legacyView:  ()->LegacyView){
-        self.forceLegacy = forceLegacy
-        self.modernView = moderView()
-        self.legacyView = legacyView()
-    }
-    public var body: some View{
-        if #available(iOS 16, *) {
-            if forceLegacy {
-                    legacyView
-            } else {
-                
-                modernView
-            }
-        } else {
-
-                legacyView
+        let a = { (str: String)->String in
+            return str
         }
+        clg((UIScreen.main.bounds.size.width , UIScreen.main.scale))
     }
+    
 }
+
+
+

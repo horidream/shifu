@@ -26,6 +26,7 @@ class FeatureViewModel<Content>: ObservableObject, Hashable, Identifiable{
     init(name:String, @ViewBuilder viewBuilder:@escaping (FeatureViewModel)->Content){
         self.name = name
         self.viewBuilder = viewBuilder
+        let _ = self.view
     }
     var view:Content{
         viewBuilder(self)
