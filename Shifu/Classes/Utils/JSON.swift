@@ -98,12 +98,12 @@ public protocol JsonMergeable: Codable{
     func merge(_ other: Self)->Self
 }
 
+let js = JSContext()
 public extension JsonMergeable {
     
     func merge(_ other: Self)->Self{
         let a = self.stringify() ?? "{}"
         let b = other.stringify() ?? "{}"
-        let js = JSContext()
         let cmd = "JSON.stringify(Object.assign(JSON.parse('\(a)'), JSON.parse('\(b)')))"
         let rst = js?.evaluateScript(cmd)
         if let json = rst?.toString(){
@@ -112,10 +112,9 @@ public extension JsonMergeable {
         return self
     }
     
-    func merge(_ other: String)->Self{
+    func merge(_ other: [String: Codable])->Self{
         let a = self.stringify() ?? "{}"
-        let b = other
-        let js = JSContext()
+        let b = other.stringify() ?? "{}"
         let cmd = "JSON.stringify(Object.assign(JSON.parse('\(a)'), JSON.parse('\(b)')))"
         let rst = js?.evaluateScript(cmd)
         if let json = rst?.toString(){
@@ -123,7 +122,18 @@ public extension JsonMergeable {
         }
         return self
     }
+    
+    func mergeToRawObject(_ other: [String: Codable])->NSDictionary{
+        let a = self.stringify() ?? "{}"
+        let b = other.stringify() ?? "{}"
+        let cmd = "Object.assign(JSON.parse('\(a)'), JSON.parse('\(b)'))"
+        let rst = js?.evaluateScript(cmd).toObject() as? NSDictionary
+        return rst ?? NSDictionary()
+    }
 }
+
+
+extension Dictionary: JsonMergeable where Key==String, Value:Codable {}
 
 @propertyWrapper
 public struct CodableColor {

@@ -21,7 +21,6 @@ import CoreImage
 
 struct SceneAndPerson:View{
     @ObservedObject private var injectObserver = Self.injectionObserver
-//    @PersistToFile("a.txt") var n:String
     let scene: SCNScene? = .init(named: "chair.scn")
     let layout = [GridItem(.adaptive(minimum: 60))]
     @State var currentSelected: Int = 1
