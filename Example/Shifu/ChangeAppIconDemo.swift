@@ -14,7 +14,7 @@ struct ChangeAppIconDemo: View {
     @State var iconName:String?  = UIApplication.shared.alternateIconName {
         didSet{
             UIApplication.shared.setAlternateIconName(iconName){
-                clg($0)
+                clg($0 as Any)
             }
         }
     }

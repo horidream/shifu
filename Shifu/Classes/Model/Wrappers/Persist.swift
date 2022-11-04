@@ -41,6 +41,40 @@ import SwiftUI
     }
 }
 
+@propertyWrapper public class MutablePersist<T:Codable>: DynamicProperty{
+    private var value:T
+    private var url:URL?
+    
+    public var wrappedValue:T{
+        get{
+            return value
+        }
+        set{
+            do{
+                if let str = newValue.stringify(), let url{
+                    try str.write(to: url, atomically: true, encoding: .utf8)
+                    value = newValue
+                }
+            }catch{
+                clg(error)
+            }
+        }
+    }
+    
+    public var projectedValue: Binding<T>{
+        Binding(
+            get: { self.wrappedValue },
+            set: { self.wrappedValue = $0 }
+        )
+    }
+    
+    public init(wrappedValue: T, _ path: String){
+        url = (path.starts(with: "@") ? path.url : "@documents/\(path)".url)
+        let str = url?.content ?? ""
+        value = str.parse(to: T.self) ?? wrappedValue
+    }
+}
+
 
 @propertyWrapper
 public struct Proxy<EnclosingSelf, Value> {
