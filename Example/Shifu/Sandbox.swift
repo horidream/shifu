@@ -19,8 +19,7 @@ struct Sandbox: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
     @State var isLegacySplitView = false
-    @Persist("shouldShowNaivigationBar") var shouldShowNaivigationBar:Bool = true
-    @ObservedObject var b: BBB = BBB()
+    @MutablePersist("shouldShowNaivigationBar") var shouldShowNaivigationBar:Bool = true
     @State var arr = ["1","2","3"]
     var body: some View {
         ShifuSplitView(data: $arr) { i in
@@ -66,38 +65,10 @@ struct Sandbox: View {
         
     }
     func sandbox(){
-        clg(b.a)
-        b.a = 12
-        clg(b.a)
+        clg( 1..<10 ~= 1)
         
     }
     
 }
 
-class BBB: ObservableObject{
-    @AAA var a = 11
-}
 
-@propertyWrapper public class AAA<T:Codable>: DynamicProperty{
-    private var value:T
-    public var wrappedValue:T{
-        get{
-            return value
-        }
-        set{
-            value = newValue
-        }
-    }
-    
-    public var projectedValue: Binding<T>{
-        Binding(
-            get: { self.wrappedValue },
-            set: { self.wrappedValue = $0 }
-        )
-    }
-    
-    public init(wrappedValue: T){
-        value = wrappedValue
-    }
-}
-extension Person: JsonMergeable{}

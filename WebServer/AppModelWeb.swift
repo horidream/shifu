@@ -25,6 +25,10 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
         }
     }
     
+    public var serverIsReady:Bool{
+        serverURL != nil
+    }
+    
     public var serverURL:URL? {
         get {
             objc_getAssociatedObject(self, &Keys.serverURLKey) as? URL
@@ -47,6 +51,7 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
     
     public func initServer(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath) {
         GCDWebServer.setLogLevel(4)
+        clg(path)
         self.server.delegate = delegate
         delegate.model = self
         self.server.addGETHandler(forBasePath: "/", directoryPath: path ?? Bundle.main.resourcePath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
@@ -94,6 +99,7 @@ class WebServerDelegate:NSObject, GCDWebUploaderDelegate {
     }
     
     func webServerDidStop(_ server: GCDWebServer) {
+        model?.serverURL = nil
         didStopPublisher.send()
     }
     

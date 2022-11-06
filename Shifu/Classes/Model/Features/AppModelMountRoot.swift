@@ -16,7 +16,7 @@ public protocol AppModelMountRoot {
 
 @available(iOS 13.0, *)
 public extension AppModelMountRoot where Self:AppModelBase, Root:View, Self: ObservableObject, Self.ObjectWillChangePublisher == ObservableObjectPublisher{
-    private var root: Root? {
+    var root: Root? {
         get{
             ext["\(type(of:self))::\(#function)"] as? Root
         }
@@ -25,9 +25,9 @@ public extension AppModelMountRoot where Self:AppModelBase, Root:View, Self: Obs
         }
     }
     
-    private var g:GeometryProxy? {
+    var g:GeometryProxy? {
         get{
-            ext["\(type(of:self))::\(#function)"] as? GeometryProxy
+            ext["\(type(of:self))::\(#function)"] as? GeometryProxy 
         }
         set{
             ext["\(type(of:self))::\(#function)"] = newValue
