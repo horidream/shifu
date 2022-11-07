@@ -51,7 +51,6 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
     
     public func initServer(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath) {
         GCDWebServer.setLogLevel(4)
-        clg(path)
         self.server.delegate = delegate
         delegate.model = self
         self.server.addGETHandler(forBasePath: "/", directoryPath: path ?? Bundle.main.resourcePath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)

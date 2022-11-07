@@ -18,7 +18,7 @@ func clg(file: String = #file, line: Int = #line,  _ args: Any...){
 
 let localized = Shifu.localizer()
 
-class Test{
+class Test: NSObject{
     func say()->String{
         "hello"
     }
