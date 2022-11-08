@@ -10,29 +10,28 @@ import SwiftUI
 import Combine
 import Shifu
 
-extension Notification.Name{
+extension Notification.Name {
     static var hello = "hello".toNotificationName()
 }
 
-
 struct HomeView: View {
-    @EnvironmentObject var vm:HomeViewModel
+    @EnvironmentObject var vm: HomeViewModel
     @ObservedObject private var iO = Self.injectionObserver
     var body: some View {
-        NavigationView{
-            List{
+        NavigationView {
+            List {
                 Section(header: Text("Examples").font(.headline).padding(10)) {
-                    ForEach($vm.featureList){ $f in
-                        
+                    ForEach(Array(zip(vm.featureList.indices, $vm.featureList)), id: \.0) { idx, $f in
+
                         NavigationLink(isActive: $f.isActive, destination: {
                             f.view
                         }, label: {
-                            HStack{
+                            HStack {
                                 Image.icon(f.icon ?? .swift_fa)
                                     .frame(width: 33, height: 33)
                                     .foregroundColor(f.color)
                                     .padding(.trailing, 8)
-                                Text(f.name)
+                                Text("\(String(format: "%02d", idx)) - \(f.name)")
                                     .frame(maxWidth: .infinity, alignment: .leading )
                                     .contentShape(Rectangle())
                             }
@@ -43,7 +42,7 @@ struct HomeView: View {
                         }
                     }
                 }
-                
+
             }
             .listStyle(.plain)
             .navigationBarTitle(Text(Shifu.name))
@@ -58,12 +57,10 @@ struct HomeView: View {
         }
         .navigationViewStyle(.stack)
     }
-    
-    func sandbox(){
+
+    func sandbox() {
     }
 }
-
-
 
 extension UIDevice {
     static let deviceDidShakeNotification = Notification.Name(rawValue: "deviceDidShakeNotification")
@@ -97,5 +94,3 @@ extension View {
         self.modifier(DeviceShakeViewModifier(action: action))
     }
 }
-
-
