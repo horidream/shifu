@@ -36,9 +36,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>4632</string>
+	<string>4652</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>I want to use my camera</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>To take screen shot of the page</string>
 	<key>NSSiriUsageDescription</key>

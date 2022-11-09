@@ -22,6 +22,8 @@ struct Sandbox: View {
     @State var isLegacySplitView = false
     @Persist("shouldShowNaivigationBar") var shouldShowNaivigationBar: Bool = true
     @State var arr = ["1", "2", "3"]
+    @State var image: UIImage? = Icons.image(.random)
+    @State var isSelectingImage = false
     var body: some View {
         ShifuSplitView(data: $arr) { i in
             Text(i)
@@ -41,7 +43,16 @@ struct Sandbox: View {
                 }
                 .padding()
             default:
-                Text("You selecrted \(selected ?? "nothing" )")
+                (image?.sui ?? Image(.random))
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                    .onTapGesture {
+                        isSelectingImage.toggle()
+                    }
+                    .sheet(isPresented: $isSelectingImage) {
+                        ImagePicker(selectedImage: $image)
+                    }
             }
         } config: { config in
             config.navigationTitle = Text("Hello")
@@ -66,11 +77,11 @@ struct Sandbox: View {
     }
 
     func sandbox() {
-        clg(ShifuImageAnalyzer.isSupported)
-        clg(Locale.ja_JP.identifier)
         ShifuImageAnalyzer.scan(UIImage(named: "scan")) { text, _ in
             clg(text)
         }
     }
 
 }
+
+
