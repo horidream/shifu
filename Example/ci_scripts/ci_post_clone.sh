@@ -3,6 +3,7 @@
 # fail if any command fails
 
 echo "🧩 Stage: Post-clone is activated .... "
+pwd
 
 set -e
 # debug log
@@ -14,8 +15,8 @@ brew install node yarn cocoapods
 # Install yarn and pods dependencies.
 # If you're using Flutter or Swift
 # just install pods by "pod install" command
-cd ../web && yarn install && yarn build
-cd .. && pod install
+cd ../../web && yarn install && yarn build
+cd ../Example && pod install
 
 echo "🎯 Stage: Post-clone is done .... "
 
