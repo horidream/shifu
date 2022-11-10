@@ -15,7 +15,7 @@ brew install node yarn cocoapods
 # Install yarn and pods dependencies.
 # If you're using Flutter or Swift
 # just install pods by "pod install" command
-cd ../../web && yarn install && yarn build
+cd ../../web && yarn install && yarn deploy
 cd ../Example && pod install
 
 echo "🎯 Stage: Post-clone is done .... "
