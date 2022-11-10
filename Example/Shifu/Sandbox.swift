@@ -21,16 +21,17 @@ struct Sandbox: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     @State var isLegacySplitView = false
     @Persist("shouldShowNaivigationBar") var shouldShowNaivigationBar: Bool = true
-    @State var arr = ["1", "2", "3"]
+    @State var arr = ["ShifuPasteButton", "OCR & Image Picker"]
     @State var image: UIImage? = Icons.image(.random)
     @State var isSelectingImage = false
+    @State var ocrText:String = ""
     var body: some View {
         ShifuSplitView(data: $arr) { i in
             Text(i)
         } detail: { selected in
 
             switch selected {
-            case "1":
+            case "ShifuPasteButton":
                 ZStack {
                     Toggle("Force Legacy", isOn: $isLegacySplitView)
                     ShifuPasteButton(view: {
@@ -43,16 +44,33 @@ struct Sandbox: View {
                 }
                 .padding()
             default:
-                (image?.sui ?? Image(.random))
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-                    .onTapGesture {
-                        isSelectingImage.toggle()
-                    }
-                    .sheet(isPresented: $isSelectingImage) {
-                        ImagePicker(selectedImage: $image)
-                    }
+                ScrollView{
+                    TextEditor(text: $ocrText)
+                        .border(.blue)
+                        .padding()
+                        
+                    (image?.sui ?? Image(.random))
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .onTapGesture {
+                            isSelectingImage.toggle()
+                        }
+                        .onChange(of: image, perform: { newValue in
+                            ShifuImageAnalyzer.scan(newValue) { text, _ in
+                                if let text{
+                                   ocrText = text
+                                    delay(0.1){
+                                        ocrText += "\n"
+                                    }
+                                }
+                            }
+                        })
+                        .sheet(isPresented: $isSelectingImage) {
+                            ImagePicker(sourceType: .camera, selectedImage: $image)
+                                .ignoresSafeArea()
+                        }
+                }
             }
         } config: { config in
             config.navigationTitle = Text("Hello")
@@ -77,9 +95,7 @@ struct Sandbox: View {
     }
 
     func sandbox() {
-        ShifuImageAnalyzer.scan(UIImage(named: "scan")) { text, _ in
-            clg(text)
-        }
+        clg(UTType.plainText.conforms(to: .plainText))
     }
 
 }

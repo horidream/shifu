@@ -56,7 +56,8 @@ public struct ShifuTextEditor: UIViewRepresentable {
         public var history = History()
         public var delegate: UITextView?
         public var inputAccessoryItems:[UIBarButtonItem] = []
-        public init(){
+        public init(_ text: String = ""){
+            self.text = text
             history.delegate = self
         }
         public init(builder: (ViewModel)->Void){

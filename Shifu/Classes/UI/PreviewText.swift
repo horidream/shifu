@@ -29,26 +29,27 @@ public struct PreviewText: UIViewControllerRepresentable {
     }
     
     public func updateUIViewController(_ navi: UINavigationController, context: Context) {
-        guard context.coordinator.item.value != item else {
+        guard context.coordinator.item != item else {
             navi.topViewController?.title = item?.previewItemTitle
             return
         }
+        guard context.coordinator.editingItem == nil else { return }
         (navi.topViewController as? TextEditorVC)?.title = item?.previewItemTitle ?? ""
         (navi.topViewController as? TextEditorVC)?.text = item?.previewItemURL?.content ?? ""
     }
     
     public func makeCoordinator() -> Coordinator {
-        return Coordinator(item: item, config: config)
+        return Coordinator(item: $item, config: config)
     }
     
     public class Coordinator: NSObject,
                               UITextViewDelegate, UINavigationControllerDelegate{
-        var item: CurrentValueSubject<PreviewItem?, Never>
+        @Binding var item:PreviewItem?
         var editingItem: PreviewItem?
         var config: Preview.Config
         var cancelling: Bool = false
-        init(item: PreviewItem?, config: Preview.Config) {
-            self.item = CurrentValueSubject<PreviewItem?, Never>(item)
+        init(item: Binding<PreviewItem?>, config: Preview.Config) {
+            _item = item
             self.config = config
         }
        
@@ -66,7 +67,7 @@ public struct PreviewText: UIViewControllerRepresentable {
                 self.cancelling = true
                 textView.endEditing(true)
             })
-            editingItem = item.value
+            editingItem = item
         }
         
 
@@ -75,18 +76,19 @@ public struct PreviewText: UIViewControllerRepresentable {
             // if the editing item has been changed , we should not update the preview item.
             textView.associatedViewController?.navigationItem.rightBarButtonItem = nil
             textView.associatedViewController?.navigationItem.leftBarButtonItem = nil
-            guard item.value == editingItem else { return }
+            guard item == editingItem else { return }
             guard !cancelling else {
                 textView.text = editingItem?.data?.utf8String ?? ""
                 return
             }
             if let data = textView.text.data(using: .utf8) {
                 let type = UTType.plainText
-                item.value = PreviewItem(data.previewURL(for: type))
+                item = PreviewItem(data.previewURL(for: type), typeIdentifier: type.identifier)
                 if config.shouldAutoUpdatePasteboard {
                     pb.setData(data,  forPasteboardType: type.identifier)
                 }
             }
+            editingItem = nil
             textView.associatedViewController?.navigationItem.title = localized("Preview")
             textView.associatedViewController?.navigationItem.rightBarButtonItem = nil
             textView.associatedViewController?.navigationItem.leftBarButtonItem = nil
@@ -139,7 +141,7 @@ class TextEditorVC: UIViewController{
         placeHolder.font = UIFont.systemFont(ofSize: 18)
         placeHolder.textColor = .lightGray
         placeHolder.alpha = text.trimmingCharacters(in: .whitespaces).count == 0 ? 1 : 0
-        placeHolder.quickAlign(1, 8, 12)
+        placeHolder.quickAlign(1, 8, 12, reference: view.safeAreaLayoutGuide)
         
     }
     
