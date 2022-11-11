@@ -32,6 +32,7 @@
   "dependencies": {
     "highlight.js": "^11.6.0",
     "katex": "^0.16.0",
-    "marked": "^4.0.18"
+    "marked": "^4.0.18",
+    "grogu": "git+https://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:x-oauth-basic@github.com/horidream/grogu.git#main"
   }
 }
