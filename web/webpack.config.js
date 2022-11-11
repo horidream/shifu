@@ -28,15 +28,24 @@ module.exports = (env = {}, { mode = "production" }) => {
             from: srcPath,
             to: outputPath,
             globOptions: {
-              ignore: ["**/*.js", "**/.DS_Store", "node_modules/**"],
+              ignore: [
+                "**/*.js",
+                "**/.DS_Store",
+                "node_modules/**",
+                "**/*.LICENSE.txt",
+              ],
             },
           },
           {
             from: publicPath,
             to: outputPath,
           },
+          {
+            from: srcPath + "/grogu.js",
+            to: outputPath
+          }
         ],
-      }),
+      })
     );
   }
 

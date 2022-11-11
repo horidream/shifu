@@ -1,4 +1,3 @@
-import cm from "grogu";
 const marked = require("marked");
 import hljs from "highlight.js";
 import katex from "katex";
@@ -76,11 +75,11 @@ window.hljs = hljs;
 
 
 
-cm.declareModel("com.horidream.lib.shifu", async function (el, options) {
+$cm.declareModel("com.horidream.lib.shifu", async function (el, options) {
   let store = {
     state: {},
   };
-  let model = await cm.genModel(store, options, el);
+  let model = await $cm.genModel(store, options, el);
   postToNative({
     type: "mounted",
   });
