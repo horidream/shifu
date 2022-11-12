@@ -39,10 +39,6 @@ module.exports = (env = {}, { mode = "production" }) => {
           {
             from: publicPath,
             to: outputPath,
-          },
-          {
-            from: srcPath + "/grogu.js",
-            to: outputPath
           }
         ],
       })

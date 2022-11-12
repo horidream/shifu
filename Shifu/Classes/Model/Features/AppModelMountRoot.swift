@@ -35,7 +35,9 @@ public extension AppModelMountRoot where Self:AppModelBase, Root:View, Self: Obs
     }
     
     private func mount(_ root: Root, geometryProxy g:GeometryProxy){
-        objectWillChange.send()
+        delay(0){
+            self.objectWillChange.send()
+        }
         self.root = root
         self.g = g
     }
