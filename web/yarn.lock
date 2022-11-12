@@ -2820,9 +2820,8 @@ graceful-fs@^4.1.2, graceful-fs@^4.2.4, graceful-fs@^4.2.6, graceful-fs@^4.2.9:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.9.tgz#041b05df45755e587a24942279b9d113146e1c96"
   integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
 
-"grogu@git+https://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:x-oauth-basic@github.com/horidream/grogu.git#main":
+grogu@../../grogu:
   version "1.0.2"
-  resolved "git+https://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:x-oauth-basic@github.com/horidream/grogu.git#22b6d05f91bed7551f1d8a9ac1ba381a7ed1fc65"
   dependencies:
     gsap "^3.11.1"
     joplin-turndown-plugin-gfm "^1.0.12"
