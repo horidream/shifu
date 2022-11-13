@@ -24,10 +24,16 @@ struct Sandbox: View {
     @State var arr = ["ShifuPasteButton", "OCR & Image Picker"]
     @State var image: UIImage? = Icons.image(.random)
     @State var isSelectingImage = false
+    @State var shouldHideContent = false
     @State var ocrText:String = ""
+    @StateObject var prop = TweenProps()
     var body: some View {
         ShifuSplitView(data: $arr) { i in
             Text(i)
+                .if(shouldHideContent){
+                    $0.redacted(reason: .placeholder)
+                }
+                
         } detail: { selected in
 
             switch selected {
@@ -77,12 +83,27 @@ struct Sandbox: View {
             config.navigationBarTitleDisplayMode = .automatic
             config.navigationBarHidden = (!shouldShowNaivigationBar, !shouldShowNaivigationBar)
         }
+        .tweenProps(prop)
         .navigationBarHidden(shouldShowNaivigationBar)
         .navigationTitle("ShifuSplitView Demo")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Toggle("Show Navigation Bar", isOn: $shouldShowNaivigationBar)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button{
+                    tl($prop)
+                        .to([\.alpha: 0, \.x: -30])
+                        .perform{
+                            self.shouldHideContent.toggle()
+                        }
+                        .set([\.alpha: 0, \.x: 30])
+                        .delay(0.3)
+                        .to([\.alpha: 1, \.x: 0])
+                } label: {
+                    Text("\(shouldHideContent ? "Hide" : "Show") Content")
+                }
             }
         }
         .onInjection {

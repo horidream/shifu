@@ -246,3 +246,45 @@ extension String: TweenableValue {
 }
 
 
+public class Timeline{
+    var target: ObservedObject<TweenProps>.Wrapper
+    var currentProps: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue] = [:]
+    var timeOffset: TimeInterval = 0
+    public init(_ target : ObservedObject<TweenProps>.Wrapper){
+        self.target = target
+    }
+
+
+    @discardableResult public func from(_ from: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue],
+                                 to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue]? = nil,
+                                 type: TweenAnimationType = .default, duration: TimeInterval = 0.24)->Self{
+        tween(target, from: from, to: to ?? currentProps, duration: duration, delay: timeOffset, type: type)
+        timeOffset += duration
+        return self
+    }
+    @discardableResult public func to(_ to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue], type: TweenAnimationType = .default, duration: TimeInterval = 0.24)->Self{
+        tween(target, from: currentProps, to: to, duration: duration, delay: timeOffset, type: type)
+        timeOffset += duration
+        currentProps = to
+        return self
+    }
+    
+    @discardableResult public func set(_ to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue])->Self{
+        tween(target, from: currentProps, to: to, duration: 0.00001, delay: timeOffset, type: .linear)
+        currentProps = to
+        return self
+    }
+    
+    @discardableResult public func perform(_ block: @escaping ()->Void)->Self{
+        Shifu.delay(timeOffset, closure: block)
+        return self
+    }
+
+
+    @discardableResult public func delay(_ delay: TimeInterval)->Self{
+        timeOffset += delay
+        return self
+    }
+}
+
+public typealias tl = Timeline
