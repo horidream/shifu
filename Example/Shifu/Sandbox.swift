@@ -26,7 +26,7 @@ struct Sandbox: View {
     @State var isSelectingImage = false
     @State var shouldHideContent = false
     @State var ocrText:String = ""
-    @StateObject var prop = TweenProps()
+    @Tween var tween
     var body: some View {
         ShifuSplitView(data: $arr) { i in
             Text(i)
@@ -49,6 +49,9 @@ struct Sandbox: View {
                     })
                 }
                 .padding()
+                SubscriptionView(content: Text("sub"), publisher: DisplayLink.shared) { f in
+//                    clg(f)
+                }
             default:
                 ScrollView{
                     TextEditor(text: $ocrText)
@@ -83,7 +86,7 @@ struct Sandbox: View {
             config.navigationBarTitleDisplayMode = .automatic
             config.navigationBarHidden = (!shouldShowNaivigationBar, !shouldShowNaivigationBar)
         }
-        .tweenProps(prop)
+        .tweenProps(tween)
         .navigationBarHidden(shouldShowNaivigationBar)
         .navigationTitle("ShifuSplitView Demo")
         .navigationBarTitleDisplayMode(.inline)
@@ -93,14 +96,14 @@ struct Sandbox: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 Button{
-                    tl($prop)
+                    tl($tween)
                         .to([\.alpha: 0, \.x: -30])
                         .perform{
                             self.shouldHideContent.toggle()
                         }
                         .set([\.alpha: 0, \.x: 30])
                         .delay(0.3)
-                        .to([\.alpha: 1, \.x: 0])
+                        .to([\.alpha: 1, \.x: 0 ])
                 } label: {
                     Text("\(shouldHideContent ? "Hide" : "Show") Content")
                 }
@@ -116,9 +119,15 @@ struct Sandbox: View {
     }
 
     func sandbox() {
-        clg(UTType.plainText.conforms(to: .plainText))
+        var key = Data(count: 64)
+        _ = key.withUnsafeMutableBytes { bytes in
+            SecRandomCopyBytes(kSecRandomDefault, 64, bytes.baseAddress!)
+        }
+        clg(key.map{ String(format: "%02hhx", $0) }.joined() )
     }
 
 }
+
+
 
 

@@ -167,7 +167,7 @@ public class TweenProps: ObservableObject{
     @Published public var blur: Double = 0
     
     @ViewBuilder
-    public func bind<Content:View>(_ content: ()->Content)->some View{
+    public func apply<Content:View>(_ content: ()->Content)->some View{
         return content().tweenProps(self)
     }
 }
@@ -288,3 +288,18 @@ public class Timeline{
 }
 
 public typealias tl = Timeline
+
+@propertyWrapper public struct Tween: DynamicProperty{
+    @StateObject var value: TweenProps
+    public var wrappedValue: TweenProps{
+        get{
+            return value
+        }
+    }
+    public var projectedValue: ObservedObject<TweenProps>.Wrapper{
+        return $value
+    }
+    public init(){
+        _value = StateObject(wrappedValue: TweenProps())
+    }
+}

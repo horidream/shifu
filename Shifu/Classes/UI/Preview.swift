@@ -101,7 +101,7 @@ public struct Preview: UIViewControllerRepresentable {
             navi.viewControllers = [previewVC]
             context.coordinator.currentVC = previewVC
             if let layer = navi.topViewController?.view.layer{
-                Tween.from(layer , 0.3, ["scale": 0.95, "alpha": 0], to:["scale": 1, "alpha": 1])
+                TweenLayer.from(layer , 0.3, ["scale": 0.95, "alpha": 0], to:["scale": 1, "alpha": 1])
             }
         }
         
@@ -183,7 +183,7 @@ public struct Preview: UIViewControllerRepresentable {
             (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(false)
             textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
                 if let layer = textView.superview?.layer{
-                    Tween.from(layer , 0.3, ["scale": 0.97, "alpha": 0], to:["scale": 1, "alpha": 1])
+                    TweenLayer.from(layer , 0.3, ["scale": 0.97, "alpha": 0], to:["scale": 1, "alpha": 1])
                 }
                 textView.endEditing(true)
             })

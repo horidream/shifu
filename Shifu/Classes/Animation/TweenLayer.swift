@@ -45,7 +45,7 @@ func getDelay( _ dic: inout Dictionary<String, Any> )->Double{
 }
 
 
-public class Tween{
+public class TweenLayer{
     public static func from(_ target: CALayer, _ duration:TimeInterval , _ propertyies: Dictionary<String, Any>, to: Dictionary<String, Any> = [:]){
         var dic = propertyies
         let ease = getEase(&dic)

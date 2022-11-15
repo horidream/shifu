@@ -15,7 +15,7 @@ struct AnimationDemo: View {
     @State var count = 0;
     var body: some View{
         ZStack{
-            props.bind{
+            props.apply{
                 VStack{
                     Image.icon(.swift_fa, size: 100)
                         .foregroundColor(.orange)
