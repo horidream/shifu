@@ -60,10 +60,10 @@ public struct PreviewText: UIViewControllerRepresentable {
         public func textViewDidBeginEditing(_ textView: UITextView) {
             (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(false)
             cancelling = false
-            textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
+            textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.uiImage(.check, size: 20), closure: { btn in
                 textView.endEditing(true)
             })
-            textView.associatedViewController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.xmark_fa, size: 20), closure: { btn in
+            textView.associatedViewController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.uiImage(.xmark_fa, size: 20), closure: { btn in
                 self.cancelling = true
                 textView.endEditing(true)
             })

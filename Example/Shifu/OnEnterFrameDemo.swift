@@ -93,7 +93,7 @@ struct OnEnterFrameDemo:View{
                         tween($props, from:[\.y : 500, \.alpha: 0], to: [\.y : 0, \.alpha: 1 ])
                     }
                 } label: {
-                    Image.icon( shouldShowCode ? .code : .photoFilm, size: 24)
+                    Image.resizableIcon( shouldShowCode ? .code : .photoFilm, size: 24)
                 }
 
             }

@@ -27,7 +27,7 @@ struct PreviewDemo: View {
                         Button{
                             isPasteboardPinned.toggle()
                         } label: {
-                            Image.icon(isPasteboardPinned ? .lockFill : .lock_sf, size: 15)
+                            Image.resizableIcon(isPasteboardPinned ? .lockFill : .lock_sf, size: 15)
                                 .scaleEffect(0.7)
                         }
                         .disabled(item == nil)
@@ -36,14 +36,14 @@ struct PreviewDemo: View {
                         Button{
                             dismiss()
                         } label: {
-                            Image.icon(.chevronBackward, size: 18)
+                            Image.resizableIcon(.chevronBackward, size: 18)
                         }
 
                         if noItem {
                             Button{
                                 previewItem = PreviewItem("".data(using: .utf8)?.previewURL(for: .plainText))
                             } label: {
-                                Image.icon(  .plus_sf , size: 20)
+                                Image.resizableIcon(  .plus_sf , size: 20)
                                     .frame(width: 22)
                             }
                             
@@ -52,7 +52,7 @@ struct PreviewDemo: View {
                                 previewItem = nil
                                 pb.setPreviewItem(nil)
                             } label: {
-                                Image.icon(  .trashFill , size: 20)
+                                Image.resizableIcon(  .trashFill , size: 20)
                                     .frame(width: 22)
                             }
                         }
@@ -78,7 +78,7 @@ struct PreviewDemo: View {
     var PasteButton:ToolbarItemGroup<ShifuPasteButton<some View>>{
         ToolbarItemGroup(placement: .navigationBarTrailing){
             ShifuPasteButton (view: {
-                Image.icon(.plus_fa, size: 24)
+                Image.resizableIcon(.plus_fa, size: 24)
                     .foregroundColor(.blue)
             }, onPaste: { items in
                 guard !isPasteboardPinned else { return }

@@ -20,16 +20,16 @@ public extension Image{
     
     init(_ name: Icons.Name, size: CGFloat = 40){
         if name.isFontAwesome {
-            self = Image(uiImage: Icons.image(name, size: size)).renderingMode(.template)
+            self = Image(uiImage: Icons.uiImage(name, size: size)).renderingMode(.template)
         } else {
             self = Image(systemName: name.value)
         }
     }
     
-    static func icon(_ name: Icons.Name, size:CGFloat = 40)->some View{
+    static func resizableIcon(_ name: Icons.Name, size:CGFloat = 40)->some View{
         var img:Image!
         if name.isFontAwesome {
-            img =  Image(uiImage: Icons.image(name, size: size))
+            img =  Image(uiImage: Icons.uiImage(name, size: size))
         } else {
             img = Image(systemName: name.value)
         }

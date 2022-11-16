@@ -70,7 +70,7 @@ class Theme{
                     
                     
                 } label: {
-                    Image.icon( shouldAutoPlay ? .pause_fa : .play_fa)
+                    Image.resizableIcon( shouldAutoPlay ? .pause_fa : .play_fa)
                         .frame(width: 16, height: 16)
                         .offset(x: shouldAutoPlay ? 0 : 2)
                         .padding(8)

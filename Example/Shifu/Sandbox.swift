@@ -22,7 +22,7 @@ struct Sandbox: View {
     @State var isLegacySplitView = false
     @Persist("shouldShowNaivigationBar") var shouldShowNaivigationBar: Bool = true
     @State var arr = ["ShifuPasteButton", "OCR & Image Picker"]
-    @State var image: UIImage? = Icons.image(.random)
+    @State var image: UIImage? = Icons.uiImage(.random)
     @State var isSelectingImage = false
     @State var shouldHideContent = false
     @State var ocrText:String = ""
@@ -124,6 +124,11 @@ struct Sandbox: View {
             SecRandomCopyBytes(kSecRandomDefault, 64, bytes.baseAddress!)
         }
         clg(key.map{ String(format: "%02hhx", $0) }.joined() )
+        
+        let memory = MemoryLayout<CChar>.self
+        clg(memory.size)
+        clg(memory.stride)
+        clg(memory.alignment)
     }
 
 }
@@ -131,3 +136,8 @@ struct Sandbox: View {
 
 
 
+struct Chess{
+    var player1: Int64
+    var player2: Int32
+    var win: Bool
+}

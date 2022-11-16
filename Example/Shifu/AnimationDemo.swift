@@ -17,7 +17,7 @@ struct AnimationDemo: View {
         ZStack{
             props.apply{
                 VStack{
-                    Image.icon(.swift_fa, size: 100)
+                    Image.resizableIcon(.swift_fa, size: 100)
                         .foregroundColor(.orange)
                     SimpleMarkdownViewer(content: "### May the `Force` be with you.\n" + #"""
                                  **May the Force be with you** was a phrase used to wish an individual or group good luck or good will, one that expressed the speaker's wish that the Force work in the favor of the addressee. The phrase was often used as individuals parted ways or in the face of an impending challenge.

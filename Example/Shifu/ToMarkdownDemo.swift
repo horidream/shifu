@@ -56,7 +56,7 @@ struct ToMarkdownDemo: View {
                     return ("\(pre)\(s)\(suf)", s.count + pre.count);
                 }
             }),
-            UIBarButtonItem(image: Icons.image(.quoteBubble, size: 20), style: .done, closure: { bar in
+            UIBarButtonItem(image: Icons.uiImage(.quoteBubble, size: 20), style: .done, closure: { bar in
                 m.modifySelection { s in
                     let pre = s.count == 0 ? "> " : "\n> "
                     let suf = s.count == 0 ? "": "\n\n"
@@ -64,7 +64,7 @@ struct ToMarkdownDemo: View {
                 }
                 
             }),
-            UIBarButtonItem(image: Icons.image(.function, size: 20), style: .done, closure: { bar in
+            UIBarButtonItem(image: Icons.uiImage(.function, size: 20), style: .done, closure: { bar in
                 m.modifySelection { s in
                     let pre = s.count == 0 ? "`$$ " : "\n`$$ "
                     let suf = s.count == 0 ? " $$`": " $$`\n"

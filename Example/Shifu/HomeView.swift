@@ -27,7 +27,7 @@ struct HomeView: View {
                             f.view
                         }, label: {
                             HStack {
-                                Image.icon(f.icon ?? .swift_fa)
+                                Image.resizableIcon(f.icon ?? .swift_fa)
                                     .frame(width: 33, height: 33)
                                     .foregroundColor(f.color)
                                     .padding(.trailing, 8)

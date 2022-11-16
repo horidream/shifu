@@ -27,7 +27,7 @@ struct DrawingViewDemo: View {
                         pb.image = img
                         
                     } label: {
-                        Image.icon(.squareAndArrowDown, size: 18)
+                        Image.resizableIcon(.squareAndArrowDown, size: 18)
                     }
                 }
             }

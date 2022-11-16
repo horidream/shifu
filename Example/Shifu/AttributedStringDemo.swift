@@ -38,7 +38,7 @@ struct AttributedStringDemo:View{
                     ], type: .back)
                     pb.image = snapshot( backgroundColor: .white)
                 }
-            Image.icon(.tree, size: 100)
+            Image.resizableIcon(.tree, size: 100)
                 .foregroundColor(.green)
                 .tweenProps(prop)
                 .onTapTarget { _ in
@@ -123,7 +123,7 @@ struct AttributedStringDemo:View{
             [.foregroundColor: Theme.titlePrimary, .font: UIFont.boldSystemFont(ofSize: 96), .strokeColor: Theme.titleSecondary, .strokeWidth: NSNumber(-2)],
             nil
         ])
-        text.replace("Swift", with: Icons.image(.swift_fa, color: Theme.iconColor).attributedString([.baselineOffset: -3]))
+        text.replace("Swift", with: Icons.uiImage(.swift_fa, color: Theme.iconColor).attributedString([.baselineOffset: -3]))
     }
     
 }

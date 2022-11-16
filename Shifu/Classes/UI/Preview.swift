@@ -107,19 +107,19 @@ public struct Preview: UIViewControllerRepresentable {
         
         if item?.data != nil {
             let shouldPinned = calculatedPinned
-            context.coordinator.currentVC?.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: Icons.image(.trash_fa, size: 20), closure: { btn in
+            context.coordinator.currentVC?.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: Icons.uiImage(.trash_fa, size: 20), closure: { btn in
                 setCalculatedPinned(false, context: context)
                 item = nil
                 if config.shouldAutoUpdatePasteboard {
                     pb.items = []
                 }
-            }), UIBarButtonItem(image: Icons.image( calculatedPinned ? .pinFill : .pin, size: 16), closure: { btn in
+            }), UIBarButtonItem(image: Icons.uiImage( calculatedPinned ? .pinFill : .pin, size: 16), closure: { btn in
                 setCalculatedPinned(!calculatedPinned, context: context)
             })]
             
         } else {
             if let top = navi.topViewController {
-                top.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.image(.plus_fa, size: 20), closure: { btn in
+                top.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Icons.uiImage(.plus_fa, size: 20), closure: { btn in
                     if let callback = self.config.onCreateNew {
                         callback(navi)
                     }else {
@@ -181,7 +181,7 @@ public struct Preview: UIViewControllerRepresentable {
         
         public func textViewDidBeginEditing(_ textView: UITextView) {
             (textView.associatedViewController as? TextEditorVC)?.setPlaceHolderVisible(false)
-            textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.image(.check, size: 20), closure: { btn in
+            textView.associatedViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Icons.uiImage(.check, size: 20), closure: { btn in
                 if let layer = textView.superview?.layer{
                     TweenLayer.from(layer , 0.3, ["scale": 0.97, "alpha": 0], to:["scale": 1, "alpha": 1])
                 }

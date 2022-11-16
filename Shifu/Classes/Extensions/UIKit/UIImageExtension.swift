@@ -147,3 +147,46 @@ public extension Array where Element: UIImage {
 }
 
 
+public class FontAwesome{
+    static func image(_ code:String, size:CGFloat, color:UIColor)-> UIImage{
+        
+        if let fontName = fontName(for: code){
+            return code.image(fontName, fontSize: size, fontColor: color) ?? UIImage()
+            
+        }
+        return UIImage()
+    }
+    
+    public static func fontName(for code:String)->String?{
+        UIFont.useFontAwesome()
+        return ["FontAwesome6Free-Regular", "FontAwesome6Free-Solid", "FontAwesome6Brands-Regular"].first { name in
+            code.canBeRenderedBy(name)
+        }
+    }
+}
+
+public class Icons{
+    public static func uiImage(_ name: Icons.Name, size: CGFloat = 40, color: UIColor = .black)->UIImage{
+        if name.isFontAwesome {
+            return FontAwesome.image(name.value, size: size, color: color)
+        } else {
+            let config = UIImage.SymbolConfiguration(font: .systemFont(ofSize: size))
+            return UIImage(systemName: name.value, withConfiguration: config)?.withTintColor(color) ?? UIImage()
+        }
+    }
+    
+    public static func uiImageWithOutline(_ name: Icons.Name, size: CGFloat = 40, color: UIColor = .black, width: CGFloat = 1, fill: UIColor = .clear)->UIImage{
+        let noFill = fill.hexValue32 == UIColor.clear.hexValue32
+        let w =  noFill ?  width : -abs(width)
+        if name.isFontAwesome {
+            return name.value.attributedString().fontAwesome(size).with(.color(fill), .outline(color, width: w * UIScreen.main.scale)).image()
+        } else {
+            let c:UIColor = noFill ? .white : fill
+            return Self.uiImage(name, size: size, color: c).attributedString().image().stroked(color, width: width)
+        }
+    }
+}
+
+
+
+

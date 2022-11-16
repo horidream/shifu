@@ -74,7 +74,7 @@ struct NavigationAnimationDemo: View {
                 Button{
                     dismiss()
                 } label: {
-                    Image.icon(.chevronBackward)
+                    Image.resizableIcon(.chevronBackward)
                         .foregroundColor(.white)
                         .frame(height: 22)
                 }
@@ -87,7 +87,7 @@ struct NavigationAnimationDemo: View {
                 Button{
                     type = type == .underbar ? .overlay : .underbar
                 } label: {
-                    Image.icon(type == .underbar ? .upLong : .downLong)
+                    Image.resizableIcon(type == .underbar ? .upLong : .downLong)
                         .foregroundColor(.white)
                         .frame(height: 22)
                 }

@@ -18,18 +18,18 @@ struct IconsDemo: View{
         ZStack{
             LazyVGrid(columns: layout) {
                 ForEach(Icons.Name.allCases.filter{ !$0.isFontAwesome }.shuffled()[...31], id: \.self) { name in
-                    Icons.outlineImage(name, size: 60, color: .lightGray, width: 1).sui
+                    Icons.uiImageWithOutline(name, size: 60, color: .lightGray, width: 1).sui
                 }
                 
             }
             .padding()
             TimelineView(.animation(minimumInterval: 0.0167, paused: paused)){ context in
-                Image.icon(.swift_fa, size: 200)
+                Image.resizableIcon(.swift_fa, size: 200)
                     .foregroundColor(.red)
                     .padding(30)
                     .rotation3DEffect(.degrees( context.date.timeIntervalSince1970.truncatingRemainder(dividingBy: 360) * 360 / 5 ), axis: (0, 1, 0))
                 
-                Image.icon(.swift_sf)
+                Image.resizableIcon(.swift_sf)
                     .foregroundStyle(.orange, .yellow)
                     .padding(30)
                     .rotation3DEffect(.degrees( context.date.timeIntervalSince1970.truncatingRemainder(dividingBy: 360) * 360 / 5 ), axis: (0, 1, 0))

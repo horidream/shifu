@@ -27,7 +27,7 @@ public struct StickyIcon: View{
     private let delayTimeToShowAnimationIn:TimeInterval
     private var drawableImage: Image {
         if(targetImage.isFontAwesome){
-            return Image(uiImage: Icons.image(targetImage, size: 300))
+            return Image(uiImage: Icons.uiImage(targetImage, size: 300))
         }else{
             return Image(targetImage)
         }
@@ -48,7 +48,7 @@ public struct StickyIcon: View{
                     ctx.addFilter(.alphaThreshold(min: threshold))
                     ctx.addFilter(.blur(radius: radius))
                     let w = size.width * 0.8
-                    let originalSize = Icons.image(targetImage).size
+                    let originalSize = Icons.uiImage(targetImage).size
                     let h = w * originalSize.height / originalSize.width
                     let offsetX = (size.width - w) / 2
                     let offsetY = (size.height - h) / 2
