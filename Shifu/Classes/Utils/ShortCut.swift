@@ -149,37 +149,41 @@ public class ShortCut{
 
 
 var notificationMap:[Notification.Name: [EqutableWrapper]] = [Notification.Name: [EqutableWrapper]]()
-
 public extension ShortCut{
-    class func emit(_ notification: Notification.Name, userInfo: [AnyHashable: Any]? = nil){
-        NotificationCenter.default.post(name: notification, object: nil, userInfo: userInfo)
+    class func emit(_ notification: Notification.Name, object: Any? = nil, userInfo: [AnyHashable: Any]? = nil){
+        NotificationCenter.default.post(name: notification, object: object, userInfo: userInfo)
     }
     
-    class func emit(_ notification: Notification.Name, _ payload: Any ...){
+    class func emit(_ notification: Notification.Name, object: Any? = nil, _ payload: Any ...){
         let userInfo = Dictionary(zip( 0 ..< payload.count, payload), uniquingKeysWith: { (first, _) in first })
-        NotificationCenter.default.post(name: notification, object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: notification, object: object, userInfo: userInfo)
     }
 
-    class func emit(_ notification: String, userInfo: [AnyHashable: Any]? = nil){
-        NotificationCenter.default.post(name: notification.toNotificationName(), object: nil, userInfo: userInfo)
+    class func emit(_ notification: String, object: Any? = nil, userInfo: [AnyHashable: Any]? = nil){
+        NotificationCenter.default.post(name: notification.toNotificationName(), object: object, userInfo: userInfo)
     }
     
-    class func off(_ notification:Notification.Name)
+    class func off(_ notification:Notification.Name, object: Any? = nil)
     {
         
         if let unwatchers = notificationMap[notification]{
             unwatchers.forEach { (wrapper) in
-                if let cb = wrapper.payload as? ()->Void{
+                
+                if let (name, hashed,  cb) = wrapper.payload as? (Notification.Name, Hashed<Any?>, ()->Void), name == notification, hashed == Hashed(object) || object == nil {
                     cb()
                 }
             }
         }
-        notificationMap.removeValue(forKey: notification)
+        if(notificationMap[notification]?.count == 0){
+            notificationMap.removeValue(forKey: notification)
+        }
+    }
+    class func off(_ notification:String, object: Any? = nil){
+        off(notification.toNotificationName(), object: object)
     }
     
-    @discardableResult class func on(_ notification:Notification.Name, _ block:@escaping (Notification)->Void)->(()->Void){
-        
-        let observer = NotificationCenter.default.addObserver(forName: notification, object: nil, queue: .main, using: {
+    @discardableResult class func on(_ notification:Notification.Name, object: Any? = nil, _ block:@escaping (Notification)->Void)->(()->Void){
+        let observer = NotificationCenter.default.addObserver(forName: notification, object: object, queue: .main, using: {
             (notification:Notification) in
             block(notification)
         })
@@ -187,19 +191,29 @@ public extension ShortCut{
             notificationMap[notification] = []
         }
         let handler = EqutableWrapper()
-        let unwatch = { [weak handler] in
+        let unwatch = { [weak handler] ()->Void in
             if let handler = handler, var list = notificationMap[notification],let idx = list.firstIndex(of: handler),  list.contains(handler){
-                list.remove(at: idx)
+                notificationMap[notification]?.remove(at: idx)
             }
-            
-            NotificationCenter.default.removeObserver(observer, name: notification, object: nil)
+            NotificationCenter.default.removeObserver(observer, name: notification, object: object)
         }
-        
-        handler.payload = unwatch
+
+        handler.payload = (notification, Hashed(object), unwatch)
         notificationMap[notification]?.append(handler)
         return unwatch
+//        let wrapped = Hashed(object)
+//        NotificationCenter.default.publisher(for: notification, object: wrapped)
+//            .sink{
+//                block($0)
+//            }
+//            .retain(wrapped)
+//
+//        return {
+//            AnyCancellable.release(key: wrapped)
+//        }
     }
-    @discardableResult class func once(_ notification:Notification.Name,object: AnyObject? = nil,  _ block:@escaping (Notification)->Void){
+    
+    @discardableResult class func once(_ notification:Notification.Name, object: AnyObject? = nil,  _ block:@escaping (Notification)->Void){
         let id = UUID()
         NotificationCenter.default.publisher(for: notification, object: object)
             .sink{
@@ -209,9 +223,9 @@ public extension ShortCut{
             .retain(id)
     }
 
-    @discardableResult class func on(_ notifications:[Notification.Name], _ block:@escaping (Notification)->Void)->(()->Void){
+    @discardableResult class func on(_ notifications:[Notification.Name], object: AnyObject? = nil, _ block:@escaping (Notification)->Void)->(()->Void){
         let arr = notifications.map { notification in
-            return self.on(notifications, block)
+            return self.on(notifications, object: object, block)
         }
         
         return {
@@ -221,6 +235,26 @@ public extension ShortCut{
         }
         
     }
+    
+    @discardableResult class func on(_ notification:String, object: Any? = nil, _ block:@escaping (Notification)->Void)->(()->Void){
+        return on(notification.toNotificationName(), object: object, block);
+    }
 }
 
 
+struct DiffableNotification:Hashable{
+    static func == (lhs: DiffableNotification, rhs: DiffableNotification) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
+    var name:Notification.Name
+    var object:Any?
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        if let object = object as? AnyHashable{
+            hasher.combine(object)
+        }
+    }
+    
+}

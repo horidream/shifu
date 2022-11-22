@@ -119,25 +119,45 @@ struct Sandbox: View {
     }
 
     func sandbox() {
-        var key = Data(count: 64)
-        _ = key.withUnsafeMutableBytes { bytes in
-            SecRandomCopyBytes(kSecRandomDefault, 64, bytes.baseAddress!)
-        }
-        clg(key.map{ String(format: "%02hhx", $0) }.joined() )
+//        let channel = 1
+//        
+//        let sub = MyHostingController(rootView: (
+//            Text("hello")
+//                .onTapGesture {
+//                    clg("go")
+//                    sc.emit("go", object: channel)
+//                }
+//        ))
+//        clg(_rootViewController.children.map{ type(of: $0) })
+//        clg(String(describing: type(of: _rootViewController.children.first!)))
+//        _rootViewController.children.forEach{ $0.remove() }
+//        _rootViewController.add(sub)
+//         sc.on("go", object: channel){ _ in
+//             clg("on go")
+//            sc.off("go")
+//        }
+//        sub.view.quickAlign(5)
+//        clg(Hashed(1) == Hashed(3, userDefinedHash: 1))
         
-        let memory = MemoryLayout<CChar>.self
-        clg(memory.size)
-        clg(memory.stride)
-        clg(memory.alignment)
     }
 
 }
 
 
 
-
-struct Chess{
-    var player1: Int64
-    var player2: Int32
-    var win: Bool
+protocol HostingViewReferencing {
+    associatedtype Content: View
+    var hostintView: UIHostingController<Content> { get set }
 }
+class MyHostingController<Content>: UIHostingController<Content> where Content : View {
+    override init(rootView: Content) {
+        super.init(rootView: rootView)
+        clg(rootView, view.subviews)
+    }
+    
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+

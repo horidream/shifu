@@ -44,6 +44,7 @@
 		C7A2770B28BF32F200983681 /* chair.scn in Resources */ = {isa = PBXBuildFile; fileRef = C7A2770A28BF32F200983681 /* chair.scn */; };
 		C7A2770D28C7281E00983681 /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2770C28C7281E00983681 /* Sandbox.swift */; };
 		C7A2770F28C8C1FF00983681 /* ChangeAppIconDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */; };
+		C7EB82012928DAD90045C482 /* ShortCutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB82002928DAD90045C482 /* ShortCutTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		C7A2770A28BF32F200983681 /* chair.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = chair.scn; sourceTree = "<group>"; };
 		C7A2770C28C7281E00983681 /* Sandbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
 		C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAppIconDemo.swift; sourceTree = "<group>"; };
+		C7EB82002928DAD90045C482 /* ShortCutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortCutTests.swift; sourceTree = "<group>"; };
 		C89C6B3E4560ADB5E346F7F9 /* Pods-ShifuExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3F66D9DD1D994C430599B30 /* Pods_Shifu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shifu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E57FEF170B9DAB718D0C1DD1 /* Pods-ShifuIntentsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuIntentsDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuIntentsDemo/Pods-ShifuIntentsDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				3CB10722280723B1007E4F5B /* GeneratedMocks.swift */,
 				3CB1071F280721D2007E4F5B /* ShifuExampleTests.swift */,
+				C7EB82002928DAD90045C482 /* ShortCutTests.swift */,
 			);
 			path = ShifuExampleTests;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 		};
 		3CB10721280721EF007E4F5B /* cuckoo */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -537,6 +541,7 @@
 			files = (
 				3CB10720280721D2007E4F5B /* ShifuExampleTests.swift in Sources */,
 				3CB10723280723B1007E4F5B /* GeneratedMocks.swift in Sources */,
+				C7EB82012928DAD90045C482 /* ShortCutTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
