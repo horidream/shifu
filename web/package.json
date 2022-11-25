@@ -10,7 +10,7 @@
     "build": "nodemon --watch package.json --watch vite.config.js --exec \"vite build --watch\"",
     "start-legacy": "npm run dev & npm run build & npm run deploy",
     "build-legacy": "nodemon --watch main.js --watch to_markdown.js --exec \"cross-env NODE_ENV=production webpack --mode production --config webpack.config.js --progress\"",
-    "build-cloud": "cross-env NODE_ENV=production webpack --mode production --config webpack.config.js --progress",
+    "build-cloud": "vite build",
     "deploy": "cross-env NODE_ENV=dev webpack --watch --mode production --config webpack.config.js --progress",
     "test": "karma start test/unit/karma.conf.js --single-run"
   },
