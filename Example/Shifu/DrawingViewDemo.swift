@@ -34,8 +34,3 @@ struct DrawingViewDemo: View {
     }
 }
 
-struct DrawingViewDemo_Previews: PreviewProvider {
-    static var previews: some View {
-        DrawingViewDemo()
-    }
-}

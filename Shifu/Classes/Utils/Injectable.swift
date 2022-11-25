@@ -60,14 +60,14 @@ private var loadInjection: () = {
 let _injectionObserver = InjectionObserver()
 //let observedInjectionObserver = ObservedObject(wrappedValue: _injectionObserver)
 public class InjectionObserver: ObservableObject {
-    @Published public var injectionNumber = 0
+    @Published public var injectionCount = 0
     var cancellable: AnyCancellable? = nil
     let publisher = PassthroughSubject<Void, Never>()
     init() {
         cancellable = NotificationCenter.default.publisher(for:
                                                                 Notification.Name("INJECTION_BUNDLE_NOTIFICATION"))
             .sink { [weak self] change in
-                self?.injectionNumber += 1
+                self?.injectionCount += 1
                 self?.publisher.send()
             }
     }
@@ -99,7 +99,7 @@ extension View {
         #if DEBUG
             .onReceive(_injectionObserver.publisher, perform: bumpState)
             .ensureInjection()
-            .when(_injectionObserver.injectionNumber >= 0)
+            .when(_injectionObserver.injectionCount >= 0)
         #endif
     }
 }

@@ -49,9 +49,9 @@ struct Sandbox: View {
                     })
                 }
                 .padding()
-                SubscriptionView(content: Text("sub"), publisher: DisplayLink.shared) { f in
-//                    clg(f)
-                }
+                SimpleMarkdownViewer(content: "## hello world", css: "h2{ font-size: 4rem; color: gold; text-align: center; line-height: 88px;}")
+                    .id(injectObserver.injectionCount)
+                
             default:
                 ScrollView{
                     TextEditor(text: $ocrText)
@@ -120,7 +120,7 @@ struct Sandbox: View {
 
     func sandbox() {
 //        let channel = 1
-//        
+//
 //        let sub = MyHostingController(rootView: (
 //            Text("hello")
 //                .onTapGesture {

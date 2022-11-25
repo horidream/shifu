@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon --watch package.json --watch vite.config.js --exec \"yarn dev\"",
-    "dev": "vite serve",
+    "dev": "vite serve --host --port 5555",
     "build": "nodemon --watch package.json --watch vite.config.js --exec \"vite build --watch\"",
     "start-legacy": "npm run dev & npm run build & npm run deploy",
     "build-legacy": "nodemon --watch main.js --watch to_markdown.js --exec \"cross-env NODE_ENV=production webpack --mode production --config webpack.config.js --progress\"",

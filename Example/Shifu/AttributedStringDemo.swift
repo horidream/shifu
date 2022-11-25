@@ -69,7 +69,7 @@ struct AttributedStringDemo:View{
             text.replace("Swift", with: Icons.image(.swift_fa, color: .red).attributedString([.baselineOffset: -3]))
             ```
             """#, css: "pre{ margin-top: 5px; } p{ text-align: center; padding-top: 10px; }")
-            .id(injectObserver.injectionNumber)
+            .id(injectObserver.injectionCount)
         }
         .tweenProps(props.value(at: 0))
         .padding()

@@ -23,9 +23,9 @@ struct MyCanvas: UIViewRepresentable {
     let picker = PKToolPicker.init()
     
     func makeUIView(context: Context) -> PKCanvasView {
-//        self.canvasView.tool = PKInkingTool(.marker, color: .red, width: 15)
         self.canvasView.delegate = context.coordinator
         self.canvasView.becomeFirstResponder()
+        picker.selectedTool = self.canvasView.tool
         return canvasView
     }
     

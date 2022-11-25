@@ -105,7 +105,7 @@ app("#app", {
     if (this.isDebug) {
       this.currentTheme =
         (await this.userDefaults.get("theme")) ||
-        $("link[title]:not([disabled])").attr("title");
+        $("link[title]:not([disabled])").attr("title") || "auto";
     }
   },
 });

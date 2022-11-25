@@ -42,7 +42,7 @@ struct ModelDemo: View {
         }
 //        .onChange(of: vm.serverURL, perform: { newValue in
 //            clg(newValue?.absoluteString)
-//            injectObserver.injectionNumber += 1
+//            injectObserver.injectionCount += 1
 //        })
         .foregroundColor(.purple)
         .padding(32)
