@@ -1,0 +1,8 @@
+app_identifier("com.horidream.apps.ShifuExample") # The bundle identifier of your app
+apple_id("Horidream@gmail.com") # Your Apple Developer Portal username
+
+itc_team_id("1246022") # App Store Connect Team ID
+team_id("5296P9QS3C") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
