@@ -2,7 +2,7 @@
 //  Sandbox.swift
 //  ShifuExample
 //
-//  Created by Baoli Zhai on 2022/9/6.
+//  Created by Baoli Zhai on 2022/9/2.
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
@@ -16,98 +16,136 @@ import PencilKit
 import SwiftSoup
 import VisionKit
 
+struct ChatItem:Identifiable, Hashable{
+    let id = UUID()
+    let user: String
+    let content: String
+}
+
 struct Sandbox: View {
-
+    
+    @EnvironmentObject var tunnel: PeerToPeerTunnel
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @State var isLegacySplitView = false
-    @Persist("shouldShowNaivigationBar") var shouldShowNaivigationBar: Bool = true
-    @State var arr = ["ShifuPasteButton", "OCR & Image Picker"]
-    @State var image: UIImage? = Icons.uiImage(.random)
-    @State var isSelectingImage = false
-    @State var shouldHideContent = false
-    @State var ocrText:String = ""
-    @Tween var tween
+    @State var shouldJoinPeer = false
+    @State var msg = [ChatItem]()
+    @State var msgToSend = ""
+    @Persist("displayName") var name = UIDevice.current.name
+    @FocusState private var focus:Bool?
+    @State var bottomID = UUID()
     var body: some View {
-        ShifuSplitView(data: $arr) { i in
-            Text(i)
-                .if(shouldHideContent){
-                    $0.redacted(reason: .placeholder)
-                }
-                
-        } detail: { selected in
-
-            switch selected {
-            case "ShifuPasteButton":
-                ZStack {
-                    Toggle("Force Legacy", isOn: $isLegacySplitView)
-                    ShifuPasteButton(view: {
-                        Image(.paste, size: 34)
-                    }, onPaste: { items in
-                        clg(items)
-                    }, config: { config in
-                        config.forceLegacy = isLegacySplitView
-                    })
-                }
-                .padding()
-                SimpleMarkdownViewer(content: "## hello world", css: "h2{ font-size: 4rem; color: gold; text-align: center; line-height: 88px;}")
-                    .id(injectObserver.injectionCount)
-                
-            default:
-                ScrollView{
-                    TextEditor(text: $ocrText)
-                        .border(.blue)
-                        .padding()
-                        
-                    (image?.sui ?? Image(.random))
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                        .onTapGesture {
-                            isSelectingImage.toggle()
-                        }
-                        .onChange(of: image, perform: { newValue in
-                            ShifuImageAnalyzer.scan(newValue) { text, _ in
-                                if let text{
-                                   ocrText = text
-                                    delay(0.1){
-                                        ocrText += "\n"
-                                    }
-                                }
+        
+        ScrollView{
+            ScrollViewReader { value in
+                ForEach(msg){ item in
+                    let isSelf = item.user == name
+                    HStack{
+                        if isSelf {
+                            Spacer()
+                            VStack(alignment: .trailing, spacing: 0){
+                                Text(item.user)
+                                    .font(.caption2)
+                                    .foregroundColor(Color.gray.opacity(0.7))
+                                    .padding(.trailing, 8)
+                                Text(item.content)
+                                    .foregroundColor(.white)
+                                    .frame(alignment:  .trailing)
+                                    .padding(10)
+                                    .background(Color.green)
+                                    .cornerRadius(20)
                             }
-                        })
-                        .sheet(isPresented: $isSelectingImage) {
-                            ImagePicker(sourceType: .camera, selectedImage: $image)
-                                .ignoresSafeArea()
+                        } else {
+                            VStack(alignment: .leading, spacing: 0){
+                                Text(item.user)
+                                    .font(.caption2)
+                                    .foregroundColor(Color.gray.opacity(0.7))
+                                    .padding(.leading, 8)
+                                Text(item.content)
+                                    .foregroundColor(.white)
+                                    .frame(alignment:  .leading)
+                                    .padding(10)
+                                    .background(Color.blue)
+                                    .cornerRadius(20)
+                            }
+                            Spacer()
                         }
+                    }
                 }
+                Color.clear
+                    .id(bottomID)
+                    .onChange(of: msg) { newValue in
+                        value.scrollTo(bottomID)
+                    }
             }
-        } config: { config in
-            config.navigationTitle = Text("Hello")
-            config.navigationBarTitleDisplayMode = .automatic
-            config.navigationBarHidden = (!shouldShowNaivigationBar, !shouldShowNaivigationBar)
+            .padding(.horizontal, 20)
         }
-        .tweenProps(tween)
-        .navigationBarHidden(shouldShowNaivigationBar)
-        .navigationTitle("ShifuSplitView Demo")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                Toggle("Show Navigation Bar", isOn: $shouldShowNaivigationBar)
+        
+        HStack(spacing: 10){
+            Button{
+                shouldJoinPeer.toggle()
+            } label: {
+                Image.resizableIcon(.link_sf)
+                    .frame(width: 22, height: 22)
+                    .padding(10)
+                    .overlay {
+                        Circle() // or RoundedRectangle(cornerRadius: 10)
+                            .stroke(.blue, lineWidth: 2)
+                    }
             }
-            ToolbarItem(placement: .bottomBar) {
+            TextEditor(text: $msgToSend)
+                .padding(.horizontal, 10)
+                .frame(height: 38)
+                .onChange(of: msgToSend, perform: { newValue in
+                    guard !newValue.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+                    if msgToSend.substr(-2) == "\n\n" {
+                        sendMessage()
+                    }
+                })
+                .overlay{
+                    RoundedRectangle(cornerRadius: 30, style: .circular)
+                        .stroke(lineWidth: 1)
+                }
+                
+            if tunnel.connectedPeers.count > 0{
                 Button{
-                    tl($tween)
-                        .to([\.alpha: 0, \.x: -30])
-                        .perform{
-                            self.shouldHideContent.toggle()
-                        }
-                        .set([\.alpha: 0, \.x: 30])
-                        .delay(0.3)
-                        .to([\.alpha: 1, \.x: 0 ])
+                    sendMessage()
                 } label: {
-                    Text("\(shouldHideContent ? "Hide" : "Show") Content")
+                    Image.resizableIcon(.paperplane)
+                        .frame(width: 22, height: 22)
+                        .padding(10)
+                        .overlay {
+                            Circle()
+                                .stroke(.blue, lineWidth: 2)
+                        }
                 }
             }
+                
+            
+        }
+        .padding()
+        .toolbar(content: {
+            ToolbarItem(placement: .principal) {
+                TextField( UIDevice.current.name, text: $name)
+                    .padding(.horizontal, 10)
+                    .focused($focus, equals: true)
+                    .onChange(of: focus, perform: { newValue in
+                        if focus != true {
+                            tunnel.displayName = name.isEmpty ? UIDevice.current.name : name
+                        }
+                    })
+                    .frame(height: 30)
+                    .overlay{
+                        RoundedRectangle(cornerRadius: 30, style: .circular)
+                            .stroke(lineWidth: 1)
+                    }
+                    .padding(.vertical, 10)
+            }
+        })
+        .onReceive(tunnel.sendingData, perform: { (from, data) in
+            msg.append(ChatItem(user: from.displayName, content: data.utf8String ?? ""))
+        })
+        
+        .sheet(isPresented: $shouldJoinPeer){
+            tunnel.connectionSelectingView
         }
         .onInjection {
             sandbox()
@@ -115,49 +153,24 @@ struct Sandbox: View {
         .onAppear {
             sandbox()
         }
-
-    }
-
-    func sandbox() {
-//        let channel = 1
-//
-//        let sub = MyHostingController(rootView: (
-//            Text("hello")
-//                .onTapGesture {
-//                    clg("go")
-//                    sc.emit("go", object: channel)
-//                }
-//        ))
-//        clg(_rootViewController.children.map{ type(of: $0) })
-//        clg(String(describing: type(of: _rootViewController.children.first!)))
-//        _rootViewController.children.forEach{ $0.remove() }
-//        _rootViewController.add(sub)
-//         sc.on("go", object: channel){ _ in
-//             clg("on go")
-//            sc.off("go")
-//        }
-//        sub.view.quickAlign(5)
-//        clg(Hashed(1) == Hashed(3, userDefinedHash: 1))
         
     }
-
-}
-
-
-
-protocol HostingViewReferencing {
-    associatedtype Content: View
-    var hostintView: UIHostingController<Content> { get set }
-}
-class MyHostingController<Content>: UIHostingController<Content> where Content : View {
-    override init(rootView: Content) {
-        super.init(rootView: rootView)
-        clg(rootView, view.subviews)
+    
+    func sendMessage(){
+        guard tunnel.connectedPeers.count > 0 else { return }
+        let message = msgToSend.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !message.isEmpty else { return }
+        tunnel.send(message.data(using: .utf8)!)
+        msg.append(ChatItem(user: name, content: message))
+        msgToSend = ""
     }
     
-    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func sandbox() {
+        tunnel.displayName = name
+        if !tunnel.isHosting {
+            tunnel.startHosting()
+        }
     }
+    
 }
-
 

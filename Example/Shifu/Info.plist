@@ -36,13 +36,20 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>112</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_shifu._tcp</string>
+		<string>_shifu._udp</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>I want to use my camera</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>I want to use your local network</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>To take screen shot of the page</string>
 	<key>NSSiriUsageDescription</key>

@@ -39,6 +39,8 @@
 		C76AA648286F43D0002A1090 /* StickyIconDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76AA647286F43D0002A1090 /* StickyIconDemo.swift */; };
 		C76AA64E28732B9F002A1090 /* AttributedStringDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76AA64D28732B9F002A1090 /* AttributedStringDemo.swift */; };
 		C7804F9828190A92006AC449 /* Validate2FAPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */; };
+		C78E3A5F29364B8D00BCFCDC /* ShifuSplitViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E3A5E29364B8D00BCFCDC /* ShifuSplitViewDemo.swift */; };
+		C78E3A612936DDFB00BCFCDC /* POC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E3A602936DDFB00BCFCDC /* POC.swift */; };
 		C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */; };
 		C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7965CD728426DB3002C825A /* PowerTableDemo.swift */; };
 		C7A2770B28BF32F200983681 /* chair.scn in Resources */ = {isa = PBXBuildFile; fileRef = C7A2770A28BF32F200983681 /* chair.scn */; };
@@ -120,6 +122,8 @@
 		C76C437128D60E3700A61822 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		C76C437C28D60E3800A61822 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		C7804F9728190A92006AC449 /* Validate2FAPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate2FAPrototype.swift; sourceTree = "<group>"; };
+		C78E3A5E29364B8D00BCFCDC /* ShifuSplitViewDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShifuSplitViewDemo.swift; sourceTree = "<group>"; };
+		C78E3A602936DDFB00BCFCDC /* POC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POC.swift; sourceTree = "<group>"; };
 		C79265DE286179CB002D8644 /* NotificationManagerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerDemo.swift; sourceTree = "<group>"; };
 		C7965CD728426DB3002C825A /* PowerTableDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerTableDemo.swift; sourceTree = "<group>"; };
 		C7A2770A28BF32F200983681 /* chair.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = chair.scn; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 				99244B5C261C9FDA0027A1D7 /* HomeView.swift */,
 				3C3C46CE27B2C40C00BCB074 /* HomeViewModel.swift */,
 				C7A2770C28C7281E00983681 /* Sandbox.swift */,
+				C78E3A602936DDFB00BCFCDC /* POC.swift */,
 				3C3C46DC27B92E5400BCB074 /* features */,
 			);
 			name = "Example for Shifu";
@@ -264,6 +269,7 @@
 		C7965CD928426E3C002C825A /* demos */ = {
 			isa = PBXGroup;
 			children = (
+				C78E3A5E29364B8D00BCFCDC /* ShifuSplitViewDemo.swift */,
 				C75700BF2906CB4400C69233 /* DrawingViewDemo.swift */,
 				C75700BB290585ED00C69233 /* PreviewDemo.swift */,
 				C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */,
@@ -549,6 +555,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C78E3A5F29364B8D00BCFCDC /* ShifuSplitViewDemo.swift in Sources */,
 				3C3C46DE27B92E6F00BCB074 /* ColorThemeManagerDemo.swift in Sources */,
 				C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */,
 				C75700BC290585ED00C69233 /* PreviewDemo.swift in Sources */,
@@ -574,6 +581,7 @@
 				3C1A645927D64ADD0093A98B /* ModelDemo.swift in Sources */,
 				3C3C46CB27A8625400BCB074 /* Config.swift in Sources */,
 				3C3C46CF27B2C40D00BCB074 /* HomeViewModel.swift in Sources */,
+				C78E3A612936DDFB00BCFCDC /* POC.swift in Sources */,
 				3C9C98BC27C48D9800D4B8B9 /* SoundWaveImageDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

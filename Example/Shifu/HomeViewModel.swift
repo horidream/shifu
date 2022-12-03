@@ -170,6 +170,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return DrawingViewDemo().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "ShifuSplitViewDemo") { model in
+                model.icon = .gitlab
+                model.color = .blue
+                return ShifuSplitViewDemo().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue

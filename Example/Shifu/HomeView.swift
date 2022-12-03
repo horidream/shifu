@@ -16,13 +16,14 @@ extension Notification.Name {
 
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
+    @StateObject var tunnel: PeerToPeerTunnel = PeerToPeerTunnel()
     @ObservedObject private var iO = Self.injectionObserver
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("Examples").font(.headline).padding(10)) {
                     ForEach(Array(zip(vm.featureList.indices, $vm.featureList)), id: \.0) { idx, $f in
-
+                        
                         NavigationLink(isActive: $f.isActive, destination: {
                             f.view
                         }, label: {
@@ -43,12 +44,13 @@ struct HomeView: View {
                         }
                     }
                 }
-
+                
             }
+            
             .listStyle(.plain)
             .navigationBarTitle(Text(Shifu.name))
             .onInjection {
-//                vm.refresh()
+                //                vm.refresh()
             }
             .onShake {
                 sandbox()
@@ -56,9 +58,10 @@ struct HomeView: View {
             }
             .ignoresSafeArea(.all, edges: .bottom)
         }
+        .environmentObject(tunnel)
         .navigationViewStyle(.stack)
     }
-
+    
     func sandbox() {
     }
 }
@@ -69,17 +72,17 @@ extension UIDevice {
 
 //  Override the default behavior of shake gestures to send our notification instead.
 extension UIWindow {
-     open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+    open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             NotificationCenter.default.post(name: UIDevice.deviceDidShakeNotification, object: nil)
         }
-     }
+    }
 }
 
 // A view modifier that detects shaking and calls a function of our choosing.
 struct DeviceShakeViewModifier: ViewModifier {
     let action: () -> Void
-
+    
     func body(content: Content) -> some View {
         content
             .onAppear()
