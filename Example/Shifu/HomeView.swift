@@ -29,9 +29,10 @@ struct HomeView: View {
                         }, label: {
                             HStack {
                                 Image.resizableIcon(f.icon ?? .swift_fa)
+                                    .padding(5)
                                     .frame(width: 33, height: 33)
                                     .foregroundColor(f.color)
-                                    .padding(.trailing, 8)
+                                    .padding(0, 8)
                                 Text("\(String(idx).fill("0", count: 2)) - \(f.name)")
                                     .font(.system(.body, design: .monospaced))
                                     .frame(maxWidth: .infinity, alignment: .leading )

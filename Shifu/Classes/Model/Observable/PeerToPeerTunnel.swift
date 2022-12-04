@@ -1,9 +1,8 @@
 //
-//  POC.swift
-//  ShifuExample
+//  PeerToPeerTunnel.swift
+//  Shifu
 //
-//  Created by Baoli Zhai on 2022/11/30.
-//  Copyright © 2022 CocoaPods. All rights reserved.
+//  Created by Baoli Zhai on 2022/12/4.
 //
 
 import Foundation
@@ -12,33 +11,34 @@ import Shifu
 import SwiftUI
 import MultipeerConnectivity
 
-class PeerToPeerTunnel: NSObject, ObservableObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate{
-    @Published var connectedPeers: [MCPeerID] = []
-    private(set) var sendingData = PassthroughSubject<(from: MCPeerID , content: Data), Never>()
+public class PeerToPeerTunnel: NSObject, ObservableObject, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate{
+    @Published public var connectedPeers: [MCPeerID] = []
     
-    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+    private(set) public var sendingData = PassthroughSubject<(from: MCPeerID , content: Data), Never>()
+    
+    public func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         invitationHandler(true,  session)
     }
     
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+    public func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         self.connectedPeers = session.connectedPeers
     }
     
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+    public func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         sendingData.send((peerID, data))
     }
     
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+    public func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
         clg(#function)
         
     }
     
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+    public func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
         clg(#function)
         
     }
     
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+    public func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
         clg(#function)
         
     }
@@ -56,9 +56,9 @@ class PeerToPeerTunnel: NSObject, ObservableObject, MCSessionDelegate, MCNearbyS
     var mcNearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
     var session: MCSession!
     let serviceType:String
-    private(set) var isHosting = false
+    private(set) public var isHosting = false
     
-    var displayName: String {
+    public var displayName: String {
         get {
             id.displayName
         }
@@ -78,7 +78,7 @@ class PeerToPeerTunnel: NSObject, ObservableObject, MCSessionDelegate, MCNearbyS
         }
     }
     
-    init(_ name:String? = nil, serviceType: String = "shifu"){
+    public init(_ name:String? = nil, serviceType: String = "shifu"){
         let name = name?.trimmingCharacters(in: .whitespaces).isEmpty ?? true ? UIDevice.current.name : name
         id = MCPeerID(displayName: name ??  UIDevice.current.name)
         session = MCSession(peer: id, securityIdentity: nil, encryptionPreference: .none)
@@ -86,7 +86,7 @@ class PeerToPeerTunnel: NSObject, ObservableObject, MCSessionDelegate, MCNearbyS
         super.init()
         session.delegate = self
     }
-    func startHosting(){
+    public func startHosting(){
         guard !isHosting else { return }
         mcNearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: id, discoveryInfo: nil, serviceType: serviceType)
         mcNearbyServiceAdvertiser.delegate = self
@@ -94,14 +94,14 @@ class PeerToPeerTunnel: NSObject, ObservableObject, MCSessionDelegate, MCNearbyS
         isHosting = true
     }
     
-    func stopHosting(){
+    public func stopHosting(){
         if let mcNearbyServiceAdvertiser {
             mcNearbyServiceAdvertiser.stopAdvertisingPeer()
         }
         isHosting = false
     }
     
-    func send(_ data: Data) {
+    public func send(_ data: Data) {
         do{
             try session.send(data, toPeers: session.connectedPeers, with: .reliable)
         }catch{
@@ -109,7 +109,7 @@ class PeerToPeerTunnel: NSObject, ObservableObject, MCSessionDelegate, MCNearbyS
         }
     }
     
-    var connectionSelectingView: some View {
+    public var connectionSelectingView: some View {
         return PeerBrowser(name: serviceType, session: session)
     }
 }
