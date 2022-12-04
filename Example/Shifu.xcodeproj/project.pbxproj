@@ -829,7 +829,7 @@
 					"\"SystemConfiguration\"",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.horidream.apps.ShifuExample;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.ShifuExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -883,7 +883,7 @@
 					"\"SystemConfiguration\"",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.horidream.apps.ShifuExample;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.ShifuExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
