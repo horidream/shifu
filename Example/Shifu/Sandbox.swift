@@ -33,7 +33,8 @@ struct Sandbox: View {
     }
     
     func sandbox() {
-
+        clg(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.0.0")
+                
     }
     
 }
