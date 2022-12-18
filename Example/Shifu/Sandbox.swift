@@ -21,8 +21,33 @@ import VisionKit
 struct Sandbox: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
+    @Tween var t1
+    @Tween var t2
+    @Tween var t3
     var body: some View {
-        Text("OK")
+        VStack{
+            Text("Wake up stuped")
+                .foregroundColor(.white)
+                .font(.title)
+                .tweenProps(t3)
+            Text("Yours Passerby=)")
+                .foregroundColor(.white)
+                .font(.subheadline)
+                .tweenProps(t2)
+        }
+        
+        
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(.blue)
+            .cornerRadius(20)
+            .padding()
+            .onTapGesture {
+                tl($t1).from([\.alpha: 0, \.y: 120, \.rotationX: 90, \.blur: 10], duration: 1)
+                tl($t2).delay(1.1).from([\.x: 0], to:[\.x: 100], type: .back, duration: 1.5)
+                tl($t3).delay(0.9).from([\.x: 0], to:[\.x: -140], type: .back, duration: 1.4)
+            }
+            .tweenProps(t1)
         .onInjection {
             sandbox()
         }
@@ -33,8 +58,11 @@ struct Sandbox: View {
     }
     
     func sandbox() {
-        clg(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.0.0")
-                
+        let block = BlockOperation {
+            clg("block was called, again")
+        }
+        let queue = OperationQueue()
+        queue.addOperation(block)
     }
     
 }
