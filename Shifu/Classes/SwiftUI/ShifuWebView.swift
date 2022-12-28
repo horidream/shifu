@@ -22,7 +22,13 @@ public enum ShifuWebViewAction{
 
 @available(iOS 14.0, *)
 public class ShifuWebViewModel:ObservableObject{
-    public weak var delegate: ShifuWebViewController?
+    public weak fileprivate(set)var delegate: ShifuWebViewController?
+    public var metaData = """
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+"""
     public static var markdown:ShifuWebViewModel {
         .init {
             $0.allowScroll = true
@@ -35,11 +41,24 @@ public class ShifuWebViewModel:ObservableObject{
         builder(self)
     }
     
-    @Published public var html:String?
+    @Published public var html:String?{
+        didSet{
+            if oldValue != html, html != nil{
+                isLoading = true
+            }
+        }
+    }
     @Published public var allowScroll = false
-    @Published public var url:URL?
+    @Published public var url:URL?{
+        didSet{
+            if oldValue != url, url != nil{
+                isLoading = true
+            }
+        }
+    }
     @Published public var contentHeight: CGFloat = 0
     
+    @Published public fileprivate(set)var isLoading: Bool = false
     public var configuration: String?
     public var baseURL: URL?
     public func exec(_ action: ShifuWebViewAction, callback: ((Any?)->Void)? = nil){
@@ -60,7 +79,13 @@ public class ShifuWebViewModel:ObservableObject{
     
     public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil){
         if let webview = self.delegate?.webView {
-            webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+            if isLoading {
+                sc.once(.LOADED, object: webview) { _ in
+                    webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+                }
+            } else {
+                webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+            }
         } else {
             sc.once(.MOUNTED) { _ in
                 self.delegate?.webView.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
@@ -93,11 +118,20 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         self.viewModel = viewModel
     }
     
+    public init (url: URL?){
+        self.viewModel = ShifuWebViewModel{
+            $0.url = url
+        }
+    }
+    
+    public init (html: String?){
+        self.viewModel = ShifuWebViewModel{
+            $0.html = html
+        }
+    }
+    
     public func makeUIViewController(context: Context) -> ShifuWebViewController {
         let vc = ShifuWebViewController()
-        if let html = viewModel.html, html != viewModel.html{
-            vc.webView.loadHTMLString(html, baseURL: viewModel.baseURL)
-        }
         if let conf = viewModel.configuration{
             let script = WKUserScript(source: conf, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
             vc.webView.configuration.userContentController.addUserScript(script)
@@ -111,12 +145,20 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.bounces = viewModel.allowScroll
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
         if let url = viewModel.url , webView.url != url{
+            viewModel.isLoading = true
             webView.load(URLRequest(url: url))
+            sc.once(.LOADED, object: webView) { _ in
+                viewModel.isLoading = false
+            }
         }
         
         if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
             uiViewController.lastLoadedHTML = html
-            webView.loadHTMLString(html, baseURL: viewModel.baseURL)
+            viewModel.isLoading = true
+            webView.loadHTMLString( viewModel.metaData + html, baseURL: viewModel.baseURL)
+            sc.once(.LOADED, object: webView) { _ in
+                viewModel.isLoading = false
+            }
         }
         
         
@@ -144,7 +186,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch message.name {
-        case "logHander":
+        case "logHandler":
             clg("[log]", message.body)
         default:
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
@@ -168,9 +210,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             let postScript = WKUserScript(source: postSource, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
             webView.configuration.userContentController.addUserScript(script)
             webView.configuration.userContentController.addUserScript(postScript)
-            // register the bridge script that listens for the output
-            webView.configuration.userContentController.add(self, name: "logHandler")
-            webView.configuration.userContentController.add(self, name: "native")
+            
             webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
         }
         if let url = url{
@@ -178,16 +218,30 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
         }
     }
     
-    public func exec(script:String){
-        webView.evaluateJavaScript(script){ _ , _ in
-//            clg($0, $1)
-        }
-//        webView.callAsyncJavaScript(script, arguments: ["id": 1], in: nil, in: .page)
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // register the bridge script that listens for the output
+        webView.configuration.userContentController.add(self, name: "logHandler")
+        webView.configuration.userContentController.add(self, name: "native")
     }
     
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        webView.configuration.userContentController.removeAllScriptMessageHandlers()
+    }
+    
+   
     // MARK: DELEGATE
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         clg("ShifuWebViewController: \(error)")
+    }
+    
+//    public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+//        clg("start loading")
+//    }
+    
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        sc.emit(.LOADED, object: webView)
     }
     
 }
