@@ -61,6 +61,11 @@ public class ShifuWebViewModel:ObservableObject{
     @Published public fileprivate(set)var isLoading: Bool = false
     public var configuration: String?
     public var baseURL: URL?
+    
+    public func publisher(of name: String)->NotificationCenter.Publisher{
+        NotificationCenter.default.publisher(for: name.toNotificationName(), object: delegate)
+    }
+    
     public func exec(_ action: ShifuWebViewAction, callback: ((Any?)->Void)? = nil){
         switch action{
         case .snapshot(let config, let target):
@@ -92,6 +97,17 @@ public class ShifuWebViewModel:ObservableObject{
 
             }
         }
+    }
+    
+    public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Any) -> Void)? = nil){
+        let onComplete:((Result<Any, Error>) -> Void) = {
+            if case .success(let payload) = $0 {
+                callback?(payload) // <h2>Horidream</h2><p>hihihihi</p>
+            } else {
+                clg($0)
+            }
+        }
+        apply(funtionBody, arguments: arguments, callback: onComplete)
     }
 }
 
@@ -144,6 +160,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         let webView = uiViewController.webView
         webView.scrollView.bounces = viewModel.allowScroll
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
+        webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
         if let url = viewModel.url , webView.url != url{
             viewModel.isLoading = true
             webView.load(URLRequest(url: url))

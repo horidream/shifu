@@ -22,9 +22,22 @@ struct Sandbox: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
     @StateObject var vm = ShifuWebViewModel()
+    @State var shouldShowPopover = false
     var body: some View {
-        
-        ShifuWebView(viewModel: vm)
+        Button{
+            shouldShowPopover.toggle()
+        } label: {
+            Text("Click Me")
+        }
+        .popover(isPresented: $shouldShowPopover, arrowEdge: .top) {
+            
+            ShifuWebView(viewModel: vm)
+                .ignoresSafeArea()
+        }
+        .edgesIgnoringSafeArea(.all)
+        .navigationTitle("")
+        .navigationBarBackButtonHidden(true)
+
             .onInjection {
                 sandbox()
             }
@@ -36,14 +49,23 @@ struct Sandbox: View {
     
     func sandbox() {
         vm.html = """
-        <h2>Hi</h2><p>hihihi</p>
+        <style>
+        body{
+            background: yellow;
+        }
+        </style>
+        <h2>Hi</h2><p>hihihihi</p>
         """
-        clg(vm.isLoading)
+        vm.publisher(of: "hi")
+            .sink { notification in
+                clg(notification.userInfo?["name"])
+            }
+            .retainSingleton()
         vm.apply("""
-        document.getElementsByTagName("h2")[0].innerHTML = Baoli;
-        console.log(document.body.innerHTML);
-        
-        """, arguments: ["Baoli": "Horidream"])
+        return postToNative.toString();
+        """){ rst in
+            clg(rst)
+        }
     }
     
 }

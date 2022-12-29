@@ -39,17 +39,12 @@ struct ShifuWebViewDemo: View{
     func updateVue(){
         vm.html = #"""
     <style>
-    img{
-        transform: scale(2);
-        transform-origin: 50% 0;
-    }
-    
     body, #app{
         display: flex;
         flex-direction: column;
         justify-content: start;
         align-items: center;
-        font-size: 80px;
+        font-size: 20px;
     }
     @media (prefers-color-scheme: dark) {
       body {
@@ -58,7 +53,7 @@ struct ShifuWebViewDemo: View{
     }
     </style>
     <script src="./vue.global.prod.js"></script>
-    <div id="app">{{ message }}<img style='border: 5px solid green; border-radius: 99px;' :src='imgSrc'/></div>
+    <div id="app">{{ message }}<img width=100 style='border: 3px solid green; border-radius: 99px;' :src='imgSrc'/></div>
     <script>
       Vue.createApp({
         data() {

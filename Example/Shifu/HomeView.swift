@@ -34,7 +34,7 @@ struct HomeView: View {
                                     .foregroundColor(f.color)
                                     .padding(0, 8)
                                 Text("\(String(idx).fill("0", count: 2)) - \(f.name)")
-                                    .font(.system(.body, design: .monospaced))
+                                    .font(.system(.subheadline, design: .monospaced))
                                     .frame(maxWidth: .infinity, alignment: .leading )
                                     .contentShape(Rectangle())
                             }
