@@ -17,6 +17,7 @@ extension Notification.Name {
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject var tunnel: PeerToPeerTunnel = PeerToPeerTunnel()
+    @StateObject var colorManager = ColorSchemeMananger.shared
     @ObservedObject private var iO = Self.injectionObserver
     var body: some View {
         NavigationView {
@@ -58,6 +59,9 @@ struct HomeView: View {
                 vm.refresh()
             }
             .ignoresSafeArea(.all, edges: .bottom)
+        }
+        .onAppear(){
+            colorManager.applyColorScheme()
         }
         .environmentObject(tunnel)
         .navigationViewStyle(.stack)

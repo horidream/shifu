@@ -24,26 +24,48 @@ struct Sandbox: View {
     @StateObject var vm = ShifuWebViewModel()
     @State var shouldShowPopover = false
     var body: some View {
-        Button{
-            shouldShowPopover.toggle()
-        } label: {
-            Text("Click Me")
+        VStack{
+            Button{
+                shouldShowPopover.toggle()
+            } label: {
+                Text("Click Me")
+            }
+            .shifuPopover(isPresented: $shouldShowPopover, arrowDirection: .down) {
+                VStack{
+                    Button{
+                        vm.html =  """
+        <style>
+        body{
+            background: purple;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            color: white;
         }
-        .popover(isPresented: $shouldShowPopover, arrowEdge: .top) {
-            
-            ShifuWebView(viewModel: vm)
-                .ignoresSafeArea()
+        </style>
+        <h2>YES</h2>
+        """
+                    } label: {
+                        Text("Update Webview")
+                    }
+                    .padding()
+                    
+                    ShifuWebView(viewModel: vm)
+                        .clipShape(Circle())
+                        .frame(width: 200, height: 200)
+                        .padding()
+                }
+            }
         }
         .edgesIgnoringSafeArea(.all)
         .navigationTitle("")
-        .navigationBarBackButtonHidden(true)
-
-            .onInjection {
-                sandbox()
-            }
-            .onAppear {
-                sandbox()
-            }
+        .onInjection {
+            sandbox()
+        }
+        .onAppear {
+            sandbox()
+        }
         
     }
     
@@ -51,22 +73,28 @@ struct Sandbox: View {
         vm.html = """
         <style>
         body{
-            background: yellow;
+            background: purple;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            color: white;
         }
         </style>
-        <h2>Hi</h2><p>hihihihi</p>
+        <h2>Hori!</h2><p>There is a good example</p>
         """
         vm.publisher(of: "hi")
             .sink { notification in
                 clg(notification.userInfo?["name"])
             }
             .retainSingleton()
+        clg("我"*3) // 我我我我我我我我我我我我)
         vm.apply("""
+        postToNative({type:"hi", name: "Leon"});
         return postToNative.toString();
-        """){ rst in
-            clg(rst)
-        }
+        """)
     }
     
 }
+
 

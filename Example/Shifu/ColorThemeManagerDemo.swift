@@ -29,14 +29,15 @@ struct ColorThemeManagerDemo:View{
     
     var body: some View{
         ZStack{
-            MarkdownView(viewModel: screenShotModel,  content: .constant("@source/ColorThemeManagerDemo.md".url?.content ?? ""))
-                .autoResize()
-                .opacity(0)
-                .frame(width: 960)
             scrollView
                 .frame(width: UIScreen.main.bounds.size.width)
+                .background{
+                    MarkdownView(viewModel: screenShotModel,  content: .constant("@source/ColorThemeManagerDemo.md".url?.content ?? ""))
+                        .autoResize()
+                        .opacity(0)
+                        .frame(width: 960)
+                }
         }
-        
         .navigationTitle("ColorThemeManager Demo")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

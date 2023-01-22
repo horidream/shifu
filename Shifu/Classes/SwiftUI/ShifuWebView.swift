@@ -59,6 +59,7 @@ public class ShifuWebViewModel:ObservableObject{
     @Published public var contentHeight: CGFloat = 0
     
     @Published public fileprivate(set)var isLoading: Bool = false
+    @Published public fileprivate(set)var isMounted: Bool = false
     public var configuration: String?
     public var baseURL: URL?
     
@@ -94,7 +95,6 @@ public class ShifuWebViewModel:ObservableObject{
         } else {
             sc.once(.MOUNTED) { _ in
                 self.delegate?.webView.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
-
             }
         }
     }

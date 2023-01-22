@@ -189,7 +189,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 
             }
         ].reversed()
-        featureList.get(0)?.isActive = true
+        featureList.get(5)?.isActive = true
     }
     
 }

@@ -26,7 +26,7 @@ document.head.appendChild(__style);
 }
 
 public struct SimpleMarkdownViewer: View{
-    @StateObject public var viewModel:ShifuWebViewModel
+    @ObservedObject public var viewModel:ShifuWebViewModel
     var path: String?
     var content: String?
     var animated: Bool
@@ -37,7 +37,7 @@ public struct SimpleMarkdownViewer: View{
     public init(path : String, animated: Bool = true, postScript:String? = nil, css:String? = nil){
         self.path = path
         self.animated = animated
-        _viewModel = StateObject(wrappedValue: with(.markdown){
+        _viewModel = ObservedObject(wrappedValue: with(.markdown){
             $0.configuration = getConfiguration(script: postScript, css: css)
         })
     }
@@ -45,20 +45,20 @@ public struct SimpleMarkdownViewer: View{
     public init(content: String, animated:Bool = true, postScript:String? = nil, css:String? = nil){
         self.content = content
         self.animated = animated
-        _viewModel = StateObject(wrappedValue: with(.markdown){
+        _viewModel = ObservedObject(wrappedValue: with(.markdown){
             $0.configuration = getConfiguration(script: postScript, css: css)
         })
     }
     
     public var body: some View{
-        MarkdownView(viewModel: viewModel,  content: .constant(stringContent))
+//        viewModel.apply("console.log(123)")
+        return MarkdownView(viewModel: viewModel,  content: .constant(stringContent))
             .autoResize(animated)
-//            .if(animated){
-//                $0.animation(.none, value: viewModel.contentHeight)
-//                    .scaleEffect(viewModel.contentHeight == 0 ? 0.973 : 1, anchor: .top)
-//                    .opacity(viewModel.contentHeight == 0 ? 0 : 1)
-//                    .animation(.default, value: viewModel.contentHeight)
-//            }
+    }
+    
+    public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Any) -> Void)? = nil)-> some View{
+        viewModel.apply(funtionBody, arguments: arguments, callback: callback)
+        return self
     }
 
 }
@@ -66,6 +66,7 @@ public struct SimpleMarkdownViewer: View{
 @available(iOS 14.0, *)
 public struct MarkdownView: View{
     @ObservedObject var viewModel:ShifuWebViewModel;
+    @AppStorage("colorScheme") public var colorScheme: UIUserInterfaceStyle = .unspecified
     @State var isMounted:Bool = false
     @Binding var content:String
     let markdownPageURL: URL? = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
@@ -88,8 +89,14 @@ public struct MarkdownView: View{
                     updateContent()
                 }
             }
+            .onChange(of: colorScheme) { _ in
+                if(isMounted){
+                    updateTheme(theme)
+                }
+            }
             .on(.MOUNTED){ _ in
                 updateContent()
+                updateTheme(theme)
                 isMounted = true
             }
     }
@@ -117,13 +124,27 @@ public struct MarkdownView: View{
             }
     }
     
-    public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil)-> MarkdownView{
+    public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Any) -> Void)? = nil)-> MarkdownView{
         viewModel.apply(funtionBody, arguments: arguments, callback: callback)
         return self
     }
     
+    public func updateTheme(_ theme:String){
+        viewModel.apply("vm.currentTheme = theme", arguments: ["theme": theme ])
+    }
     public func updateContent(){
-        viewModel.apply("m.vm.content = content", arguments: ["content": content ])
+        viewModel.apply("vm.content = content", arguments: ["content": content ])
+    }
+    
+    var theme: String {
+        switch colorScheme {
+        case .unspecified:
+            return "auto"
+        case .light:
+            return "light"
+        case .dark:
+            return "dark"
+        }
     }
 }
 

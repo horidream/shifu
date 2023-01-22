@@ -73,6 +73,11 @@ func localized(_ key: String, comment: String? = nil)->String{
     return NSLocalizedString(key, bundle: Shifu.bundle, comment: comment ?? key)
 }
 
+public func * (lhs:String, rhs:Int)->String{
+    return Array(repeating: lhs, count: rhs).joined(separator: "")
+}
+
+
 
 public class cache{
     static public private(set) var map = [AnyHashable: [AnyHashable: Any?]]()
