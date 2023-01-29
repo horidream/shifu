@@ -42,6 +42,12 @@ export default defineConfig({
     //   gzipSize: true,
     //   brotliSize: true,
     // }),
+    {
+      name: "watch-external",
+      buildStart() {
+        this.addWatchFile(resolve(__dirname, "public/PostNativeHook.js"));
+      },
+    },
   ],
   resolve: {
     alias: {

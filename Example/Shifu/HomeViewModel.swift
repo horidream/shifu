@@ -182,6 +182,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return PeerToPeerDemo().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "PopoverDemo") { model in
+                model.icon = .popcornFill
+                model.color = .yellow
+                return PopoverDemo().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue
@@ -189,7 +195,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 
             }
         ].reversed()
-        featureList.get(5)?.isActive = true
+        featureList.get(0)?.isActive = true
     }
     
 }

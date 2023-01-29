@@ -70,7 +70,6 @@ public struct PopoverController<Content: View>: UIViewControllerRepresentable {
 class CustomHostingController<Content: View>: UIHostingController<Content>{
     override func viewDidLoad() {
         super.viewDidLoad()
-        clg(view.intrinsicContentSize)
         preferredContentSize = view.intrinsicContentSize
     }
 }

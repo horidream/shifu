@@ -86,14 +86,16 @@ public class ShifuWebViewModel:ObservableObject{
     public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil){
         if let webview = self.delegate?.webView {
             if isLoading {
-                sc.once(.LOADED, object: webview) { _ in
+                sc.once(.MOUNTED, object: webview) { _ in
                     webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
                 }
             } else {
                 webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
             }
         } else {
-            sc.once(.MOUNTED) { _ in
+            sc.once(.MOUNTED) { notification in
+                clg(notification.object)
+                guard notification.object as? NSObject == self.delegate else { return }
                 self.delegate?.webView.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
             }
         }

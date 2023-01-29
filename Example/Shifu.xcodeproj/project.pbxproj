@@ -32,6 +32,7 @@
 		C7069477289E6F810045BFBF /* lottie_example.json in Resources */ = {isa = PBXBuildFile; fileRef = C7069476289E6F810045BFBF /* lottie_example.json */; };
 		C7177D11284A11F500372629 /* IconsDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7177D10284A11F500372629 /* IconsDemo.swift */; };
 		C72CB725282961BD000FBF12 /* ShimmerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72CB724282961BD000FBF12 /* ShimmerDemo.swift */; };
+		C753079F297FC32300C26967 /* PopoverDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C753079E297FC32300C26967 /* PopoverDemo.swift */; };
 		C75700BC290585ED00C69233 /* PreviewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75700BB290585ED00C69233 /* PreviewDemo.swift */; };
 		C75700C02906CB4400C69233 /* DrawingViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75700BF2906CB4400C69233 /* DrawingViewDemo.swift */; };
 		C768B8822883161500F0A18B /* NavigationAnimationDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768B8812883161500F0A18B /* NavigationAnimationDemo.swift */; };
@@ -111,6 +112,7 @@
 		C7069476289E6F810045BFBF /* lottie_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_example.json; sourceTree = "<group>"; };
 		C7177D10284A11F500372629 /* IconsDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsDemo.swift; sourceTree = "<group>"; };
 		C72CB724282961BD000FBF12 /* ShimmerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDemo.swift; sourceTree = "<group>"; };
+		C753079E297FC32300C26967 /* PopoverDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverDemo.swift; sourceTree = "<group>"; };
 		C75700BB290585ED00C69233 /* PreviewDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDemo.swift; sourceTree = "<group>"; };
 		C75700BF2906CB4400C69233 /* DrawingViewDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewDemo.swift; sourceTree = "<group>"; };
 		C768B8812883161500F0A18B /* NavigationAnimationDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationAnimationDemo.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 		C7965CD928426E3C002C825A /* demos */ = {
 			isa = PBXGroup;
 			children = (
+				C753079E297FC32300C26967 /* PopoverDemo.swift */,
 				C7722DF6293C36B0004683B6 /* PeerToPeerDemo.swift */,
 				C78E3A5E29364B8D00BCFCDC /* ShifuSplitViewDemo.swift */,
 				C75700BF2906CB4400C69233 /* DrawingViewDemo.swift */,
@@ -569,6 +572,7 @@
 				C7965CD828426DB3002C825A /* PowerTableDemo.swift in Sources */,
 				3C2F1CE127F155BC0027F24F /* AnimationDemo.swift in Sources */,
 				C76AA648286F43D0002A1090 /* StickyIconDemo.swift in Sources */,
+				C753079F297FC32300C26967 /* PopoverDemo.swift in Sources */,
 				C7A2770D28C7281E00983681 /* Sandbox.swift in Sources */,
 				C72CB725282961BD000FBF12 /* ShimmerDemo.swift in Sources */,
 				3C1A646127DE30EE0093A98B /* SceneAndPerson.swift in Sources */,
