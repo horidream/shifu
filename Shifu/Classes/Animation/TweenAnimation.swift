@@ -258,9 +258,14 @@ public class Timeline{
     @discardableResult public func from(_ from: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue],
                                  to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue]? = nil,
                                  type: TweenAnimationType = .default, duration: TimeInterval = 0.24)->Self{
-        tween(target, from: from, to: to ?? currentProps, duration: duration, delay: timeOffset, type: type)
-        timeOffset += duration
-        return self
+        if timeOffset != 0 {
+            return set(from)
+                .to(to ?? currentProps, type: type, duration: duration)
+        }else {
+            tween(target, from: from, to: to ?? currentProps, duration: duration, delay: timeOffset, type: type)
+            timeOffset += duration
+            return self
+        }
     }
     @discardableResult public func to(_ to: [PartialKeyPath<ObservedObject<TweenProps>.Wrapper> : any TweenableValue], type: TweenAnimationType = .default, duration: TimeInterval = 0.24)->Self{
         tween(target, from: currentProps, to: to, duration: duration, delay: timeOffset, type: type)
