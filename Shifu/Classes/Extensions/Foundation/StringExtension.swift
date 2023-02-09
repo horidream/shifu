@@ -162,22 +162,24 @@ public extension String {
             } else {
                 var path = self
                 path.removeFirst()
-                return Bundle.main.url(forResource: path, withExtension: nil)
+                return Bundle.main.url(forResource: path, withExtension: nil) ?? URL(string: path)
             }
         } else {
             let arr = self.split(separator: "@")
             if arr.count == 2, let bundleId = arr.get(0)?.string, let path = arr.get(1)?.string {
                 return Bundle(identifier: bundleId)?.url(forResource: path, withExtension: nil)
+            } else {
+                return Bundle.main.url(forResource: arr.get(0)?.string, withExtension: nil) ?? URL(string: self)
+                
             }
         }
-        return URL(string: self)
     }
 
-    @discardableResult func write(to file: String, appending: Bool = false, in directory: URL = FileManager.url.document) -> Bool {
+    @discardableResult func write(to file: String, appending: Bool = false, in directory: URL = env.urls.document) -> Bool {
         return FileManager.default.write(text: self, to: file, appending: appending, in: directory) != nil
     }
 
-    func read(from directory: URL = FileManager.url.document) -> String? {
+    func read(from directory: URL = env.urls.document) -> String? {
         return FileManager.default.read(self, in: directory)
     }
 }
@@ -306,5 +308,17 @@ public extension String {
             let leadingHalf = (count - self.count) / 2
             return f.substr(0, leadingHalf) + self + f.substr(0, count - self.count - leadingHalf )
         }
+    }
+}
+
+public extension String?{
+    var floatValue:Float{
+        self?.ns.floatValue ?? 0
+    }
+}
+
+public extension String{
+    var floatValue:Float{
+        self.ns.floatValue
     }
 }

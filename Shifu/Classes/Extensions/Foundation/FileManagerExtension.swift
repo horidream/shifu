@@ -18,6 +18,9 @@ public extension FileManager {
         public static var cache:URL{
             return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
         }
+        public static var setting:URL{
+            return UIApplication.openSettingsURLString.url!
+        }
     }
     struct path{
         public static var document:String{
@@ -39,34 +42,19 @@ public extension FileManager {
     
     @discardableResult
     func write(text: String, to fileName: String, appending:Bool = false, in directory: URL = url.document) -> String?{
-        let filePath = directory.appendingPathComponent(fileName).path
-        do{
-            if !fileExists(atPath: filePath) {
-                createFile(atPath: filePath, contents: text.data(using: .utf8), attributes: nil)
-            }else{
-                if(appending){
-                    if let fileHandle = FileHandle(forWritingAtPath: filePath) {
-                        defer {
-                            fileHandle.closeFile()
-                        }
-                        fileHandle.seekToEndOfFile()
-                        fileHandle.write(text.data(using: .utf8)!)
-                    }
-                }else{
-                    try text.write(toFile: filePath, atomically: true, encoding: .utf8)
-                }
-            }
-            return filePath
-        }catch{
-            return nil
-        }
+        return write(data: text.data(using: .utf8), to: fileName, appending: appending, in: directory)
     }
     
     @discardableResult func write(data: Data?, to fileName: String, appending:Bool = false, in directory: URL = url.document) -> String?{
         guard data != nil else { return nil }
         let fileURL = directory.appendingPathComponent(fileName)
+        let dirURL = fileURL.deletingLastPathComponent()
         let filePath = fileURL.path
+        clg(dirURL)
         do{
+            if !fm.dirExists(dirURL.path){
+                try fm.createDirectory(at: dirURL, withIntermediateDirectories: true)
+            }
             if !fileExists(atPath: filePath) {
                 createFile(atPath: filePath, contents: data, attributes: nil)
             }else{
@@ -94,6 +82,11 @@ public extension FileManager {
             return try? String(contentsOfFile: filePath)
         }
         return nil
+    }
+    
+    func dirExists(_ path:String) -> Bool{
+        var isDirectory: ObjCBool  = true
+        return fm.fileExists(atPath: path, isDirectory: &isDirectory)
     }
     
     func exists(_ fileName: String, in directory: URL = url.document) -> Bool{

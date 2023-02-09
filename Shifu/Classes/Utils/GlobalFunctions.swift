@@ -117,9 +117,11 @@ public extension Cacheable {
 public let fm: FileManager = FileManager.default
 public let pb: UIPasteboard = UIPasteboard.general
 public let ud = UserDefaults.standard
+public let app = UIApplication.shared
+public let nc = NotificationCenter.default
+public typealias sc = ShortCut
 public typealias url = FileManager.url
 public typealias path = FileManager.path
-public typealias sc = ShortCut
-public let nc = NotificationCenter.default
+public typealias env = ShortCut.env
 
 

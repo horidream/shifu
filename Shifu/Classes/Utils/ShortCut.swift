@@ -12,6 +12,16 @@ import Combine
 
 
 public class ShortCut{
+    public struct env{
+        public static let version = UIDevice.current.systemVersion.ns.floatValue
+        public static let id = Bundle.main.bundleIdentifier
+        public static let width = UIScreen.main.bounds.width
+        public static let height = UIScreen.main.bounds.height
+
+        public typealias urls = FileManager.url
+        public typealias paths = FileManager.path
+    }
+    
     @available(iOSApplicationExtension, unavailable)
     public static func endEditing(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
