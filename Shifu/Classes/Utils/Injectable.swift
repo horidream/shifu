@@ -57,7 +57,7 @@ private var loadInjection: () = {
 
 
 
-let _injectionObserver = InjectionObserver()
+public let _injectionObserver = InjectionObserver()
 //let observedInjectionObserver = ObservedObject(wrappedValue: _injectionObserver)
 public class InjectionObserver: ObservableObject {
     @Published public var injectionCount = 0

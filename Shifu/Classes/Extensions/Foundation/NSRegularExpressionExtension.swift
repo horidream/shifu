@@ -26,6 +26,11 @@ public extension NSRegularExpression{
         }
         return result
     }
+    
+    func test(_ testString: String)->Bool{
+        let range = NSRange(testString.startIndex..., in: testString)
+        return  self.firstMatch(in: testString, range: range) != nil
+    }
 }
 
 extension Collection where Iterator.Element == [String]{

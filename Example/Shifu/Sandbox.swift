@@ -15,46 +15,109 @@ import Combine
 import PencilKit
 import SwiftSoup
 import VisionKit
+import AVKit
 
 
 
 struct Sandbox: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @StateObject var d1 = Digit()
-    @StateObject var d2 = Digit()
-    @Tween var t
-    var d2Number: Int {
-        return injectObserver.injectionCount + d1.number * 3
+    @StateObject var model = with(ShifuWebViewModel()){
+        $0.url = "https://youglish.com/pronounce/disparity/english".url
+        $0.treatLoadedAsMounted = true
     }
+    @State var searchText = ""
+    @State var searching = true
+    @State var isPlaying = false
+    var shouldShowWebView: Bool {
+        return model.isMounted && !searching
+    }
+    
     var body: some View {
-            HStack{
-                d1.view
-                Text("x")
-                d2.view
-                Text(" = ")
-                Text("\(d1.number * d2.number)")
+        VStack{
+            HStack(alignment: .center){
+                TextField("Search", text: $searchText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Button{
+                        model.apply("""
+        $("#q").val(searchText);
+        $("#searchbut").click();
+        """, arguments: ["searchText": searchText])
+                    isPlaying = false
+                        searching = true
+                } label: {
+                    Image(.magnifyingglass)
+                }
             }
-            .font(.system(size: 30))
-            .frame(width: 300)
-            .padding(40)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.green)
-            )
-            .tweenProps(t)
+            .padding(.bottom, 20)
+            ShifuWebView(viewModel: model)
+                .frame(width: env.width, height: env.width * 5/6)
+//                .scaleEffect(1.076)
+                
+                .opacity(shouldShowWebView ? 1 : 0)
+            HStack(){
+                let ns = 30.0
+                let ls = 45.0
+                Button{
+                    click("#b_prev")
+                    
+                } label: {
+                    Image.resizableIcon(.backwardFrame)
+                        .frame(width: ns, height: ns)
+                }
+                Spacer()
+                Button{
+                    click("#b_back")
+                } label: {
+                    Image.resizableIcon(.gobackward5)
+                        .frame(width: ns, height: ns)
+                }
+                Spacer()
+                Button{
+                    click("#b_pause")
+                } label: {
+                    Image.resizableIcon(isPlaying ? .pause_sf : .play_sf)
+                        .frame(width: ls, height: ls)
+                }
+                Spacer()
+                Button{
+                    click("#b_replay")
+                    
+                    
+                } label: {
+                    Image.resizableIcon(.gobackward)
+                        .frame(width: ns, height: ns)
+                }
+                Spacer()
+                Button{
+                    click("#b_next")
+                    
+                } label: {
+                    Image.resizableIcon(.forwardFrame)
+                        .frame(width: ns, height: ns)
+                }
+            }
+            .padding(.horizontal, 20)
+            Spacer()
+
+
             
-        .onTapGesture {
-            tl($t).to([\.y: -100, \.alpha: 0]).perform {
-                d1.number = Int.random(in: 1...100)
-                d2.number = d2Number
-            }
-            .delay(0.2)
-            .from([\.y: 100, \.alpha: 0], to: [\.y: 0, \.alpha: 1])
         }
+        .padding()
+        .on("onPlayerReady"){ _ in
+            searching = false
+            hideWebViewUI()
+        }
+
+        .on("playingChange"){ no in
+            clg(no)
+            isPlaying = no.userInfo?["isPlaying"] as? Bool ?? false
+        }
+        .navigationBarTitleDisplayMode(.inline)
         .onInjection {
             sandbox()
         }
+        
         .onAppear {
             sandbox()
         }
@@ -62,18 +125,38 @@ struct Sandbox: View {
     }
     
     func sandbox() {
-        
+        hideWebViewUI()
+    }
+    
+    func click(_ name:String){
+        model.apply("""
+$("\(name)").click();
+""")
+    }
+    func hideWebViewUI(){
+        model.apply("""
+$("body *").not(".result_container, .result_container *").hide();
+$(".result_container").parents().addBack().show();
+
+$(".result_container").children(":last-child").hide();
+$(".togglecaps").hide();
+$("#controlID").css("maxHeight", "0");
+$("#controlID").css("visibility", "hidden");
+const myDiv = document.querySelector("#b_pause > img");
+if(observer){
+    observer.disconnect();
+}
+const observer = new MutationObserver(mutationsList => {
+    for (let mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
+            let isPlaying = myDiv.src.indexOf("pause") > -1
+            postToNative({type: "playingChange", isPlaying});
+        }
+    }
+});
+observer.observe(myDiv, { attributes: true });
+""", arguments: ["force": true])
     }
     
 }
 
-
-
-class Digit: ObservableObject{
-    @Published var number = 0
-    
-    var view: some View {
-        Text(String(number))
-            .foregroundColor(.random)
-    }
-}
