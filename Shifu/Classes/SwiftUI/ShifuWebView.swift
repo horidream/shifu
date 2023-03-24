@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 import WebKit
 import Combine
+import JavaScriptCore
 
 public class SimpleObject{
     
@@ -20,113 +21,10 @@ public enum ShifuWebViewAction{
     
 }
 
-@available(iOS 14.0, *)
-public class ShifuWebViewModel:ObservableObject{
-    public var log2EventMap = [
-        "onPlayerReady": "onPlayerReady"
-    ]
-    public weak fileprivate(set)var delegate: ShifuWebViewController?
-    public var treatLoadedAsMounted = false
-    public var metaData = """
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-"""
-    public static var markdown:ShifuWebViewModel {
-        .init {
-            $0.allowScroll = true
-            $0.url = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
-        }
-    }
-    
-    public init(){}
-    public init(builder: (ShifuWebViewModel)->Void){
-        builder(self)
-    }
-    
-    @Published public var html:String?{
-        didSet{
-            if oldValue != html, html != nil{
-                isLoading = true
-            }
-        }
-    }
-    @Published public var allowScroll = false
-    @Published public var url:URL?{
-        didSet{
-            if oldValue != url, url != nil{
-                isLoading = true
-            }
-        }
-    }
-    @Published public var contentHeight: CGFloat = 0
-    
-    @Published public fileprivate(set)var isLoading: Bool = false
-    @Published public fileprivate(set)var isMounted: Bool = false
-    public var configuration: String?
-    public var baseURL: URL?
-    
-    var webView:WKWebView? {
-        return self.delegate?.webView
-    }
-    
-    public func publisher(of name: String)->NotificationCenter.Publisher{
-        NotificationCenter.default.publisher(for: name.toNotificationName(), object: delegate)
-    }
-    
-    public func emptyCookies(){
-        let cookieStorage = HTTPCookieStorage.shared
-        for cookie in cookieStorage.cookies ?? [] {
-            cookieStorage.deleteCookie(cookie)
-        }
-        webView?.reload()
-    }
-    
-    public func exec(_ action: ShifuWebViewAction, callback: ((Any?)->Void)? = nil){
-        switch action{
-        case .snapshot(let config, let target):
-            if let webView = self.delegate?.webView {
-               webView.snapshot(config: config, target: target, callback: callback)
-            } else {
-                sc.on(.MOUNTED) { notify in
-                    clg("mounted", notify.object)
-                    self.delegate?.webView.snapshot(config: config, target: target, callback: callback)
-                }
-            }
-        default: ()
-        
-        }
-    }
-    
-    public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil){
-        if let webview = self.delegate?.webView {
-            if isLoading && arguments["force"] as? Bool != true {
-                sc.once(.MOUNTED, object: webview) { _ in
-                    webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
-                }
-            } else {
-                webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
-            }
-        } else {
-            sc.once(.MOUNTED) { notification in
-                guard notification.object as? NSObject == self.delegate else { return }
-                self.delegate?.webView.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
-            }
-        }
-    }
-    
-    public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Any) -> Void)? = nil){
-        let onComplete:((Result<Any, Error>) -> Void) = {
-            if case .success(let payload) = $0 {
-                callback?(payload) // <h2>Horidream</h2><p>hihihihi</p>
-            } else {
-                clg($0)
-            }
-        }
-        apply(funtionBody, arguments: arguments, callback: onComplete)
-    }
-}
+
+
+
+
 
 @available(iOS 14.0, *)
 public struct ShifuWebView: UIViewControllerRepresentable{
@@ -163,14 +61,37 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         }
     }
     
+    func reinitializeSharedShifuWebViewController(){
+        with(viewModel.sharedShifuWebViewController){ vc in
+            if let source = Shifu.bundle.url(forResource: "web/NativeHook", withExtension: "js")?.content, let postSource = Shifu.bundle.url(forResource: "web/PostNativeHook", withExtension: "js")?.content{
+                vc.webView.configuration.userContentController.removeAllUserScripts()
+                let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+                let postScript = WKUserScript(source: postSource, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+                vc.webView.configuration.userContentController.addUserScript(script)
+                vc.webView.configuration.userContentController.addUserScript(postScript)
+                vc.webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
+                let websiteDataStore = WKWebsiteDataStore.default()
+                let date = Date(timeIntervalSince1970: 0)
+                websiteDataStore.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: date) { [weak vc] in
+                    vc?.webView.configuration.websiteDataStore = websiteDataStore
+                }
+            }
+        }
+    }
+    
     public func makeUIViewController(context: Context) -> ShifuWebViewController {
-        let vc = ShifuWebViewController()
+        let vc = viewModel.shared ? viewModel.sharedShifuWebViewController : ShifuWebViewController()
         if let conf = viewModel.configuration{
-            let script = WKUserScript(source: conf, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+            let script = WKUserScript(source: conf, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+            reinitializeSharedShifuWebViewController()
             vc.webView.configuration.userContentController.addUserScript(script)
         }
         viewModel.delegate = vc
         vc.model = viewModel
+        if(viewModel.shared){
+            viewModel.isLoading = false
+            viewModel.isMounted = true
+        }
         return vc
     }
     
@@ -179,19 +100,21 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.bounces = viewModel.allowScroll
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
         webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
-        if let url = viewModel.url , webView.url?.absoluteString != url.absoluteString{
-            viewModel.isLoading = true
-            sc.once(.LOADED, object: webView) { _ in
-                viewModel.isLoading = false
-                if(viewModel.treatLoadedAsMounted){
-                    sc.emit(.MOUNTED, object: webView)
+        if let url = viewModel.url {
+            if(webView.url != url ){
+                viewModel.isLoading = true
+                sc.once(.LOADED, object: webView) { _ in
+                    viewModel.isLoading = false
+                    if(viewModel.treatLoadedAsMounted){
+                        sc.emit(.MOUNTED, object: webView)
+                    }
                 }
+                sc.once(.MOUNTED, object: webView){ _ in
+                    viewModel.isMounted = true;
+                }
+                webView.load(URLRequest(url: url))
             }
-            sc.once(.MOUNTED, object: webView){ _ in
-                viewModel.isMounted = true;
-            }
-            webView.load(URLRequest(url: url))
-        }
+        } 
         
         if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
             uiViewController.lastLoadedHTML = html
@@ -246,7 +169,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     }
     
     var url: URL?
-    var webView:WKWebView = WKWebView(frame: .zero, configuration: with(WKWebViewConfiguration()){
+    public var webView:WKWebView = WKWebView(frame: .zero, configuration: with(WKWebViewConfiguration()){
         // this must be set in the constructor
         $0.allowsInlineMediaPlayback = true
     })
@@ -263,6 +186,14 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             webView.configuration.userContentController.addUserScript(script)
             webView.configuration.userContentController.addUserScript(postScript)
             webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
+            webView.evaluateJavaScript("JSContext.current") { (result, error) in
+                if let error = error {
+                    print("Error evaluating JavaScript: \(error)")
+                } else {
+                    let context = result as? JSContext
+                    print("JSContext object: \(context)")
+                }
+            }
             let websiteDataStore = WKWebsiteDataStore.default()
             let date = Date(timeIntervalSince1970: 0)
             websiteDataStore.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: date) { [weak self] in
@@ -277,13 +208,17 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // register the bridge script that listens for the output
-        webView.configuration.userContentController.add(self, name: "logHandler")
-        webView.configuration.userContentController.add(self, name: "native")
+        if(model?.shared != true){
+            webView.configuration.userContentController.add(self, name: "logHandler")
+            webView.configuration.userContentController.add(self, name: "native")
+        }
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        webView.configuration.userContentController.removeAllScriptMessageHandlers()
+        if(model?.shared != true){
+            webView.configuration.userContentController.removeAllScriptMessageHandlers()
+        }
     }
     
    

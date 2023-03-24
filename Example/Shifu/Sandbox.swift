@@ -22,38 +22,53 @@ import AVKit
 struct Sandbox: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @StateObject var model = with(ShifuWebViewModel()){
-        $0.url = "https://youglish.com/pronounce/disparity/english".url
-        $0.treatLoadedAsMounted = true
+    @StateObject var model = with(ShifuWebViewModel()){ vc in
+        vc.url = vc.sharedShifuWebViewController.webView.url ?? "https://youglish.com/pronounce/disparity/english".url
+        vc.log2EventMap = ["onPlayerReady": "onPlayerReady"]
+        vc.treatLoadedAsMounted = true
+        vc.shared = true
     }
     @State var searchText = ""
     @State var searching = true
     @State var isPlaying = false
     var shouldShowWebView: Bool {
-        return model.isMounted && !searching
+        return !searching
+    }
+    
+    fileprivate func doSearch() {
+        model.apply("""
+        $("#q").val(searchText);
+        $("#searchbut").click();
+        console.log("what?")
+        """, arguments: ["searchText": searchText])
+        isPlaying = false
+        searching = true
     }
     
     var body: some View {
         VStack{
             HStack(alignment: .center){
+                ShifuPasteButton {
+                    Image(.paste)
+                } onPaste: { _ in
+                    if let text = pb.string {
+                        searchText = text
+                        doSearch()
+                    }
+                }
                 TextField("Search", text: $searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button{
-                        model.apply("""
-        $("#q").val(searchText);
-        $("#searchbut").click();
-        """, arguments: ["searchText": searchText])
-                    isPlaying = false
-                        searching = true
+                    doSearch()
                 } label: {
                     Image(.magnifyingglass)
                 }
+                
+
             }
             .padding(.bottom, 20)
             ShifuWebView(viewModel: model)
                 .frame(width: env.width, height: env.width * 5/6)
-//                .scaleEffect(1.076)
-                
                 .opacity(shouldShowWebView ? 1 : 0)
             HStack(){
                 let ns = 30.0
@@ -105,12 +120,12 @@ struct Sandbox: View {
         }
         .padding()
         .on("onPlayerReady"){ _ in
-            searching = false
             hideWebViewUI()
         }
-
+        .on("goodToGo"){ _ in
+            searching = false
+        }
         .on("playingChange"){ no in
-            clg(no)
             isPlaying = no.userInfo?["isPlaying"] as? Bool ?? false
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -125,6 +140,10 @@ struct Sandbox: View {
     }
     
     func sandbox() {
+//        model.env.host = "123456790113"
+//        model.apply("""
+//console.log(JSON.stringify(env));
+//""")
         hideWebViewUI()
     }
     
@@ -135,27 +154,31 @@ $("\(name)").click();
     }
     func hideWebViewUI(){
         model.apply("""
-$("body *").not(".result_container, .result_container *").hide();
-$(".result_container").parents().addBack().show();
+if(typeof $ != "undefined"){
+    $("body *").not(".result_container, .result_container *").hide();
+    $(".result_container").parents().addBack().show();
 
-$(".result_container").children(":last-child").hide();
-$(".togglecaps").hide();
-$("#controlID").css("maxHeight", "0");
-$("#controlID").css("visibility", "hidden");
-const myDiv = document.querySelector("#b_pause > img");
-if(observer){
-    observer.disconnect();
+    $(".result_container").children(":last-child").hide();
+    $(".togglecaps").hide();
+    $("#controlID").css("maxHeight", "0");
+    $("#controlID").css("visibility", "hidden");
+    $("#ctn_fix_caption").css("pointer-events", "none");
 }
-const observer = new MutationObserver(mutationsList => {
-    for (let mutation of mutationsList) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
-            let isPlaying = myDiv.src.indexOf("pause") > -1
-            postToNative({type: "playingChange", isPlaying});
+const myDiv = document.querySelector("#b_pause > img");
+if(myDiv){
+    globalThis.observer?.disconnect();
+    globalThis.observer = new MutationObserver(mutationsList => {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
+                let isPlaying = myDiv.src.indexOf("pause") > -1
+                postToNative({type: "playingChange", isPlaying});
+            }
         }
-    }
-});
-observer.observe(myDiv, { attributes: true });
-""", arguments: ["force": true])
+    });
+    globalThis.observer.observe(myDiv, { attributes: true });
+    postToNative({type: "goodToGo"})
+}
+""")
     }
     
 }
