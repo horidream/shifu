@@ -20,18 +20,27 @@ let build = {
 };
 
 export default defineConfig({
-  root: "src",
+  // root: "src",
   base: "",
   build: {
     outDir: resolve(__dirname, "../Shifu/web"),
     chunkSizeWarningLimit: 2500,
     emptyOutDir: true,
+    // assetsDir: 'assets',
     // sourcemap: true,
     rollupOptions: {
+      input: {
+        main: "src/main.js",
+        NativeHook: "src/native/NativeHook.js",
+        PostNativeHook: "src/native/PostNativeHook.js",
+      },
       output: {
-        entryFileNames: "main.js",
-        chunkFileNames: "js/[name].js",
-        assetFileNames: "assets/[name].[ext]",
+        entryFileNames: ({ name }) => {
+          return "[name].js";
+        },
+        assetFileNames: ({ name }) => {
+          return "assets/[name].[extname]";
+        },
       },
     },
   },
@@ -42,13 +51,13 @@ export default defineConfig({
     //   gzipSize: true,
     //   brotliSize: true,
     // }),
-    {
-      name: "watch-external",
-      buildStart() {
-        this.addWatchFile(resolve(__dirname, "public/PostNativeHook.js"));
-        this.addWatchFile(resolve(__dirname, "public/NativeHook.js"));
-      },
-    },
+    // {
+    //   name: "watch-external",
+    //   buildStart() {
+    //     this.addWatchFile(resolve(__dirname, "public/PostNativeHook.js"));
+    //     this.addWatchFile(resolve(__dirname, "public/NativeHook.js"));
+    //   },
+    // },
   ],
   resolve: {
     alias: {

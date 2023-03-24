@@ -11,14 +11,8 @@ import WebKit
 import Combine
 import JavaScriptCore
 
-public class SimpleObject{
-    
-}
-
 public enum ShifuWebViewAction{
     case snapshot(WKSnapshotConfiguration? = nil, SnapshotTarget = .clipboard(.jpg))
-    
-    
 }
 
 
@@ -141,7 +135,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
 final public class ShifuWebViewController: UIViewController, WKScriptMessageHandler, WKNavigationDelegate{
     var lastLoadedHTML:String?
     weak var model: ShifuWebViewModel?
-    init(id: SimpleObject = SimpleObject()){
+    init(){
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -186,14 +180,6 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             webView.configuration.userContentController.addUserScript(script)
             webView.configuration.userContentController.addUserScript(postScript)
             webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
-            webView.evaluateJavaScript("JSContext.current") { (result, error) in
-                if let error = error {
-                    print("Error evaluating JavaScript: \(error)")
-                } else {
-                    let context = result as? JSContext
-                    print("JSContext object: \(context)")
-                }
-            }
             let websiteDataStore = WKWebsiteDataStore.default()
             let date = Date(timeIntervalSince1970: 0)
             websiteDataStore.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: date) { [weak self] in
