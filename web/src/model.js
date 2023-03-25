@@ -3,7 +3,7 @@ import * as marked from "marked";
 import hljs from "highlight.js";
 import katex from "katex";
 import { toMarkdown } from "grogu/utils";
-import "./Polyfill";
+import "./native/NativeHook";
 import objectivec from "highlight.js/lib/languages/objectivec";
 
 hljs.registerLanguage("objective-c", objectivec);

@@ -24,6 +24,9 @@
         }
       }
     </style>
+    <script type="module">
+      import '/native/NativeHook.js';
+    </script>
     <script>
       let style = document.getElementById("dynamicStyle");
       if (!window.webkit) {
@@ -76,5 +79,7 @@
       </div>
     </div>
     <script src="./main.js" type="module"></script>
+    <!-- <script src="./native/PostNativeHook.js" type="module"></script> -->
+    
   </body>
 </html>

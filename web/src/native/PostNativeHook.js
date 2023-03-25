@@ -1,4 +1,4 @@
-const resizeObserver = new ResizeObserver((entries) => {
+const __resizeObserver = new ResizeObserver((entries) => {
   for (let entry of entries) {
     postToNative({
       type: "contentHeight",
@@ -6,7 +6,7 @@ const resizeObserver = new ResizeObserver((entries) => {
     });
   }
 });
-resizeObserver.observe(document.querySelector("html"));
+__resizeObserver.observe(document.querySelector("html"));
 
 if (!window.__manage_mounted_event__) {
   postToNative({

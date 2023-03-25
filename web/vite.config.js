@@ -1,26 +1,11 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import { visualizer } from "rollup-plugin-visualizer";
+// import { createHtmlPlugin } from "vite-plugin-html";
 import vue from "@vitejs/plugin-vue";
-console.log(visualizer)
-let build = {
-  page: {
-    outDir: resolve(__dirname, "dist"),
-    chunkSizeWarningLimit: 2500,
-    emptyOutDir: true,
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        entryFileNames: "[name].js",
-        chunkFileNames: "js/[name].js",
-        assetFileNames: "assets/[name].[ext]",
-      },
-    },
-  },
-};
 
 export default defineConfig({
-  // root: "src",
+  root: "src",
   base: "",
   build: {
     outDir: resolve(__dirname, "../Shifu/web"),
@@ -30,7 +15,7 @@ export default defineConfig({
     // sourcemap: true,
     rollupOptions: {
       input: {
-        main: "src/main.js",
+        main: "src/index.html",
         NativeHook: "src/native/NativeHook.js",
         PostNativeHook: "src/native/PostNativeHook.js",
       },
@@ -46,18 +31,27 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    // createHtmlPlugin({
+    //   entry: "src/main.js",
+    //   template: "src/index.html",
+    //   inject: {
+    //     data: {
+    //       nativeHook: "./NativeHook.js",
+    //     },
+    //   },
+    // }),
     // visualizer({
     //   open: true,
     //   gzipSize: true,
     //   brotliSize: true,
     // }),
-    // {
-    //   name: "watch-external",
-    //   buildStart() {
-    //     this.addWatchFile(resolve(__dirname, "public/PostNativeHook.js"));
-    //     this.addWatchFile(resolve(__dirname, "public/NativeHook.js"));
-    //   },
-    // },
+    {
+      name: "watch-external",
+      buildStart() {
+        // this.addWatchFile(resolve(__dirname, "public/PostNativeHook.js"));
+        // this.addWatchFile(resolve(__dirname, "public/NativeHook.js"));
+      },
+    },
   ],
   resolve: {
     alias: {

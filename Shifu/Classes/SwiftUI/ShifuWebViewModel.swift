@@ -12,28 +12,10 @@ import Combine
 import JavaScriptCore
 
 @available(iOS 14.0, *)
-public class ShifuWebViewModel:ObservableObject, Hashable{
-    private let id: UUID = UUID()
-//    public let env = JSEnvironment()
+public class ShifuWebViewModel: NSObject, ObservableObject{
+    
     public var log2EventMap:[String: String] = [:]
-    public weak internal(set)var delegate: ShifuWebViewController? {
-        didSet{
-//            if delegate != nil {
-//                env.objectWillChange.sink { [weak self] in
-//                    DispatchQueue.main.async {
-//                        clg(self?.env.stringify())
-//                        self?.apply("""
-//        if(typeof env == "undefined"){
-//            globalThis.env = {}
-//        }
-//        Object.assign(globalThis.env, _env);
-//        """, arguments: ["_env": self?.env.stringify()?.parse() ?? NSObject()])
-//                    }
-//                }
-//                .retain(self);
-//            }
-        }
-    }
+    public weak internal(set)var delegate: ShifuWebViewController?
     public var treatLoadedAsMounted = false 
     public var shared = false
     public var metaData = """
@@ -49,14 +31,6 @@ public class ShifuWebViewModel:ObservableObject, Hashable{
         }
     }
     
-    public static func == (lhs: ShifuWebViewModel, rhs: ShifuWebViewModel) -> Bool {
-            return lhs.id == rhs.id
-        }
-
-     public   func hash(into hasher: inout Hasher) {
-            hasher.combine(id)
-        }
-    
     public var sharedShifuWebViewController: ShifuWebViewController = {
         return with(ShifuWebViewController()){ (vc:ShifuWebViewController) in
             let webView = vc.webView
@@ -65,11 +39,12 @@ public class ShifuWebViewModel:ObservableObject, Hashable{
         }
     }()
     
-    public init(){ }
+    public override init(){ }
     public init(builder: (ShifuWebViewModel)->Void){
+        super.init()
         builder(self)
     }
-    
+    @Published public var bridge: [String: Any] = [:]
     @Published public var html:String?{
         didSet{
             if oldValue != html, html != nil{
@@ -154,20 +129,10 @@ public class ShifuWebViewModel:ObservableObject, Hashable{
 }
 
 
-//public final class JSEnvironment: ObservableObject, Codable {
-//    @Published public var host: String = "www.abc.com"
-//    enum CodingKeys: String, CodingKey {
-//        case host
-//    }
-//    public required init() {}
-//    public required init(from decoder: Decoder) throws {
-//            let container = try decoder.container(keyedBy: CodingKeys.self)
-//            host = try container.decode(String.self, forKey: .host)
-//        }
-//
-//    public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(host, forKey: .host)
-//    }
-//    
-//}
+extension ShifuWebViewModel:WKScriptMessageHandler {
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "webViewBridge", let receivedObject = message.body as? [String: Any] {
+            bridge = receivedObject
+        }
+    }
+}

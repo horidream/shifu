@@ -114,6 +114,14 @@ struct Sandbox: View {
             }
             .padding(.horizontal, 20)
             Spacer()
+            Text(model.bridge.stringify() ?? "")
+            Button{
+                model.apply("""
+bridge.a = \(Int.random(in: 0...100))
+""")
+            } label: {
+                Text("test")
+            }
 
 
             

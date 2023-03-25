@@ -95,7 +95,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
         webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
         if let url = viewModel.url {
-            if(webView.url != url ){
+            if(context.coordinator.previousURL != url ){
                 viewModel.isLoading = true
                 sc.once(.LOADED, object: webView) { _ in
                     viewModel.isLoading = false
@@ -107,6 +107,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
                     viewModel.isMounted = true;
                 }
                 webView.load(URLRequest(url: url))
+                context.coordinator.previousURL = url
             }
         } 
         
@@ -125,6 +126,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     public typealias UIViewControllerType = ShifuWebViewController
     
     public class Coordinator{
+        var previousURL: URL?
         public var bag:[AnyCancellable] = []
     }
     
@@ -134,7 +136,13 @@ public struct ShifuWebView: UIViewControllerRepresentable{
 
 final public class ShifuWebViewController: UIViewController, WKScriptMessageHandler, WKNavigationDelegate{
     var lastLoadedHTML:String?
-    weak var model: ShifuWebViewModel?
+    weak var model: ShifuWebViewModel? {
+        didSet{
+            if let model = model {
+                webView.configuration.userContentController.add(model, name: "webViewBridge");
+            }
+        }
+    }
     init(){
         super.init(nibName: nil, bundle: nil)
     }
