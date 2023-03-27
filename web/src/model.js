@@ -3,11 +3,9 @@ import * as marked from "marked";
 import hljs from "highlight.js";
 import katex from "katex";
 import { toMarkdown } from "grogu/utils";
-import "./native/NativeHook";
 import objectivec from "highlight.js/lib/languages/objectivec";
 
 hljs.registerLanguage("objective-c", objectivec);
-
 let renderer = new marked.Renderer();
 marked.setOptions({
   renderer,
@@ -15,7 +13,7 @@ marked.setOptions({
     if (!hljs.getLanguage(language)) {
       return hljs.highlightAuto(code).value;
     }
-
+    
     return hljs.highlight(code, { language }).value;
   },
   pedantic: false,
@@ -66,8 +64,8 @@ renderer.codespan = function (text) {
 
 renderer.checkbox = function (value) {
   return value
-    ? `<input checked="" type="checkbox">`
-    : `<input type="checkbox">`;
+  ? `<input checked="" type="checkbox">`
+  : `<input type="checkbox">`;
 };
 
 window.marked = marked.marked;
@@ -78,6 +76,7 @@ export default grogu.declareModel("com.horidream.lib.shifu", async function (el,
   let store = {
     state: {},
   };
+  await grogu.injectVendorLibs({jquery: true})
   let model = await grogu.genModel(store, options, el);
   postToNative({
     type: "mounted",

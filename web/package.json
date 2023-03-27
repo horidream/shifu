@@ -5,9 +5,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "go": "nodemon --watch package.json --watch vite.config.js --exec \"concurrently 'vite serve --host --port 5555' 'vite build --watch'\" ",
+    "go": "nodemon --watch package.json --watch vite.config.js --watch vite.config.lib.js --exec \"concurrently 'vite serve --host --port 5555' 'vite build --watch' 'vite build --config vite.config.lib.js --watch'\" ",
     "start": "nodemon --watch package.json --watch vite.config.js --exec \"yarn dev\"",
     "dev": "vite serve --host --port 5555",
+    "lib": "vite build --config vite.config.lib.js --watch",
     "build": "nodemon --watch package.json --watch vite.config.js --exec \"vite build --watch\"",
     "start-legacy": "npm run dev & npm run build & npm run deploy",
     "build-legacy": "nodemon --watch main.js --watch to_markdown.js --exec \"cross-env NODE_ENV=production webpack --mode production --config webpack.config.js --progress\"",

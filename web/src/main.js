@@ -107,20 +107,68 @@ app("#app", {
         (await this.userDefaults.get("theme")) ||
         $("link[title]:not([disabled])").attr("title") || "auto";
     }
+    $("#inputArea").on("keydown", async function (e) {
+      let [start, end] = [this.selectionStart, this.selectionEnd];
+      let p1 = this.value.substring(0, start);
+      let p2 = this.value.substring(start, end);
+      let p3 = this.value.substring(end);
+      switch (e.keyCode) {
+        case 67:
+          if (e.ctrlKey) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.value = p1 + "\n```\n" + p2 + "\n```\n" + p3;
+            this.selectionStart = this.selectionEnd = end + 5;
+            m.vm.content = this.value;
+          }
+          break;
+        case 72:
+          if (e.ctrlKey) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            this.value = p1 + "\n## " + p2 + (start == end ? "" : "\n") + p3;
+            this.selectionStart = this.selectionEnd = start + 4 + p2.length;
+            m.vm.content = this.value;
+          }
+          break;
+        case 66:
+          if (e.ctrlKey) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.value = p1 + "**" + p2 + "**" + p3;
+            this.selectionStart = this.selectionEnd = start + 2 + p2.length;
+            m.vm.content = this.value;
+          }
+          break;
+        case 73:
+          if (e.ctrlKey) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.value = p1 + "`" + p2 + "`" + p3;
+            this.selectionStart = this.selectionEnd = start + 1 + p2.length;
+            m.vm.content = this.value;
+          }
+        default:
+          // console.log(e.keyCode);
+          break;
+      }
+    });
+    fetch("./example.md")
+      .then((res) => res.text())
+      .then(function (text) {
+        if (!window.webkit) {
+          m.vm.content = text;
+        }
+        postToNative({
+          type: "example",
+          content: text,
+        });
+      });
   },
 });
 
-fetch("./example.md")
-  .then((res) => res.text())
-  .then(function (text) {
-    if (!window.webkit) {
-      m.vm.content = text;
-    }
-    postToNative({
-      type: "example",
-      content: text,
-    });
-  });
+
 
 // function onReceiveNative(html) {
 //   try {
@@ -136,6 +184,7 @@ fetch("./example.md")
 // eb.addEventListener("toMarkdown", function (e) {
 //   onReceiveNative(e.detail);
 // });
+
 let theme = new Proxy(
   {},
   {
@@ -187,50 +236,3 @@ document.addEventListener("paste", function (e) {
   e.stopPropagation();
 });
 
-$("#inputArea").on("keydown", async function (e) {
-  let [start, end] = [this.selectionStart, this.selectionEnd];
-  let p1 = this.value.substring(0, start);
-  let p2 = this.value.substring(start, end);
-  let p3 = this.value.substring(end);
-  switch (e.keyCode) {
-    case 67:
-      if (e.ctrlKey) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.value = p1 + "\n```\n" + p2 + "\n```\n" + p3;
-        this.selectionStart = this.selectionEnd = end + 5;
-        m.vm.content = this.value;
-      }
-      break;
-    case 72:
-      if (e.ctrlKey) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        this.value = p1 + "\n## " + p2 + (start == end ? "" : "\n") + p3;
-        this.selectionStart = this.selectionEnd = start + 4 + p2.length;
-        m.vm.content = this.value;
-      }
-      break;
-    case 66:
-      if (e.ctrlKey) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.value = p1 + "**" + p2 + "**" + p3;
-        this.selectionStart = this.selectionEnd = start + 2 + p2.length;
-        m.vm.content = this.value;
-      }
-      break;
-    case 73:
-      if (e.ctrlKey) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.value = p1 + "`" + p2 + "`" + p3;
-        this.selectionStart = this.selectionEnd = start + 1 + p2.length;
-        m.vm.content = this.value;
-      }
-    default:
-      // console.log(e.keyCode);
-      break;
-  }
-});
