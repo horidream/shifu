@@ -7,11 +7,10 @@ export default defineConfig({
   define: {
     "process.env": {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      // Add other properties if needed
     },
   },
   build: {
-    outDir: resolve(__dirname, "../Shifu/web"),
+    outDir: resolve(__dirname, "./public"),
     chunkSizeWarningLimit: 2500,
     lib: {
       entry: "native/NativeHook.js",
