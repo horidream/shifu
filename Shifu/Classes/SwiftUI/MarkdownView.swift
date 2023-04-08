@@ -26,18 +26,18 @@ document.head.appendChild(__style);
 }
 
 public struct SimpleMarkdownViewer: View{
-    @ObservedObject public var viewModel:ShifuWebViewModel
+    @StateObject public var viewModel:ShifuWebViewModel
     var path: String?
     var content: String?
     var animated: Bool
     var stringContent:String{
-        content ?? path?.url?.content ?? ""
+        return content ?? path?.url?.content ?? ""
     }
     
     public init(path : String, animated: Bool = true, postScript:String? = nil, css:String? = nil){
         self.path = path
         self.animated = animated
-        _viewModel = ObservedObject(wrappedValue: with(.markdown){
+        _viewModel = StateObject(wrappedValue: with(.markdown){
             $0.configuration = getConfiguration(script: postScript, css: css)
         })
     }
@@ -45,13 +45,12 @@ public struct SimpleMarkdownViewer: View{
     public init(content: String, animated:Bool = true, postScript:String? = nil, css:String? = nil){
         self.content = content
         self.animated = animated
-        _viewModel = ObservedObject(wrappedValue: with(.markdown){
+        _viewModel = StateObject(wrappedValue: with(.markdown){
             $0.configuration = getConfiguration(script: postScript, css: css)
         })
     }
     
     public var body: some View{
-//        viewModel.apply("console.log(123)")
         return MarkdownView(viewModel: viewModel,  content: .constant(stringContent))
             .autoResize(animated)
     }
@@ -67,7 +66,6 @@ public struct SimpleMarkdownViewer: View{
 public struct MarkdownView: View{
     @ObservedObject var viewModel:ShifuWebViewModel;
     @AppStorage("colorScheme") public var colorScheme: UIUserInterfaceStyle = .unspecified
-    @State var isMounted:Bool = false
     @Binding var content:String
     let markdownPageURL: URL? = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
     public init (viewModel:ShifuWebViewModel = ShifuWebViewModel{
@@ -85,20 +83,21 @@ public struct MarkdownView: View{
         }
         return ShifuWebView(viewModel: viewModel)
             .onChange(of: content) { _ in
-                if(isMounted){
+                if(viewModel.isMounted){
                     updateContent()
                 }
             }
             .onChange(of: colorScheme) { _ in
-                if(isMounted){
+                if(viewModel.isMounted){
                     updateTheme(theme)
                 }
             }
-            .on(.MOUNTED){ _ in
-                updateContent()
-                updateTheme(theme)
-                isMounted = true
-            }
+            .onChange(of: viewModel.isMounted, perform: { newValue in
+                if(newValue){
+                    updateContent()
+                    updateTheme(theme)
+                }
+            })
     }
     
     public func autoResize(_ animated: Bool = true)-> some View{
@@ -107,12 +106,11 @@ public struct MarkdownView: View{
         }
         return self
             .frame(height: viewModel.contentHeight)
-            .on("contentHeight", target: viewModel.delegate){
+            .on("contentHeight", target: viewModel.webView){
                 if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
                     withAnimation( animated ? .easeIn : .none) {
                         self.viewModel.contentHeight = height
                     }
-                    
                 }
             }
             .if(animated){

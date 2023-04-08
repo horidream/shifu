@@ -188,6 +188,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return PopoverDemo().eraseToAnyView()
                 
             },
+            FeatureViewModel(name: "Youglish") { model in
+                model.icon = .youtube
+                model.color = .red
+                return YouglishWebViewDemo().eraseToAnyView()
+                
+            },
             FeatureViewModel(name: "Sandbox") { model in
                 model.icon = .gitlab
                 model.color = .blue

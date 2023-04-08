@@ -1,4 +1,4 @@
-import app from "./model"
+import app from "./model";
 
 app("#app", {
   userDefaults: !window.webkit,
@@ -105,7 +105,8 @@ app("#app", {
     if (this.isDebug) {
       this.currentTheme =
         (await this.userDefaults.get("theme")) ||
-        $("link[title]:not([disabled])").attr("title") || "auto";
+        $("link[title]:not([disabled])").attr("title") ||
+        "auto";
     }
     $("#inputArea").on("keydown", async function (e) {
       let [start, end] = [this.selectionStart, this.selectionEnd];
@@ -154,21 +155,22 @@ app("#app", {
           break;
       }
     });
-    fetch("./example.md")
-      .then((res) => res.text())
-      .then(function (text) {
-        if (!window.webkit) {
+    if (!window.webkit) {
+      fetch("./example.md")
+        .then((res) => res.text())
+        .then(function (text) {
           m.vm.content = text;
-        }
-        postToNative({
-          type: "example",
-          content: text,
+          postToNative({
+            type: "example",
+            content: text,
+          });
         });
-      });
+    }
+    postToNative({
+      type: "mounted",
+    });
   },
 });
-
-
 
 // function onReceiveNative(html) {
 //   try {
@@ -235,4 +237,3 @@ document.addEventListener("paste", function (e) {
   e.preventDefault();
   e.stopPropagation();
 });
-

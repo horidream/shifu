@@ -30,7 +30,7 @@ struct OnEnterFrameDemo:View{
             if !shouldShowCode {
                 ScrollView{
                     SimpleMarkdownViewer(content: "@source/OnEnterFrameDemo.md".url?.content ?? "", animated: false,  css: "pre { border: none; }")
-                        .id(injectObserver.injectionCount)
+//                        .id(injectObserver.injectionCount)
                 }
             } else{
                 ZStack{

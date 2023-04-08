@@ -15,7 +15,11 @@ import JavaScriptCore
 public class ShifuWebViewModel: NSObject, ObservableObject{
     
     public var log2EventMap:[String: String] = [:]
-    public weak internal(set)var delegate: ShifuWebViewController?
+    public weak internal(set)var delegate: ShifuWebViewController? {
+        didSet{
+            
+        }
+    }
     public var treatLoadedAsMounted = false 
     public var shared = false
     public var metaData = """
@@ -100,7 +104,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
     }
     
     public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil){
-        if let webview = self.delegate?.webView {
+        if let webview = self.webView {
             if !shared && isLoading && arguments["force"] as? Bool != true {
                 sc.once(.MOUNTED, object: webview) { _ in
                     webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
@@ -108,10 +112,11 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
             } else {
                 webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
             }
-        } else {
+        }
+        else {
             sc.once(.MOUNTED) { notification in
-                guard notification.object as? NSObject == self.delegate else { return }
-                self.delegate?.webView.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+                guard notification.object as? WKWebView == self.webView else { return }
+                self.webView?.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
             }
         }
     }

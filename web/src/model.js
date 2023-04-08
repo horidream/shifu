@@ -78,8 +78,5 @@ export default grogu.declareModel("com.horidream.lib.shifu", async function (el,
   };
   await grogu.injectVendorLibs({jquery: true})
   let model = await grogu.genModel(store, options, el);
-  postToNative({
-    type: "mounted",
-  });
   return model;
 });

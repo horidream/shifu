@@ -32,7 +32,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     public func autoResize()-> some View{
         self
             .frame(minHeight: viewModel.contentHeight)
-            .on("contentHeight", target: viewModel.delegate){
+            .on("contentHeight", target: viewModel.webView){
                 if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
                     self.viewModel.contentHeight = height
                 }
@@ -94,8 +94,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.bounces = viewModel.allowScroll
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
         webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
-        if let url = viewModel.url {
-            if(context.coordinator.previousURL != url ){
+        if let url = viewModel.url ,context.coordinator.previousURL != url {
                 viewModel.isLoading = true
                 sc.once(.LOADED, object: webView) { _ in
                     viewModel.isLoading = false
@@ -108,8 +107,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
                 }
                 webView.load(URLRequest(url: url))
                 context.coordinator.previousURL = url
-            }
-        } 
+        }
         
         if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
             uiViewController.lastLoadedHTML = html
@@ -164,7 +162,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             clg("[log]", message.body)
         default:
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
-                //                clg(type, dic)
+//                                clg(type, dic)
                 NotificationCenter.default.post(name: type.toNotificationName(), object: webView, userInfo: dic)
             }
         }
