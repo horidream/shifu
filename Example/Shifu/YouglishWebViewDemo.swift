@@ -34,6 +34,10 @@ struct YouglishWebViewDemo: View {
     @State var searching = true
     @State var isPlaying = false
     @Tween var anime;
+    var playerSize: CGSize {
+        let w = min(env.width, 512)
+        return CGSize(width: w, height:  w * 5/6)
+    }
     var shouldShowWebView: Bool {
         return !searching
     }
@@ -49,12 +53,6 @@ struct YouglishWebViewDemo: View {
                 searching = true
             }.set([\.rotationY: -90]).to([\.rotationY: 0])
         }
-        //        model.apply("""
-        //        $("#q").val(searchText);
-        //        $("#searchbut").click();
-        //        console.log("what?")
-        //        """, arguments: ["searchText": searchText])
-        
     }
     
     var body: some View {
@@ -62,7 +60,7 @@ struct YouglishWebViewDemo: View {
             VStack{
                 HStack(alignment: .center){
                     ShifuPasteButton {
-                        Image(.paste)
+                        Image(.paste, size: 24)
                     } onPaste: { _ in
                         if let text = pb.string, !text.isEmpty {
                             lastSearch = text
@@ -72,12 +70,9 @@ struct YouglishWebViewDemo: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     Button{
                         doSearch(searchText)
-//                        lastSearch = searchText
                     } label: {
                         Image(.magnifyingglass)
                     }
-                    
-                    
                 }
                 .padding(0, 20, 12)
                 ZStack{
@@ -89,7 +84,7 @@ struct YouglishWebViewDemo: View {
                             VStack{
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.blue, lineWidth: 1)
-                                    .frame(height: env.width * 1/2)
+                                    .frame(height: playerSize.width * 1/2)
                                     .overlay(
                                         Text("Loading")
                                             .font(.title)
@@ -102,7 +97,7 @@ struct YouglishWebViewDemo: View {
                         .padding(12, 20, 32)
                         .opacity(shouldShowWebView ? 0 : 1)
                 }
-                .frame(width: env.width, height: env.width * 5/6)
+                .frame(width: playerSize.width, height: playerSize.height)
                 .tweenProps(anime)
                 HStack(){
                     let ns = 30.0
@@ -149,19 +144,9 @@ struct YouglishWebViewDemo: View {
                 .padding(.horizontal, 32)
                 Spacer()
                     .frame(minHeight: 50)
-//                Text(model.bridge.stringify() ?? "")
-//                Button{
-//                    model.apply("""
-//bridge.a = \(Int.random(in: 0...100))
-//""")
-//                } label: {
-//                    Text("test")
-//                }
-                
-                
-                
             }
             .padding()
+            .frame(maxWidth: 512)
             .onChange(of: lastSearch, perform: doSearch)
             .on("onPlayerReady"){ _ in
                 hideWebViewUI()
@@ -183,12 +168,14 @@ struct YouglishWebViewDemo: View {
                 sandbox()
             }
             
+            
         }
     }
     func sandbox() {
         doSearch(lastSearch)
         searchText = lastSearch
         hideWebViewUI()
+        clg(env.width)
     }
     
     func click(_ name:String){
