@@ -11,8 +11,8 @@ import SwiftUI
 import Shifu
 
 public struct LottieView: UIViewRepresentable{
-    var lottieView: AnimationView
-    public init(_ lottieAnimation: AnimationView) {
+    var lottieView: LottieAnimationView
+    public init(_ lottieAnimation: LottieAnimationView) {
         self.lottieView = lottieAnimation
     }
     

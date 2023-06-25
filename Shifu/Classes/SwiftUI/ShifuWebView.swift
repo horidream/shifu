@@ -74,6 +74,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     }
     
     public func makeUIViewController(context: Context) -> ShifuWebViewController {
+
         let vc = viewModel.shared ? viewModel.sharedShifuWebViewController : ShifuWebViewController()
         if let conf = viewModel.configuration{
             let script = WKUserScript(source: conf, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
@@ -94,7 +95,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.bounces = viewModel.allowScroll
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
         webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
-        if let url = viewModel.url ,context.coordinator.previousURL != url {
+        if let url = viewModel.url ,context.coordinator.previousURL?.absoluteString.trimmingCharacters(in: .punctuationCharacters) != url.absoluteString.trimmingCharacters(in: .punctuationCharacters){
                 viewModel.isLoading = true
                 sc.once(.LOADED, object: webView) { _ in
                     viewModel.isLoading = false
