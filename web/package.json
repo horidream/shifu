@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "go": "nodemon --watch package.json --watch vite.config.js --watch vite.config.lib.js --exec \"concurrently 'vite serve --host --port 5555' 'vite build --watch' 'vite build --config vite.config.lib.js --watch'\" ",
+    "go": "nodemon --watch package.json --watch vite.config.js --watch vite.config.lib.js --exec \"concurrently 'vite serve --host --port 1125' 'vite build --watch' 'vite build --config vite.config.lib.js --watch'\" ",
     "start": "nodemon --watch package.json --watch vite.config.js --exec \"yarn dev\"",
     "dev": "vite serve --host --port 5555",
     "lib": "vite build --config vite.config.lib.js --watch",

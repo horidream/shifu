@@ -1,4 +1,5 @@
 import { reactive, watch, toRaw } from "@vue/runtime-core";
+import { observe } from "./MutationObserve";
 
 if (typeof globalThis.postToNative == "undefined") {
   // functions that called from js side and will be handled by swift
@@ -42,6 +43,7 @@ if (typeof globalThis.postToNative == "undefined") {
     defineGlobal("bridge", bridge);
 
     defineGlobal("postToNative", postToNative);
+    defineGlobal("observe", observe);
     // defineGlobal("eb", new EventTarget());
     // define global
     if (window.webkit) {

@@ -12,4 +12,8 @@ if (!window.__manage_mounted_event__) {
   postToNative({
     type: "ready",
   });
+}else{
+  postToNative({
+		type: "__ready__",
+  });
 }

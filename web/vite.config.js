@@ -59,6 +59,7 @@ export default defineConfig({
       buildStart() {
         this.addWatchFile(resolve(__dirname, "public/test.html"));
         this.addWatchFile(resolve(__dirname, "public/PostNativeHook.js"));
+        this.addWatchFile(resolve(__dirname, "public/NativeHook.js"));
       },
     },
   ],
