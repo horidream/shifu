@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct DefinitionView: UIViewControllerRepresentable {
-    var word: String
+    let word: String
     
     public init(word: String) {
         self.word = word

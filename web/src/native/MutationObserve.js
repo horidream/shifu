@@ -40,4 +40,5 @@ export function observe(targetNode, property, cb) {
 	// Start observing the target node for configured mutations
 	observer.observe(targetNode, config);
     targetMap.set(observer);
+    return observer;
 }

@@ -23,6 +23,7 @@ import UIKit
 struct YouglishWebViewDemo: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
+    @EnvironmentObject var vm: HomeViewModel
     @AppStorage("currentSearch") var currentSearch: String = "disparity"
     @StateObject var model:ShifuWebViewModel = {with(ShifuWebViewModel()){ vc in
         vc.log2EventMap = ["onPlayerReady": "onPlayerReady"]
@@ -39,7 +40,7 @@ struct YouglishWebViewDemo: View {
     @State var prevBtnEnabled = false
     @State var nextBtnEnabled = false
     var playerSize: CGSize {
-        let w = min(env.width, 512)
+        let w = vm.g?.size.width ?? env.width
         return CGSize(width: w, height:  w * 5/6)
     }
     var shouldShowWebView: Bool {
@@ -182,7 +183,7 @@ struct YouglishWebViewDemo: View {
                     .frame(minHeight: 50)
             }
             .padding()
-            .frame(maxWidth: 512)
+//            .frame(maxWidth: 512)
             .onChange(of: currentSearch, perform: doSearch)
             .on("onPlayerReady"){ _ in
                 modifyWebpage()
@@ -216,8 +217,6 @@ struct YouglishWebViewDemo: View {
             .onAppear {
                 doSearch(currentSearch)
             }
-            
-            
         }
     }
     
