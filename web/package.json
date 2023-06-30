@@ -1,51 +1,51 @@
 {
-  "name": "shifu-web",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "go": "nodemon --watch package.json --watch vite.config.js --watch vite.config.lib.js --exec \"concurrently 'vite serve --host --port 1125' 'vite build --watch' 'vite build --config vite.config.lib.js --watch'\" ",
-    "start": "nodemon --watch package.json --watch vite.config.js --exec \"yarn dev\"",
-    "dev": "vite serve --host --port 5555",
-    "lib": "vite build --config vite.config.lib.js --watch",
-    "build": "nodemon --watch package.json --watch vite.config.js --exec \"vite build --watch\"",
-    "start-legacy": "npm run dev & npm run build & npm run deploy",
-    "build-legacy": "nodemon --watch main.js --watch to_markdown.js --exec \"cross-env NODE_ENV=production webpack --mode production --config webpack.config.js --progress\"",
-    "build-cloud": "vite build",
-    "deploy": "cross-env NODE_ENV=dev webpack --watch --mode production --config webpack.config.js --progress",
-    "test": "karma start test/unit/karma.conf.js --single-run"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.22.5",
-    "@babel/preset-env": "^7.22.5",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "babel-loader": "^9.1.2",
-    "babel-preset-env": "^1.7.0",
-    "concurrently": "^8.2.0",
-    "copy-webpack-plugin": "^11.0.0",
-    "cross-env": "^7.0.3",
-    "rollup-plugin-analyzer": "^4.0.0",
-    "rollup-plugin-visualizer": "^5.9.2",
-    "sounds-webpack-plugin": "^0.0.2",
-    "vite": "^4.3.9",
-    "vite-plugin-html": "^3.2.0",
-    "webpack": "^5.88.1",
-    "webpack-bundle-analyzer": "^4.9.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
-  },
-  "dependencies": {
-    "grogu": "^0.0.1",
-    "highlight.js": "^11.8.0",
-    "katex": "^0.16.8",
-    "marked": "^5.1.0",
-    "marked-highlight": "^2.0.1",
-    "vue": "^3.3.4"
-  }
+	"name": "shifu-web",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"type": "module",
+	"scripts": {
+		"go": "nodemon --watch package.json --watch vite.config.js --watch vite.config.lib.js --exec \"concurrently 'vite serve --host --port 1125' 'vite build --watch' 'vite build --config vite.config.lib.js --watch'\" ",
+		"start": "nodemon --watch package.json --watch vite.config.js --exec \"yarn dev\"",
+		"dev": "vite serve --host --port 5555",
+		"lib": "vite build --config vite.config.lib.js --watch",
+		"build": "nodemon --watch package.json --watch vite.config.js --exec \"vite build --watch\"",
+		"start-legacy": "npm run dev & npm run build & npm run deploy",
+		"build-legacy": "nodemon --watch main.js --watch to_markdown.js --exec \"cross-env NODE_ENV=production webpack --mode production --config webpack.config.js --progress\"",
+		"build-cloud": "vite build",
+		"deploy": "cross-env NODE_ENV=dev webpack --watch --mode production --config webpack.config.js --progress",
+		"test": "karma start test/unit/karma.conf.js --single-run"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not ie <= 8"
+	],
+	"devDependencies": {
+		"@babel/core": "^7.22.5",
+		"@babel/preset-env": "^7.22.5",
+		"@vitejs/plugin-vue": "^4.2.3",
+		"babel-loader": "^9.1.2",
+		"babel-preset-env": "^1.7.0",
+		"concurrently": "^8.2.0",
+		"copy-webpack-plugin": "^11.0.0",
+		"cross-env": "^7.0.3",
+		"rollup-plugin-analyzer": "^4.0.0",
+		"rollup-plugin-visualizer": "^5.9.2",
+		"sounds-webpack-plugin": "^0.0.2",
+		"vite": "^4.3.9",
+		"vite-plugin-html": "^3.2.0",
+		"webpack": "^5.88.1",
+		"webpack-bundle-analyzer": "^4.9.0",
+		"webpack-cli": "^5.1.4",
+		"webpack-dev-server": "^4.15.1"
+	},
+	"dependencies": {
+		"grogu": "../../grogu",
+		"highlight.js": "^11.8.0",
+		"katex": "^0.16.8",
+		"marked": "^5.1.0",
+		"marked-highlight": "^2.0.1",
+		"vue": "^3.3.4"
+	}
 }
