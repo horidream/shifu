@@ -1,5 +1,6 @@
 import grogu from "grogu";
 import * as marked from "marked";
+import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 import katex from "katex";
 import { toMarkdown } from "grogu/utils";
@@ -9,13 +10,13 @@ hljs.registerLanguage("objective-c", objectivec);
 let renderer = new marked.Renderer();
 marked.setOptions({
   renderer,
-  highlight: function (code, language) {
-    if (!hljs.getLanguage(language)) {
-      return hljs.highlightAuto(code).value;
-    }
+  // highlight: function (code, language) {
+  //   if (!hljs.getLanguage(language)) {
+  //     return hljs.highlightAuto(code).value;
+  //   }
     
-    return hljs.highlight(code, { language }).value;
-  },
+  //   return hljs.highlight(code, { language }).value;
+  // },
   pedantic: false,
   gfm: true,
   tables: true,
@@ -23,8 +24,22 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
+  mangle: false,
+  headerIds: false,
   xhtml: false,
 });
+marked.use(
+	markedHighlight({
+		// langPrefix: "hljs language-",
+		highlight: function (code, language) {
+		  if (!hljs.getLanguage(language)) {
+		    return hljs.highlightAuto(code).value;
+		  }
+
+		  return hljs.highlight(code, { language }).value;
+		}
+	})
+);
 
 function mathsExpression(expr) {
   if (expr.match(/^\$\$[\s\S]*\$\$$/)) {
