@@ -25,12 +25,7 @@ struct YouglishWebViewDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     @EnvironmentObject var vm: HomeViewModel
     @AppStorage("currentSearch") var currentSearch: String = "disparity"
-    @StateObject var model:ShifuWebViewModel = {with(ShifuWebViewModel()){ vc in
-        vc.log2EventMap = ["onPlayerReady": "onPlayerReady"]
-        vc.treatLoadedAsMounted = true
-        vc.shared = true
-    }
-    }()
+    
     @State var inputText = ""
     @State var lastSearch:String?
     @State var searching = true
@@ -40,8 +35,9 @@ struct YouglishWebViewDemo: View {
     @State var prevBtnEnabled = false
     @State var nextBtnEnabled = false
     var playerSize: CGSize {
-        let w = vm.g?.size.width ?? env.width
-        return CGSize(width: w, height:  w * 5/6)
+        let w = min(vm.g?.size.width ?? env.width, 800)
+        let ratio = w > 450 ? 2/3.0 : 5/6.0
+        return CGSize(width: w, height:  w * ratio)
     }
     var shouldShowWebView: Bool {
         return !searching
@@ -50,7 +46,7 @@ struct YouglishWebViewDemo: View {
     @discardableResult private func updateYouglish(_ newValue: String)->Bool{
         if let searchingWord = newValue.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).addingPercentEncoding(withAllowedCharacters: .urlPathAllowed), searchingWord != lastSearch, !searchingWord.isEmpty{
             lastSearch = searchingWord
-            model.url = "https://youglish.com/pronounce/\(searchingWord)/english?".url
+            vm.youglish.url = "https://youglish.com/pronounce/\(searchingWord)/english?".url
             isPlaying = false
             return true
         }
@@ -110,9 +106,9 @@ struct YouglishWebViewDemo: View {
                             .frame(height: 28)
                     }
                 }
-                .padding(0, 20, 12)
+                .padding(0, 0, 5)
                 ZStack{
-                    ShifuWebView(viewModel: model)
+                    ShifuWebView(viewModel: vm.youglish)
                         .opacity(shouldShowWebView ? 1 : 0)
                         .id("youtube-video")
                     RoundedRectangle(cornerRadius: 20)
@@ -178,15 +174,19 @@ struct YouglishWebViewDemo: View {
                             .frame(width: ns, height: ns)
                     }.disabled(!nextBtnEnabled)
                 }
+                .frame(maxWidth: 400)
                 .padding(.horizontal, 32)
                 Spacer()
                     .frame(minHeight: 50)
             }
             .padding()
-//            .frame(maxWidth: 512)
+            .frame(maxWidth: playerSize.width)
             .onChange(of: currentSearch, perform: doSearch)
             .on("onPlayerReady"){ _ in
-                modifyWebpage()
+                tl($anime).to([\.rotationY: 90]).perform {
+                    modifyWebpage()
+                    searching = false
+                }.set([\.rotationY: -90]).to([\.rotationY: 0])
             }
             .on("playingChange"){ no in
                 isPlaying = no.userInfo?["isPlaying"] as? Bool ?? false
@@ -205,9 +205,7 @@ struct YouglishWebViewDemo: View {
             }
             .on("ready"){ _ in
                 modifyWebpage()
-                tl($anime).delay(2).to([\.rotationY: 90]).perform {
-                    searching = false
-                }.set([\.rotationY: -90]).to([\.rotationY: 0])
+                
             }
             .navigationBarTitleDisplayMode(.inline)
             .onInjection {
@@ -222,7 +220,15 @@ struct YouglishWebViewDemo: View {
     
     func showDefinition(_ word: String){
         if UIReferenceLibraryViewController.dictionaryHasDefinition(forTerm: word) {
-            let vc = UIHostingController(rootView: DefinitionView(word: word))
+            if(isPlaying){
+                click("#b_pause")
+            }
+            let vc = SFHostingController(rootView: DefinitionView(word: word))
+            sc.on("dismiss", object: vc){ _ in
+                if(!isPlaying){
+                    click("#b_pause")
+                }
+            }
             if let presentationController = vc.presentationController as? UISheetPresentationController {
                 presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
             }
@@ -234,12 +240,19 @@ struct YouglishWebViewDemo: View {
     }
     
     func click(_ name:String){
-        model.apply("""
+        vm.youglish.apply("""
 $("\(name)").click();
 """)
     }
     func modifyWebpage(){
-        model.apply("""
+        vm.youglish.apply(MODIFY_PAGE)
+    }
+    
+}
+
+
+
+private let MODIFY_PAGE = """
 if (typeof $ != "undefined") {
     $("body *").not(".result_container, .result_container *").hide();
     $(".result_container").parents().addBack().show();
@@ -264,10 +277,5 @@ observe(["#b_prev", "#b_next"], "class", (target, selector) => {
     });
 });
 
-""")
-    }
-    
-}
-
-
+"""
 

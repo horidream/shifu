@@ -138,7 +138,8 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     var lastLoadedHTML:String?
     weak var model: ShifuWebViewModel? {
         didSet{
-            if let model = model {
+            if let model = model, model != oldValue {
+                webView.configuration.userContentController.removeScriptMessageHandler(forName: "webViewBridge")
                 webView.configuration.userContentController.add(model, name: "webViewBridge");
             }
         }
@@ -161,7 +162,9 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
                     }
                 }
             }
-            clg("[log]", message.body)
+            if(Shifu.config.shouldPrintWebLog){
+                clg("[log]", message.body)
+            }
         default:
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
 //                                clg(type, dic)

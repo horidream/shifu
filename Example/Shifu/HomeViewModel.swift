@@ -40,7 +40,13 @@ class FeatureViewModel<Content>: ObservableObject, Hashable, Identifiable{
 
 class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachability{
     typealias Root = HomeView
-    
+    @Published var youglish:ShifuWebViewModel = {with(ShifuWebViewModel()){ vc in
+        vc.log2EventMap = ["onPlayerReady": "onPlayerReady"]
+        vc.treatLoadedAsMounted = true
+        vc.shared = true
+        clg("create youglish")
+    }
+    }()
     @Published var featureList:[FeatureViewModel<AnyView>] = []
     @Published var script:String = ""
     var startIndex = 1

@@ -42,6 +42,10 @@ private class EmptyClass{
     
 }
 public class Shifu{
+    public class Config{
+        public var shouldPrintWebLog = false;
+    }
+    public static var config = Config()
     public static var name:String{
         localized("Shifu")
     }
@@ -129,4 +133,5 @@ public class Shifu{
         public static var backgroundColor
     }
 }
+
 
