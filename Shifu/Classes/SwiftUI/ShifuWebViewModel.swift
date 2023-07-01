@@ -28,6 +28,10 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
 """
+    public static var noop:ShifuWebViewModel = .init()
+    var isNoop:Bool {
+        return self == Self.noop
+    }
     public static var markdown:ShifuWebViewModel {
         .init {
             $0.allowScroll = true
@@ -68,7 +72,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
     
     @Published public internal(set)var isLoading: Bool = false
     @Published public internal(set)var isMounted: Bool = false
-    public var configuration: String?
+    @Published public var configuration: String?
     public var baseURL: URL?
     
     var webView:WKWebView? {

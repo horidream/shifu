@@ -26,7 +26,7 @@ document.head.appendChild(__style);
 }
 
 public struct SimpleMarkdownViewer: View{
-    @StateObject public var viewModel:ShifuWebViewModel
+    @StateObject public var viewModel:ShifuWebViewModel = .markdown
     var path: String?
     var content: String?
     var animated: Bool
@@ -37,17 +37,13 @@ public struct SimpleMarkdownViewer: View{
     public init(path : String, animated: Bool = true, postScript:String? = nil, css:String? = nil){
         self.path = path
         self.animated = animated
-        _viewModel = StateObject(wrappedValue: with(.markdown){
-            $0.configuration = getConfiguration(script: postScript, css: css)
-        })
+        viewModel.configuration = getConfiguration(script: postScript, css: css)
     }
     
     public init(content: String, animated:Bool = true, postScript:String? = nil, css:String? = nil){
         self.content = content
         self.animated = animated
-        _viewModel = StateObject(wrappedValue: with(.markdown){
-            $0.configuration = getConfiguration(script: postScript, css: css)
-        })
+        viewModel.configuration = getConfiguration(script: postScript, css: css)
     }
     
     public var body: some View{
@@ -59,23 +55,27 @@ public struct SimpleMarkdownViewer: View{
         viewModel.apply(funtionBody, arguments: arguments, callback: callback)
         return self
     }
-
+    
 }
+
 
 @available(iOS 14.0, *)
 public struct MarkdownView: View{
-    @ObservedObject var viewModel:ShifuWebViewModel;
+    @StateObject var ownViewModel:ShifuWebViewModel = .markdown
+    @ObservedObject var injectedViewModel:ShifuWebViewModel;
     @AppStorage("colorScheme") public var colorScheme: UIUserInterfaceStyle = .unspecified
     @Binding var content:String
+    var viewModel: ShifuWebViewModel {
+        injectedViewModel.isNoop ? ownViewModel : injectedViewModel
+    }
     let markdownPageURL: URL? = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
-    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel{
-        $0.allowScroll = true
-        $0.url = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
-    }, content:Binding<String>){
-        self.viewModel = viewModel
+    public init (viewModel:ShifuWebViewModel = .noop, content:Binding<String>){
+        self.injectedViewModel = viewModel
         _content = content
         
     }
+    
+    
     
     public var body: some View{
         if(viewModel.url != markdownPageURL){

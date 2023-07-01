@@ -83,9 +83,9 @@ struct ToMarkdownDemo: View {
             ThemePicker()
                 .padding(.horizontal)
             MarkdownView(viewModel: vm, content: $tevm.text)
-                .apply("return 1"){
-                    clg($0)
-                }
+//                .apply("return 1"){
+//                    clg($0)
+//                }
                 .padding(8)
                 .border(Color.red)
                 .padding(.horizontal)

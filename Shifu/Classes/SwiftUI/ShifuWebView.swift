@@ -97,29 +97,30 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
         if let url = viewModel.url ,context.coordinator.previousURL?.absoluteString.trimmingCharacters(in: .punctuationCharacters) != url.absoluteString.trimmingCharacters(in: .punctuationCharacters){
                 viewModel.isLoading = true
-                sc.once(.LOADED, object: webView) { _ in
-                    viewModel.isLoading = false
-                    if(viewModel.treatLoadedAsMounted){
-                        sc.emit(.MOUNTED, object: webView)
-                    }
-                }
-                sc.once(.MOUNTED, object: webView){ _ in
-                    viewModel.isMounted = true;
-                }
+                observeMounted(webView: webView, model: viewModel)
                 webView.load(URLRequest(url: url))
                 context.coordinator.previousURL = url
         }
         
         if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
             uiViewController.lastLoadedHTML = html
-            viewModel.isLoading = true
             webView.loadHTMLString( viewModel.metaData + html, baseURL: viewModel.baseURL)
-            sc.once(.LOADED, object: webView) { _ in
-                viewModel.isLoading = false
-            }
+            viewModel.isMounted = true
         }
         
         
+    }
+    
+    func observeMounted(webView: WKWebView, model:  ShifuWebViewModel){
+        sc.once(.LOADED, object: webView) { _ in
+            viewModel.isLoading = false
+            if(viewModel.treatLoadedAsMounted){
+                sc.emit(.MOUNTED, object: webView)
+            }
+        }
+        sc.once(.MOUNTED, object: webView){ _ in
+            viewModel.isMounted = true;
+        }
     }
     
     public typealias UIViewControllerType = ShifuWebViewController

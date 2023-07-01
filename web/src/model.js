@@ -10,13 +10,6 @@ hljs.registerLanguage("objective-c", objectivec);
 let renderer = new marked.Renderer();
 marked.setOptions({
   renderer,
-  // highlight: function (code, language) {
-  //   if (!hljs.getLanguage(language)) {
-  //     return hljs.highlightAuto(code).value;
-  //   }
-    
-  //   return hljs.highlight(code, { language }).value;
-  // },
   pedantic: false,
   gfm: true,
   tables: true,
