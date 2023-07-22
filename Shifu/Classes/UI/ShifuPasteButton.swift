@@ -17,7 +17,7 @@ public struct ShifuPasteButton<T: View>: View {
     let onPaste:([NSItemProvider])->Void
     let builder: ()-> T
     let supportedContentType:[UTType]
-    @ObservedObject var config = Config()
+    @StateObject var config = Config()
     public init(supportedContentType: [UTType] = [.data], @ViewBuilder view builder: @escaping ()-> T, onPaste: @escaping ([NSItemProvider])->Void, config customizeConfig: ((Config)->Void)? = nil){
         self.onPaste = onPaste
         self.builder = builder

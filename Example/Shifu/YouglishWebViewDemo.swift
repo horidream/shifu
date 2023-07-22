@@ -46,7 +46,7 @@ struct YouglishWebViewDemo: View {
     @discardableResult private func updateYouglish(_ newValue: String)->Bool{
         if let searchingWord = newValue.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).addingPercentEncoding(withAllowedCharacters: .urlPathAllowed), searchingWord != lastSearch, !searchingWord.isEmpty{
             lastSearch = searchingWord
-            vm.youglish.url = "https://youglish.com/pronounce/\(searchingWord)/english?".url
+            vm.youglish.url = "https://youglish.com/pronounce/\(searchingWord)/english".url
             isPlaying = false
             return true
         }

@@ -94,10 +94,10 @@ import Combine
 @main
 struct ShifuExampleApp: App {
 //    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject var vm = HomeViewModel()
     init() { }
     var body: some Scene {
         WindowGroup {
-            let vm = HomeViewModel()
             vm.view {
                 HomeView()
             }

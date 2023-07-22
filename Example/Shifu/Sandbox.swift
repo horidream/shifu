@@ -28,7 +28,14 @@ struct Sandbox: View {
     @State var isOn = true
     var body: some View {
     
-        Text("Sandbox")
+        Text("Sandbox...")
+            .padding(40)
+            .background(Color.red)
+            .cornerRadius(20)
+            .shadow(color: Color.black.opacity(0.5), radius: 10, x: 10, y: 10)
+            .onTapGesture {
+                clg("tapping")
+            }
             .onInjection{
                 sandbox()
             }
@@ -38,10 +45,15 @@ struct Sandbox: View {
     }
     
     func sandbox(){
-        clg("OK")
+        clg("OK==>")
     }
     
     
     
 }
 
+struct Sandbox_Previews: PreviewProvider {
+    static var previews: some View {
+        Sandbox()
+    }
+}
