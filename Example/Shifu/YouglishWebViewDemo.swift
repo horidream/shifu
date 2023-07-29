@@ -21,7 +21,13 @@ import UIKit
 
 
 struct YouglishWebViewDemo: View {
-    
+    @Persist("YouglishWebViewDemo_History") var history:[String] = []{
+        willSet{
+            if(newValue.count > 30){
+                history = Array(newValue[..<30])
+            }
+        }
+    }
     @ObservedObject private var injectObserver = Self.injectionObserver
     @EnvironmentObject var vm: HomeViewModel
     @AppStorage("currentSearch") var currentSearch: String = "disparity"
@@ -60,6 +66,16 @@ struct YouglishWebViewDemo: View {
             tl($anime).to([\.rotationY: 90]).perform {
                 searching = true
             }.set([\.rotationY: -90]).to([\.rotationY: 0])
+        }
+        if(!history.contains(newValue)){
+            history.insert(newValue, at: 0);
+        } else {
+            if let idx = history.firstIndex(of: newValue){
+                var arr = history
+                let elementToMove = arr.remove(at: idx)
+                arr.insert(elementToMove, at: 0)
+                history = arr
+            }
         }
     }
     
@@ -108,9 +124,15 @@ struct YouglishWebViewDemo: View {
                 }
                 .padding(0, 0, 5)
                 ZStack{
-                    ShifuWebView(viewModel: vm.youglish)
+                    ShifuWebView(viewModel: with(vm.youglish){
+                        $0.allowedMenus = ["copy", "define"];
+                        $0.extraMenus = [localized("Search Video"): {
+                            currentSearch = $0
+                        }]
+                    })
                         .opacity(shouldShowWebView ? 1 : 0)
                         .id("youtube-video")
+                    
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.white)
                         .overlay(
@@ -176,8 +198,21 @@ struct YouglishWebViewDemo: View {
                 }
                 .frame(maxWidth: 400)
                 .padding(.horizontal, 32)
-                Spacer()
-                    .frame(minHeight: 50)
+                SimpleFlowText(items: $history) { text in
+                    clg(currentSearch, text)
+                    if(currentSearch != text){
+                        doSearch(text)
+                    } else {
+                        showDefinition(text)
+                    }
+                }
+                .frame(minHeight: 160)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
+                .padding(35,0,20)
             }
             .padding()
             .frame(maxWidth: playerSize.width)

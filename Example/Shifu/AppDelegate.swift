@@ -91,10 +91,9 @@ import Combine
 //}
 
 
+private var vm = HomeViewModel()
 @main
 struct ShifuExampleApp: App {
-//    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject var vm = HomeViewModel()
     init() { }
     var body: some Scene {
         WindowGroup {

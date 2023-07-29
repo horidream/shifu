@@ -29,6 +29,7 @@
 		99244B5D261C9FDA0027A1D7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99244B5C261C9FDA0027A1D7 /* HomeView.swift */; };
 		99BA8070244BF2B0006E839F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99BA8072244BF2B0006E839F /* InfoPlist.strings */; };
 		B757972E6B16479D3511D066 /* Pods_ShifuExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6CAA8E7FC3862D7C704DDA /* Pods_ShifuExampleTests.framework */; };
+		C701B85E2A6D852800A56354 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C701B8602A6D852800A56354 /* Localizable.strings */; };
 		C7069477289E6F810045BFBF /* lottie_example.json in Resources */ = {isa = PBXBuildFile; fileRef = C7069476289E6F810045BFBF /* lottie_example.json */; };
 		C7177D11284A11F500372629 /* IconsDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7177D10284A11F500372629 /* IconsDemo.swift */; };
 		C7268DA529E1449800A4A570 /* YouglishWebViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7268DA429E1449800A4A570 /* YouglishWebViewDemo.swift */; };
@@ -110,6 +111,8 @@
 		AC28D7DBEE050356A7759EA7 /* Pods-Shifu_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shifu_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shifu_Example/Pods-Shifu_Example.release.xcconfig"; sourceTree = "<group>"; };
 		B3B324223DF4BCD83B564ABE /* Pods-ShifuExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShifuExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShifuExampleTests/Pods-ShifuExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD310A66CE387B574503530D /* Pods_ShifuIntentsDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShifuIntentsDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C701B85F2A6D852800A56354 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C701B8612A6D852F00A56354 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C7069476289E6F810045BFBF /* lottie_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_example.json; sourceTree = "<group>"; };
 		C7177D10284A11F500372629 /* IconsDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsDemo.swift; sourceTree = "<group>"; };
 		C7268DA429E1449800A4A570 /* YouglishWebViewDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouglishWebViewDemo.swift; sourceTree = "<group>"; };
@@ -254,6 +257,7 @@
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
 				99BA8072244BF2B0006E839F /* InfoPlist.strings */,
+				C701B8602A6D852800A56354 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -407,6 +411,7 @@
 				3C3C46D927B9156800BCB074 /* launch.png in Resources */,
 				99BA8070244BF2B0006E839F /* InfoPlist.strings in Resources */,
 				C7069477289E6F810045BFBF /* lottie_example.json in Resources */,
+				C701B85E2A6D852800A56354 /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -621,6 +626,15 @@
 				99BA8073244BF348006E839F /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C701B8602A6D852800A56354 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C701B85F2A6D852800A56354 /* en */,
+				C701B8612A6D852F00A56354 /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -24,24 +24,12 @@ struct Sandbox: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
     
-    @State var content = "# hello"
-    @State var isOn = true
+    @State var items: [String] = ["Hello", "SwiftUI", "World", "This", "is",  "a", "flow", "layout"]
     var body: some View {
-    
-        Text("Sandbox...")
-            .padding(40)
-            .background(Color.red)
-            .cornerRadius(20)
-            .shadow(color: Color.black.opacity(0.5), radius: 10, x: 10, y: 10)
-            .onTapGesture {
-                clg("tapping")
-            }
-            .onInjection{
-                sandbox()
-            }
-            .onAppear{
-                sandbox()
-            }
+        SimpleFlowText(items: $items, onTap: { txt in
+            clg(txt)
+        })
+        .padding()
     }
     
     func sandbox(){
@@ -51,6 +39,9 @@ struct Sandbox: View {
     
     
 }
+
+
+
 
 struct Sandbox_Previews: PreviewProvider {
     static var previews: some View {

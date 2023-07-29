@@ -27,8 +27,12 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     }
     
     
-    @ObservedObject var viewModel:ShifuWebViewModel
-    
+    @ObservedObject var viewModel1:ShifuWebViewModel = .noop
+    @StateObject var viewModel2:ShifuWebViewModel = ShifuWebViewModel()
+    var viewModel:ShifuWebViewModel {
+        return viewModel1.isNoop ?  viewModel2 : viewModel1
+    }
+
     public func autoResize()-> some View{
         self
             .frame(minHeight: viewModel.contentHeight)
@@ -39,20 +43,16 @@ public struct ShifuWebView: UIViewControllerRepresentable{
             }
     }
     
-    public init (viewModel:ShifuWebViewModel = ShifuWebViewModel()){
-        self.viewModel = viewModel
+    public init (viewModel:ShifuWebViewModel ){
+        self.viewModel1 = viewModel
     }
     
     public init (url: URL?){
-        self.viewModel = ShifuWebViewModel{
-            $0.url = url
-        }
+        self.viewModel2.url = url
     }
     
     public init (html: String?){
-        self.viewModel = ShifuWebViewModel{
-            $0.html = html
-        }
+        self.viewModel2.html = html
     }
     
     func reinitializeSharedShifuWebViewController(){
@@ -95,6 +95,12 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.bounces = viewModel.allowScroll
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
         webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
+        if let extraMenus = viewModel.extraMenus{
+            for (menu, block) in extraMenus{
+                webView.addCustomMenuItem(menu, block)
+            }
+        }
+
         if let url = viewModel.url ,context.coordinator.previousURL?.absoluteString.trimmingCharacters(in: .punctuationCharacters) != url.absoluteString.trimmingCharacters(in: .punctuationCharacters){
                 viewModel.isLoading = true
                 observeMounted(webView: webView, model: viewModel)
@@ -174,13 +180,14 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     }
     
     var url: URL?
-    public var webView:WKWebView = WKWebView(frame: .zero, configuration: with(WKWebViewConfiguration()){
+    public var webView:CustomWebView = CustomWebView(frame: .zero, configuration: with(WKWebViewConfiguration()){
         // this must be set in the constructor
         $0.allowsInlineMediaPlayback = true
     })
     
     public override func loadView() {
         view = webView
+        
         webView.isOpaque = false
         webView.scrollView.showsVerticalScrollIndicator = false
         webView.scrollView.showsHorizontalScrollIndicator = false
@@ -208,6 +215,9 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
         if(model?.shared != true){
             webView.configuration.userContentController.add(self, name: "logHandler")
             webView.configuration.userContentController.add(self, name: "native")
+        }
+        if let allowedMenus = model?.allowedMenus{
+            webView.allowedMenus = allowedMenus
         }
     }
     
@@ -251,4 +261,42 @@ public class EmptyObject{
     public static let shared = EmptyObject()
 }
 
+public class CustomWebView: WKWebView {
+    var allowedMenus:[String] = []
+    var blockMap = Dictionary<String, (String)->Void>()
+    override public func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(customAction) {
+            return true
+        }
+        for str in allowedMenus {
+            if action.description.test(pattern: str){
+                return true
+            }
+        }
+        return false
+    }
+
+    override public var canBecomeFirstResponder: Bool {
+        return true
+    }
+
+    @objc func customAction(_ command: UICommand) {
+        self.evaluateJavaScript("window.getSelection().toString()") { (result, error) in
+            if let selectedText = result as? String {
+                self.blockMap[command.title]?(selectedText)
+            }
+        }
+    }
+    
+    // Call this method when page finishes loading
+    public func  addCustomMenuItem(_ title: String, _ block:@escaping (String)->Void) {
+        let customMenuItem = UIMenuItem(title: title, action: #selector(customAction))
+        blockMap[title] = block
+        if var arr = UIMenuController.shared.menuItems{
+            arr.append(customMenuItem)
+        } else {
+            UIMenuController.shared.menuItems = [customMenuItem]
+        }
+    }
+}
 

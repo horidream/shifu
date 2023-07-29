@@ -22,6 +22,8 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
     }
     public var treatLoadedAsMounted = false 
     public var shared = false
+    public var extraMenus:Dictionary<String, (String)->Void>?
+    public var allowedMenus:[String] = []
     public var metaData = """
 <meta
     name="viewport"
