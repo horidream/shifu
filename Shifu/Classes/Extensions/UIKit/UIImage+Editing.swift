@@ -288,7 +288,7 @@ public extension UnifiedImage {
 
         let scale = recommendedLayerContentsScale(0)
         let scaledSize = CGSize(width: CGFloat(cgImage.width) / scale,
-                                height: CGFloat(cgImage.height) / scale)
+                                contentHeight: CGFloat(cgImage.contentHeight) / scale)
         let image = NSImage(cgImage: cgImage, size: scaledSize)
         image.isTemplate = isTemplate
         return image

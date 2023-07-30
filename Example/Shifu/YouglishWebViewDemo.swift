@@ -22,12 +22,16 @@ import UIKit
 
 struct YouglishWebViewDemo: View {
     @Persist("YouglishWebViewDemo_History") var history:[String] = []{
-        willSet{
-            if(newValue.count > 30){
-                history = Array(newValue[..<30])
+        didSet{
+            if(history.count > 30){
+                history = Array(history[..<30])
+            }
+            if(!history.contains(currentSearch)){
+                currentSearch = ""
             }
         }
     }
+    @State var shouldHistorySearchVideo = true
     @ObservedObject private var injectObserver = Self.injectionObserver
     @EnvironmentObject var vm: HomeViewModel
     @AppStorage("currentSearch") var currentSearch: String = "disparity"
@@ -40,6 +44,7 @@ struct YouglishWebViewDemo: View {
     @State var isPlaying = false
     @State var prevBtnEnabled = false
     @State var nextBtnEnabled = false
+    @State var shouldResume = true
     var playerSize: CGSize {
         let w = min(vm.g?.size.width ?? env.width, 800)
         let ratio = w > 450 ? 2/3.0 : 5/6.0
@@ -56,27 +61,30 @@ struct YouglishWebViewDemo: View {
             isPlaying = false
             return true
         }
+        vm.youglish.url = nil
         return false
     }
     
     fileprivate func doSearch(_ newValue: String) {
         showDefinition(newValue)
         if(updateYouglish(newValue)){
-            inputText = newValue
+            shouldResume = true
+            
             tl($anime).to([\.rotationY: 90]).perform {
                 searching = true
             }.set([\.rotationY: -90]).to([\.rotationY: 0])
-        }
-        if(!history.contains(newValue)){
-            history.insert(newValue, at: 0);
-        } else {
-            if let idx = history.firstIndex(of: newValue){
-                var arr = history
-                let elementToMove = arr.remove(at: idx)
-                arr.insert(elementToMove, at: 0)
-                history = arr
+            if(!history.contains(newValue)){
+                history.insert(newValue, at: 0);
+            } else {
+                if let idx = history.firstIndex(of: newValue){
+                    var arr = history
+                    let elementToMove = arr.remove(at: idx)
+                    arr.insert(elementToMove, at: 0)
+                    history = arr
+                }
             }
         }
+        inputText = newValue
     }
     
     var body: some View {
@@ -141,7 +149,7 @@ struct YouglishWebViewDemo: View {
                                     .stroke(Color.blue, lineWidth: 1)
                                     .frame(height: playerSize.width * 1/2)
                                     .overlay(
-                                        Text("Loading")
+                                        Text(vm.youglish.url == nil ? "No Video" : "Loading")
                                             .font(.title)
                                             .foregroundColor(.blue)
                                     )
@@ -198,15 +206,24 @@ struct YouglishWebViewDemo: View {
                 }
                 .frame(maxWidth: 400)
                 .padding(.horizontal, 32)
-                SimpleFlowText(items: $history) { text in
-                    clg(currentSearch, text)
-                    if(currentSearch != text){
-                        doSearch(text)
-                    } else {
-                        showDefinition(text)
+                VStack{
+                    Toggle(shouldHistorySearchVideo ?  localized("Video & Definition") : localized("Definition Only"), isOn: $shouldHistorySearchVideo)
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.3)) // Set the color of the line
+                        .frame(height: 1)  // Set the width of the line
+                    SimpleFlowText(items: $history) { text in
+                        if(currentSearch != text && shouldHistorySearchVideo){
+                            currentSearch = text
+                        } else {
+                            showDefinition(text)
+                        }
+                    }  onLongPress: { text in
+                        if let idx = history.firstIndex(of: text){
+                            history.remove(at: idx);
+                        }
                     }
                 }
-                .frame(minHeight: 160)
+                
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
@@ -254,21 +271,22 @@ struct YouglishWebViewDemo: View {
     }
     
     func showDefinition(_ word: String){
-        if UIReferenceLibraryViewController.dictionaryHasDefinition(forTerm: word) {
-            if(isPlaying){
-                click("#b_pause")
-            }
-            let vc = SFHostingController(rootView: DefinitionView(word: word))
-            sc.on("dismiss", object: vc){ _ in
-                if(!isPlaying){
-                    click("#b_pause")
-                }
-            }
-            if let presentationController = vc.presentationController as? UISheetPresentationController {
-                presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
-            }
-            _rootViewController.present(vc, animated: true)
+        let word = word.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        shouldResume = shouldResume || isPlaying
+        if(isPlaying){
+            click("#b_pause")
         }
+        let vc = SFHostingController(rootView: DefinitionView(word: word))
+        sc.on("dismiss", object: vc){ _ in
+            if(!isPlaying && shouldResume){
+                click("#b_pause")
+                shouldResume = false
+            }
+        }
+        if let presentationController = vc.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
+        }
+        _rootViewController.present(vc, animated: true)
     }
     func sandbox() {
         
