@@ -7,14 +7,19 @@
 
 import SwiftUI
 
+
 public struct SimpleFlowView<Element: Hashable, Content:View>: View {
+    class RowsCache: ObservableObject {
+        @Published var lastRows: [[Element]]?
+        var lastHash: Int?
+    }
+    @StateObject private var cache = RowsCache()
     @Binding var data: [Element]
     let viewFactory: (Element)->Content
     let sizeFunc: (Element)->CGSize
     let spacing: (CGFloat, CGFloat)
     
     @State var contentHeight: CGFloat = 200
-    
     public init(data: Binding<[Element]>, @ViewBuilder content: @escaping (Element)-> Content, size: @escaping (Element)->CGSize, spacing: (horizontal: CGFloat, vertical: CGFloat) = (8,8)) {
         self._data = data
         self.viewFactory = content
@@ -41,6 +46,14 @@ public struct SimpleFlowView<Element: Hashable, Content:View>: View {
     }
     
     func computeRows(in width: CGFloat) -> [[Element]] {
+        var hasher = Hasher()
+        hasher.combine(width)
+        hasher.combine(data)
+        let currentHash = hasher.finalize()
+        if let lastRows = cache.lastRows, currentHash == cache.lastHash {
+            return lastRows
+        }
+        
         var rows: [[Element]] = [[]]
         var currentRow = 0
         var remainingWidth = width
@@ -73,6 +86,9 @@ public struct SimpleFlowView<Element: Hashable, Content:View>: View {
         delay(0){
             self.contentHeight = contentHeight
         }
+        
+        cache.lastHash = currentHash
+        cache.lastRows = rows
         return rows
     }
 }

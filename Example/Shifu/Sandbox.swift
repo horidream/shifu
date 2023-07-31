@@ -28,12 +28,13 @@ struct Sandbox: View {
     var body: some View {
         SimpleFlowText(items: $items, onTap: { txt in
             clg(txt)
+            sandbox()
         })
         .padding()
     }
     
     func sandbox(){
-        clg("OK==>")
+        clg((1,2) == (1,2) ? "YES" : "NO")
     }
     
     
@@ -48,3 +49,5 @@ struct Sandbox_Previews: PreviewProvider {
         Sandbox()
     }
 }
+
+
