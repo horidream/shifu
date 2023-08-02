@@ -268,3 +268,10 @@ struct DiffableNotification:Hashable{
     }
     
 }
+
+public class Ref<Value>: ObservableObject {
+    @Published public var value: Value
+    public init(_ value: Value){
+        self.value = value
+    }
+}
