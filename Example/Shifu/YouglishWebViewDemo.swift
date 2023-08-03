@@ -21,6 +21,7 @@ import UIKit
 
 
 struct YouglishWebViewDemo: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Persist("YouglishWebViewDemo_History") var history:[String] = []{
         didSet{
             if(history.count > 30){
@@ -57,7 +58,7 @@ struct YouglishWebViewDemo: View {
     @discardableResult private func updateYouglish(_ newValue: String)->Bool{
         if let searchingWord = newValue.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).addingPercentEncoding(withAllowedCharacters: .urlPathAllowed), searchingWord != lastSearch, !searchingWord.isEmpty{
             lastSearch = searchingWord
-            vm.youglish.url = "https://youglish.com/pronounce/\(searchingWord)/english".url
+            vm.youglish.url = "https://youglish.com/pronounce/\(searchingWord)/english?".url
             isPlaying = false
             return true
         }
@@ -307,10 +308,9 @@ $("\(name)").click();
 
 private let MODIFY_PAGE = """
 if (typeof $ != "undefined") {
-    $("body *").not(".result_container, .result_container *").hide();
     $(".result_container").parents().addBack().show();
-
-    $(".result_container").children(":last-child").hide();
+    $(".result_container").children(":last-child").remove();
+    $(".g_pr_ad_network, .card, footer, header, .search, #ttlr, #all_actions").remove();
     $(".togglecaps").hide();
     $("#controlID").css("maxHeight", "0");
     $("#controlID").css("visibility", "hidden");
