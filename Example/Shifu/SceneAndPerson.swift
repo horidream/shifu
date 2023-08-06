@@ -50,7 +50,7 @@ struct SceneAndPerson:View{
                     .padding(10, -30)
                 HStack{
                     Spacer()
-                    (img?.personSnapshot()?.stroked(.white, width: -10).sui ?? Image(uiImage: UIImage()))
+                    (img?.personSnapshot()?.stroked(.white, width: -10).sw ?? Image(uiImage: UIImage()))
                         .resizable()
                         .aspectRatio(contentMode:.fit)
                         .padding(.top, 60)
@@ -106,7 +106,7 @@ struct SceneAndPerson:View{
                      // 扣图， 外轮廓线（负值为包含原图）
                      img?.personSnapshot()?
                         .stroked(.white, width: -10)
-                        .sui ?? Image(uiImage: UIImage())
+                        .sw ?? Image(uiImage: UIImage())
                     ```
                     """#)
                 .padding()

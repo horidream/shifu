@@ -58,7 +58,7 @@ struct ShifuSplitViewDemo: View {
                         .border(.blue)
                         .padding()
                         
-                    (image?.sui ?? Image(.random))
+                    (image?.sw ?? Image(.random))
                         .resizable()
                         .scaledToFit()
                         .padding()

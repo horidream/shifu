@@ -36,4 +36,7 @@ class Theme{
     public static var titlePrimary
     @ThemedColor(light: .darkGray, dark: .lightGray)
     public static var titleSecondary
+    
+    @ThemedColor(light: .white, dark: .black)
+    public static var background
 }

@@ -18,7 +18,7 @@ struct IconsDemo: View{
         ZStack{
             LazyVGrid(columns: layout) {
                 ForEach(Icons.Name.allCases.filter{ !$0.isFontAwesome }.shuffled()[...31], id: \.self) { name in
-                    Icons.uiImageWithOutline(name, size: 60, color: .lightGray, width: 1).sui
+                    Icons.uiImageWithOutline(name, size: 60, color: .lightGray, width: 1).sw
                 }
                 
             }

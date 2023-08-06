@@ -41,7 +41,7 @@ public extension Image{
 }
 
 public extension UIImage {
-    var sui:Image{
+    var sw:Image{
         return Image(uiImage: self)
     }
 }

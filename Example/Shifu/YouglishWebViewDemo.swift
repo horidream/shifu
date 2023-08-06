@@ -46,10 +46,10 @@ struct YouglishWebViewDemo: View {
     @State var prevBtnEnabled = false
     @State var nextBtnEnabled = false
     @State var shouldResume = true
+    @State var ratio = 398.0 / 323.0
     var playerSize: CGSize {
         let w = min(vm.g?.size.width ?? env.width, 800)
-        let ratio = w > 450 ? 2/3.0 : 5/6.0
-        return CGSize(width: w, height:  w * ratio)
+        return CGSize(width: w, height:  w / ratio)
     }
     var shouldShowWebView: Bool {
         return !searching
@@ -139,11 +139,11 @@ struct YouglishWebViewDemo: View {
                             currentSearch = $0
                         }]
                     })
-                        .opacity(shouldShowWebView ? 1 : 0)
-                        .id("youtube-video")
+                    .opacity(shouldShowWebView ? 1 : 0)
+                    .id("youtube-video")
                     
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white)
+                        .fill(Theme.background.swiftUIColor)
                         .overlay(
                             VStack{
                                 RoundedRectangle(cornerRadius: 10)
@@ -236,10 +236,12 @@ struct YouglishWebViewDemo: View {
             .frame(maxWidth: playerSize.width)
             .onChange(of: currentSearch, perform: doSearch)
             .on("onPlayerReady"){ _ in
-                tl($anime).to([\.rotationY: 90]).perform {
-                    modifyWebpage()
+                tl($anime).to([\.rotationY: 90], duration: 0.5).perform {
                     searching = false
-                }.set([\.rotationY: -90]).to([\.rotationY: 0])
+                }.set([\.rotationY: -90]).to([\.rotationY: 0.5]).perform{
+                    modifyWebpage()
+                    calculateRatio()
+                }
             }
             .on("playingChange"){ no in
                 isPlaying = no.userInfo?["isPlaying"] as? Bool ?? false
@@ -299,7 +301,50 @@ $("\(name)").click();
 """)
     }
     func modifyWebpage(){
-        vm.youglish.apply(MODIFY_PAGE)
+        if(colorScheme == .dark){
+            vm.youglish.apply(MODIFY_PAGE.replace(pattern: "\\{1\\}", with: "theme_light" ).replace(pattern: "\\{2\\}", with: "theme_dark"))
+        } else {
+            vm.youglish.apply(MODIFY_PAGE.replace(pattern: "\\{1\\}", with: "theme_dark" ).replace(pattern: "\\{2\\}", with: "theme_light"))
+        }
+    }
+    
+    func calculateRatio(){
+        vm.youglish.apply("""
+function calculateUnionRect(div1, div2) {
+  var rect1 = div1.getBoundingClientRect();
+  var rect2 = div2.getBoundingClientRect();
+
+  var top1 = rect1.top;
+  var top2 = rect2.top;
+  var bottom1 = rect1.bottom;
+  var bottom2 = rect2.bottom;
+
+  var left1 = rect1.left;
+  var left2 = rect2.left;
+  var right1 = rect1.right;
+  var right2 = rect2.right;
+
+  var maxBottom = Math.max(bottom1, bottom2);
+  var minTop = Math.min(top1, top2);
+  var minLeft = Math.min(left1, left2);
+  var maxRight = Math.max(right1, right2);
+
+  return {x: minLeft, y: minTop, width: maxRight - minLeft, height: maxBottom - minTop};
+}
+
+var div1 = document.getElementById("videowrapper");
+var div2 = document.getElementById("captioncont");
+var calculateUnionRect = calculateUnionRect(div1, div2);
+return calculateUnionRect;
+"""){ rst in
+            if let rect = rst as? NSDictionary, let w = rect["width"] as? CGFloat, let h = rect["height"] as? CGFloat {
+                delay(0){
+                    if(self.ratio != w/h){
+                        self.ratio = w/h
+                    }
+                }
+            }
+        }
     }
     
 }
@@ -310,11 +355,12 @@ private let MODIFY_PAGE = """
 if (typeof $ != "undefined") {
     $(".result_container").parents().addBack().show();
     $(".result_container").children(":last-child").remove();
-    $(".g_pr_ad_network, .card, footer, header, .search, #ttlr, #all_actions").remove();
+    $(".g_pr_ad_network, .card, footer, header, .search, #ttlr, #all_actions, avp-player-ui").remove();
     $(".togglecaps").hide();
     $("#controlID").css("maxHeight", "0");
     $("#controlID").css("visibility", "hidden");
     $("#ctn_fix_caption").css("pointer-events", "none");
+    $(".toggle-light-listener").removeClass("{1}").addClass("{2}");
 }
 observe("#b_pause > img", "src", (target) => {
     let isPlaying = target.src.indexOf("pause") > -1;

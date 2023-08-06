@@ -104,7 +104,7 @@ public extension UIColor {
         return Color(uiColor: self)
     }
     
-    var sui:Color{
+    var sw:Color{
         return Color(uiColor: self)
     }
 
