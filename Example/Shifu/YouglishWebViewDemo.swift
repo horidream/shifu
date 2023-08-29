@@ -49,7 +49,7 @@ struct YouglishWebViewDemo: View {
     @State var ratio = 398.0 / 323.0
     var playerSize: CGSize {
         let w = min(vm.g?.size.width ?? env.width, 800)
-        return CGSize(width: w, height:  w / ratio)
+        return CGSize(width: w, height:  floor(w / ratio) - 2)
     }
     var shouldShowWebView: Bool {
         return !searching
@@ -244,6 +244,7 @@ struct YouglishWebViewDemo: View {
                 }
             }
             .on("playingChange"){ no in
+                cleanWebUI()
                 isPlaying = no.userInfo?["isPlaying"] as? Bool ?? false
             }
             .on("btnChanged"){ no in
@@ -290,6 +291,12 @@ struct YouglishWebViewDemo: View {
             presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
         }
         _rootViewController.present(vc, animated: true)
+    }
+    
+    func cleanWebUI(){
+        vm.youglish.apply("""
+    $(".g_pr_ad_network, .card, footer, header, .search, #ttlr, #all_actions, avp-player-ui").remove();
+""")
     }
     func sandbox() {
         
