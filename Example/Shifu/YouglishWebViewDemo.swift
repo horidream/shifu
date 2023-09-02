@@ -46,6 +46,7 @@ struct YouglishWebViewDemo: View {
     @State var prevBtnEnabled = false
     @State var nextBtnEnabled = false
     @State var shouldResume = true
+    @FocusState var shouldFocusOnInput:Bool
     @State var ratio = 398.0 / 323.0
     var playerSize: CGSize {
         let w = min(vm.g?.size.width ?? env.width, 800)
@@ -103,6 +104,10 @@ struct YouglishWebViewDemo: View {
                     }
                     
                     TextField("Search", text: $inputText)
+                        .onSubmit {
+                            currentSearch = inputText
+                        }
+                        .focused($shouldFocusOnInput)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .overlay{
                             if(!inputText.isEmpty){
@@ -110,6 +115,7 @@ struct YouglishWebViewDemo: View {
                                     Spacer()
                                     Button(action: {
                                         inputText = ""
+                                        shouldFocusOnInput = true
                                     }) {
                                         Image(systemName: "multiply.circle.fill")
                                             .foregroundColor(.gray)
@@ -276,6 +282,7 @@ struct YouglishWebViewDemo: View {
     
     func showDefinition(_ word: String){
         let word = word.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        guard word != "" else { return }
         shouldResume = shouldResume || isPlaying
         if(isPlaying){
             click("#b_pause")
