@@ -17,78 +17,79 @@ import SwiftSoup
 import VisionKit
 import AVKit
 import WebKit
+import GCDWebServer
 
 
 
 struct Sandbox: View {
     
     @ObservedObject private var injectObserver = Self.injectionObserver
-    @StateObject var a = Ref(" ")
-    @State var items: [String] = ["Hello", "SwiftUI", "World", "This", "is",  "a", "flow", "layout"]
-    @StateObject var cache = Cache()
+    @StateObject var app = WebServer()
+    @State var url =  "http://localhost:9999".url!
+    @State var shouldShowPage = false;
     var body: some View {
         VStack{
-            Text(a.value.uppercased())
-                .font(.largeTitle)
-            SimpleFlowText(items: $items, onTap: { txt in
-                a.value = txt
-                clg(a.value)
-                sandbox()
-            })
+            ShifuWebView(url: url)
+                    .autoResize()
+                    .border(.green, width: 1)
         }
         .padding()
         .onAppear(){
-            cache.define([1]){ Int.random(in: 0...100) }
-            
+            sandbox()
         }
+        .onInjection {
+            sandbox()
+        }
+        .onDisappear(){
+            app.stopServer()
+        }
+        
         
     }
     
     func sandbox(){
-        clg(cache.get([1]))
-    }
-    
-    
-    
-}
-
-
-
-
-struct Sandbox_Previews: PreviewProvider {
-    static var previews: some View {
-        Sandbox()
-    }
-}
-
-
-class Cache:ObservableObject {
-    @Published private(set) var value: Any?
-    private var hash:Int?
-    
-    @discardableResult func define(_ dependencies: [(any Hashable)?], recalculation:  @escaping (()->Any?))->Any?{
-        return update(dependencies, recalculation: recalculation)
-    }
-    
-    func get(_ dependencies: [(any Hashable)?])->Any?{
-        return update(dependencies)
-    }
-    
-    @discardableResult private func update(_ dependencies: [(any Hashable)?], recalculation:  (()->Any?)? = nil)->Any?{
-        var hasher = Hasher()
-        for d in dependencies {
-            if let d = d{
-                hasher.combine(d)
+        app.useStatic("@/web")
+        app.post("/") { req in
+            return .json(["a": 222])
+        }
+        app.get("/abc/*") { req in
+            if let a = req.path.match(/\/abc\/(.*)/){
+                return .text("You are requesting `abc` with \(a.1)")
             }
+            return .res404
         }
-        let latestHash = hasher.finalize()
-        clg(hash == latestHash)
-        if(hash != latestHash){
-            value = recalculation?()
-            hash = latestHash
+        app.server.addHandler { method, url, headers, path, query in
+            if path.starts(with: "/baoli"){
+                return GCDWebServerRequest(method: method, url: url, headers: headers, path: path, query: query)
+            } else {
+                return nil
+            }
+
+        } processBlock: { req in
+            return .text("default")
         }
-        return value
-        
-        
+
+        app.startServer(port: 9999)
+    }
+    
+    
+    
+    
+    
+}
+
+
+//
+//
+//struct Sandbox_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Sandbox()
+//    }
+//}
+
+
+class WebServer: ObservableObject, AppModelBase, AppModelWeb{
+    init(){
+        self.initServer()
     }
 }

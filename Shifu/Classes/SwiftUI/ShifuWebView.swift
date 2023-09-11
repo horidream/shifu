@@ -28,7 +28,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     
     
     @ObservedObject var viewModel1:ShifuWebViewModel = .noop
-    @StateObject var viewModel2:ShifuWebViewModel = ShifuWebViewModel()
+    var viewModel2:ShifuWebViewModel = ShifuWebViewModel()
     var viewModel:ShifuWebViewModel {
         return viewModel1.isNoop ?  viewModel2 : viewModel1
     }

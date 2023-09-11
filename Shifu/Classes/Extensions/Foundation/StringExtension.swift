@@ -162,7 +162,7 @@ public extension String {
             } else {
                 var path = self
                 path.removeFirst()
-                return Bundle.main.url(forResource: path, withExtension: nil) ?? URL(string: path)
+                return Bundle.main.url(forResource: path, withExtension: nil) ?? Bundle.main.resourceURL
             }
         } else {
             let arr = self.split(separator: "@")

@@ -49,11 +49,16 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
         }
     }
     
-    public func initServer(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath) {
+    public func initServer() {
         GCDWebServer.setLogLevel(4)
         self.server.delegate = delegate
         delegate.model = self
-        self.server.addGETHandler(forBasePath: "/", directoryPath: path ?? Bundle.main.resourcePath!, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
+    }
+    
+    public func useStatic(_ path: String? = Shifu.bundle.resourceURL?.appendingPathComponent("web").relativePath){
+        if let path = path?.url?.relativePath {
+            self.server.addGETHandler(forBasePath: "/", directoryPath: path, indexFilename: "index.html", cacheAge: 0, allowRangeRequests: true)
+        }
     }
     
     public var currentLanguage:String{
@@ -77,7 +82,30 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
     }
     
     public func stopServer(){
-        server.stop()
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.server.stop()
+        }
+    }
+    
+    func handle(method: String, path: String, handler: @escaping (GCDWebServerDataRequest)->GCDWebServerDataResponse){
+        
+        server.addHandler(forMethod: method, pathRegex: path, request: GCDWebServerDataRequest.self) { req, done in
+            if let req = req as? GCDWebServerDataRequest{
+                done(handler(req))
+            }else {
+                let res = GCDWebServerResponse()
+                res.statusCode = 400
+                done(res)
+            }
+        }
+    }
+    
+    func get(_ path: String, _ handler: @escaping (GCDWebServerDataRequest)->GCDWebServerDataResponse) {
+        handle(method: "GET", path: path, handler: handler)
+    }
+    
+    func post(_ path: String, _ handler: @escaping (GCDWebServerDataRequest)->GCDWebServerDataResponse) {
+        handle(method: "POST", path: path, handler: handler)
     }
     
     public func url(pathName string:String)->URL?{
@@ -123,5 +151,26 @@ class WebServerDelegate:NSObject, GCDWebUploaderDelegate {
     
     func webUploader(_: GCDWebUploader, didDeleteItemAtPath path: String) {
         print("[DELETE] \(path)")
+    }
+}
+
+
+public extension GCDWebServerResponse {
+    static let res404 = GCDWebServerDataResponse(statusCode: 404)
+    public static func text(_ text:String)->GCDWebServerDataResponse{
+        GCDWebServerDataResponse(text: text) ?? res404
+    }
+    public static func json(_ object: Any)->GCDWebServerDataResponse{
+        GCDWebServerDataResponse(jsonObject: object) ?? res404
+    }
+    public static func html(_ html: String)->GCDWebServerDataResponse{
+        GCDWebServerDataResponse(html: html) ?? res404
+    }
+    public static func render(_ path: String, variables:[String: String] = [:])->GCDWebServerDataResponse{
+        if let path = path.url?.relativePath{
+            return GCDWebServerDataResponse(htmlTemplate: path , variables: variables) ?? res404
+        } else {
+            return res404
+        }
     }
 }

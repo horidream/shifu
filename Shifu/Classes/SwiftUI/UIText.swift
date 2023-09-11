@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+import SwiftUIIntrospect
 
 public struct UIText: View {
     @Binding var text:AttributedString
@@ -42,5 +43,22 @@ public struct UIText: View {
     public var body: some View{
         _UIText(text: $text)
             .fixedSize()
+    }
+}
+
+
+public struct ReturnKeyTypeModifier: ViewModifier {
+    let returnKeyType:UIReturnKeyType
+    public func body(content: Content) -> some View {
+        content
+            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)){ tf in
+                tf.returnKeyType = returnKeyType
+            }
+    }
+}
+
+public extension TextField{
+    func returnKeyType(_ type: UIReturnKeyType = .done)-> some View{
+        self.modifier(ReturnKeyTypeModifier(returnKeyType: type))
     }
 }

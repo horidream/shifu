@@ -20,12 +20,16 @@ import UIKit
 
 
 
+
 struct YouglishWebViewDemo: View {
+    private enum Const{
+        static let MAX_HISTORY_COUNT = 50
+    }
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Persist("YouglishWebViewDemo_History") var history:[String] = []{
         didSet{
-            if(history.count > 30){
-                history = Array(history[..<30])
+            if(history.count > Const.MAX_HISTORY_COUNT){
+                history = Array(history[..<Const.MAX_HISTORY_COUNT])
             }
             if(!history.contains(currentSearch)){
                 currentSearch = ""
@@ -104,6 +108,7 @@ struct YouglishWebViewDemo: View {
                     }
                     
                     TextField("Search", text: $inputText)
+                        .returnKeyType(.done)
                         .onSubmit {
                             currentSearch = inputText
                         }
@@ -297,7 +302,9 @@ struct YouglishWebViewDemo: View {
         if let presentationController = vc.presentationController as? UISheetPresentationController {
             presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
         }
-        _rootViewController.present(vc, animated: true)
+        DispatchQueue.main.async {
+            _rootViewController.present(vc, animated: true)
+        }
     }
     
     func cleanWebUI(){

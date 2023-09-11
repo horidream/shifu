@@ -40,9 +40,14 @@ extension Collection where Iterator.Element == [String]{
     }
 }
 
-//#if ios
-//public extension Regex{
-//    func findall(_ string: String)->Regex<Output>.Match?{
-//        try? self.firstMatch(in: string)
-//    }
-//}
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, *)
+extension BidirectionalCollection where Self.SubSequence == Substring {
+    public func match<R>(_ regex: R) -> Regex<R.RegexOutput>.Match? where R : RegexComponent{
+        return wholeMatch(of: regex)
+    }
+    
+    public func findall<R>(_ regex: R) -> [R.RegexOutput] where R : RegexComponent{
+        matches(of: regex).map{ $0.0 }
+    }
+}
+

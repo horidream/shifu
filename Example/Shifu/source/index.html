@@ -14,8 +14,8 @@
 <body>
   <h2>Hello</h2>
   <script>
-  function test({name}){
-      document.getElementsByTagName("h2")[0].innerHTML = "Baoli"
+  function test({name = "Baoli"}){
+      document.getElementsByTagName("h2")[0].innerHTML = name
   }
   </script>
 </body>
