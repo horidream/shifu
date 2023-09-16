@@ -9,6 +9,7 @@
 import SwiftUI
 import Shifu
 import CoreServices
+import Combine
 
 struct ToMarkdownDemo: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
@@ -97,8 +98,8 @@ struct ToMarkdownDemo: View {
 
             Button {
                 if let content:String  = pb.html{
-                    vm.apply("return toMarkdown(content)", arguments: ["content": content]){
-                        if case .success(let md) = $0, let md = md as? String {
+                    vm.apply("return toMarkdown(content)", arguments: ["content": content]){ (result: Result<Any, Error>) in
+                        if case .success(let md) = result, let md = md as? String {
                             self.tevm.text = md
                         }
                     }

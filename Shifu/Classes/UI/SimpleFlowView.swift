@@ -95,7 +95,13 @@ public struct SimpleFlowView<Element: Hashable, Content:View>: View {
 
 
 public struct SimpleFlowText: View{
+    public class Config{
+        var fontSize:CGFloat = 15
+        var padding:CGFloat = 12
+        var cornerRadius:CGFloat = 10
+    }
     @Binding var items:[String]
+    var config = Config()
     var onTap:(String)->Void
     var onLongPress:((String)->Void)?
     public init(items: Binding<[String]>, onTap: @escaping (String) -> Void, onLongPress: ((String) -> Void)? = nil ){
@@ -109,11 +115,11 @@ public struct SimpleFlowText: View{
             data: $items,
             content:{ text in
                 Text(text)
-                    .font(.system(size: 15))
-                    .padding(12)
+                    .font(.system(size: config.fontSize))
+                    .padding(config.padding)
                     .background(Color.blue)
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .cornerRadius(config.cornerRadius)
                     .onTapGesture{
                         onTap(text)
                     }
@@ -123,7 +129,7 @@ public struct SimpleFlowText: View{
                 
             },
             size: {text in
-                return text.sizeOfString(usingFont: .systemFont(ofSize: 15)).extends(14, 14)
+                return text.sizeOfString(usingFont: .systemFont(ofSize: config.fontSize)).extends(config.padding + 4, config.padding + 4)
             })
     }
 }

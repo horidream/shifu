@@ -122,10 +122,6 @@ public enum Waveform {
         /// Scale (@2x, @3x, etc.) to be applied to the image, defaults to `UIScreen.main.scale`.
         public let scale: CGFloat
 
-        /// *Optional* padding or vertical shrinking factor for the waveform.
-        @available(swift, obsoleted: 3.0, message: "Please use scalingFactor instead")
-        public let paddingFactor: CGFloat? = nil
-
         /**
          Vertical scaling factor. Default is `0.95`, leaving a small vertical padding.
 
