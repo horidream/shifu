@@ -17,6 +17,7 @@ import SwiftSoup
 import VisionKit
 import AVKit
 import UIKit
+import SwiftUIIntrospect
 
 
 
@@ -50,6 +51,8 @@ struct YouglishWebViewDemo: View {
     @State var prevBtnEnabled = false
     @State var nextBtnEnabled = false
     @State var shouldResume = true
+    @State var shouldShowDefinition = false
+    @State var currentDefinitingWord:String?
     @FocusState var shouldFocusOnInput:Bool
     @State var ratio = 398.0 / 323.0
     var playerSize: CGSize {
@@ -243,6 +246,18 @@ struct YouglishWebViewDemo: View {
                 )
                 .padding(35,0,20)
             }
+            .sheet(isPresented: $shouldShowDefinition, onDismiss: {
+                if(!isPlaying && shouldResume){
+                    click("#b_pause")
+                    shouldResume = false
+                }
+            }, content: {
+                if let word = currentDefinitingWord
+                {
+                    DefinitionView(word: word)
+                        .presentationDetents([.medium])
+                }
+            })
             .padding()
             .frame(maxWidth: playerSize.width)
             .onChange(of: currentSearch, perform: doSearch)
@@ -278,9 +293,11 @@ struct YouglishWebViewDemo: View {
             .onInjection {
                 sandbox()
             }
-            
             .onAppear {
                 doSearch(currentSearch)
+            }
+            .onDisappear{
+                vm.youglish.url = nil
             }
         }
     }
@@ -292,19 +309,22 @@ struct YouglishWebViewDemo: View {
         if(isPlaying){
             click("#b_pause")
         }
-        let vc = SFHostingController(rootView: DefinitionView(word: word))
-        sc.on("dismiss", object: vc){ _ in
-            if(!isPlaying && shouldResume){
-                click("#b_pause")
-                shouldResume = false
-            }
-        }
-        if let presentationController = vc.presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
-        }
-        DispatchQueue.main.async {
-            _rootViewController.present(vc, animated: true)
-        }
+        // show definition
+        currentDefinitingWord = word
+        shouldShowDefinition = true
+//        let vc = SFHostingController(rootView: DefinitionView(word: word))
+//        sc.on("dismiss", object: vc){ _ in
+//            if(!isPlaying && shouldResume){
+//                click("#b_pause")
+//                shouldResume = false
+//            }
+//        }
+//        if let presentationController = vc.presentationController as? UISheetPresentationController {
+//            presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
+//        }
+//        DispatchQueue.main.async {
+//            _root.present(vc, animated: true)
+//        }
     }
     
     func cleanWebUI(){

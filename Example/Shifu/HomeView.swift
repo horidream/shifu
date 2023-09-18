@@ -18,16 +18,14 @@ struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject var tunnel: PeerToPeerTunnel = PeerToPeerTunnel()
     @StateObject var colorManager = ColorSchemeMananger.shared
+    @State private var selectedFeature: FeatureViewModel<AnyView>? = nil
     @ObservedObject private var iO = Self.injectionObserver
     var body: some View {
-        NavigationView {
-            List {
+        NavigationSplitView {
+            List(selection: $selectedFeature) {
                 Section(header: Text("Examples").font(.headline).padding(10)) {
-                    ForEach(Array(zip(vm.featureList.indices, $vm.featureList)), id: \.0) { idx, $f in
-                        
-                        NavigationLink(isActive: $f.isActive, destination: {
-                            f.view
-                        }, label: {
+                    ForEach(Array(zip(vm.featureList.indices, vm.featureList)), id: \.0) { idx, f in
+                        NavigationLink(value: f) {
                             HStack {
                                 Image.resizableIcon(f.icon ?? .swift_fa)
                                     .padding(5)
@@ -39,29 +37,33 @@ struct HomeView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading )
                                     .contentShape(Rectangle())
                             }
-                        })
-                        .onTapGesture {
-                            f.isActive = true
-                            vm.objectWillChange.send()
                         }
                     }
                 }
-                
             }
-            
             .listStyle(.plain)
-            .navigationBarTitle(Text(Shifu.name))
-            .onInjection {
-                //                vm.refresh()
+            .if(vm.isPhone){
+                $0.navigationBarTitle(Text(Shifu.name))
             }
-            .onShake {
-                sandbox()
-                vm.refresh()
-            }
-            .ignoresSafeArea(.all, edges: .bottom)
+        } detail: {
+            selectedFeature?.view
         }
+        
+        .onInjection {
+            //                vm.refresh()
+        }
+        .onShake {
+            sandbox()
+            vm.refresh()
+        }
+        .ignoresSafeArea(.all, edges: .bottom)
+        
         .onAppear(){
             colorManager.applyColorScheme()
+            DispatchQueue.main.async{
+                selectedFeature = vm.featureList.first { $0.isActive }
+            }
+            
         }
         .environmentObject(tunnel)
         .navigationViewStyle(.stack)
