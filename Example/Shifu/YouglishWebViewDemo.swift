@@ -51,7 +51,6 @@ struct YouglishWebViewDemo: View {
     @State var prevBtnEnabled = false
     @State var nextBtnEnabled = false
     @State var shouldResume = true
-    @State var shouldShowDefinition = false
     @State var currentDefinitingWord:String?
     @FocusState var shouldFocusOnInput:Bool
     @State var ratio = 398.0 / 323.0
@@ -97,7 +96,17 @@ struct YouglishWebViewDemo: View {
     }
     
     var body: some View {
-        ScrollView{
+        let shouldShowDefinition = Binding<Bool>(
+            get: {
+                return self.currentDefinitingWord != nil
+            },
+            set: { newValue in
+                if !newValue {
+                    self.currentDefinitingWord = nil
+                }
+            }
+        )
+        return ScrollView{
             VStack{
                 HStack(alignment: .center){
                     ShifuPasteButton {
@@ -246,7 +255,7 @@ struct YouglishWebViewDemo: View {
                 )
                 .padding(35,0,20)
             }
-            .sheet(isPresented: $shouldShowDefinition, onDismiss: {
+            .sheet(isPresented: shouldShowDefinition, onDismiss: {
                 if(!isPlaying && shouldResume){
                     click("#b_pause")
                     shouldResume = false
@@ -309,22 +318,7 @@ struct YouglishWebViewDemo: View {
         if(isPlaying){
             click("#b_pause")
         }
-        // show definition
         currentDefinitingWord = word
-        shouldShowDefinition = true
-//        let vc = SFHostingController(rootView: DefinitionView(word: word))
-//        sc.on("dismiss", object: vc){ _ in
-//            if(!isPlaying && shouldResume){
-//                click("#b_pause")
-//                shouldResume = false
-//            }
-//        }
-//        if let presentationController = vc.presentationController as? UISheetPresentationController {
-//            presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
-//        }
-//        DispatchQueue.main.async {
-//            _root.present(vc, animated: true)
-//        }
     }
     
     func cleanWebUI(){
