@@ -51,9 +51,18 @@ struct YouglishWebViewDemo: View {
     @State var prevBtnEnabled = false
     @State var nextBtnEnabled = false
     @State var shouldResume = true
-    @State var currentDefinitingWord:String?
+    @State var currentDefinitingWord:String = ""
     @FocusState var shouldFocusOnInput:Bool
     @State var ratio = 398.0 / 323.0
+    var shouldShowDefinition: Binding<Bool>{
+        Binding(get: {
+            return !self.currentDefinitingWord.isEmpty
+        },set: { newValue in
+            if !newValue {
+                self.currentDefinitingWord = ""
+            }
+        })
+    }
     var playerSize: CGSize {
         let w = min(vm.g?.size.width ?? env.width, 800)
         return CGSize(width: w, height:  floor(w / ratio) - 2)
@@ -96,16 +105,6 @@ struct YouglishWebViewDemo: View {
     }
     
     var body: some View {
-        let shouldShowDefinition = Binding<Bool>(
-            get: {
-                return self.currentDefinitingWord != nil
-            },
-            set: { newValue in
-                if !newValue {
-                    self.currentDefinitingWord = nil
-                }
-            }
-        )
         return ScrollView{
             VStack{
                 HStack(alignment: .center){
@@ -261,11 +260,8 @@ struct YouglishWebViewDemo: View {
                     shouldResume = false
                 }
             }, content: {
-                if let word = currentDefinitingWord
-                {
-                    DefinitionView(word: word)
-                        .presentationDetents([.medium])
-                }
+                    DefinitionView(word: currentDefinitingWord)
+                        .presentationDetents([.medium, .large])
             })
             .padding()
             .frame(maxWidth: playerSize.width)
@@ -319,11 +315,12 @@ struct YouglishWebViewDemo: View {
             click("#b_pause")
         }
         currentDefinitingWord = word
+            
     }
     
     func cleanWebUI(){
         vm.youglish.apply("""
-    $(".g_pr_ad_network, .card, footer, header, .search, #ttlr, #all_actions, avp-player-ui").remove();
+    typeof $ !="undefined" && $(".g_pr_ad_network, .card, footer, header, .search, #ttlr, #all_actions, avp-player-ui").remove();
 """)
     }
     func sandbox() {
@@ -332,7 +329,7 @@ struct YouglishWebViewDemo: View {
     
     func click(_ name:String){
         vm.youglish.apply("""
-$("\(name)").click();
+typeof $ !="undefined" && $("\(name)").click();
 """)
     }
     func modifyWebpage(){
@@ -397,19 +394,20 @@ if (typeof $ != "undefined") {
     $("#ctn_fix_caption").css("pointer-events", "none");
     $(".toggle-light-listener").removeClass("{1}").addClass("{2}");
 }
-observe("#b_pause > img", "src", (target) => {
-    let isPlaying = target.src.indexOf("pause") > -1;
-    postToNative({ type: "playingChange", isPlaying });
-});
-observe(["#b_prev", "#b_next"], "class", (target, selector) => {
-    postToNative({
-        type: "btnChanged",
-        details: {
-            name: selector.slice(3),
-            value: target.classList.contains("disable"),
-        },
+if(typeof observe != "undefined"){
+    observe("#b_pause > img", "src", (target) => {
+        let isPlaying = target.src.indexOf("pause") > -1;
+        postToNative({ type: "playingChange", isPlaying });
     });
-});
-
+    observe(["#b_prev", "#b_next"], "class", (target, selector) => {
+        postToNative({
+            type: "btnChanged",
+            details: {
+                name: selector.slice(3),
+                value: target.classList.contains("disable"),
+            },
+        });
+    });
+}
 """
 
