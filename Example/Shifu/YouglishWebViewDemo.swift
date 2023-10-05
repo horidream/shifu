@@ -135,6 +135,8 @@ struct YouglishWebViewDemo: View {
                                     }) {
                                         Image(systemName: "multiply.circle.fill")
                                             .foregroundColor(.gray)
+                                            .padding(20, 0, 20, 20)
+                                            .clipShape(Rectangle())
                                     }
                                     
                                     .padding(.trailing, 10)
@@ -226,6 +228,14 @@ struct YouglishWebViewDemo: View {
                         Image.resizableIcon(.forwardFrame)
                             .frame(width: ns, height: ns)
                     }.disabled(!nextBtnEnabled)
+//                    Button{
+//                        vm.youglish.exec(.snapshot())
+//                        
+//                    } label: {
+//                        Image.resizableIcon(.video_sf)
+//                            .frame(width: ns, height: ns)
+//                    }.disabled(!nextBtnEnabled)
+                    
                 }
                 .frame(maxWidth: 400)
                 .padding(.horizontal, 32)
