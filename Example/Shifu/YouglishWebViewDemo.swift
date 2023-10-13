@@ -270,8 +270,8 @@ struct YouglishWebViewDemo: View {
                     shouldResume = false
                 }
             }, content: {
-                    DefinitionView(word: currentDefinitingWord)
-                        .presentationDetents([.medium, .large])
+                DefinitionView(word: currentDefinitingWord)
+                    .presentationDetents([.medium, .large])
             })
             .padding()
             .frame(maxWidth: playerSize.width)

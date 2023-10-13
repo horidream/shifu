@@ -15,13 +15,14 @@ extension Notification.Name {
 }
 
 struct HomeView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @EnvironmentObject var vm: HomeViewModel
     @StateObject var tunnel: PeerToPeerTunnel = PeerToPeerTunnel()
     @StateObject var colorManager = ColorSchemeMananger.shared
     @State private var selectedFeature: FeatureViewModel<AnyView>? = nil
     @ObservedObject private var iO = Self.injectionObserver
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: .constant(.all)) {
             List(selection: $selectedFeature) {
                 Section(header: Text("Examples").font(.headline).padding(10)) {
                     ForEach(Array(zip(vm.featureList.indices, vm.featureList)), id: \.0) { idx, f in
@@ -42,7 +43,7 @@ struct HomeView: View {
                 }
             }
             .listStyle(.plain)
-            .if(vm.isPhone){
+            .if(horizontalSizeClass == .regular){
                 $0.navigationBarTitle(Text(Shifu.name))
             }
         } detail: {
