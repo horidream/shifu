@@ -24,19 +24,12 @@ public struct ShifuPasteButton<T: View>: View {
         self.supportedContentType = supportedContentType
         customizeConfig?(self.config)
     }
+    
     public var body: some View{
-        if #available(iOS 16, *){
-            if config.forceLegacy {
-                TranditionalBtn()
-            } else {
-                HackedPasteButton()
-            }
-        }else {
-            TranditionalBtn()
-        }
+        HackedPasteButton()
     }
     
-    func TranditionalBtn()-> some View{
+    func TranditionalBtn()-> Button<T>{
         Button{
             onPaste(pb.itemProviders)
         } label: {
@@ -45,17 +38,23 @@ public struct ShifuPasteButton<T: View>: View {
     }
     
 
-    
-    @available(iOS 16, *)
+    @ViewBuilder
     func HackedPasteButton()-> some View {
-        return
-            PasteButton(supportedContentTypes: supportedContentType) { items in
-                if config.shouldCompress {
-                    pb.items = pb.items
+        if #available(iOS 16, *){
+            if config.forceLegacy {
+                TranditionalBtn()
+            } else {
+                PasteButton(supportedContentTypes: supportedContentType) { items in
+                    if config.shouldCompress {
+                        pb.items = pb.items
+                    }
+                    onPaste(items)
                 }
-                onPaste(items)
+                .labelStyle(.iconOnly)
             }
-            .labelStyle(.iconOnly)
+        }else {
+            TranditionalBtn()
+        }
 
     }
 }

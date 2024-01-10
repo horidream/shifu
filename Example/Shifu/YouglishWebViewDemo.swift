@@ -58,7 +58,7 @@ struct YouglishWebViewDemo: View {
         Binding(get: {
             return !self.currentDefinitingWord.isEmpty
         },set: { newValue in
-            if !newValue {
+            if !newValue && !self.currentDefinitingWord.isEmpty {
                 self.currentDefinitingWord = ""
             }
         })
@@ -106,213 +106,217 @@ struct YouglishWebViewDemo: View {
     
     var body: some View {
         return ScrollView{
-            VStack{
-                HStack(alignment: .center){
-                    ShifuPasteButton {
-                        Image(.paste, size: 28)
-                    } onPaste: { _ in
-                        if let text = pb.string, !text.isEmpty {
-                            currentSearch = text
+            ScrollViewReader{ value in
+                
+                VStack{
+                    HStack(alignment: .center){
+                        ShifuPasteButton {
+                            Image(.paste, size: 28)
+                        } onPaste: { _ in
+                            if let text = pb.string, !text.isEmpty {
+                                currentSearch = text
+                            }
+                        } config: { conf in
+                            //                        conf.forceLegacy = true
                         }
-                    } config: { conf in
-                        //                        conf.forceLegacy = true
-                    }
-                    
-                    TextField("Search", text: $inputText)
-                        .returnKeyType(.done)
-                        .onSubmit {
-                            currentSearch = inputText
-                        }
-                        .focused($shouldFocusOnInput)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .overlay{
-                            if(!inputText.isEmpty){
-                                HStack{
-                                    Spacer()
-                                    Button(action: {
-                                        inputText = ""
-                                        shouldFocusOnInput = true
-                                    }) {
-                                        Image(systemName: "multiply.circle.fill")
-                                            .foregroundColor(.gray)
-                                            .padding(20, 0, 20, 20)
-                                            .clipShape(Rectangle())
+                        
+                        TextField("Search", text: $inputText)
+                            .returnKeyType(.done)
+                            .onSubmit {
+                                currentSearch = inputText
+                            }
+                            .focused($shouldFocusOnInput)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .overlay{
+                                if(!inputText.isEmpty){
+                                    HStack{
+                                        Spacer()
+                                        Button(action: {
+                                            inputText = ""
+                                            shouldFocusOnInput = true
+                                        }) {
+                                            Image(systemName: "multiply.circle.fill")
+                                                .foregroundColor(.gray)
+                                                .padding(20, 0, 20, 20)
+                                                .clipShape(Rectangle())
+                                        }
+                                        
+                                        .padding(.trailing, 10)
                                     }
-                                    
-                                    .padding(.trailing, 10)
                                 }
                             }
+                        Button{
+                            currentSearch = inputText
+                        } label: {
+                            Image(.magnifyingglass)
                         }
-                    Button{
-                        currentSearch = inputText
-                    } label: {
-                        Image(.magnifyingglass)
+                        Button{
+                            showDefinition(inputText)
+                        } label: {
+                            Image.resizableIcon(.characterBookClosedFill, size: 24)
+                                .frame(height: 28)
+                        }
                     }
-                    Button{
-                        showDefinition(inputText)
-                    } label: {
-                        Image.resizableIcon(.characterBookClosedFill, size: 24)
-                            .frame(height: 28)
+                    .padding(0, 0, 5)
+                    ZStack{
+                        ShifuWebView(viewModel: with(vm.youglish){
+                            $0.allowedMenus = ["copy", "define"];
+                            $0.extraMenus = [localized("Search Video"): {
+                                currentSearch = $0
+                            }]
+                        })
+                        .opacity(shouldShowWebView ? 1 : 0)
+                        .id("youtube-video")
+                        
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Theme.background.swiftUIColor)
+                            .overlay(
+                                VStack{
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.blue, lineWidth: 1)
+                                        .frame(height: playerSize.width * 1/2)
+                                        .overlay(
+                                            Text(vm.youglish.url == nil ? "No Video" : "Loading")
+                                                .font(.title)
+                                                .foregroundColor(.blue)
+                                        )
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.blue, lineWidth: 1)
+                                }
+                            )
+                            .padding(12, 20, 32)
+                            .opacity(shouldShowWebView ? 0 : 1)
                     }
-                }
-                .padding(0, 0, 5)
-                ZStack{
-                    ShifuWebView(viewModel: with(vm.youglish){
-                        $0.allowedMenus = ["copy", "define"];
-                        $0.extraMenus = [localized("Search Video"): {
-                            currentSearch = $0
-                        }]
-                    })
-                    .opacity(shouldShowWebView ? 1 : 0)
-                    .id("youtube-video")
-                    
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Theme.background.swiftUIColor)
-                        .overlay(
-                            VStack{
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 1)
-                                    .frame(height: playerSize.width * 1/2)
-                                    .overlay(
-                                        Text(vm.youglish.url == nil ? "No Video" : "Loading")
-                                            .font(.title)
-                                            .foregroundColor(.blue)
-                                    )
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 1)
+                    .frame(width: playerSize.width, height: playerSize.height)
+                    .tweenProps(anime)
+                    HStack(){
+                        let ns = 30.0
+                        let ls = 45.0
+                        Button{
+                            click("#b_prev")
+                            
+                        } label: {
+                            Image.resizableIcon(.backwardFrame)
+                                .frame(width: ns, height: ns)
+                        }.disabled(!prevBtnEnabled)
+                        Spacer()
+                        Button{
+                            click("#b_back")
+                        } label: {
+                            Image.resizableIcon(.gobackward5)
+                                .frame(width: ns, height: ns)
+                        }
+                        Spacer()
+                        Button{
+                            click("#b_pause")
+                        } label: {
+                            Image.resizableIcon(isPlaying ? .pause_sf : .play_sf)
+                                .frame(width: ls, height: ls)
+                        }
+                        Spacer()
+                        Button{
+                            click("#b_replay")
+                            
+                            
+                        } label: {
+                            Image.resizableIcon(.gobackward)
+                                .frame(width: ns, height: ns)
+                        }
+                        Spacer()
+                        Button{
+                            click("#b_next")
+                            
+                        } label: {
+                            Image.resizableIcon(.forwardFrame)
+                                .frame(width: ns, height: ns)
+                        }.disabled(!nextBtnEnabled)
+                        //                    Button{
+                        //                        vm.youglish.exec(.snapshot())
+                        //
+                        //                    } label: {
+                        //                        Image.resizableIcon(.video_sf)
+                        //                            .frame(width: ns, height: ns)
+                        //                    }.disabled(!nextBtnEnabled)
+                        
+                    }
+                    .frame(maxWidth: 400)
+                    .padding(.horizontal, 32)
+                    VStack{
+                        Toggle(shouldHistorySearchVideo ?  localized("Video & Definition") : localized("Definition Only"), isOn: $shouldHistorySearchVideo)
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.3)) // Set the color of the line
+                            .frame(height: 1)  // Set the width of the line
+                        SimpleFlowText(items: $history) { text in
+                            if(currentSearch != text && shouldHistorySearchVideo){
+                                currentSearch = text
+                            } else {
+                                showDefinition(text)
                             }
-                        )
-                        .padding(12, 20, 32)
-                        .opacity(shouldShowWebView ? 0 : 1)
+                            value.scrollTo("youtube-video", anchor: .bottom)
+                        }  onLongPress: { text in
+                            if let idx = history.firstIndex(of: text){
+                                history.remove(at: idx);
+                            }
+                        }
+                    }
+                    
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
+                    .padding(35,0,20)
                 }
-                .frame(width: playerSize.width, height: playerSize.height)
-                .tweenProps(anime)
-                HStack(){
-                    let ns = 30.0
-                    let ls = 45.0
-                    Button{
-                        click("#b_prev")
-                        
-                    } label: {
-                        Image.resizableIcon(.backwardFrame)
-                            .frame(width: ns, height: ns)
-                    }.disabled(!prevBtnEnabled)
-                    Spacer()
-                    Button{
-                        click("#b_back")
-                    } label: {
-                        Image.resizableIcon(.gobackward5)
-                            .frame(width: ns, height: ns)
-                    }
-                    Spacer()
-                    Button{
+                .sheet(isPresented: shouldShowDefinition, onDismiss: {
+                    if(!isPlaying && shouldResume){
                         click("#b_pause")
-                    } label: {
-                        Image.resizableIcon(isPlaying ? .pause_sf : .play_sf)
-                            .frame(width: ls, height: ls)
+                        shouldResume = false
                     }
-                    Spacer()
-                    Button{
-                        click("#b_replay")
-                        
-                        
-                    } label: {
-                        Image.resizableIcon(.gobackward)
-                            .frame(width: ns, height: ns)
+                }, content: {
+                    DefinitionView(word: currentDefinitingWord)
+                        .presentationDetents([.medium, .large])
+                })
+                .padding()
+                .frame(maxWidth: playerSize.width)
+                .onChange(of: currentSearch, perform: doSearch)
+                .on("onPlayerReady"){ _ in
+                    tl($anime).to([\.rotationY: 90], duration: 0.5).perform {
+                        searching = false
+                    }.set([\.rotationY: -90]).to([\.rotationY: 0.5]).perform{
+                        modifyWebpage()
+                        calculateRatio()
                     }
-                    Spacer()
-                    Button{
-                        click("#b_next")
-                        
-                    } label: {
-                        Image.resizableIcon(.forwardFrame)
-                            .frame(width: ns, height: ns)
-                    }.disabled(!nextBtnEnabled)
-//                    Button{
-//                        vm.youglish.exec(.snapshot())
-//                        
-//                    } label: {
-//                        Image.resizableIcon(.video_sf)
-//                            .frame(width: ns, height: ns)
-//                    }.disabled(!nextBtnEnabled)
+                }
+                .on("playingChange"){ no in
+                    cleanWebUI()
+                    isPlaying = no.userInfo?["isPlaying"] as? Bool ?? false
+                }
+                .on("btnChanged"){ no in
+                    if let info = no.userInfo?["details"] as? NSDictionary, let name = info["name"] as? String, let value = info["value"] as? Bool {
+                        switch(name) {
+                        case "prev":
+                            prevBtnEnabled = !value
+                        case "next":
+                            nextBtnEnabled = !value
+                        default:()
+                            
+                        }
+                    }
+                }
+                .on("ready"){ _ in
+                    modifyWebpage()
                     
                 }
-                .frame(maxWidth: 400)
-                .padding(.horizontal, 32)
-                VStack{
-                    Toggle(shouldHistorySearchVideo ?  localized("Video & Definition") : localized("Definition Only"), isOn: $shouldHistorySearchVideo)
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.3)) // Set the color of the line
-                        .frame(height: 1)  // Set the width of the line
-                    SimpleFlowText(items: $history) { text in
-                        if(currentSearch != text && shouldHistorySearchVideo){
-                            currentSearch = text
-                        } else {
-                            showDefinition(text)
-                        }
-                    }  onLongPress: { text in
-                        if let idx = history.firstIndex(of: text){
-                            history.remove(at: idx);
-                        }
-                    }
+                .navigationBarTitleDisplayMode(.inline)
+                .onInjection {
+                    sandbox()
                 }
-                
-                .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                )
-                .padding(35,0,20)
-            }
-            .sheet(isPresented: shouldShowDefinition, onDismiss: {
-                if(!isPlaying && shouldResume){
-                    click("#b_pause")
-                    shouldResume = false
+                .onAppear {
+                    doSearch(currentSearch)
                 }
-            }, content: {
-                DefinitionView(word: currentDefinitingWord)
-                    .presentationDetents([.medium, .large])
-            })
-            .padding()
-            .frame(maxWidth: playerSize.width)
-            .onChange(of: currentSearch, perform: doSearch)
-            .on("onPlayerReady"){ _ in
-                tl($anime).to([\.rotationY: 90], duration: 0.5).perform {
-                    searching = false
-                }.set([\.rotationY: -90]).to([\.rotationY: 0.5]).perform{
-                    modifyWebpage()
-                    calculateRatio()
+                .onDisappear{
+                    vm.youglish.url = nil
                 }
-            }
-            .on("playingChange"){ no in
-                cleanWebUI()
-                isPlaying = no.userInfo?["isPlaying"] as? Bool ?? false
-            }
-            .on("btnChanged"){ no in
-                if let info = no.userInfo?["details"] as? NSDictionary, let name = info["name"] as? String, let value = info["value"] as? Bool {
-                    switch(name) {
-                    case "prev":
-                        prevBtnEnabled = !value
-                    case "next":
-                        nextBtnEnabled = !value
-                    default:()
-                        
-                    }
-                }
-            }
-            .on("ready"){ _ in
-                modifyWebpage()
-                
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .onInjection {
-                sandbox()
-            }
-            .onAppear {
-                doSearch(currentSearch)
-            }
-            .onDisappear{
-                vm.youglish.url = nil
             }
         }
     }
@@ -325,7 +329,7 @@ struct YouglishWebViewDemo: View {
             click("#b_pause")
         }
         currentDefinitingWord = word
-            
+        
     }
     
     func cleanWebUI(){
