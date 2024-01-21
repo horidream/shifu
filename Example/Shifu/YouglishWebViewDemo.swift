@@ -160,7 +160,7 @@ struct YouglishWebViewDemo: View {
                     .padding(0, 0, 5)
                     ZStack{
                         ShifuWebView(viewModel: with(vm.youglish){
-                            $0.allowedMenus = ["copy", "define"];
+                            $0.allowedMenus = ["copy", "define", "translate"];
                             $0.extraMenus = [localized("Search Video"): {
                                 currentSearch = $0
                             }]

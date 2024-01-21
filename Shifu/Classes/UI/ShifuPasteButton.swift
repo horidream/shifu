@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 import UniformTypeIdentifiers
 
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, *)
 public struct ShifuPasteButton<T: View>: View {
     public class Config: UIWrapperConfig {
         @Published var shouldCompress = false
@@ -26,7 +27,14 @@ public struct ShifuPasteButton<T: View>: View {
     }
     
     public var body: some View{
-        HackedPasteButton()
+//        HackedPasteButton()
+        PasteButton(supportedContentTypes: supportedContentType) { items in
+            if config.shouldCompress {
+                pb.items = pb.items
+            }
+            onPaste(items)
+        }
+        .labelStyle(.iconOnly)
     }
     
     func TranditionalBtn()-> Button<T>{
