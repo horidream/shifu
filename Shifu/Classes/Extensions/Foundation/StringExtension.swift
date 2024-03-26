@@ -149,7 +149,11 @@ public extension String {
     var file: URL {
         return URL(fileURLWithPath: self)
     }
-
+    
+    var fileContent: AnyObject? {
+        return self.url?.data?.json()
+    }
+    
     var url: URL? {
 
         if self.starts(with: "@") {

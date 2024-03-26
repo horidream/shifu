@@ -48,7 +48,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
     }
     }()
     @Published var featureList:[FeatureViewModel<AnyView>] = []
-    var startIndex = 1
+    var startIndex = 0
     init(){
         Shifu.locale = .zh_CN
         refresh()
@@ -198,6 +198,12 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 model.icon = .youtube
                 model.color = .red
                 return YouglishWebViewDemo().eraseToAnyView()
+                
+            },
+            FeatureViewModel(name: "Custom Server") { model in
+                model.icon = .server
+                model.color = .purple
+                return CustomServer().eraseToAnyView()
                 
             },
             FeatureViewModel(name: "Sandbox") { model in

@@ -7,7 +7,7 @@
 	"scripts": {
 		"go": "nodemon --watch package.json --watch vite.config.js --watch vite.config.lib.js --exec \"concurrently 'vite serve --host --port 1125' 'vite build --watch' 'vite build --config vite.config.lib.js --watch'\" ",
 		"start": "nodemon --watch package.json --watch vite.config.js --exec \"yarn dev\"",
-		"dev": "vite serve --host --port 5555",
+		"dev": "vite serve --host --port 1125",
 		"lib": "vite build --config vite.config.lib.js --watch",
 		"build": "nodemon --watch package.json --watch vite.config.js --exec \"vite build --watch\"",
 		"build-cloud": "vite build",
@@ -19,19 +19,19 @@
 		"not ie <= 8"
 	],
 	"devDependencies": {
-		"@vitejs/plugin-vue": "^5.0.3",
+		"@vitejs/plugin-vue": "^5.0.5",
 		"concurrently": "^8.2.2",
 		"rollup-plugin-analyzer": "^4.0.0",
 		"rollup-plugin-visualizer": "^5.12.0",
-		"vite": "^5.0.12",
+		"vite": "^5.2.12",
 		"vite-plugin-html": "^3.2.2"
 	},
 	"dependencies": {
 		"grogu": "../../grogu",
 		"highlight.js": "^11.9.0",
-		"katex": "^0.16.9",
-		"marked": "^11.1.1",
-		"marked-highlight": "^2.1.0",
-		"vue": "^3.4.15"
+		"katex": "^0.16.10",
+		"marked": "^12.0.2",
+		"marked-highlight": "^2.1.1",
+		"vue": "^3.4.27"
 	}
 }

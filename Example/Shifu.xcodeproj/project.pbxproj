@@ -49,6 +49,7 @@
 		C7A2770B28BF32F200983681 /* chair.scn in Resources */ = {isa = PBXBuildFile; fileRef = C7A2770A28BF32F200983681 /* chair.scn */; };
 		C7A2770D28C7281E00983681 /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2770C28C7281E00983681 /* Sandbox.swift */; };
 		C7A2770F28C8C1FF00983681 /* ChangeAppIconDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */; };
+		C7C76AB22BB18A5C001BE0D2 /* CustomServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C76AB12BB18A5C001BE0D2 /* CustomServer.swift */; };
 		C7EB82012928DAD90045C482 /* ShortCutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB82002928DAD90045C482 /* ShortCutTests.swift */; };
 		C7F2756D2AA42FB8009FECA3 /* web in Resources */ = {isa = PBXBuildFile; fileRef = C7F2756C2AA42FB8009FECA3 /* web */; };
 /* End PBXBuildFile section */
@@ -132,6 +133,7 @@
 		C7A2770A28BF32F200983681 /* chair.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = chair.scn; sourceTree = "<group>"; };
 		C7A2770C28C7281E00983681 /* Sandbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
 		C7A2770E28C8C1FF00983681 /* ChangeAppIconDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAppIconDemo.swift; sourceTree = "<group>"; };
+		C7C76AB12BB18A5C001BE0D2 /* CustomServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomServer.swift; sourceTree = "<group>"; };
 		C7EB82002928DAD90045C482 /* ShortCutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortCutTests.swift; sourceTree = "<group>"; };
 		C7F2756C2AA42FB8009FECA3 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web; sourceTree = "<group>"; };
 		C8516BA7C652C171001608A3 /* Pods_ShifuExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShifuExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +258,7 @@
 		C7965CD928426E3C002C825A /* demos */ = {
 			isa = PBXGroup;
 			children = (
+				C7C76AB12BB18A5C001BE0D2 /* CustomServer.swift */,
 				C7268DA429E1449800A4A570 /* YouglishWebViewDemo.swift */,
 				C753079E297FC32300C26967 /* PopoverDemo.swift */,
 				C7722DF6293C36B0004683B6 /* PeerToPeerDemo.swift */,
@@ -349,7 +352,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1530;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					3CB10715280721B8007E4F5B = {
@@ -569,6 +572,7 @@
 			files = (
 				C7268DA529E1449800A4A570 /* YouglishWebViewDemo.swift in Sources */,
 				C78E3A5F29364B8D00BCFCDC /* ShifuSplitViewDemo.swift in Sources */,
+				C7C76AB22BB18A5C001BE0D2 /* CustomServer.swift in Sources */,
 				3C3C46DE27B92E6F00BCB074 /* ColorThemeManagerDemo.swift in Sources */,
 				C79265DF286179CB002D8644 /* NotificationManagerDemo.swift in Sources */,
 				C75700BC290585ED00C69233 /* PreviewDemo.swift in Sources */,
@@ -705,6 +709,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = Chunli;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -766,6 +771,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = Chunli;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

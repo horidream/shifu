@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CommonCrypto
 
 public extension FileManager {
     struct url{
@@ -105,6 +106,20 @@ public extension FileManager {
             return []
         }
     }
+    
+    func shaOfFile(at url: URL?) -> String? {
+        guard let fileData = url?.data else {
+            return nil
+        }
+        var digest = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+        fileData.withUnsafeBytes {
+            _ = CC_SHA1($0.baseAddress, CC_LONG(fileData.count), &digest)
+        }
+        return digest.map { String(format: "%02hhx", $0) }.joined()
+    }
 }
+
+
+
 
 
