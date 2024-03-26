@@ -39,12 +39,12 @@ public extension AppModelBase {
     }
     
     func getProperty<T>(_ key:String, fallback:@autoclosure ()->T)->T{
-        if ext[key] != nil, let instance = ext[key] as? T {
-            return instance
-        }else{
-            let instance =  fallback()
-            ext[key] = instance
-            return instance
+        if let value = ext[key] as? T {
+            return value
+        } else {
+            let fallbackValue = fallback()
+            ext[key] = fallbackValue
+            return fallbackValue
         }
     }
 }
@@ -52,9 +52,10 @@ public extension AppModelBase {
 
 @available(iOS 13.0, *)
 public extension AppModelBase where Self: ObservableObject, Self.ObjectWillChangePublisher == ObservableObjectPublisher{
-
+    
     var version:String {
-        get{ getProperty("version",  fallback: (Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "UNKNOWN") as! String)
+        get{ 
+            getProperty("version",  fallback: (Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "UNKNOWN") as! String)
         }
     }
     var appName:String {
