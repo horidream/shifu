@@ -67,6 +67,8 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
         didSet{
             if oldValue != url, url != nil{
                 isLoading = true
+            } else {
+                isLoading = false
             }
         }
     }

@@ -11,15 +11,6 @@ import WebKit
 import Combine
 import JavaScriptCore
 
-public enum ShifuWebViewAction{
-    case snapshot(WKSnapshotConfiguration? = nil, SnapshotTarget = .clipboard(.jpg))
-}
-
-
-
-
-
-
 @available(iOS 14.0, *)
 public struct ShifuWebView: UIViewControllerRepresentable{
     public func makeCoordinator() -> Coordinator {
@@ -27,10 +18,10 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     }
     
     
-    @ObservedObject var viewModel1:ShifuWebViewModel = .noop
-    var viewModel2:ShifuWebViewModel = ShifuWebViewModel()
+    @ObservedObject var injectedViewModel:ShifuWebViewModel = .noop
+    var internalViewModel:ShifuWebViewModel = ShifuWebViewModel()
     var viewModel:ShifuWebViewModel {
-        return viewModel1.isNoop ?  viewModel2 : viewModel1
+        return injectedViewModel.isNoop ?  internalViewModel : injectedViewModel
     }
 
     public func autoResize()-> some View{
@@ -44,15 +35,15 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     }
     
     public init (viewModel:ShifuWebViewModel ){
-        self.viewModel1 = viewModel
+        self.injectedViewModel = viewModel
     }
     
     public init (url: URL?){
-        self.viewModel2.url = url
+        self.internalViewModel.url = url
     }
     
     public init (html: String?){
-        self.viewModel2.html = html
+        self.internalViewModel.html = html
     }
     
     func reinitializeSharedShifuWebViewController(){
@@ -74,7 +65,6 @@ public struct ShifuWebView: UIViewControllerRepresentable{
     }
     
     public func makeUIViewController(context: Context) -> ShifuWebViewController {
-
         let vc = viewModel.shared ? viewModel.sharedShifuWebViewController : ShifuWebViewController()
         if let conf = viewModel.configuration{
             let script = WKUserScript(source: conf, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
@@ -95,25 +85,30 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.bounces = viewModel.allowScroll
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
         webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
-        if let extraMenus = viewModel.extraMenus{
-            for (menu, block) in extraMenus{
-                webView.addCustomMenuItem(menu, block)
+        
+        if (viewModel.url == nil){
+            webView.stopLoading()
+            webView.loadHTMLString("", baseURL: nil)
+        } else {
+            if let extraMenus = viewModel.extraMenus{
+                for (menu, block) in extraMenus{
+                    webView.addCustomMenuItem(menu, block)
+                }
             }
-        }
-
-        if let url = viewModel.url ,context.coordinator.previousURL?.absoluteString.trimmingCharacters(in: .punctuationCharacters) != url.absoluteString.trimmingCharacters(in: .punctuationCharacters){
+            
+            if let url = viewModel.url ,context.coordinator.previousURL?.absoluteString.trimmingCharacters(in: .punctuationCharacters) != url.absoluteString.trimmingCharacters(in: .punctuationCharacters){
                 viewModel.isLoading = true
                 observeMounted(webView: webView, model: viewModel)
                 webView.load(URLRequest(url: url))
                 context.coordinator.previousURL = url
+            }
+            
+            if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
+                uiViewController.lastLoadedHTML = html
+                webView.loadHTMLString( viewModel.metaData + html, baseURL: viewModel.baseURL)
+                viewModel.isMounted = true
+            }
         }
-        
-        if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
-            uiViewController.lastLoadedHTML = html
-            webView.loadHTMLString( viewModel.metaData + html, baseURL: viewModel.baseURL)
-            viewModel.isMounted = true
-        }
-        
         
     }
     
@@ -173,7 +168,6 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             }
         default:
             if let dic = message.body as? Dictionary<String, Any>, let type = dic["type"] as? String{
-//                                clg(type, dic)
                 NotificationCenter.default.post(name: type.toNotificationName(), object: webView, userInfo: dic)
             }
         }
@@ -244,16 +238,6 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     
 }
 
-public protocol Buildable{
-    init(builder: (Self)->Void)
-}
-
-public extension Buildable where Self:NSObject {
-    init(builder: (Self)->Void){
-        self.init()
-        builder(self)
-    }
-}
 
 
 

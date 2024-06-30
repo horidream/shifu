@@ -27,7 +27,7 @@ struct Sandbox: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     var body: some View {
         VStack{
-            Text("Hello!!++")
+            Text("Hello!!++>>>")
         }
         .padding()
         .onAppear(){

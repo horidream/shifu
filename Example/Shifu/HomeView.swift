@@ -64,6 +64,7 @@ struct HomeView: View {
         .ignoresSafeArea(.all, edges: .bottom)
         
         .onAppear(){
+//            Shifu.config.shouldPrintWebLog = true;
             colorManager.applyColorScheme()
             DispatchQueue.main.async{
                 selectedFeature = vm.featureList.first { $0.isActive }

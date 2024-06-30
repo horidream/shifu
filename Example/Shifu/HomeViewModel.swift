@@ -48,7 +48,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
     }
     }()
     @Published var featureList:[FeatureViewModel<AnyView>] = []
-    var startIndex = 0
+    var startIndex = 2
     init(){
         Shifu.locale = .zh_CN
         refresh()

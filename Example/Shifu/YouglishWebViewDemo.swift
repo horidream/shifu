@@ -44,7 +44,7 @@ struct YouglishWebViewDemo: View {
     
     @State var inputText = ""
     @State var lastSearch:String?
-    @State var searching = true
+    @State var searching = false
     @Tween var anime;
     // the following properties is to mirror the states in webpage
     @State var isPlaying = false
@@ -52,6 +52,7 @@ struct YouglishWebViewDemo: View {
     @State var nextBtnEnabled = false
     @State var shouldResume = true
     @State var currentDefinitingWord:String = ""
+    @State var isChallenging = false
     @FocusState var shouldFocusOnInput:Bool
     @State var ratio = 398.0 / 323.0
     var shouldShowDefinition: Binding<Bool>{
@@ -68,15 +69,17 @@ struct YouglishWebViewDemo: View {
         return CGSize(width: w, height:  floor(w / ratio) - 2)
     }
     var shouldShowWebView: Bool {
-        return !searching
+        return  isChallenging || !searching
     }
     
     @discardableResult private func updateYouglish(_ newValue: String)->Bool{
         if let searchingWord = newValue.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).addingPercentEncoding(withAllowedCharacters: .urlPathAllowed), searchingWord != lastSearch, !searchingWord.isEmpty{
             lastSearch = searchingWord
-            vm.youglish.url = "https://youglish.com/pronounce/\(searchingWord)/english?".url
+            let targetURL = "https://youglish.com/pronounce/\(searchingWord)/english".url
+            vm.youglish.url = targetURL
             isPlaying = false
             return true
+            
         }
         vm.youglish.url = nil
         return false
@@ -305,14 +308,16 @@ struct YouglishWebViewDemo: View {
                 }
                 .on("ready"){ _ in
                     modifyWebpage()
-                    
+                    checkIsChallenging()
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .onInjection {
                     sandbox()
                 }
                 .onAppear {
-                    doSearch(currentSearch)
+                    delay(0.15){ // delay to reset to url to nil first
+                        doSearch(currentSearch)
+                    }
                 }
                 .onDisappear{
                     vm.youglish.url = nil
@@ -352,6 +357,18 @@ typeof $ !="undefined" && $("\(name)").click();
         } else {
             vm.youglish.apply(MODIFY_PAGE.replace(pattern: "\\{1\\}", with: "theme_dark" ).replace(pattern: "\\{2\\}", with: "theme_light"))
         }
+    }
+    
+    func checkIsChallenging(){
+        vm.youglish.apply("""
+        return (
+                document.body.innerHTML.indexOf("challenge-error-text") > -1
+            );
+        """){ rst in
+            self.isChallenging = rst as! Bool;
+            
+        }
+        
     }
     
     func calculateRatio(){
