@@ -7,13 +7,14 @@
 
 import Foundation
 
-public protocol Buildable{
-    init(builder: (Self)->Void)
+public protocol Buildable {
+    init()
 }
 
-public extension Buildable where Self:NSObject {
-    init(builder: (Self)->Void){
-        self.init()
-        builder(self)
+public extension Buildable {
+    static func build(_ builder: (Self) -> Void) -> Self {
+        let instance = Self()
+        builder(instance)
+        return instance
     }
 }

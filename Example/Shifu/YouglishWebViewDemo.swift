@@ -55,6 +55,8 @@ struct YouglishWebViewDemo: View {
     @State var isChallenging = false
     @FocusState var shouldFocusOnInput:Bool
     @State var ratio = 398.0 / 323.0
+    let arr = JSON.parse("@source/test.json".url?.content)
+    
     var shouldShowDefinition: Binding<Bool>{
         Binding(get: {
             return !self.currentDefinitingWord.isEmpty
@@ -76,6 +78,7 @@ struct YouglishWebViewDemo: View {
         if let searchingWord = newValue.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).addingPercentEncoding(withAllowedCharacters: .urlPathAllowed), searchingWord != lastSearch, !searchingWord.isEmpty{
             lastSearch = searchingWord
             let targetURL = "https://youglish.com/pronounce/\(searchingWord)/english".url
+            vm.youglish.setCookies(arr)
             vm.youglish.url = targetURL
             isPlaying = false
             return true
@@ -167,6 +170,7 @@ struct YouglishWebViewDemo: View {
                             $0.extraMenus = [localized("Search Video"): {
                                 currentSearch = $0
                             }]
+                            
                         })
                         .opacity(shouldShowWebView ? 1 : 0)
                         .id("youtube-video")
@@ -315,6 +319,7 @@ struct YouglishWebViewDemo: View {
                     sandbox()
                 }
                 .onAppear {
+                  
                     delay(0.15){ // delay to reset to url to nil first
                         doSearch(currentSearch)
                     }

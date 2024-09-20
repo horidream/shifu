@@ -60,7 +60,7 @@ public class TweenLayer{
             anime.timingFunction = ease
             if delay != 0 {
                 anime.beginTime = target.convertTime(CACurrentMediaTime(), from: nil)
- + delay
+                + delay
             }
             anime.fillMode = .backwards
             target.add(anime, forKey: key)

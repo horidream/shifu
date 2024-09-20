@@ -95,6 +95,52 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
         webView?.reload()
     }
     
+    public func setCookies(_ jsonArray: AnyObject?) {
+        guard let cookieStore = webView?.configuration.websiteDataStore.httpCookieStore else {
+            print("No cookie store available")
+            return
+        }
+        guard let arr = jsonArray as? NSArray else {
+            print("input is not valid")
+            return 
+        }
+        
+        for case let cookieDict as NSDictionary in arr {
+            guard let name = cookieDict["name"] as? String,
+                  let value = cookieDict["value"] as? String,
+                  let domain = cookieDict["domain"] as? String,
+                  let path = cookieDict["path"] as? String else {
+                print("Missing required cookie attributes")
+                continue
+            }
+
+            // Handle expirationDate if it exists
+            var cookieProperties: [HTTPCookiePropertyKey: Any] = [
+                .domain: domain,
+                .path: path,
+                .name: name,
+                .value: value,
+                .sameSitePolicy: "none",
+                .secure: "TRUE"
+            ]
+            
+            // If the cookie is not a session cookie, set the expiration date
+            if let expirationTimestamp = cookieDict["expirationDate"] as? TimeInterval, cookieDict["session"] as? Bool == false {
+                cookieProperties[.expires] = Date(timeIntervalSince1970: expirationTimestamp)
+            }
+
+            // Create the cookie
+            if let cookie = HTTPCookie(properties: cookieProperties) {
+                cookieStore.setCookie(cookie) {
+                    print("Cookie \(name) set successfully")
+                }
+            } else {
+                print("Failed to create cookie for \(name)")
+            }
+        }
+        webView?.reload()
+    }
+    
     public func exec(_ action: ShifuWebViewAction, callback: ((Any?)->Void)? = nil){
         switch action{
         case .snapshot(let config, let target):

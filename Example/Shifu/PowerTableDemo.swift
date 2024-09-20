@@ -63,7 +63,7 @@ struct PowerTableDemo: View {
     }
 }
 
-extension String: Wrappable {}
+extension String: @retroactive Wrappable {}
 class MyCo: PowerTable.Coordinator {
     private var loadMorePublisher: PassthroughSubject<Void, Never>?
     init(_ loadMorePublisher: PassthroughSubject<Void, Never>?) {

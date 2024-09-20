@@ -24,10 +24,11 @@ import GCDWebServer
 
 struct Sandbox: View {
     
+    @StateObject var vm = ShifuWebViewModel()
     @ObservedObject private var injectObserver = Self.injectionObserver
     var body: some View {
         VStack{
-            Text("Hello!!++>>>")
+            ShifuWebView(viewModel: vm)
         }
         .padding()
         .onAppear(){
@@ -42,9 +43,10 @@ struct Sandbox: View {
     
     
     func sandbox(){
-
-        clg("@source/test.json".fileContent?["name"])
-
+        let arr = JSON.parse("@source/test.json".url?.content)
+        vm.setCookies(arr)
+        vm.url = "https://youtube.com".url
+            
     }
     
     
@@ -53,3 +55,7 @@ struct Sandbox: View {
     
 }
 
+final class Hero: NSObject, Buildable{
+    var name: String?
+    var age: Int?
+}

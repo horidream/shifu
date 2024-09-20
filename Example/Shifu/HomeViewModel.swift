@@ -44,11 +44,10 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
         vc.log2EventMap = ["onPlayerReady": "onPlayerReady"]
         vc.treatLoadedAsMounted = true
         vc.shared = true
-        clg("create youglish")
     }
     }()
     @Published var featureList:[FeatureViewModel<AnyView>] = []
-    var startIndex = 2
+    var startIndex = 0
     init(){
         Shifu.locale = .zh_CN
         refresh()
