@@ -55,7 +55,6 @@ struct YouglishWebViewDemo: View {
     @State var isChallenging = false
     @FocusState var shouldFocusOnInput:Bool
     @State var ratio = 398.0 / 323.0
-    let arr = JSON.parse("@source/test.json".url?.content)
     
     var shouldShowDefinition: Binding<Bool>{
         Binding(get: {
@@ -78,7 +77,6 @@ struct YouglishWebViewDemo: View {
         if let searchingWord = newValue.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).addingPercentEncoding(withAllowedCharacters: .urlPathAllowed), searchingWord != lastSearch, !searchingWord.isEmpty{
             lastSearch = searchingWord
             let targetURL = "https://youglish.com/pronounce/\(searchingWord)/english".url
-            vm.youglish.setCookies(arr)
             vm.youglish.url = targetURL
             isPlaying = false
             return true
@@ -446,4 +444,5 @@ if(typeof observe != "undefined"){
     });
 }
 """
+
 

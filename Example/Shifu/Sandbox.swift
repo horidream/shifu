@@ -43,9 +43,7 @@ struct Sandbox: View {
     
     
     func sandbox(){
-        let arr = JSON.parse("@source/test.json".url?.content)
-        vm.setCookies(arr)
-        vm.url = "https://youtube.com".url
+
             
     }
     
@@ -55,7 +53,3 @@ struct Sandbox: View {
     
 }
 
-final class Hero: NSObject, Buildable{
-    var name: String?
-    var age: Int?
-}

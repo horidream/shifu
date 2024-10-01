@@ -177,6 +177,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     public var webView:CustomWebView = CustomWebView(frame: .zero, configuration: with(WKWebViewConfiguration()){
         // this must be set in the constructor
         $0.allowsInlineMediaPlayback = true
+//        $0.websiteDataStore = WKWebsiteDataStore.default()
     })
     
     public override func loadView() {
@@ -192,11 +193,13 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             webView.configuration.userContentController.addUserScript(script)
             webView.configuration.userContentController.addUserScript(postScript)
             webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
-            let websiteDataStore = WKWebsiteDataStore.default()
-            let date = Date(timeIntervalSince1970: 0)
-            websiteDataStore.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: date) { [weak self] in
-                self?.webView.configuration.websiteDataStore = websiteDataStore
-            }
+            webView.customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+            // remove all cookies
+//            let websiteDataStore = WKWebsiteDataStore.default()
+//            let date = Date(timeIntervalSince1970: 0)
+//            websiteDataStore.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: date) { [weak self] in
+//                self?.webView.configuration.websiteDataStore = websiteDataStore
+//            }
         }
         if let url = url{
             webView.load(URLRequest(url: url))

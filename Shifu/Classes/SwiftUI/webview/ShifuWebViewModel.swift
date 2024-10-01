@@ -95,7 +95,15 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
         webView?.reload()
     }
     
-    public func setCookies(_ jsonArray: AnyObject?) {
+    public func setCookies(_ jsonArray: AnyObject?, force: Bool = false) {
+        if !force, let cookieStore = webView?.configuration.websiteDataStore.httpCookieStore{
+            cookieStore.getAllCookies { cookies in
+                if !cookies.isEmpty {
+                    clg("not empty, abort")
+                    return
+                }
+            }
+        }
         guard let cookieStore = webView?.configuration.websiteDataStore.httpCookieStore else {
             print("No cookie store available")
             return
@@ -121,7 +129,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
                 .name: name,
                 .value: value,
                 .sameSitePolicy: "none",
-                .secure: "TRUE"
+                .secure: true
             ]
             
             // If the cookie is not a session cookie, set the expiration date
@@ -132,7 +140,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
             // Create the cookie
             if let cookie = HTTPCookie(properties: cookieProperties) {
                 cookieStore.setCookie(cookie) {
-                    print("Cookie \(name) set successfully")
+//                    print("Cookie \(name) set successfully")
                 }
             } else {
                 print("Failed to create cookie for \(name)")

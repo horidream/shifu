@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import JavaScriptCore
 
 public class JSON{
     public static func stringify(_ obj:Any?) -> String?{
@@ -98,40 +97,57 @@ public protocol JsonMergeable: Codable{
     func merge(_ other: Self)->Self
 }
 
-let js = JSContext()
 public extension JsonMergeable {
     
-    func merge(_ other: Self)->Self{
+    func merge(_ other: Self) -> Self {
+        // Use Codable to merge without JavaScript
         let a = self.stringify() ?? "{}"
         let b = other.stringify() ?? "{}"
-        let cmd = "JSON.stringify(Object.assign(JSON.parse('\(a)'), JSON.parse('\(b)')))"
-        let rst = js?.evaluateScript(cmd)
-        if let json = rst?.toString(){
-            return json.parse(to: Self.self) ?? self
+        
+        // Decode both JSON strings into dictionaries
+        guard let dictA = a.data(using: .utf8).flatMap({ try? JSONSerialization.jsonObject(with: $0) as? [String: Any] }),
+              let dictB = b.data(using: .utf8).flatMap({ try? JSONSerialization.jsonObject(with: $0) as? [String: Any] }) else {
+            return self
+        }
+        
+        // Merge dictionaries
+        let mergedDict = dictA.merging(dictB) { (_, new) in new }
+        
+        // Convert merged dictionary back to JSON string and decode to Self
+        if let jsonData = try? JSONSerialization.data(withJSONObject: mergedDict),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            return jsonString.parse(to: Self.self) ?? self
         }
         return self
     }
     
-    func merge(_ other: [String: Codable])->Self{
+    // Extending the functionality with Any dictionary instead of Codable
+    func merge(_ other: [String: Any]) -> Self {
+        // Convert self to JSON string
         let a = self.stringify() ?? "{}"
+        
+        // Convert `other` dictionary to JSON string
         let b = other.stringify() ?? "{}"
-        let cmd = "JSON.stringify(Object.assign(JSON.parse('\(a)'), JSON.parse('\(b)')))"
-        let rst = js?.evaluateScript(cmd)
-        if let json = rst?.toString(){
-            return json.parse(to: Self.self) ?? self
+        
+        // Deserialize JSON strings to dictionaries
+        guard let dictA = a.data(using: .utf8).flatMap({ try? JSONSerialization.jsonObject(with: $0) as? [String: Any] }),
+              let dictB = b.data(using: .utf8).flatMap({ try? JSONSerialization.jsonObject(with: $0) as? [String: Any] }) else {
+            return self
+        }
+        
+        // Merge dictionaries, keeping values from `dictB` when keys conflict
+        let mergedDict = dictA.merging(dictB) { (_, new) in new }
+        
+        // Convert merged dictionary back to JSON data
+        if let jsonData = try? JSONSerialization.data(withJSONObject: mergedDict),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            
+            // Parse the JSON string back to the current object type (`Self`)
+            return jsonString.parse(to: Self.self) ?? self
         }
         return self
-    }
-    
-    func mergeToRawObject(_ other: [String: Codable])->NSDictionary{
-        let a = self.stringify() ?? "{}"
-        let b = other.stringify() ?? "{}"
-        let cmd = "Object.assign(JSON.parse('\(a)'), JSON.parse('\(b)'))"
-        let rst = js?.evaluateScript(cmd).toObject() as? NSDictionary
-        return rst ?? NSDictionary()
     }
 }
-
 
 extension Dictionary: JsonMergeable where Key==String, Value:Codable {}
 

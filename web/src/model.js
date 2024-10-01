@@ -35,6 +35,7 @@ marked.use(
 );
 
 function mathsExpression(expr) {
+  expr = expr.text ?? expr;
   if (expr.match(/^\$\$[\s\S]*\$\$$/)) {
     expr = expr.substr(2, expr.length - 4);
     return katex.renderToString(expr, {
@@ -48,6 +49,7 @@ function mathsExpression(expr) {
       throwOnError: false,
     });
   }
+  return null;
 }
 
 const unchanged = new marked.Renderer();
