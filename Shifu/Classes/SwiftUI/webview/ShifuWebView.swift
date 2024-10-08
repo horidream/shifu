@@ -139,7 +139,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
 
 
 
-final public class ShifuWebViewController: UIViewController, WKScriptMessageHandler, WKNavigationDelegate{
+final public class ShifuWebViewController: UIViewController, WKScriptMessageHandler, WKNavigationDelegate, WKUIDelegate{
     var lastLoadedHTML:String?
     weak var model: ShifuWebViewModel? {
         didSet{
@@ -192,6 +192,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
         webView.scrollView.showsVerticalScrollIndicator = false
         webView.scrollView.showsHorizontalScrollIndicator = false
         webView.navigationDelegate = self
+        webView.uiDelegate = self
         if let source = Shifu.bundle.url(forResource: "web/NativeHook", withExtension: "js")?.content, let postSource = Shifu.bundle.url(forResource: "web/PostNativeHook", withExtension: "js")?.content{
             let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
             let postScript = WKUserScript(source: postSource, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
@@ -236,6 +237,15 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
         clg("ShifuWebViewController: \(error)")
     }
     
+    public func webView(
+            _ webView: WKWebView,
+            requestMediaCapturePermissionFor origin: WKSecurityOrigin,
+            initiatedByFrame frame: WKFrameInfo,
+            type: WKMediaCaptureType,
+            decisionHandler: @escaping (WKPermissionDecision) -> Void
+        ) {
+            decisionHandler(.grant)
+        }
 //    public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 //        clg("start loading")
 //    }
