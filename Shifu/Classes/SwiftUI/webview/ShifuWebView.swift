@@ -97,16 +97,20 @@ public struct ShifuWebView: UIViewControllerRepresentable{
             }
             
             if let url = viewModel.url ,context.coordinator.previousURL?.absoluteString.trimmingCharacters(in: .punctuationCharacters) != url.absoluteString.trimmingCharacters(in: .punctuationCharacters){
-                viewModel.isLoading = true
-                observeMounted(webView: webView, model: viewModel)
-                webView.load(URLRequest(url: url))
-                context.coordinator.previousURL = url
+                delay(0){
+                    observeMounted(webView: webView, model: viewModel)
+                    webView.load(URLRequest(url: url))
+                    context.coordinator.previousURL = url
+                    viewModel.isLoading = true
+                }
             }
             
             if let html = viewModel.html, html != uiViewController.lastLoadedHTML {
-                uiViewController.lastLoadedHTML = html
-                webView.loadHTMLString( viewModel.metaData + html, baseURL: viewModel.baseURL)
-                viewModel.isMounted = true
+                delay(0){
+                    uiViewController.lastLoadedHTML = html
+                    webView.loadHTMLString( viewModel.metaData + html, baseURL: viewModel.baseURL)
+                    viewModel.isMounted = true
+                }
             }
         }
         
@@ -177,6 +181,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     public var webView:CustomWebView = CustomWebView(frame: .zero, configuration: with(WKWebViewConfiguration()){
         // this must be set in the constructor
         $0.allowsInlineMediaPlayback = true
+//        $0.mediaTypesRequiringUserActionForPlayback = []
 //        $0.websiteDataStore = WKWebsiteDataStore.default()
     })
     

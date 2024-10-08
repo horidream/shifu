@@ -28,7 +28,7 @@ struct Sandbox: View {
     @ObservedObject private var injectObserver = Self.injectionObserver
     var body: some View {
         VStack{
-            ShifuWebView(viewModel: vm)
+            ShifuWebView(url: "@web/index.html".url)
         }
         .padding()
         .onAppear(){
@@ -43,7 +43,7 @@ struct Sandbox: View {
     
     
     func sandbox(){
-
+        clg("@web/index.html".url)
             
     }
     
