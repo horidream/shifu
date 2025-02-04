@@ -1,12 +1,12 @@
 PODS:
-  - Cuckoo (2.0.8):
-    - Cuckoo/Swift (= 2.0.8)
-  - Cuckoo/Swift (2.0.8)
+  - Cuckoo (2.0.10):
+    - Cuckoo/Swift (= 2.0.10)
+  - Cuckoo/Swift (2.0.10)
   - GCDWebServer/Core (3.5.4)
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
-  - lottie-ios (4.4.3)
-  - ReachabilitySwift (5.2.3)
+  - lottie-ios (4.5.1)
+  - ReachabilitySwift (5.2.4)
   - Shifu (0.7.12):
     - ReachabilitySwift
     - SwiftUIIntrospect
@@ -17,8 +17,8 @@ PODS:
     - GCDWebServer/WebUploader
     - Shifu
     - SwiftSoup
-  - SwiftSoup (2.7.2)
-  - SwiftUIIntrospect (1.2.0)
+  - SwiftSoup (2.7.6)
+  - SwiftUIIntrospect (1.3.0)
 
 DEPENDENCIES:
   - Cuckoo
@@ -44,16 +44,16 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Cuckoo: ea063e4bbbd42b1b79325a2b1d915b1c0e6d3578
+  Cuckoo: e4347571fdd890922dd8b74be0bcab15833df754
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  lottie-ios: fcb5e73e17ba4c983140b7d21095c834b3087418
-  ReachabilitySwift: 7f151ff156cea1481a8411701195ac6a984f4979
-  Shifu: c621d6f717b001656b2a78dd3e798bba0a5f5879
-  ShifuLottie: f2b73f4cfd500b5e329692c79b7160a8e7604045
-  ShifuWebServer: 88abefeff092e9ef49f572ccce98e53431b057a9
-  SwiftSoup: 4164c6bd8af69acd119c23fb36906975a60d71bb
-  SwiftUIIntrospect: 35fbc9ae46c869ae7290afdecf6f70c2b8c86b13
+  lottie-ios: 248b380fa1b97d18e792c37d90da7ab2aa0d6562
+  ReachabilitySwift: 32793e867593cfc1177f5d16491e3a197d2fccda
+  Shifu: f72461e80eadfb4ef4883717f30667f8c5648b95
+  ShifuLottie: 0411b321e49355766b8c2ed2a6f8b22ba79c6397
+  ShifuWebServer: 597049cafd3c1e8dcc503f91b2171cc359a04080
+  SwiftSoup: 9ec2526c76ebc3fe5d3157c82b40b45a27eeb82d
+  SwiftUIIntrospect: fee9aa07293ee280373a591e1824e8ddc869ba5d
 
 PODFILE CHECKSUM: b7f69d53a3ca6bab9b5ec44147a7c06db51d5def
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

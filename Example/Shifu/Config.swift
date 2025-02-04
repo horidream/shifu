@@ -10,9 +10,9 @@ import Foundation
 import Shifu
 
 private let _clg = Shifu.clg(prefix: " ")
-func clg(file: String = #file, line: Int = #line,  _ args: Any...){
+func clg(file: String = #file, line: Int = #line,  _ args: Any?...){
     if let fn = file.url?.filename{
-        _clg(args + ["(\(fn):\(line))"])
+        _clg(args.compactMap{ $0 ?? "nil" } + ["(\(fn):\(line))"])
     }
 }
 
