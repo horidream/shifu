@@ -43,7 +43,7 @@ struct Sandbox: View {
     
     
     func sandbox(){
-        clg("@web/index.html".url, nil)
+        clg("how are you today???")
             
     }
     

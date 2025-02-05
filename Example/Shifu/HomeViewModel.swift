@@ -53,12 +53,19 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
         refresh()
     }
     
+ 
     func refresh(){
         featureList = [
             FeatureViewModel(name: "WebView") { model in
                 model.icon = .markdown
                 model.color = .blue
                 return WebViewDemo().eraseToAnyView()
+            },
+            FeatureViewModel(name: "Youglish") { model in
+                model.icon = .youtube
+                model.color = .red
+                return YouglishWebViewDemo().eraseToAnyView()
+                
             },
             FeatureViewModel(name: "ColorThemeManager", viewBuilder: { model in
                 model.color = .purple
@@ -193,12 +200,7 @@ class HomeViewModel: ObservableObject, AppModel, AppModelWeb, AppModelReachabili
                 return PopoverDemo().eraseToAnyView()
                 
             },
-            FeatureViewModel(name: "Youglish") { model in
-                model.icon = .youtube
-                model.color = .red
-                return YouglishWebViewDemo().eraseToAnyView()
-                
-            },
+
             FeatureViewModel(name: "Custom Server") { model in
                 model.icon = .server
                 model.color = .purple

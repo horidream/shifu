@@ -24,7 +24,7 @@ struct HomeView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
             List(selection: $selectedFeature) {
-                Section(header: Text("Examples").font(.headline).padding(10)) {
+//                Section(header: Text("Examples").font(.headline).padding(10)) {
                     ForEach(Array(zip(vm.featureList.indices, vm.featureList)), id: \.0) { idx, f in
                         NavigationLink(value: f) {
                             HStack {
@@ -40,12 +40,13 @@ struct HomeView: View {
                             }
                         }
                     }
-                }
+//                }
             }
             .listStyle(.plain)
-            .if(horizontalSizeClass == .regular){
-                $0.navigationBarTitle(Text(Shifu.name))
-            }
+            .toolbarBackground(Color.white, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .navigationBarTitle(Text(Shifu.name))
+            .navigationBarTitleDisplayMode(.inline)
         } detail: {
             selectedFeature?.view
         }
@@ -58,20 +59,19 @@ struct HomeView: View {
             //                vm.refresh()
         }
         .onShake {
-            sandbox()
-            vm.refresh()
+            selectedFeature = nil
         }
-        .ignoresSafeArea(.all, edges: .bottom)
         
         .onAppear(){
 //            Shifu.config.shouldPrintWebLog = true;
             colorManager.applyColorScheme()
-            DispatchQueue.main.async{
-                selectedFeature = vm.featureList.first { $0.isActive }
-            }
+//            DispatchQueue.main.async{
+//                selectedFeature = vm.featureList.first { $0.isActive }
+//            }
             
         }
         .environmentObject(tunnel)
+        //            .ignoresSafeArea(.all, edges: .bottom)
         .navigationViewStyle(.stack)
     }
     
@@ -79,35 +79,4 @@ struct HomeView: View {
     }
 }
 
-extension UIDevice {
-    static let deviceDidShakeNotification = Notification.Name(rawValue: "deviceDidShakeNotification")
-}
 
-//  Override the default behavior of shake gestures to send our notification instead.
-extension UIWindow {
-    open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            NotificationCenter.default.post(name: UIDevice.deviceDidShakeNotification, object: nil)
-        }
-    }
-}
-
-// A view modifier that detects shaking and calls a function of our choosing.
-struct DeviceShakeViewModifier: ViewModifier {
-    let action: () -> Void
-    
-    func body(content: Content) -> some View {
-        content
-            .onAppear()
-            .onReceive(NotificationCenter.default.publisher(for: UIDevice.deviceDidShakeNotification)) { _ in
-                action()
-            }
-    }
-}
-
-// A View extension to make the modifier easier to use.
-extension View {
-    func onShake(perform action: @escaping () -> Void) -> some View {
-        self.modifier(DeviceShakeViewModifier(action: action))
-    }
-}
