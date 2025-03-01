@@ -1,11 +1,10 @@
-
 import app from "./model";
 
 app("#app", {
 	userDefaults: !window.webkit,
 	state: {
 		content: "",
-		allowDebug: true,
+		allowDebug: !window.webkit,
 	},
 	data() {
 		return {
@@ -162,7 +161,7 @@ app("#app", {
 					break;
 			}
 		});
-    if(this.allowDebug){
+		if (this.allowDebug) {
 			fetch("./example.md")
 				.then((res) => res.text())
 				.then(function (text) {
@@ -172,9 +171,7 @@ app("#app", {
 						content: text,
 					});
 				});
-
-    }
-
+		}
 
 		postToNative({
 			type: "mounted",

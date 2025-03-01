@@ -22,11 +22,6 @@ if (typeof globalThis.postToNative == "undefined") {
 					);
 			  };
 
-		// functions that could be called by bothsides
-		const emit = function (type, data) {
-			eb.dispatchEvent(new CustomEvent(type, { detail: data }));
-		};
-
 		const defineGlobal = function (key, value) {
 			if (!globalThis.hasOwnProperty(key)) {
 				Object.defineProperty(globalThis, key, {
@@ -50,7 +45,10 @@ if (typeof globalThis.postToNative == "undefined") {
 		defineGlobal("postToNative", postToNative);
 		defineGlobal("observe", observe);
 		// defineGlobal("eb", new EventTarget());
-		// define global
+		// functions that could be called by bothsides
+		// const emit = function (type, data) {
+		// 	eb.dispatchEvent(new CustomEvent(type, { detail: data }));
+		// };
 		if (window.webkit) {
 			window.console.log = captureLog;
 			window.console.warn = captureLog;
@@ -63,6 +61,6 @@ if (typeof globalThis.postToNative == "undefined") {
 (function () {
 	if (!window.navigator) window.navigator = {};
 	window.navigator.getUserMedia = function () {
-		webkit.messageHandlers.callbackHandler.postMessage(arguments);
+		window.webkit?.messageHandlers?.callbackHandler?.postMessage(arguments);
 	};
 })();
