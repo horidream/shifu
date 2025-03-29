@@ -162,15 +162,12 @@ app("#app", {
 			}
 		});
 		if (this.allowDebug) {
-			fetch("./example.md")
-				.then((res) => res.text())
-				.then(function (text) {
-					m.vm.content = text;
-					postToNative({
-						type: "example",
-						content: text,
-					});
-				});
+			const exampleContent = document.getElementById('example-md').textContent;
+			m.vm.content = exampleContent;
+			postToNative({
+				type: "example",
+				content: exampleContent,
+			});
 		}
 
 		postToNative({

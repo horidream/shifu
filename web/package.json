@@ -10,7 +10,7 @@
 		"dev": "vite serve --host --port 1125",
 		"lib": "vite build --config vite.config.lib.js --watch",
 		"build": "nodemon --watch package.json --watch vite.config.js --exec \"vite build --watch\"",
-		"build-inline": "vite build --config vite.inline.config.js",
+		"build-inline": "nodemon --watch package.json --watch vite.inline.config.js --exec \"vite build --config vite.inline.config.js\"",
 		"build-cloud": "vite build",
 		"test": "karma start test/unit/karma.conf.js --single-run"
 	},

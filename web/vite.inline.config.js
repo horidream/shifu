@@ -43,12 +43,23 @@ export default defineConfig({
 			transformIndexHtml: {
 				enforce: 'pre',
 				transform(html) {
-					// 处理外部script为内联script
+					// 使用public目录下构建好的NativeHook.js
+					const nativeHookPath = resolve(__dirname, 'public/NativeHook.js');
+					const nativeHookContent = fs.readFileSync(nativeHookPath, 'utf-8');
+					
 					html = html.replace(
-						/<script src="\.\/native\/NativeHook\.js"><\/script>/,
-						`<script>
-							// NativeHook.js的内容会在构建时被内联到这里
-						</script>`
+						/<script src="\/NativeHook\.js" type="module"><\/script>/,
+						`<script type="module">${nativeHookContent}</script>`
+					);
+
+					// 添加example.md的内容
+					const examplePath = resolve(__dirname, 'public/example.md');
+					const exampleContent = fs.readFileSync(examplePath, 'utf-8');
+					
+					// 添加一个script标签来存储markdown内容
+					html = html.replace(
+						'</head>',
+						`<script type="text/markdown" id="example-md">${exampleContent}</script>\n</head>`
 					);
 
 					// 处理favicon
