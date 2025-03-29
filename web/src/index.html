@@ -25,14 +25,6 @@
       }
     </style>
     <script src="/NativeHook.js" type="module"></script>
-    <script>
-      let style = document.getElementById("dynamicStyle");
-      if (!window.webkit) {
-        style.removeAttribute("media");
-      } else {
-        style.setAttribute("media", "max-width: 1px");
-      }
-    </script>
   </head>
   <body>
     <div id="app" v-cloak>
@@ -77,6 +69,7 @@
       </div>
     </div>
     <script src="./main.js" type="module"></script>
+    <!-- # INSERT SCRIPT HERE -->
     <!-- <script src="./PostNativeHook.js"></script> -->
     
   </body>

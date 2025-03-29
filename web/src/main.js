@@ -42,6 +42,9 @@ app("#app", {
 		adjustHeight() {
 			if (this.isDebug) {
 				let target = document.querySelector("textarea");
+				if (!target) {
+					return;
+				}
 				target.style.height = "5px";
 				nextTick(() => {
 					var height = target.scrollHeight;
@@ -162,7 +165,12 @@ app("#app", {
 			}
 		});
 		if (this.allowDebug) {
-			const exampleContent = document.getElementById('example-md').textContent;
+			let exampleContent = document.getElementById('example-md')?.textContent;
+			if (!exampleContent) {
+				exampleContent = await fetch(
+					"example.md"
+				).then((res) => res.text());
+			}
 			m.vm.content = exampleContent;
 			postToNative({
 				type: "example",
@@ -246,3 +254,10 @@ document.addEventListener("paste", function (e) {
 	e.preventDefault();
 	e.stopPropagation();
 });
+
+let style = document.getElementById("dynamicStyle");
+if (!window.webkit) {
+	style.removeAttribute("media");
+} else {
+	style.setAttribute("media", "max-width: 1px");
+}
