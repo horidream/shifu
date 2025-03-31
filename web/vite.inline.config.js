@@ -13,10 +13,10 @@ export default defineConfig({
 		__VUE_PROD_DEVTOOLS__: false,
 	},
 	build: {
-		outDir: resolve(__dirname, "extension"),
+		outDir: resolve(__dirname, "../Shifu/web/inline"),
 		assetsInlineLimit: 100000000, // 设置一个较大的值,确保所有资源都会被内联
 		cssCodeSplit: false, // 禁用 CSS 代码分割
-		emptyOutDir: true,
+		emptyOutDir: false,
 		rollupOptions: {
 			input: resolve(__dirname, "src/index.html"),
 			output: {
