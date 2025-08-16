@@ -79,7 +79,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
     @Published public var configuration: String?
     public var baseURL: URL?
     
-    var webView:WKWebView? {
+    public var webView:WKWebView? {
         return self.delegate?.webView
     }
     
@@ -192,6 +192,23 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
             }
         }
         apply(funtionBody, arguments: arguments, callback: onComplete)
+    }
+    
+    /// Configure the underlying WKWebView directly using a configuration closure
+    /// - Parameter configure: A closure that takes the WKWebView as a parameter
+    /// - Returns: Self for chaining
+    @discardableResult
+    public func configureWebView(_ configure: @escaping (WKWebView) -> Void) -> Self {
+        if let webView = self.webView {
+            configure(webView)
+        } else {
+            // If webView is not available yet, wait until it's mounted
+            sc.once(.MOUNTED) { notification in
+                guard let webView = self.webView else { return }
+                configure(webView)
+            }
+        }
+        return self
     }
 }
 

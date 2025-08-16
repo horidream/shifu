@@ -157,7 +157,30 @@ public extension String {
     var url: URL? {
 
         if self.starts(with: "@") {
-            if self.test(pattern: "^@(doc|document|documents)(?=(/|$))") {
+            // Check for URL with anchor
+            if let anchorIndex = self.firstIndex(of: "#") {
+                let pathPart = String(self[..<anchorIndex])
+                let anchorPart = String(self[anchorIndex...])
+                var url: URL?
+                if pathPart.test(pattern: "^@(doc|document|documents)(?=(/|$))") {
+                    url = URL(fileURLWithPath: pathPart.replace(pattern: "^@(doc|document|documents)(?=(/|$))", with: FileManager.path.document))
+                } else if pathPart.test(pattern: "^@(temp|tmp)(?=(/|$))") {
+                    url = URL(fileURLWithPath: pathPart.replace(pattern: "^@(temp|tmp)(?=(/|$))", with: FileManager.path.temp))
+                } else if pathPart.test(pattern: "^@(cache)(?=(/|$))") {
+                    url = URL(fileURLWithPath: pathPart.replace(pattern: "^@(cache)(?=(/|$))", with: FileManager.path.cache))
+                } else {
+                    var path = pathPart
+                    path.removeFirst()
+                    url = Bundle.main.url(forResource: path, withExtension: nil) ?? Bundle.main.resourceURL
+                }
+                
+                // Append the anchor to the URL
+                if let baseURL = url, var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false) {
+                    components.fragment = String(anchorPart.dropFirst())
+                    return components.url
+                }
+                return url
+            } else if self.test(pattern: "^@(doc|document|documents)(?=(/|$))") {
                 return URL(fileURLWithPath: self.replace(pattern: "^@(doc|document|documents)(?=(/|$))", with: FileManager.path.document))
             } else if self.test(pattern: "^@(temp|tmp)(?=(/|$))") {
                 return URL(fileURLWithPath: self.replace(pattern: "^@(temp|tmp)(?=(/|$))", with: FileManager.path.temp))

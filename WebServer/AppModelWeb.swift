@@ -108,13 +108,13 @@ public extension AppModelWeb where Self: AppModelBase, Self: ObservableObject, S
         handle(method: "POST", path: path, handler: handler)
     }
     
-    public func url(pathName string:String)->URL?{
-        // url will be like "#/welcome"
-        var comp = URLComponents(string: serverURL?.absoluteString.appending(string) ?? string)
-        let queryItems = [URLQueryItem(name: "lancode", value: currentLanguage)];
-        comp?.queryItems = queryItems
-        return comp?.url
-    }
+//    public func url(pathName string:String)->URL?{
+//        // url will be like "#/welcome"
+//        var comp = URLComponents(string: serverURL?.absoluteString.appending(string) ?? string)
+//        let queryItems = [URLQueryItem(name: "lancode", value: currentLanguage)];
+//        comp?.queryItems = queryItems
+//        return comp?.url
+//    }
 }
 
 @available(iOS 14.0, *)

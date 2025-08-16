@@ -1,9 +1,8 @@
-import grogu from "grogu";
+import { toMarkdown, loadJQuery, declareModel, genModel } from "grogu";
 import * as marked from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 import katex from "katex";
-import { toMarkdown } from "grogu/utils";
 import objectivec from "highlight.js/lib/languages/objectivec";
 
 hljs.registerLanguage("objective-c", objectivec);
@@ -82,11 +81,11 @@ window.marked = marked.marked;
 window.hljs = hljs;
 window.toMarkdown = toMarkdown;
 
-export default grogu.declareModel("com.horidream.lib.shifu", async function (el, options) {
+export default declareModel("com.horidream.lib.shifu", async function (el, options) {
   let store = {
     state: {},
   };
-  await grogu.injectVendorLibs({jquery: true})
-  let model = await grogu.genModel(store, options, el);
+  await loadJQuery();
+  let model = await genModel(store, options, el);
   return model;
 });
