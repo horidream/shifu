@@ -8,15 +8,11 @@ const __resizeObserver = new ResizeObserver((entries) => {
 });
 __resizeObserver.observe(document.querySelector("html"));
 
-if (!window.__manage_mounted_event__) {
-  postToNative({
-    type: "ready",
-  });
-}else{
-  postToNative({
-		type: "__ready__",
-  });
-}
+if (!(window.Vue || window.__VUE__)) {
+	postToNative({
+		type: "ready",
+	});
+} 
 
 
 var meta = document.createElement("meta");

@@ -10,4 +10,5 @@ import Foundation
 public extension Notification.Name{
     static var MOUNTED = "mounted".toNotificationName()
     static var LOADED = "loaded".toNotificationName()
+    static var READY = "ready".toNotificationName()
 }

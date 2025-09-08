@@ -182,7 +182,7 @@ const model = await app("#app", {
 		}
 
 		postToNative({
-			type: "mounted",
+			type: "ready",
 		});
 	},
 });

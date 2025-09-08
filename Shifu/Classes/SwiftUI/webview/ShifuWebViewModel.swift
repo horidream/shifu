@@ -168,7 +168,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
     public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil){
         if let webview = self.webView {
             if !shared && isLoading && arguments["force"] as? Bool != true {
-                sc.once(.MOUNTED, object: webview) { _ in
+                sc.once(.READY, object: webview) { _ in
                     webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
                 }
             } else {
@@ -176,7 +176,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
             }
         }
         else {
-            sc.once(.MOUNTED) { notification in
+            sc.once(.READY) { notification in
                 guard notification.object as? WKWebView == self.webView else { return }
                 self.webView?.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
             }
