@@ -1,4 +1,22 @@
-import { toMarkdown, loadJQuery, declareModel, genModel } from "grogu";
+import {
+	toMarkdown,
+	loadJQuery,
+	declareModel,
+	genModel,
+	configureDepsPath,
+	loadSkinTemplate,
+	sfc,
+	loadGSAP,
+} from "grogu";
+
+// Shifu's webpack bridge requires direct global access to these utilities
+if (typeof window !== 'undefined') {
+	// Import and expose required globals for webkit bridge
+	window.loadSkinTemplate = window.sfc = loadSkinTemplate;
+	window.loadGSAP = loadGSAP;
+	window.loadJQuery = loadJQuery;
+	window.toMarkdown = toMarkdown;
+}
 import * as marked from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";

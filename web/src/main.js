@@ -1,6 +1,9 @@
 import app from "./model";
+import { nextTick } from "vue";
 
-app("#app", {
+// Use an async IIFE since we need to await the model creation
+(async () => {
+const model = await app("#app", {
 	userDefaults: !window.webkit,
 	state: {
 		content: "",
@@ -125,7 +128,7 @@ app("#app", {
 						e.stopPropagation();
 						this.value = p1 + "\n```\n" + p2 + "\n```\n" + p3;
 						this.selectionStart = this.selectionEnd = end + 5;
-						m.vm.content = this.value;
+						model.vm.content = this.value;
 					}
 					break;
 				case 72:
@@ -137,7 +140,7 @@ app("#app", {
 							p1 + "\n## " + p2 + (start == end ? "" : "\n") + p3;
 						this.selectionStart = this.selectionEnd =
 							start + 4 + p2.length;
-						m.vm.content = this.value;
+						model.vm.content = this.value;
 					}
 					break;
 				case 66:
@@ -147,7 +150,7 @@ app("#app", {
 						this.value = p1 + "**" + p2 + "**" + p3;
 						this.selectionStart = this.selectionEnd =
 							start + 2 + p2.length;
-						m.vm.content = this.value;
+						model.vm.content = this.value;
 					}
 					break;
 				case 73:
@@ -157,7 +160,7 @@ app("#app", {
 						this.value = p1 + "`" + p2 + "`" + p3;
 						this.selectionStart = this.selectionEnd =
 							start + 1 + p2.length;
-						m.vm.content = this.value;
+						model.vm.content = this.value;
 					}
 				default:
 					// console.log(e.keyCode);
@@ -171,7 +174,7 @@ app("#app", {
 					"example.md"
 				).then((res) => res.text());
 			}
-			m.vm.content = exampleContent;
+			model.vm.content = exampleContent;
 			postToNative({
 				type: "example",
 				content: exampleContent,
@@ -213,7 +216,7 @@ let theme = new Proxy(
 		},
 		set: (target, key, value) => {
 			if (key === "current") {
-				vm.currentTheme = value;
+				model.vm.currentTheme = value;
 				target.theme = value;
 				$(`link[title='${value}']`)
 					.removeAttr("disabled")
@@ -250,7 +253,7 @@ document.addEventListener("paste", function (e) {
 	}
 	let html = e.clipboardData.getData("text/html");
 	let text = html ? toMarkdown(html) : e.clipboardData.getData("text/plain");
-	m.vm.content = text;
+	model.vm.content = text;
 	e.preventDefault();
 	e.stopPropagation();
 });
@@ -261,3 +264,5 @@ if (!window.webkit) {
 } else {
 	style.setAttribute("media", "max-width: 1px");
 }
+
+})(); // Close the async IIFE
