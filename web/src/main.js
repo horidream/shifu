@@ -187,6 +187,13 @@ const model = await app("#app", {
 	},
 });
 
+// For Shifu webkit bridge compatibility - expose model and vm globally only in webkit context
+if (typeof window !== 'undefined' && window.webkit) {
+	// These are needed for the Swift-JavaScript bridge communication
+	window.model = model;
+	window.vm = model.vm;
+}
+
 // function onReceiveNative(html) {
 //   try {
 //     postToNative({

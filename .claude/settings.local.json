@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(find /Users/baolizhai/Repo/grogu/src -name \"*.js\" -exec basename {})",
-      "Bash(npm run dev)"
+      "Bash(npm run dev)",
+      "Bash(npm run build)"
     ],
     "additionalDirectories": [
       "/Users/baolizhai/Repo/grogu/"
