@@ -86,7 +86,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         webView.scrollView.isScrollEnabled = viewModel.allowScroll
         webView.scrollView.contentInsetAdjustmentBehavior = .never // when ignoring the safe area, we can have a fullscreen webview
         
-        if (viewModel.url == nil){
+        if (viewModel.url == nil && (viewModel.html?.isEmpty ?? true)){
             webView.stopLoading()
             webView.loadHTMLString("", baseURL: nil)
         } else {
