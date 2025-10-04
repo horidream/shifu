@@ -8,7 +8,7 @@ const __resizeObserver = new ResizeObserver((entries) => {
 });
 __resizeObserver.observe(document.querySelector("html"));
 
-if (!(window.Vue || window.__VUE__)) {
+if (!window.vm) {
 	postToNative({
 		type: "ready",
 	});

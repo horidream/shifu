@@ -75,7 +75,6 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         vc.model = viewModel
         if(viewModel.shared){
             viewModel.isLoading = false
-            viewModel.isMounted = true
         }
         return vc
     }
@@ -109,7 +108,6 @@ public struct ShifuWebView: UIViewControllerRepresentable{
                 delay(0){
                     uiViewController.lastLoadedHTML = html
                     webView.loadHTMLString( viewModel.metaData + html, baseURL: viewModel.baseURL)
-                    viewModel.isMounted = true
                 }
             }
         }
@@ -123,9 +121,7 @@ public struct ShifuWebView: UIViewControllerRepresentable{
                 sc.emit(.MOUNTED, object: webView)
             }
         }
-        sc.once(.MOUNTED, object: webView){ _ in
-            viewModel.isMounted = true;
-        }
+        // MOUNTED event handling removed - using "ready" signal instead
     }
     
     public typealias UIViewControllerType = ShifuWebViewController
@@ -239,7 +235,6 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             DispatchQueue.main.async {
                 model.isLoading = true
                 model.isReady = false
-                model.isMounted = false
             }
         }
     }
@@ -286,22 +281,10 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
         if let model = model {
             DispatchQueue.main.async {
                 model.isLoading = false
-                if model.treatLoadedAsMounted {
-                    model.isMounted = true
-                }
             }
-
             // Listen for "ready" message from JavaScript instead of using hardcoded delay
             sc.once(.READY, object: webView) { _ in
                 DispatchQueue.main.async {
-                    model.isReady = true
-                    model.executeQueuedJavaScript()
-                }
-            }
-
-            // Fallback: if no ready message received within reasonable time, proceed anyway
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                if !model.isReady {
                     model.isReady = true
                     model.executeQueuedJavaScript()
                 }

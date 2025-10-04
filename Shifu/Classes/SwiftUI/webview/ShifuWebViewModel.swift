@@ -271,7 +271,6 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
         cleanup()
         isLoading = false
         isReady = false
-        isMounted = false
         bridge.removeAll()
     }
 }

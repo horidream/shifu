@@ -83,16 +83,16 @@ public struct MarkdownView: View{
         }
         return ShifuWebView(viewModel: viewModel)
             .onChange(of: content) { _ in
-                if(viewModel.isMounted){
+                if(viewModel.isReady){
                     updateContent()
                 }
             }
             .onChange(of: colorScheme) { _ in
-                if(viewModel.isMounted){
+                if(viewModel.isReady){
                     updateTheme(theme)
                 }
             }
-            .onChange(of: viewModel.isMounted, perform: { newValue in
+            .onChange(of: viewModel.isReady, perform: { newValue in
                 if(newValue){
                     updateContent()
                     updateTheme(theme)
