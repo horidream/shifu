@@ -18,7 +18,6 @@ struct WebViewDemo:View{
         let md = MarkdownView(content: $content)
         return VStack{
             md
-//                .frame(height: markdownHeight)
                 .padding()
             TextEditor(text: $content)
                 .disableAutocorrection(true)

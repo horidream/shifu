@@ -13,14 +13,36 @@ import JavaScriptCore
 
 @available(iOS 14.0, *)
 public class ShifuWebViewModel: NSObject, ObservableObject{
-    
+
     public var log2EventMap:[String: String] = [:]
-    public weak internal(set)var delegate: ShifuWebViewController? {
-        didSet{
-            
+
+    // MARK: - WebView Controller Management
+    private var _webViewController: ShifuWebViewController?
+    public weak internal(set) var delegate: ShifuWebViewController? {
+        didSet {
+            // Backward compatibility
         }
     }
-    public var treatLoadedAsMounted = false 
+
+    public var webViewController: ShifuWebViewController {
+        if let existing = _webViewController {
+            return existing
+        }
+
+        let controller = ShifuWebViewController()
+        let webView = controller.webView
+        webView.configuration.userContentController.add(controller, name: "logHandler")
+        webView.configuration.userContentController.add(controller, name: "native")
+        // Don't override the navigation delegate - let ShifuWebViewController handle it
+
+        _webViewController = controller
+        controller.model = self
+        self.delegate = controller
+
+        return controller
+    }
+
+    public var treatLoadedAsMounted = false
     public var shared = false
     public var extraMenus:Dictionary<String, (String)->Void>?
     public var allowedMenus:[String] = []
@@ -40,7 +62,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
             $0.url = Shifu.bundle.url(forResource: "web/index", withExtension: "html")
         }
     }
-    
+
     public var sharedShifuWebViewController: ShifuWebViewController = {
         return with(ShifuWebViewController()){ (vc:ShifuWebViewController) in
             let webView = vc.webView
@@ -49,9 +71,13 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
         }
     }()
     
-    public override init(){ }
+    public override init(){
+        super.init()
+        setupReadyMessageListener()
+    }
     public init(builder: (ShifuWebViewModel)->Void){
         super.init()
+        setupReadyMessageListener()
         builder(self)
     }
     @Published public var bridge: [String: Any] = [:]
@@ -59,6 +85,7 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
         didSet{
             if oldValue != html, html != nil{
                 isLoading = true
+                isReady = false  // Reset ready state when new HTML content is loaded
             }
         }
     }
@@ -76,15 +103,35 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
     
     @Published public internal(set)var isLoading: Bool = false
     @Published public internal(set)var isMounted: Bool = false
+    @Published public internal(set)var isReady: Bool = false
     @Published public var configuration: String?
     public var baseURL: URL?
+
+    // Queue for pending JavaScript execution
+    private var pendingJavaScriptQueue: [(String, [String: Any], ((Result<Any, Error>) -> Void)?)] = []
     
     public var webView:WKWebView? {
-        return self.delegate?.webView
+        return delegate?.webView
     }
-    
+
     public func publisher(of name: String)->NotificationCenter.Publisher{
         NotificationCenter.default.publisher(for: name.toNotificationName(), object: delegate)
+    }
+
+    private func setupReadyMessageListener() {
+        // No longer needed - we'll use WKNavigationDelegate for proper lifecycle management
+    }
+
+    private var cancellables = Set<AnyCancellable>()
+
+    public func executeQueuedJavaScript() {
+        print("ShifuWebViewModel: Executing \(pendingJavaScriptQueue.count) queued JavaScript calls")
+        let queue = pendingJavaScriptQueue
+        pendingJavaScriptQueue.removeAll()
+
+        for (functionBody, arguments, callback) in queue {
+            webView?.callAsyncJavaScript(functionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
+        }
     }
     
     public func emptyCookies(){
@@ -167,19 +214,17 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
     
     public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Result<Any, Error>) -> Void)? = nil){
         if let webview = self.webView {
-            if !shared && isLoading && arguments["force"] as? Bool != true {
-                sc.once(.READY, object: webview) { _ in
-                    webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
-                }
+            // Check if WebView is ready (DOM loaded) or force execution
+            if !shared && !isReady && arguments["force"] as? Bool != true {
+                print("ShifuWebViewModel: Queueing JavaScript execution - waiting for DOM ready")
+                pendingJavaScriptQueue.append((funtionBody, arguments, callback))
             } else {
+                print("ShifuWebViewModel: Executing JavaScript immediately - isReady: \(isReady)")
                 webview.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
             }
-        }
-        else {
-            sc.once(.READY) { notification in
-                guard notification.object as? WKWebView == self.webView else { return }
-                self.webView?.callAsyncJavaScript(funtionBody, arguments: arguments, in: nil, in: .page, completionHandler: callback)
-            }
+        } else {
+            print("ShifuWebViewModel: No WebView available, queueing for later execution")
+            pendingJavaScriptQueue.append((funtionBody, arguments, callback))
         }
     }
     
@@ -210,6 +255,25 @@ public class ShifuWebViewModel: NSObject, ObservableObject{
         }
         return self
     }
+
+    // MARK: - Cleanup
+    deinit {
+        cleanup()
+    }
+
+    private func cleanup() {
+        _webViewController = nil
+        pendingJavaScriptQueue.removeAll()
+        cancellables.removeAll()
+    }
+
+    public func reset() {
+        cleanup()
+        isLoading = false
+        isReady = false
+        isMounted = false
+        bridge.removeAll()
+    }
 }
 
 
@@ -220,3 +284,4 @@ extension ShifuWebViewModel:WKScriptMessageHandler {
         }
     }
 }
+

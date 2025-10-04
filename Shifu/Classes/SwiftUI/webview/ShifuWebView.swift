@@ -233,8 +233,37 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     
    
     // MARK: DELEGATE
+    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        // Coordinate with ShifuWebViewModel lifecycle
+        if let model = model {
+            DispatchQueue.main.async {
+                model.isLoading = true
+                model.isReady = false
+                model.isMounted = false
+            }
+        }
+    }
+
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         clg("ShifuWebViewController: \(error)")
+
+        // Coordinate with ShifuWebViewModel lifecycle
+        if let model = model {
+            DispatchQueue.main.async {
+                model.isLoading = false
+            }
+        }
+    }
+
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        clg("ShifuWebViewController: Provisional navigation failed: \(error)")
+
+        // Coordinate with ShifuWebViewModel lifecycle
+        if let model = model {
+            DispatchQueue.main.async {
+                model.isLoading = false
+            }
+        }
     }
     
     public func webView(
@@ -252,6 +281,32 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         sc.emit(.LOADED, object: webView)
+
+        // Coordinate with ShifuWebViewModel lifecycle
+        if let model = model {
+            DispatchQueue.main.async {
+                model.isLoading = false
+                if model.treatLoadedAsMounted {
+                    model.isMounted = true
+                }
+            }
+
+            // Listen for "ready" message from JavaScript instead of using hardcoded delay
+            sc.once(.READY, object: webView) { _ in
+                DispatchQueue.main.async {
+                    model.isReady = true
+                    model.executeQueuedJavaScript()
+                }
+            }
+
+            // Fallback: if no ready message received within reasonable time, proceed anyway
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                if !model.isReady {
+                    model.isReady = true
+                    model.executeQueuedJavaScript()
+                }
+            }
+        }
     }
     
 }
