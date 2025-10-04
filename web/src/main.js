@@ -8,7 +8,7 @@ window.vm = {};
 		userDefaults: !window.webkit,
 		state: {
 			content: "",
-			allowDebug: typeof window.webkit === "undefined",
+			allowDebug: !window.webkit
 		},
 		data() {
 			return {
@@ -186,6 +186,7 @@ window.vm = {};
 					type: "example",
 					content: exampleContent,
 				});
+				this.$el.parentElement.removeAttribute("v-cloak-custom");
 			}
 
 			postToNative({

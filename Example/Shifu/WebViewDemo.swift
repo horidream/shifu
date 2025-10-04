@@ -30,6 +30,7 @@ struct WebViewDemo:View{
         .navigationTitle("Markdown in Shifu")
         .navigationBarTitleDisplayMode(.inline)
         .on("example".toNotificationName(), { notification in
+            clg(notification)
             if let content = notification.userInfo?["content"] as? String{
                 self.content = content
             }
