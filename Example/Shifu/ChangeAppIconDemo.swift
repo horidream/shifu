@@ -26,7 +26,7 @@ struct ChangeAppIconDemo: View {
             Text("Current: \(iconName ?? "Default")")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            Image(named: iconName ?? "AppIcon")
+            Image(iconName ?? "AppIconImage", bundle: nil)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 200)
