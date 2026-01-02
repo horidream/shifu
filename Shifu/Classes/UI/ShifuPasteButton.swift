@@ -19,24 +19,38 @@ public struct ShifuPasteButton<T: View>: View {
     let builder: ()-> T
     let supportedContentType:[UTType]
     @StateObject var config = Config()
+    @State private var hasPastePermission = false
+
     public init(supportedContentType: [UTType] = [.data], @ViewBuilder view builder: @escaping ()-> T, onPaste: @escaping ([NSItemProvider])->Void, config customizeConfig: ((Config)->Void)? = nil){
         self.onPaste = onPaste
         self.builder = builder
         self.supportedContentType = supportedContentType
         customizeConfig?(self.config)
     }
-    
+
     public var body: some View{
         HackedPasteButton()
-//        PasteButton(supportedContentTypes: supportedContentType) { items in
-//            if config.shouldCompress {
-//                pb.items = pb.items
-//            }
-//            onPaste(items)
-//        }
-//        .labelStyle(.iconOnly)
+            .onAppear {
+                checkPastePermission()
+            }
     }
-    
+
+    private func checkPastePermission() {
+        if #available(iOS 16, *) {
+            // Detect patterns to check if we have paste access without triggering prompt
+            UIPasteboard.general.detectPatterns(for: [.probableWebURL, .probableWebSearch, .number]) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        hasPastePermission = true
+                    case .failure:
+                        hasPastePermission = false
+                    }
+                }
+            }
+        }
+    }
+
     func TranditionalBtn()-> Button<T>{
         Button{
             onPaste(pb.itemProviders)
@@ -44,12 +58,11 @@ public struct ShifuPasteButton<T: View>: View {
             builder()
         }
     }
-    
 
     @ViewBuilder
     func HackedPasteButton()-> some View {
         if #available(iOS 16, *){
-            if config.forceLegacy {
+            if config.forceLegacy || hasPastePermission {
                 TranditionalBtn()
             } else {
                 PasteButton(supportedContentTypes: supportedContentType) { items in
@@ -57,13 +70,14 @@ public struct ShifuPasteButton<T: View>: View {
                         pb.items = pb.items
                     }
                     onPaste(items)
+                    // After successful paste, we likely have permission now
+                    hasPastePermission = true
                 }
                 .labelStyle(.iconOnly)
             }
         }else {
             TranditionalBtn()
         }
-
     }
 }
 
