@@ -25,6 +25,7 @@ struct OnEnterFrameDemo:View{
     @StateObject var props = TweenProps()
     @StateObject var balls = Balls()
     @Namespace var animation
+    @State private var frameCount = 0
     var body: some View{
         Group{
             if !shouldShowCode {
@@ -52,8 +53,9 @@ struct OnEnterFrameDemo:View{
                         }
                         .scaleEffect(b.size / 200)
                         .offset(x: b.position.x, y: b.position.y)
-                        
+
                     }
+                    .id(frameCount)
                     Rectangle()
                         .fill(.black)
                         .frame(width: UIScreen.main.bounds.width, height:  300)
@@ -68,7 +70,7 @@ struct OnEnterFrameDemo:View{
                     balls.balls.forEach { b in
                         b.update()
                     }
-                    balls.updatedCount += 1
+                    frameCount += 1
                 }
                 .padding(50)
             }

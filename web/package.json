@@ -12,6 +12,7 @@
 		"build": "nodemon --watch package.json --watch vite.config.js --exec \"vite build --watch\"",
 		"build-inline": "nodemon --watch package.json --watch vite.inline.config.js --exec \"vite build --config vite.inline.config.js --watch\"",
 		"build-cloud": "vite build",
+		"postinstall": "cd ../../grogu && yarn build",
 		"test": "karma start test/unit/karma.conf.js --single-run"
 	},
 	"browserslist": [
