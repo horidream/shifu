@@ -8,6 +8,17 @@
 import SwiftUI
 import Shifu
 
+struct DismissDetailKey: EnvironmentKey {
+    static let defaultValue: (() -> Void)? = nil
+}
+
+extension EnvironmentValues {
+    var dismissDetail: (() -> Void)? {
+        get { self[DismissDetailKey.self] }
+        set { self[DismissDetailKey.self] = newValue }
+    }
+}
+
 struct NavigationAnimationDemo: View {
     enum DisplayType{
         case underbar, overlay
@@ -19,6 +30,7 @@ struct NavigationAnimationDemo: View {
     @State var shouldIgnoreOffset = false
     @State var timeoutItem: DispatchWorkItem?
     @Environment(\.dismiss) var dismiss
+    @Environment(\.dismissDetail) var dismissDetail
     var body: some View {
         GeometryReader{ proxy in
             let screenSize = proxy.size
@@ -57,7 +69,7 @@ struct NavigationAnimationDemo: View {
         }
         .ignoresSafeArea(.all, edges: .bottom)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
 
         .onInjection{
             sandbox()
@@ -72,7 +84,11 @@ struct NavigationAnimationDemo: View {
         VStack(alignment: .leading, spacing: 22) {
             HStack{
                 Button{
-                    dismiss()
+                    if let dismissDetail {
+                        dismissDetail()
+                    } else {
+                        dismiss()
+                    }
                 } label: {
                     Image.resizableIcon(.chevronBackward)
                         .foregroundColor(.white)

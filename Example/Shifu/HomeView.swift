@@ -49,6 +49,9 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
         } detail: {
             selectedFeature?.view
+                .environment(\.dismissDetail) {
+                    selectedFeature = nil
+                }
         }
         .background{
             SimpleMarkdownViewer(content: "## Hello")
