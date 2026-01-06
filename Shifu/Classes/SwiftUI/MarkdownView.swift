@@ -30,25 +30,29 @@ public struct SimpleMarkdownViewer: View{
     var path: String?
     var content: String?
     var animated: Bool
+    var configuration: String?
     var stringContent:String{
         return content ?? path?.url?.content ?? ""
     }
-    
+
     public init(path : String, animated: Bool = true, postScript:String? = nil, css:String? = nil){
         self.path = path
         self.animated = animated
-        viewModel.configuration = getConfiguration(script: postScript, css: css)
+        self.configuration = getConfiguration(script: postScript, css: css)
     }
-    
+
     public init(content: String, animated:Bool = true, postScript:String? = nil, css:String? = nil){
         self.content = content
         self.animated = animated
-        viewModel.configuration = getConfiguration(script: postScript, css: css)
+        self.configuration = getConfiguration(script: postScript, css: css)
     }
-    
+
     public var body: some View{
         return MarkdownView(viewModel: viewModel,  content: .constant(stringContent))
             .autoResize(animated)
+            .onAppear {
+                viewModel.configuration = configuration
+            }
     }
     
     public func apply(_ funtionBody:String, arguments:[String: Any] = [:], callback: ((Any) -> Void)? = nil)-> some View{
@@ -101,11 +105,13 @@ public struct MarkdownView: View{
     }
     
     public func autoResize(_ animated: Bool = true)-> some View{
-        if(viewModel.allowScroll){
-            viewModel.allowScroll = false
-        }
         return self
             .frame(height: viewModel.contentHeight)
+            .onAppear {
+                if viewModel.allowScroll {
+                    viewModel.allowScroll = false
+                }
+            }
             .on("contentHeight", target: viewModel.webView){
                 if let height = $0.userInfo?["value"] as? CGFloat, height != viewModel.contentHeight {
                     withAnimation( animated ? .easeIn : .none) {
