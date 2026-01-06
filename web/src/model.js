@@ -1,21 +1,19 @@
 import {
 	toMarkdown,
-	loadJQuery,
 	declareModel,
 	genModel,
-	configureDepsPath,
 	loadSkinTemplate,
 	sfc,
-	loadGSAP,
+	gsap,
+	$,
 } from "grogu";
 
 // Shifu's webpack bridge requires direct global access to these utilities
 if (typeof window !== 'undefined') {
 	// Import and expose required globals for webkit bridge
 	window.loadSkinTemplate = window.sfc = loadSkinTemplate;
-	window.loadGSAP = loadGSAP;
-	window.loadJQuery = loadJQuery;
 	window.toMarkdown = toMarkdown;
+	// gsap and jQuery are already exposed globally by grogu
 }
 import * as marked from "marked";
 import { markedHighlight } from "marked-highlight";
@@ -103,7 +101,7 @@ export default declareModel("com.horidream.lib.shifu", async function (el, optio
   let store = {
     state: {},
   };
-  await loadJQuery();
+  // jQuery is now loaded synchronously by grogu
   let model = await genModel(store, options, el);
   return model;
 });
