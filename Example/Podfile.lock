@@ -5,7 +5,7 @@ PODS:
   - GCDWebServer/Core (3.5.4)
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
-  - lottie-ios (4.5.2)
+  - lottie-ios (4.6.0)
   - ReachabilitySwift (5.2.4)
   - Shifu (0.7.12):
     - ReachabilitySwift
@@ -46,7 +46,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Cuckoo: aaec0537a3f928c29d3e3f63ed0387cee05315b4
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  lottie-ios: 96784afc26ea031d3e2b6cae342a4b8915072489
+  lottie-ios: 8f959969761e9c45d70353667d00af0e5b9cadb3
   ReachabilitySwift: 32793e867593cfc1177f5d16491e3a197d2fccda
   Shifu: f72461e80eadfb4ef4883717f30667f8c5648b95
   ShifuLottie: 0411b321e49355766b8c2ed2a6f8b22ba79c6397
