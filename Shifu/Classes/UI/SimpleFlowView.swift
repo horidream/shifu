@@ -53,7 +53,7 @@ public struct SimpleFlowView<Element: Hashable, Content:View>: View {
         if let lastRows = cache.lastRows, currentHash == cache.lastHash {
             return lastRows
         }
-        
+
         var rows: [[Element]] = [[]]
         var currentRow = 0
         var remainingWidth = width
@@ -83,12 +83,16 @@ public struct SimpleFlowView<Element: Hashable, Content:View>: View {
         }
         contentHeight += currentRowHeight
         rowHeights.append(currentRowHeight)
-        delay(0){
-            self.contentHeight = contentHeight
+
+        let finalContentHeight = contentHeight
+        let finalRows = rows
+        let finalHash = currentHash
+        DispatchQueue.main.async {
+            self.contentHeight = finalContentHeight
+            self.cache.lastHash = finalHash
+            self.cache.lastRows = finalRows
         }
-        
-        cache.lastHash = currentHash
-        cache.lastRows = rows
+
         return rows
     }
 }

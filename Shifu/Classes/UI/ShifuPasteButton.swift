@@ -20,17 +20,19 @@ public struct ShifuPasteButton<T: View>: View {
     let supportedContentType:[UTType]
     @StateObject var config = Config()
     @State private var hasPastePermission = false
+    private var customizeConfig: ((Config)->Void)?
 
     public init(supportedContentType: [UTType] = [.data], @ViewBuilder view builder: @escaping ()-> T, onPaste: @escaping ([NSItemProvider])->Void, config customizeConfig: ((Config)->Void)? = nil){
         self.onPaste = onPaste
         self.builder = builder
         self.supportedContentType = supportedContentType
-        customizeConfig?(self.config)
+        self.customizeConfig = customizeConfig
     }
 
     public var body: some View{
         HackedPasteButton()
             .onAppear {
+                customizeConfig?(config)
                 checkPastePermission()
             }
     }

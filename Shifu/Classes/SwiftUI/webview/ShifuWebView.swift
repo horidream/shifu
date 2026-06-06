@@ -74,7 +74,9 @@ public struct ShifuWebView: UIViewControllerRepresentable{
         viewModel.delegate = vc
         vc.model = viewModel
         if(viewModel.shared){
-            viewModel.isLoading = false
+            DispatchQueue.main.async {
+                viewModel.isLoading = false
+            }
         }
         return vc
     }
@@ -195,7 +197,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
             webView.configuration.userContentController.addUserScript(script)
             webView.configuration.userContentController.addUserScript(postScript)
             webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
-            webView.customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+            webView.customUserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
             // remove all cookies
 //            let websiteDataStore = WKWebsiteDataStore.default()
 //            let date = Date(timeIntervalSince1970: 0)
@@ -232,7 +234,7 @@ final public class ShifuWebViewController: UIViewController, WKScriptMessageHand
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         // Coordinate with ShifuWebViewModel lifecycle
         if let model = model {
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
                 model.isLoading = true
                 model.isReady = false
             }
