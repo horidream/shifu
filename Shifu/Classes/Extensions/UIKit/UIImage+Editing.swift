@@ -43,7 +43,7 @@ public extension UnifiedImage {
         UIGraphicsBeginImageContextWithOptions(size, !hasAlphaChannel, 0)
         guard let context = UIGraphicsGetCurrentContext() else { return self }
         let cc = colors.count
-        let locations = positions ?? colors.dropFirst(1).reduce([0]) { partialResult, _ in
+        let locations: [CGFloat] = positions ?? colors.dropFirst(1).reduce([CGFloat.zero]) { partialResult, _ in
             partialResult + [partialResult.count.cgFloat / cc.cgFloat]
         }
         let colors = colors.map(\.cgColor) as CFArray

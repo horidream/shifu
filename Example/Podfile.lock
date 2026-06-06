@@ -1,7 +1,7 @@
 PODS:
-  - Cuckoo (2.2.0):
-    - Cuckoo/Swift (= 2.2.0)
-  - Cuckoo/Swift (2.2.0)
+  - Cuckoo (2.3.0):
+    - Cuckoo/Swift (= 2.3.0)
+  - Cuckoo/Swift (2.3.0)
   - GCDWebServer/Core (3.5.4)
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
@@ -44,7 +44,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Cuckoo: aaec0537a3f928c29d3e3f63ed0387cee05315b4
+  Cuckoo: 547ed208d4a638da785e7597362020da8f29836a
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   lottie-ios: 8f959969761e9c45d70353667d00af0e5b9cadb3
   ReachabilitySwift: 32793e867593cfc1177f5d16491e3a197d2fccda
